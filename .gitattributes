@@ -1,0 +1,5 @@
+* text=auto !eol
+debian/compat -text
+debian/po/POTFILES.in -text
+debian/po/fr.po -text
+debian/po/templates.pot -text

@@ -1,0 +1,67 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode. 
+#export DH_VERBOSE=1
+
+# This has to be exported to make some magic below work.
+export DH_OPTIONS
+
+build: build-stamp
+build-stamp:
+	dh_testdir
+	make -C src
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp
+	make -C src clean
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+	cp -r bureau debian/alternc-mailman/var/alternc/
+	chown root:www-data -R debian/alternc-mailman/var/alternc
+	chmod -R 0640 debian/alternc-mailman/var/alternc
+	chmod -R a+X debian/alternc-mailman/var/alternc
+	install -m 0644 mm_cfg.py \
+		debian/alternc-mailman/etc/alternc/templates/mailman/
+	# Install the binaries : -rwxr-sr-x
+	install -m 02755 -o root -g list \
+		src/mailman.create src/mailman.delete src/mailman.list \
+		debian/alternc-mailman/usr/lib/alternc/
+	install -m 0644 mailman.sql \
+		debian/alternc-mailman/usr/share/alternc/install/
+	# Install lintian overrides
+	install -m 0644 debian/lintian-override \
+	    debian/alternc-mailman/usr/share/lintian/overrides/alternc-mailman
+	# remove CVS / SVN entries : 
+	find debian/alternc-mailman/ -depth \( -name CVS -o -name .svn \) -type d -exec rm -rf {} \;
+binary-common: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs
+	dh_installdocs
+	dh_strip
+	dh_installdebconf
+	dh_link
+	dh_compress
+	dh_fixperms --exclude mailman.delete \
+		--exclude mailman.create --exclude mailman.list
+	dh_installdeb
+	dh_perl
+	dh_gencontrol -- -cdebian/control
+	dh_md5sums
+	dh_builddeb
+
+binary-indep: build install binary-common
+
+binary-arch: build install binary-common
+
+binary: binary-common
+
+.PHONY: build clean binary binary-common binary-arch binary-indep install 

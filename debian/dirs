@@ -1,0 +1,11 @@
+etc/alternc/templates/mailman
+usr/lib/alternc
+usr/share/alternc/install
+usr/share/doc/alternc-mailman
+usr/share/lintian/overrides
+var/alternc/bureau/admin
+var/alternc/bureau/class
+var/alternc/bureau/locales/en_US/LC_MESSAGES
+var/alternc/bureau/locales/fr_FR/LC_MESSAGES
+var/alternc/cgi-bin
+var/backups/alternc

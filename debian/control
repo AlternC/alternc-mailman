@@ -1,0 +1,30 @@
+Source: alternc-mailman
+Section: admin
+Priority: optional
+Maintainer: Benjamin Sonntag <benjamin@alternc.org>
+Build-Depends: debhelper (>= 4.0.2), po-debconf
+Standards-Version: 3.6.2.2
+
+Package: alternc-mailman
+Priority: optional
+Section: admin
+Architecture: any
+Depends: mailman (>= 2.1), mysql-client, alternc (>= 0.9.4), debconf
+Description: Mailman module for AlternC
+ AlternC is a hosting software suite based on Valentin
+ Lacambre's altern.org French hosting service.
+ .
+ This package is an optional module that add mailman mailing-lists
+ managment to the virtual desktop. It declares a new AlternC class
+ called m_mailman.
+ .
+ More information on http://www.alternc.org/
+Description-fr: Modules de gestion de listes par Mailman pour AlternC
+ AlternC est un logiciel d'hébergement integral basé sur le
+ projet français de Valentin Lacambre « altern.org ».
+ .
+ Ce paquet est un module optionnel qui permet aux utilisateurs
+ du bureau AlternC de gérer leurs listes sous mailman. Ce module
+ ajoute la classe m_mailman à AlternC
+ .
+ Pour plus d'informations, consultez http://www.alternc.org/

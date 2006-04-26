@@ -1,0 +1,18 @@
+alternc-mailman: non-standard-dir-in-var var/alternc/
+alternc-mailman: non-standard-dir-in-var var/backups/
+alternc-mailman: setgid-binary usr/lib/alternc/mailman.create 2755 root/list
+alternc-mailman: setgid-binary usr/lib/alternc/mailman.delete 2755 root/list
+alternc-mailman: setgid-binary usr/lib/alternc/mailman.list 2755 root/list
+alternc-mailman: file-in-unusual-dir var/alternc/bureau/admin/mman_del.php
+alternc-mailman: file-in-unusual-dir var/alternc/bureau/admin/mman_add.php
+alternc-mailman: file-in-unusual-dir var/alternc/bureau/admin/menu_mailman.php
+alternc-mailman: file-in-unusual-dir var/alternc/bureau/admin/mman_members.php
+alternc-mailman: file-in-unusual-dir var/alternc/bureau/admin/mman_doadd.php
+alternc-mailman: file-in-unusual-dir var/alternc/bureau/admin/mman_list.php
+alternc-mailman: file-in-unusual-dir var/alternc/bureau/class/m_mailman.php
+alternc-mailman: file-in-unusual-dir var/alternc/bureau/locales/en_US/LC_MESSAGES/mailman.po
+alternc-mailman: file-in-unusual-dir var/alternc/bureau/locales/fr_FR/LC_MESSAGES/mailman.po
+alternc-mailman: file-in-unusual-dir var/alternc/bureau/locales/fr_LU/LC_MESSAGES/mailman.po
+alternc-mailman: no-debconf-config
+alternc-mailman: postinst-does-not-load-confmodule
+
