@@ -50,7 +50,8 @@ binary-common: build install
 	dh_link
 	dh_compress
 	dh_fixperms --exclude mailman.delete \
-		--exclude mailman.create --exclude mailman.list
+		--exclude mailman.create --exclude mailman.list --exclude mailman.sub \
+		--exclude mailman.unsub 
 	dh_installdeb
 	dh_perl
 	dh_gencontrol -- -cdebian/control
