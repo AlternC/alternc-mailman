@@ -1,6 +1,7 @@
 * text=auto !eol
 bureau/locales/en_US/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/fr_FR/LC_MESSAGES/mailman_manual.po -text
+bureau/locales/mailman.pot -text
 bureau/locales/updatelang.sh -text
 debian/compat -text
 debian/po/POTFILES.in -text
@@ -11,3 +12,4 @@ src/mailman.delete -text
 src/mailman.list -text
 src/mailman.sub -text
 src/mailman.unsub -text
+/updatepot.sh -text
