@@ -5,6 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
+"Report-Msgid-Bugs-To: i18n@alternc.org\n"
+"POT-Creation-Date: 2006-05-09 18:10+0200\n"
 "PO-Revision-Date: 2003-02-03 08:16 +0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@octopuce.com>\n"
 "Language-Team: English <dev@alternc.org>\n"
@@ -12,82 +14,77 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "quota_mailman"
-msgstr "Mailing lists (mailman)"
-
+#: admin/menu_mailman.php:36 admin/mman_add.php:39 admin/mman_list.php:39
+#: admin/mman_list.php:53 admin/mman_list.php:64
 msgid "Mailing lists"
 msgstr "Mailing lists"
 
-msgid "Email address"
-msgstr "Email address"
-
-msgid "Owner"
-msgstr "Owner"
-
-msgid "Initial list password"
-msgstr "Initial list password"
-
-msgid "Create the list."
-msgstr "Create the list."
-
-msgid "The list %s has been successfully deleted."
-msgstr "The list %s has been successfully deleted."
-
-msgid "The mailing list has been successfully created."
-msgstr "The mailing list has been successfully created."
-
-msgid "Delete"
-msgstr "Delete"
-
-msgid "List name"
-msgstr "List name"
-
-msgid "Public page"
-msgstr "Public page"
-
-msgid "List admin"
-msgstr "List admin"
-
-msgid "Pending messages"
-msgstr "Pending messages"
-
-msgid "Delete the checked lists"
-msgstr "Delete the checked lists"
-
-msgid "Create a list"
-msgstr "Create a list"
-
+#: admin/menu_mailman.php:37
 msgid "(with mailman)"
 msgstr "(with mailman)"
 
-##################################################################
-# m_mailman
+#: admin/mman_add.php:48
+msgid "Email address"
+msgstr "Email address"
 
-msgid "err_mailman_1"
-msgstr "No list defined yet"
+#: admin/mman_add.php:51
+msgid "Owner"
+msgstr "Owner"
 
-msgid "err_mailman_2"
-msgstr "The login (left part of the @) is mandatory"
+#: admin/mman_add.php:54
+msgid "Initial list password"
+msgstr "Initial list password"
 
-msgid "err_mailman_3"
-msgstr "The owner email and the password are mandatory"
+#: admin/mman_add.php:58
+msgid "Create the list."
+msgstr "Create the list."
 
-msgid "err_mailman_4"
-msgstr "This email is incorrect"
+#: admin/mman_del.php:44
+#, php-format
+msgid "The list %s has been successfully deleted."
+msgstr "The list %s has been successfully deleted."
 
-msgid "err_mailman_5"
-msgstr "This domain does not exist."
+#: admin/mman_doadd.php:38
+msgid "The mailing list has been successfully created."
+msgstr "The mailing list has been successfully created."
 
-msgid "err_mailman_6"
-msgstr "This email address (or one of the list-subscribe, list-unsubscribe etc.) are already used."
+#: admin/mman_list.php:35
+msgid ""
+"No domain is installed on your account, you cannot create any mailing list!"
+msgstr ""
 
-msgid "err_mailman_7"
-msgstr "Your mailing-list quota is over, you cannot create more mailing-lists."
+#: admin/mman_list.php:70
+msgid "Delete"
+msgstr "Delete"
 
-msgid "err_mailman_9"
-msgstr "This list does not exist"
+#: admin/mman_list.php:70
+msgid "List name"
+msgstr "List name"
 
-msgid "err_mailman_10"
-msgstr "A list with the same name already exist on the server. Please choose another name."
+#: admin/mman_list.php:80
+msgid "Public page"
+msgstr "Public page"
 
+#: admin/mman_list.php:81
+msgid "List admin"
+msgstr "List admin"
 
+#: admin/mman_list.php:82
+msgid "Pending messages"
+msgstr "Pending messages"
+
+#: admin/mman_list.php:83
+#, fuzzy
+msgid "List Members"
+msgstr "List name"
+
+#: admin/mman_list.php:88
+msgid "Delete the checked lists"
+msgstr "Delete the checked lists"
+
+#: admin/mman_list.php:97
+msgid "Create a list"
+msgstr "Create a list"
+
+#~ msgid "quota_mailman"
+#~ msgstr "Mailing lists (mailman)"

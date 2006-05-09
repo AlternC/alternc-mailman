@@ -1,4 +1,7 @@
 * text=auto !eol
+bureau/locales/en_US/LC_MESSAGES/mailman_manual.po -text
+bureau/locales/fr_FR/LC_MESSAGES/mailman_manual.po -text
+bureau/locales/updatelang.sh -text
 debian/compat -text
 debian/po/POTFILES.in -text
 debian/po/fr.po -text

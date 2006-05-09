@@ -1,0 +1,44 @@
+# French AlternC Translation
+# Copyright (C)  2002 the AlternC Development Team
+# <tech@alternc.org>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: $Id: mailman.po 1185 2004-09-06 17:42:02Z anonymous $\n"
+"PO-Revision-Date: 2003-02-03 08:16 +0000\n"
+"Last-Translator: Benjamin Sonntag <benjamin@octopuce.com>\n"
+"Language-Team: French <tech@alternc.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "err_mailman_1"
+msgstr "Aucune liste de discussion de trouvé"
+
+msgid "err_mailman_2"
+msgstr "Le login (partie gauche de @) est obligatoire."
+
+msgid "err_mailman_3"
+msgstr "Le mail du propriétaire, et le mot de passe de la liste sont obligatoires"
+
+msgid "err_mailman_4"
+msgstr "Cet email n'est pas correct"
+
+msgid "err_mailman_5"
+msgstr "Ce domaine n'existe pas."
+
+msgid "err_mailman_6"
+msgstr "Cette adresse email (ou l'un des liste-subscribe, liste-unsubscribe etc.) est déjà utilisée."
+
+msgid "err_mailman_7"
+msgstr "Vous avez atteint votre quota de listes de discussions, vous ne pouvez plus en créer."
+
+msgid "err_mailman_8"
+msgstr "La partie gauche du @ ne peut pas contenir le caractère '_'"
+
+msgid "err_mailman_9"
+msgstr "La liste spécifiée n'existe pas"
+
+msgid "err_mailman_10"
+msgstr "Une liste du même nom existe deja. Choisissez un autre nom."
+

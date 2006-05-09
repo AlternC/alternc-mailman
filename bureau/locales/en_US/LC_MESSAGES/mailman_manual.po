@@ -1,0 +1,42 @@
+# English AlternC Translation
+# Copyright (C)  2002 the AlternC Development Team
+# <tech@alternc.org>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: $Id: mailman.po 1169 2003-06-15 18:58:04Z root $\n"
+"PO-Revision-Date: 2003-02-03 08:16 +0000\n"
+"Last-Translator: Benjamin Sonntag <benjamin@octopuce.com>\n"
+"Language-Team: English <dev@alternc.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "err_mailman_1"
+msgstr "No list defined yet"
+
+msgid "err_mailman_2"
+msgstr "The login (left part of the @) is mandatory"
+
+msgid "err_mailman_3"
+msgstr "The owner email and the password are mandatory"
+
+msgid "err_mailman_4"
+msgstr "This email is incorrect"
+
+msgid "err_mailman_5"
+msgstr "This domain does not exist."
+
+msgid "err_mailman_6"
+msgstr "This email address (or one of the list-subscribe, list-unsubscribe etc.) are already used."
+
+msgid "err_mailman_7"
+msgstr "Your mailing-list quota is over, you cannot create more mailing-lists."
+
+msgid "err_mailman_9"
+msgstr "This list does not exist"
+
+msgid "err_mailman_10"
+msgstr "A list with the same name already exist on the server. Please choose another name."
+
+

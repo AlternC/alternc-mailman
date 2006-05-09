@@ -5,6 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
+"Report-Msgid-Bugs-To: i18n@alternc.org\n"
+"POT-Creation-Date: 2006-05-09 18:10+0200\n"
 "PO-Revision-Date: 2003-02-03 08:16 +0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@octopuce.com>\n"
 "Language-Team: French <tech@alternc.org>\n"
@@ -12,90 +14,78 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "quota_mailman"
-msgstr "Listes de discussions (mailman)"
-
-msgid "No domain is installed on your account, you cannot create any mailing list!"
-msgstr "Aucun domaine n'est installé sur votre compte, vous ne pouvez pas créer de listes !"
-
+#: admin/menu_mailman.php:36 admin/mman_add.php:39 admin/mman_list.php:39
+#: admin/mman_list.php:53 admin/mman_list.php:64
 msgid "Mailing lists"
 msgstr "Listes de discussion"
 
-msgid "Email address"
-msgstr "Adresse email"
-
-msgid "Owner"
-msgstr "Propriétaire"
-
-msgid "Initial list password"
-msgstr "Mot de passe initial"
-
-msgid "Create the list."
-msgstr "Créer cette liste."
-
-msgid "The list %s has been successfully deleted."
-msgstr "La liste %s a été effacée avec succès."
-
-msgid "The mailing list has been successfully created."
-msgstr "La liste a été créée avec succès."
-
-msgid "Delete"
-msgstr "Effacer"
-
-msgid "List name"
-msgstr "Nom de la liste"
-
-msgid "Public page"
-msgstr "Page d'info"
-
-msgid "List admin"
-msgstr "Administration"
-
-msgid "Pending messages"
-msgstr "Messages en attente"
-
-msgid "List Members"
-msgstr "Abonnés"
-
-msgid "Delete the checked lists"
-msgstr "Effacer les listes cochées"
-
-msgid "Create a list"
-msgstr "Créer une nouvelle liste"
-
+#: admin/menu_mailman.php:37
 msgid "(with mailman)"
 msgstr "(avec mailman)"
 
-##################################################################
-# m_mailman
+#: admin/mman_add.php:48
+msgid "Email address"
+msgstr "Adresse email"
 
-msgid "err_mailman_1"
-msgstr "Aucune liste de discussion de trouvé"
+#: admin/mman_add.php:51
+msgid "Owner"
+msgstr "Propriétaire"
 
-msgid "err_mailman_2"
-msgstr "Le login (partie gauche de @) est obligatoire."
+#: admin/mman_add.php:54
+msgid "Initial list password"
+msgstr "Mot de passe initial"
 
-msgid "err_mailman_3"
-msgstr "Le mail du propriétaire, et le mot de passe de la liste sont obligatoires"
+#: admin/mman_add.php:58
+msgid "Create the list."
+msgstr "Créer cette liste."
 
-msgid "err_mailman_4"
-msgstr "Cet email n'est pas correct"
+#: admin/mman_del.php:44
+#, php-format
+msgid "The list %s has been successfully deleted."
+msgstr "La liste %s a été effacée avec succès."
 
-msgid "err_mailman_5"
-msgstr "Ce domaine n'existe pas."
+#: admin/mman_doadd.php:38
+msgid "The mailing list has been successfully created."
+msgstr "La liste a été créée avec succès."
 
-msgid "err_mailman_6"
-msgstr "Cette adresse email (ou l'un des liste-subscribe, liste-unsubscribe etc.) est déjà utilisée."
+#: admin/mman_list.php:35
+msgid ""
+"No domain is installed on your account, you cannot create any mailing list!"
+msgstr ""
+"Aucun domaine n'est installé sur votre compte, vous ne pouvez pas créer de "
+"listes !"
 
-msgid "err_mailman_7"
-msgstr "Vous avez atteint votre quota de listes de discussions, vous ne pouvez plus en créer."
+#: admin/mman_list.php:70
+msgid "Delete"
+msgstr "Effacer"
 
-msgid "err_mailman_8"
-msgstr "La partie gauche du @ ne peut pas contenir le caractère '_'"
+#: admin/mman_list.php:70
+msgid "List name"
+msgstr "Nom de la liste"
 
-msgid "err_mailman_9"
-msgstr "La liste spécifiée n'existe pas"
+#: admin/mman_list.php:80
+msgid "Public page"
+msgstr "Page d'info"
 
-msgid "err_mailman_10"
-msgstr "Une liste du même nom existe deja. Choisissez un autre nom."
+#: admin/mman_list.php:81
+msgid "List admin"
+msgstr "Administration"
 
+#: admin/mman_list.php:82
+msgid "Pending messages"
+msgstr "Messages en attente"
+
+#: admin/mman_list.php:83
+msgid "List Members"
+msgstr "Abonnés"
+
+#: admin/mman_list.php:88
+msgid "Delete the checked lists"
+msgstr "Effacer les listes cochées"
+
+#: admin/mman_list.php:97
+msgid "Create a list"
+msgstr "Créer une nouvelle liste"
+
+#~ msgid "quota_mailman"
+#~ msgstr "Listes de discussions (mailman)"
