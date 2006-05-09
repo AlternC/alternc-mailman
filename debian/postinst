@@ -47,21 +47,18 @@ case "$1" in
     # Create the "mailman" list if it does not exist yet
     if [ ! -d /var/lib/mailman/lists/mailman ]; then
         /var/lib/mailman/bin/newlist -q mailman "root@$FQDN" "$MYSQL_PASS"
-        ( echo "INSERT INTO mailman
-                VALUES (NULL, 2000, 'mailman', '${FQDN}', 'mailman');"
-          echo "INSERT INTO mail_domain
-                VALUES ('mailman@${FQDN}', 'mailman_${FQDN}', 2000, 0, 1);"
-          echo "INSERT INTO mail_alias
-                VALUES ('mailman_${FQDN}',
-                        '\"| $MAILMAN_SCRIPT post mailman\"');"
+        ( echo "INSERT INTO mailman SET
+                id=NULL, uid=2000, list='mailman', domain='${FQDN}', name='mailman';"
+          echo "INSERT INTO mail_domain SET
+                mail='mailman@${FQDN}', alias='mailman_${FQDN}', uid=2000, pop=0, type=1;"
+          echo "INSERT INTO mail_alias SET
+                mail='mailman_${FQDN}', alias='\"| $MAILMAN_SCRIPT post mailman\"';"
           for kind in request owner admin bounces confirm join \
                       leave subscribe unsubscribe; do
-              echo "INSERT INTO mail_domain
-                         VALUES ('mailman-${kind}@${FQDN}',
-                                 'mailman-${kind}_${FQDN}', 2000, 0, 1);"
-              echo "INSERT INTO mail_alias
-                         VALUES ('mailman-${kind}_${FQDN}',
-                                 '\"| $MAILMAN_SCRIPT ${kind} mailman\"');" 
+              echo "INSERT INTO mail_domain SET
+                    mail='mailman-${kind}@${FQDN}', alias='mailman-${kind}_${FQDN}', uid=2000, pop=0, type=1;"
+              echo "INSERT INTO mail_alias SET
+                    mail='mailman-${kind}_${FQDN}', alias='\"| $MAILMAN_SCRIPT ${kind} mailman\"');" 
           done
         ) | mysql -f -u"$MYSQL_USER" -p"$MYSQL_PASS" -h"$MYSQL_HOST" \
               "$MYSQL_DATABASE" || true
