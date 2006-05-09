@@ -25,19 +25,9 @@
 # Purpose of file: Makefile for alternc-mailman
 # ----------------------------------------------------------------------
 #
-CC=gcc
-CFLAGS=-Wall -Werror
+
 PROGS=mailman.create mailman.delete mailman.list mailman.sub mailman.unsub
-
-all: ${PROGS}
-
-clean: 
-	rm -f *.o core *~ ${PROGS}
 
 install:
 	chown list.list ${PROGS}
-	chmod u+s ${PROGS}
-
-
-
-
+	chmod u+s,og-w ${PROGS}

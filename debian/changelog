@@ -1,3 +1,17 @@
+alternc-mailman (1.4.12) stable; urgency=low
+
+  * Replacing c setuid scripts by perl one. Add dependency on perl-suid
+  * set the package to be arch 'all' instead of arch 'any'
+
+ -- Benjamin Sonntag <benjamin@alternc.org>  Tue,  9 May 2006 15:23:55 +0200
+
+alternc-mailman (1.4.11) stable; urgency=low
+
+  * Correcting a bug on postinst that causes a crash for ALL MAILS 
+    coming in the server : postfix was sending all mails to mailman !
+
+ -- Benjamin Sonntag <benjamin@alternc.org>  Mon,  8 May 2006 23:25:30 +0200
+
 alternc-mailman (1.4.10) stable; urgency=low
 
   * Now using po-debconf for template translation

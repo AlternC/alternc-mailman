@@ -3,3 +3,8 @@ debian/compat -text
 debian/po/POTFILES.in -text
 debian/po/fr.po -text
 debian/po/templates.pot -text
+src/mailman.create -text
+src/mailman.delete -text
+src/mailman.list -text
+src/mailman.sub -text
+src/mailman.unsub -text

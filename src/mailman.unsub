@@ -1,0 +1,33 @@
+#!/usr/bin/perl 
+
+use strict;
+
+my ($listname,$email) = @ARGV;
+
+my $M_PATH = "/usr/lib/mailman/bin/remove_members";
+
+if (!$listname || !$email) {
+    print "Usage: mailman.unsub <listname> <email>\n";
+    exit(1);
+}
+
+$ENV{PATH} = "";
+delete @ENV{'IFS', 'CDPATH', 'ENV', 'BASH_ENV'};
+
+$< = $>;
+$( = $);
+
+if (!($listname =~ /^([a-z0-9]+)$/)) {
+    die "List name is incorrect.";
+}
+$listname=$1;
+
+if (!($email =~ /^([a-z0-9_\+\.-]+\@[a-z0-9\.-]+)$/)) {
+    die "Email is incorrect.";
+}
+$email=$1;
+
+exec($M_PATH." -N -n '".quotemeta($listname)."' '".quotemeta($email)."'");
+
+
+0;

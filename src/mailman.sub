@@ -1,0 +1,27 @@
+#!/usr/bin/perl 
+
+use strict;
+
+my ($listname) = @ARGV;
+
+my $M_PATH = "/usr/lib/mailman/bin/add_members";
+
+if (!$listname) {
+    print "Usage: mailman.sub <listname>\n";
+    exit(1);
+}
+
+$ENV{PATH} = "";
+delete @ENV{'IFS', 'CDPATH', 'ENV', 'BASH_ENV'};
+
+$< = $>;
+$( = $);
+
+if (!($listname =~ /^([a-z0-9]+)$/)) {
+    die "List name is incorrect.";
+}
+$listname=$1;
+
+exec($M_PATH." -r - -w n '".quotemeta($listname)."'");
+
+0;

@@ -9,14 +9,12 @@ export DH_OPTIONS
 build: build-stamp
 build-stamp:
 	dh_testdir
-	make -C src
 	touch build-stamp
 
 clean:
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp
-	make -C src clean
 	dh_clean
 
 install: build
@@ -33,6 +31,7 @@ install: build
 	# Install the binaries : -rwxr-sr-x
 	install -m 02755 -o root -g list \
 		src/mailman.create src/mailman.delete src/mailman.list \
+		src/mailman.sub src/mailman.unsub \
 		debian/alternc-mailman/usr/lib/alternc/
 	install -m 0644 mailman.sql \
 		debian/alternc-mailman/usr/share/alternc/install/

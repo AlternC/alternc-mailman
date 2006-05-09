@@ -1,0 +1,38 @@
+#!/usr/bin/perl 
+
+use strict;
+
+my ($listname,$email,$password) = @ARGV;
+
+my $M_PATH = "/var/lib/mailman/bin/newlist";
+
+if (!$listname || !$email || !$password) {
+    print "Usage: mailman.create <listname> <email> <password>\n";
+    exit(1);
+}
+
+$ENV{PATH} = "";
+delete @ENV{'IFS', 'CDPATH', 'ENV', 'BASH_ENV'};
+
+$< = $>;
+$( = $);
+
+if (!($listname =~ /^([a-z0-9]+)$/)) {
+    die "List name is incorrect.";
+}
+$listname=$1;
+
+if (!($email =~ /^([a-z0-9_\+\.-]+\@[a-z0-9\.-]+)$/)) {
+    die "Email is incorrect.";
+}
+$email=$1;
+
+if (!($password =~ /^(.+)$/)) {
+    die "Password is incorrect.";
+}
+$password=$1;
+
+exec($M_PATH." -q '".quotemeta($listname)."' '".quotemeta($email)."' '".quotemeta($password)."'");
+
+
+0;

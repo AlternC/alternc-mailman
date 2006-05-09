@@ -8,8 +8,8 @@ Standards-Version: 3.6.2.2
 Package: alternc-mailman
 Priority: optional
 Section: admin
-Architecture: any
-Depends: mailman (>= 2.1), mysql-client, alternc (>= 0.9.4), debconf
+Architecture: all
+Depends: mailman (>= 2.1), mysql-client, alternc (>= 0.9.4), debconf, perl-suid
 Description: Mailman module for AlternC
  AlternC is a hosting software suite based on Valentin
  Lacambre's altern.org French hosting service.
