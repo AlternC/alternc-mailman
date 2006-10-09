@@ -11,13 +11,19 @@ if (!$listname || !$email || !$password) {
     exit(1);
 }
 
+sub escapeshellarg {
+	my ($st) = @_;
+	$st =~ s/\'/\'\\\'\'/;
+	return "'".$st."'";
+}
+
 $ENV{PATH} = "";
 delete @ENV{'IFS', 'CDPATH', 'ENV', 'BASH_ENV'};
 
 $< = $>;
 $( = $);
 
-if (!($listname =~ /^([a-z0-9]+)$/)) {
+if (!($listname =~ /^([a-z0-9]+\@[a-z0-9\.-]+)$/)) {
     die "List name is incorrect.";
 }
 $listname=$1;
@@ -32,7 +38,6 @@ if (!($password =~ /^(.+)$/)) {
 }
 $password=$1;
 
-exec($M_PATH." -q '".quotemeta($listname)."' '".quotemeta($email)."' '".quotemeta($password)."'");
-
+exec($M_PATH." -q ".escapeshellarg($listname)." ".escapeshellarg($email)." ".escapeshellarg($password));
 
 0;

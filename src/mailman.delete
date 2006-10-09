@@ -11,17 +11,23 @@ if (!$listname) {
     exit(1);
 }
 
+sub escapeshellarg {
+	my ($st) = @_;
+	$st =~ s/\'/\'\\\'\'/;
+	return "'".$st."'";
+}
+
 $ENV{PATH} = "";
 delete @ENV{'IFS', 'CDPATH', 'ENV', 'BASH_ENV'};
 
 $< = $>;
 $( = $);
 
-if (!($listname =~ /^([a-z0-9]+)$/)) {
+if (!($listname =~ /^([a-z0-9]+)\@[a-z0-9\.-]+$/)) {
     die "List name is incorrect.";
 }
 $listname=$1;
 
-exec($M_PATH." -a '".quotemeta($listname)."'");
+exec($M_PATH." -a ".escapeshellarg($listname));
 
 0;
