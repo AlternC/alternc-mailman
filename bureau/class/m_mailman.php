@@ -90,6 +90,7 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
   function add_lst($domain,$login,$owner,$password) {
     global $db,$err,$quota,$mail,$cuid;
     $err->log("mailman","add_lst",$login."@".$domain." - ".$owner);
+    $login = strtolower($login);
     
     if ($login=="") {
       $err->raise("mailman",2);
