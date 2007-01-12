@@ -65,14 +65,14 @@ add_virtualhost(DEFAULT_URL_HOST, DEFAULT_EMAIL_HOST)
 
 DEFAULT_HOST_NAME = '%%fqdn%%'
 DEFAULT_URL_PATTERN = 'https://%s/cgi-bin/mailman/'
-IMAGE_LOGOS       = '/mimages/'
+IMAGE_LOGOS       = '/images/mailman/'
 USE_ENVELOPE_SENDER = 0
 DEFAULT_SEND_REMINDERS = 0
 DEFAULT_DEFAULT_MEMBER_MODERATION = 1
 
 MAILMAN_OWNER     = 'root@%%fqdn%%'
 
-PUBLIC_ARCHIVE_URL = '/marchives/%(listname)s'
+PUBLIC_ARCHIVE_URL = '/pipermail/%(listname)s'
 PRIVATE_ARCHIVE_URL = '/cgi-bin/mailman/private/%(listname)s'
 DEFAULT_ARCHIVE_PRIVATE    = 1                    # 0=public, 1=private
 

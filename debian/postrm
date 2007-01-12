@@ -3,26 +3,11 @@
 CONFIGFILE="/etc/alternc/local.sh"
 MENUFILE="/etc/alternc/menulist.txt"
 
-# Remove mailman aliases to the apache configuration file given as argument
-function unconfigure {
-    if grep -Eqs "\*\*\*MAILMAN\*\*\*" $1; then
-	cp -a -f $1 $1.alternc_mailman
-	cat $1 | grep -v "\*\*\*MAILMAN\*\*\*" |
-	    grep -v "	Alias /marchives/ /var/lib/mailman/archives/public/" |
-	    grep -v "Alias /mimages/ /usr/share/images/mailman/" \
-	    > $1.alternc_mailman
-	mv -f $1.alternc_mailman $1 
-    fi
-}
-
 case "$1" in
   remove)
-    # Remove Mailman references from Apache configuration
-    unconfigure /etc/alternc/templates/apache/httpd.conf
-    unconfigure /etc/alternc/templates/apache-ssl/httpd.conf
     alternc.install
 
-    rm -f /var/alternc/cgi-bin/mailman
+    rm -f /var/alternc/cgi-bin/mailman /etc/apache{,-ssl}/conf.d/alternc-mailman.conf
 
     if grep -qs "menu_mailman.php" $MENUFILE; then
 	rm -f $MENUFILE.alternc_mailman

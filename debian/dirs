@@ -1,4 +1,6 @@
 etc/alternc/templates/mailman
+etc/apache/conf.d
+etc/apache-ssl/conf.d
 usr/lib/alternc
 usr/share/alternc/install
 usr/share/doc/alternc-mailman

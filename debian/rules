@@ -28,6 +28,8 @@ install: build
 	chmod -R a+X debian/alternc-mailman/var/alternc
 	install -m 0644 mm_cfg.py \
 		debian/alternc-mailman/etc/alternc/templates/mailman/
+	install -m 0644 alternc-mailman.conf debian/alternc-mailman/etc/apache/conf.d/
+	install -m 0644 alternc-mailman.conf debian/alternc-mailman/etc/apache-ssl/conf.d/
 	# Install the binaries : -rwxr-sr-x
 	install -m 02755 -o root -g list \
 		src/mailman.create src/mailman.delete src/mailman.list \
