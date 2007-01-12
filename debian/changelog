@@ -1,3 +1,11 @@
+alternc-mailman (1.4.13) stable; urgency=low
+
+  * install a config file cleanly instead of hacking httpd.conf
+  * use proper urls for images and archives (images/mailman and the
+    traditionnal "pipermail")
+
+ -- Antoine Beapré<antoine@koumbit.org>  Fri, 12 Jan 2007 23:53:04 +0000
+
 alternc-mailman (1.4.12) stable; urgency=low
 
   * Replacing c setuid scripts by perl one. Add dependency on perl-suid
