@@ -1,6 +1,6 @@
 <?php
 /*
- $Id$
+ $Id: mman_dodel.php 2 2003-06-13 20:30:40Z root $
  ----------------------------------------------------------------------
  AlternC - Web Hosting System
  Copyright (C) 2002 by the AlternC Development Team.
@@ -29,11 +29,9 @@
 */
 require_once("../class/config.php");
 
-$stchange=(!$quota->cancreate("mailman"));
+$stchange = (!$quota->cancreate("mailman"));
 
-$error="";
-
-if (empty($d))
+if ($cancel)
 {
 	include ("mman_list.php");
 	exit();
@@ -46,25 +44,23 @@ if (!is_array($d))
 }
 reset($d);
 
-include("head.php");
-
-?>
-</head>
-<body>
-<h3><?php __("Deleting mailman lists"); ?></h3>
-<p><?php __("Please confirm the deletion of the following mailman lists:"); ?></p>
-<form action="mman_dodel.php" method="post">
-<?php
-
-foreach ($d as $id)
+if ($confirm)
 {
-	echo "<input type=\"hidden\" name=\"d[]\" value=\"" . $id . "\" />";
-	echo $mailman->get_lst($id) . "<br />";
+	foreach ($d as $id)
+	{
+		$r = $mailman->delete_lst($id);
+		if (!$r)
+		{
+			$error .= $err->errstr() . "<br />";
+		}
+		else
+		{
+			$error .= sprintf(_("The list %s has been successfully deleted."), $r) . "<br />";
+		}
+	}
 }
 
+include ("mman_list.php");
+exit();
+
 ?>
-<p><input type="submit" class="inb" name="confirm" value="<?php __("Delete the selected mailman lists"); ?>" /> - <input type="submit" name="cancel" id="cancel" class="inb" value="<?php __("Don't delete lists and go back to the mailman list"); ?>" />
-</p>
-</form>
-</body>
-</html>

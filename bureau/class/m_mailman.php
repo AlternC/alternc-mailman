@@ -28,11 +28,11 @@
  ----------------------------------------------------------------------
 */
 class m_mailman {
-  
+
   /* ----------------------------------------------------------------- */
   function m_mailman() {
   }
-  
+
   /* ----------------------------------------------------------------- */
   /**
    * Quota name
@@ -62,7 +62,7 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     }
     return $mls;
   }
-  
+
   /*****************************************************************************/
   function prefix_list() {
     global $db,$err,$cuid;
@@ -84,14 +84,33 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     }
     return true;
   }
-  
+
+  /*****************************************************************************/
+	/** Get list informations */
+	function get_lst($id)
+	{
+		global $db, $err, $cuid;
+		$err->log("mailman","get_list", $cuid);
+
+		$q = "SELECT * FROM mailman WHERE uid = '" . $cuid . "' && id = '" . $id . "'";
+		$db->query($q);
+		$db->next_record();
+		if (!$db->f("id"))
+		{
+			$err->raise("mailman",9);
+			return false;
+		}
+		$login = $db->f("list");
+		$domain = $db->f("domain");
+		return $login . "@" . $domain;
+	}
+
   /*****************************************************************************/
   /** Create a new list for this member : */
   function add_lst($domain,$login,$owner,$password) {
     global $db,$err,$quota,$mail,$cuid;
     $err->log("mailman","add_lst",$login."@".$domain." - ".$owner);
-    $login = strtolower($login);
-    
+
     if ($login=="") {
       $err->raise("mailman",2);
       return false;
@@ -116,15 +135,15 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
         return false;
     }
     // Prefixe OK, on verifie la non-existence des mails que l'on va créer...
-    if (!$mail->available($login."@".$domain) || 
-	!$mail->available($login."-request@".$domain) || 
-	!$mail->available($login."-owner@".$domain) || 
-	!$mail->available($login."-admin@".$domain) || 
-	!$mail->available($login."-bounces@".$domain) || 
-	!$mail->available($login."-confirm@".$domain) || 
-	!$mail->available($login."-join@".$domain) || 
-	!$mail->available($login."-leave@".$domain) || 
-	!$mail->available($login."-subscribe@".$domain) || 
+    if (!$mail->available($login."@".$domain) ||
+	!$mail->available($login."-request@".$domain) ||
+	!$mail->available($login."-owner@".$domain) ||
+	!$mail->available($login."-admin@".$domain) ||
+	!$mail->available($login."-bounces@".$domain) ||
+	!$mail->available($login."-confirm@".$domain) ||
+	!$mail->available($login."-join@".$domain) ||
+	!$mail->available($login."-leave@".$domain) ||
+	!$mail->available($login."-subscribe@".$domain) ||
 	!$mail->available($login."-unsubscribe@".$domain)) {
       // This is a mail account already !!!
       $err->raise("mailman",6);
@@ -132,24 +151,24 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     }
     // Le compte n'existe pas, on vérifie le quota et on le créé.
     if ($quota->cancreate("mailman")) {
-      // Creation de la liste : 1. recherche du nom de la liste 
+      // Creation de la liste : 1. recherche du nom de la liste
       // CA NE MARCHE PAS !
-      $name=$login; 
+      $name=$login;
       $db->query("INSERT INTO mailman (uid,list,domain,name) VALUES ('$cuid','$login','$domain','$name');");
-      if (!$mail->add_wrapper($login,$domain,"/var/lib/mailman/mail/mailman post $name","mailman") || 
-	  !$mail->add_wrapper($login."-request",$domain,"/var/lib/mailman/mail/mailman request $name","mailman") || 
-	  !$mail->add_wrapper($login."-owner",$domain,"/var/lib/mailman/mail/mailman owner $name","mailman") || 
-	  !$mail->add_wrapper($login."-admin",$domain,"/var/lib/mailman/mail/mailman admin $name","mailman") || 
-	  !$mail->add_wrapper($login."-bounces",$domain,"/var/lib/mailman/mail/mailman bounces $name","mailman") || 
-	  !$mail->add_wrapper($login."-confirm",$domain,"/var/lib/mailman/mail/mailman confirm $name","mailman") || 
+      if (!$mail->add_wrapper($login,$domain,"/var/lib/mailman/mail/mailman post $name","mailman") ||
+	  !$mail->add_wrapper($login."-request",$domain,"/var/lib/mailman/mail/mailman request $name","mailman") ||
+	  !$mail->add_wrapper($login."-owner",$domain,"/var/lib/mailman/mail/mailman owner $name","mailman") ||
+	  !$mail->add_wrapper($login."-admin",$domain,"/var/lib/mailman/mail/mailman admin $name","mailman") ||
+	  !$mail->add_wrapper($login."-bounces",$domain,"/var/lib/mailman/mail/mailman bounces $name","mailman") ||
+	  !$mail->add_wrapper($login."-confirm",$domain,"/var/lib/mailman/mail/mailman confirm $name","mailman") ||
 	  !$mail->add_wrapper($login."-join",$domain,"/var/lib/mailman/mail/mailman join $name","mailman") ||
-	  !$mail->add_wrapper($login."-leave",$domain,"/var/lib/mailman/mail/mailman leave $name","mailman") || 
-	  !$mail->add_wrapper($login."-subscribe",$domain,"/var/lib/mailman/mail/mailman subscribe $name","mailman") || 
+	  !$mail->add_wrapper($login."-leave",$domain,"/var/lib/mailman/mail/mailman leave $name","mailman") ||
+	  !$mail->add_wrapper($login."-subscribe",$domain,"/var/lib/mailman/mail/mailman subscribe $name","mailman") ||
 	  !$mail->add_wrapper($login."-unsubscribe",$domain,"/var/lib/mailman/mail/mailman unsubscribe $name","mailman")
 	  ) {
 	$mail->del_wrapper($login,$domain);	        $mail->del_wrapper($login."-request",$domain);
 	$mail->del_wrapper($login."-owner",$domain);	$mail->del_wrapper($login."-admin",$domain);
-	$mail->del_wrapper($login."-bounces",$domain);	$mail->del_wrapper($login."-confirm",$domain);	
+	$mail->del_wrapper($login."-bounces",$domain);	$mail->del_wrapper($login."-confirm",$domain);
 	$mail->del_wrapper($login."-join",$domain);	$mail->del_wrapper($login."-leave",$domain);
 	$mail->del_wrapper($login."-subscribe",$domain);	$mail->del_wrapper($login."-unsubscribe",$domain);
 	$db->query("DELETE FROM mailman WHERE name='$name';");
@@ -163,12 +182,12 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
       return false;
     }
   }
-  
+
   /*****************************************************************************/
   function delete_lst($id) {
     global $db,$err,$mail,$cuid;
     $err->log("mailman","delete_lst",$id);
-    
+
     $db->query("SELECT * FROM mailman WHERE id=$id and uid='$cuid';");
     $db->next_record();
     if (!$db->f("id")) {
@@ -181,15 +200,15 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     $db->query("DELETE FROM mailman WHERE id=$id");
     $mail->del_wrapper($login,$domain);	        $mail->del_wrapper($login."-request",$domain);
     $mail->del_wrapper($login."-owner",$domain);	$mail->del_wrapper($login."-admin",$domain);
-    $mail->del_wrapper($login."-bounces",$domain);	$mail->del_wrapper($login."-confirm",$domain);	
+    $mail->del_wrapper($login."-bounces",$domain);	$mail->del_wrapper($login."-confirm",$domain);
     $mail->del_wrapper($login."-join",$domain);	$mail->del_wrapper($login."-leave",$domain);
     $mail->del_wrapper($login."-subscribe",$domain);	$mail->del_wrapper($login."-unsubscribe",$domain);
     return $login."@".$domain;
   }
 
   /* ----------------------------------------------------------------- */
-  /** Returns the list's members as a text file, one subscriber per 
-   *   line. 
+  /** Returns the list's members as a text file, one subscriber per
+   *   line.
    */
  function members($id) {
     global $err,$db,$cuid;

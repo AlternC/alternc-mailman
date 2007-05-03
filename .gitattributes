@@ -1,5 +1,6 @@
 * text=auto !eol
 /alternc-mailman.conf -text
+bureau/admin/mman_dodel.php -text
 bureau/locales/en_US/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/fr_FR/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/mailman.pot -text

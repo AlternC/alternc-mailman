@@ -75,7 +75,7 @@ else {
 		$col=3-$col;
 		?>
 		<tr class="lst<?php echo $col; ?>">
-			<td align="center"><input type="checkbox" class="inc" name="del_<?php echo $val["id"]; ?>" value="<?php echo $val["id"]; ?>"></td>
+			<td align="center"><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>"></td>
 			<td><?php echo $val["list"]."@".$val["domain"] ?></td>
 			<td>&nbsp;<a href="https://<?php echo $val["domain"]; ?>/cgi-bin/mailman/listinfo/<?php echo $val["name"] ?>"><?php __("Public page"); ?></a>&nbsp;</td>
 			<td>&nbsp;<a href="https://<?php echo $val["domain"]; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a>&nbsp;</td>
@@ -92,7 +92,7 @@ else {
 	<?php
 }
 
-if ($quota->cancreate("mailman")) { 
+if ($quota->cancreate("mailman")) {
 ?>
 	<a href="mman_add.php"><?php __("Create a list"); ?></a><br>
 	<?php
