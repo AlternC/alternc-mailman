@@ -1,3 +1,10 @@
+alternc-mailman (1.5) stable; urgency=low
+
+  * fix this to support lists with the same name on different hosts, get ready
+    for an etch release
+
+ -- Antoine Beaupré <antoine@koumbit.org>  Thu,  4 Oct 2007 03:37:15 -0400
+
 alternc-mailman (1.4.13) stable; urgency=low
 
   * install a config file cleanly instead of hacking httpd.conf
