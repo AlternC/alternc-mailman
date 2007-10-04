@@ -28,10 +28,6 @@
  ----------------------------------------------------------------------
 */
 
-/* you need to set VHOST_PATCH=1 in your /etc/alternc/local.sh if you
- * apply Koumbit's vhost mailman patch */
-@define('L_VHOST_PATCH', 1)
-
 class m_mailman {
 
   /* ----------------------------------------------------------------- */
@@ -116,11 +112,7 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     global $db,$err,$quota,$mail,$cuid;
     $err->log("mailman","add_lst",$login."@".$domain." - ".$owner);
     /* the list' internal name */
-    if (L_VHOST_PATCH) {
-      $name = $login . '-' . $domain;
-    } else {
-      $name=$login;
-    }
+    $name = $login . '-' . $domain;
 
     if ($login=="") {
       $err->raise("mailman",2);
