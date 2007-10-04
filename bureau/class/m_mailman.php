@@ -27,6 +27,11 @@
  Purpose of file: Manage mailing-lists with Mailman
  ----------------------------------------------------------------------
 */
+
+/* you need to set VHOST_PATCH=1 in your /etc/alternc/local.sh if you
+ * apply Koumbit's vhost mailman patch */
+@define('L_VHOST_PATCH', 1)
+
 class m_mailman {
 
   /* ----------------------------------------------------------------- */
@@ -110,6 +115,12 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
   function add_lst($domain,$login,$owner,$password) {
     global $db,$err,$quota,$mail,$cuid;
     $err->log("mailman","add_lst",$login."@".$domain." - ".$owner);
+    /* the list' internal name */
+    if (L_VHOST_PATCH) {
+      $name = $login . '-' . $domain;
+    } else {
+      $name=$login;
+    }
 
     if ($login=="") {
       $err->raise("mailman",2);
@@ -128,7 +139,7 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
       $err->raise("mailman",5);
       return false;
     }
-    $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE list='$login';");
+    $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE name='$name';");
     $db->next_record();
     if ($db->f("cnt")) {
         $err->raise("mailman",10);
@@ -153,7 +164,6 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     if ($quota->cancreate("mailman")) {
       // Creation de la liste : 1. recherche du nom de la liste
       // CA NE MARCHE PAS !
-      $name=$login;
       $db->query("INSERT INTO mailman (uid,list,domain,name) VALUES ('$cuid','$login','$domain','$name');");
       if (!$mail->add_wrapper($login,$domain,"/var/lib/mailman/mail/mailman post $name","mailman") ||
 	  !$mail->add_wrapper($login."-request",$domain,"/var/lib/mailman/mail/mailman request $name","mailman") ||
@@ -175,7 +185,7 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
 	return false;
       }
       // Wrapper created, sql ok, now let's create the list :)
-      exec("/usr/lib/alternc/mailman.create \"".escapeshellcmd($name."@".$domain)."\" \"".escapeshellcmd($owner)."\" \"".escapeshellcmd($password)."\"");
+      exec("/usr/lib/alternc/mailman.create \"".escapeshellcmd($login."@".$domain)."\" \"".escapeshellcmd($owner)."\" \"".escapeshellcmd($password)."\"");
       return true;
     } else {
       $err->raise("mailman",7); // quota
