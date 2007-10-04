@@ -1,8 +1,9 @@
 Source: alternc-mailman
 Section: admin
 Priority: optional
-Maintainer: Benjamin Sonntag <benjamin@alternc.org>
-Build-Depends-Indep: debhelper (>= 4.0.2), po-debconf
+Maintainer: Antoine Beaupré <antoine@koumbit.org>
+Uploaders: Benjamin Sonntag <benjamin@alternc.org>
+Build-Depends: debhelper (>= 4.0.2), po-debconf
 Standards-Version: 3.6.2.2
 
 Package: alternc-mailman
