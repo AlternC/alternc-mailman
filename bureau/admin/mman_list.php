@@ -77,9 +77,10 @@ else {
 		<tr class="lst<?php echo $col; ?>">
 			<td align="center"><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>"></td>
 			<td><?php echo $val["list"]."@".$val["domain"] ?></td>
-			<td>&nbsp;<a href="https://<?php echo $val["domain"]; ?>/cgi-bin/mailman/listinfo/<?php echo $val["name"] ?>"><?php __("Public page"); ?></a>&nbsp;</td>
-			<td>&nbsp;<a href="https://<?php echo $val["domain"]; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a>&nbsp;</td>
-			<td>&nbsp;<a href="https://<?php echo $val["domain"]; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a>&nbsp;</td>
+		<?php	// Use the URL of the webmail in case of IP redirection on the domain. There is probably a best way to fix this  ?>
+			<td>&nbsp;<a href="https://mail.<?php echo $val["domain"]; ?>/cgi-bin/mailman/listinfo/<?php echo $val["name"] ?>"><?php __("Public page"); ?></a>&nbsp;</td>
+			<td>&nbsp;<a href="https://mail.<?php echo $val["domain"]; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a>&nbsp;</td>
+			<td>&nbsp;<a href="https://mail.<?php echo $val["domain"]; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a>&nbsp;</td>
 			<td>&nbsp;<a href="mman_members.php?id=<?php echo $val["id"] ?>"><?php __("List Members"); ?></a>&nbsp;</td>
 		</tr>
 		<?php
