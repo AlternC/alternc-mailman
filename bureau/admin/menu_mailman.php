@@ -32,10 +32,8 @@
 $q=$quota->getquota("mailman");
 if ($q["t"]>0) { 
 ?>
-<tr><td nowrap>
-<a href="mman_list.php"><?php __("Mailing lists"); ?></a><br>
- <small><?php __("(with mailman)"); ?></small><br>
-</td></tr>
+<dt><?php __("Mailing lists"); ?></dt>
+<dd><a href="mman_list.php"><?php __("Mailing lists"); ?></a></dd>
 <?php
 }
  ?>
