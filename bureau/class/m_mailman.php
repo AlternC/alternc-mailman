@@ -112,9 +112,8 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     global $db,$err,$quota,$mail,$cuid;
     $err->log("mailman","add_lst",$login."@".$domain." - ".$owner);
     /* the list' internal name */
-    // $name = $login . '-' . $domain; # works only with the
-    // VirtualMailman patch
-    $name = $login = strtolower($login);
+    $login = strtolower($login);
+    $name = $login . '-' . $domain;
 
     if ($login=="") {
       $err->raise("mailman",2);
