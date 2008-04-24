@@ -47,6 +47,9 @@ case "$1" in
             rm -f $PATCH_MARKER
         fi
     fi
+    if [ ! -r $PATCHFILE ]; then
+        echo "no patchfile for mailman $MAILMAN_VERSION"
+    fi
     if [ -r $PATCHFILE -a ! -h $PATCH_MARKER ]; then
         db_get alternc-mailman/patch-mailman || true
         if [ "$RET" = "true" ]; then
@@ -71,8 +74,6 @@ case "$1" in
         else
             echo "not applying virtual mailman patch"
         fi
-    else
-        echo "no patchfile for mailman $MAILMAN_VERSION"
     fi
     # tell debconf to go away, otherwise alternc.install will freeze
     db_stop
