@@ -201,13 +201,13 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
       $err->raise("mailman",9);
       return false;
     }
-    exec("/usr/lib/alternc/mailman.delete ".escapeshellarg($db->f("name")), &$output, &$return);
+    $login=$db->f("list");
+    $domain=$db->f("domain");
+    exec("/usr/lib/alternc/mailman.delete ".escapeshellarg($db->f("name").'@'.$domain), &$output, &$return);
     if ($return) {
       $err->raise("mailman", "failed to delete mailman list. error: %d, output: %s", $return, join("\n", $output));
       return false;
     }
-    $login=$db->f("list");
-    $domain=$db->f("domain");
     $db->query("DELETE FROM mailman WHERE id=$id");
     $mail->del_wrapper($login,$domain);	        $mail->del_wrapper($login."-request",$domain);
     $mail->del_wrapper($login."-owner",$domain);	$mail->del_wrapper($login."-admin",$domain);
