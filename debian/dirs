@@ -5,7 +5,6 @@ usr/lib/alternc
 usr/share/alternc/install
 usr/share/doc/alternc-mailman
 usr/share/alternc-mailman
-usr/share/alternc-mailman/patches
 usr/share/lintian/overrides
 var/alternc/bureau/admin
 var/alternc/bureau/class
