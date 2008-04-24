@@ -35,7 +35,7 @@ case "$1" in
 
     MAILMAN_VERSION=`dpkg -l mailman | grep ^ii | awk '{print $3}' | sed -e s/-.*//`
     echo "detected mailman version $MAILMAN_VERSOIN"
-    PATCHFILE="/usr/share/alternc-mailman/patches/mailman-true-virtual-$MAILMAN_VERSION"
+    PATCHFILE="/usr/share/alternc-mailman/patches/mailman-true-virtual-$MAILMAN_VERSION.patch"
     PATCH_MARKER="/usr/share/alternc-mailman/patches/mailman-true-virtual.applied"
     if [ -h $PATCH_MARKER ]; then
         PATCH_VERSION=`readlink $PATCH_MARKER | sed -e s/^.*-//`
