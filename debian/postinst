@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 
 set -e
 
@@ -9,6 +9,7 @@ MAILMAN_CONFIG="/etc/mailman/mm_cfg.py"
 MAILMAN_CONFIG_TEMPLATE="/etc/alternc/templates/mailman/mm_cfg.py"
 MAILMAN_CONFIG_BACKUP="/var/backups/alternc/etc-mailman-mm_cfg.py"
 MAILMAN_SCRIPT="/var/lib/mailman/mail/mailman"
+MAILMAN_PASS="`perl -e 'print map{("a".."z","A".."Z",0..9)[int(rand(62))]}(1..10)' `"
 
 case "$1" in
   configure)
@@ -32,7 +33,7 @@ case "$1" in
 
     # Create the "mailman" list if it does not exist yet
     if [ ! -d /var/lib/mailman/lists/mailman ]; then
-        /var/lib/mailman/bin/newlist -q mailman "root@$FQDN"
+        /var/lib/mailman/bin/newlist -q mailman "root@$FQDN" "${MAILMAN_PASS}"
         ( echo "INSERT INTO mailman SET
                 id=NULL, uid=2000, list='mailman', domain='${FQDN}', name='mailman';"
           echo "INSERT INTO mail_domain SET
