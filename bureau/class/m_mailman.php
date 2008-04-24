@@ -181,7 +181,7 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
       // Wrapper created, sql ok, now let's create the list :)
       exec("/usr/lib/alternc/mailman.create \"".escapeshellcmd($login."@".$domain)."\" \"".escapeshellcmd($owner)."\" \"".escapeshellcmd($password)."\"", &$output, &$return);
       if ($return) {
-        $err->raise("mailman", "failed to create mailman list. error: %d, output: %s", array($return, join("\n", $output)));
+        $err->raise("mailman", "failed to create mailman list. error: %d, output: %s", $return, join("\n", $output));
       }
       return !$return;
     } else {
@@ -201,7 +201,11 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
       $err->raise("mailman",9);
       return false;
     }
-    exec("/usr/lib/alternc/mailman.delete ".escapeshellarg($db->f("name")));
+    exec("/usr/lib/alternc/mailman.delete ".escapeshellarg($db->f("name")), &$output, &$return);
+    if ($return) {
+      $err->raise("mailman", "failed to delete mailman list. error: %d, output: %s", $return, join("\n", $output));
+      return false;
+    }
     $login=$db->f("list");
     $domain=$db->f("domain");
     $db->query("DELETE FROM mailman WHERE id=$id");
