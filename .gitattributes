@@ -5,6 +5,7 @@ bureau/locales/en_US/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/fr_FR/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/mailman.pot -text
 bureau/locales/pt_BR/LC_MESSAGES/mailman.po -text
+debian/NEWS -text
 debian/compat -text
 debian/config -text
 debian/po/POTFILES.in -text

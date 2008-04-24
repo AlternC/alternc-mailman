@@ -1,0 +1,22 @@
+alternc-mailman (1.6) stable; urgency=low
+
+    This releases finally packages the VirtualMailman patches properly,
+    instead of assuming that the admin installed the patches on his
+    own. The patches are installed during the installation, after
+    confirmation by the user through debconf.
+  
+    If you already have a patched mailman installation, you should add a
+    mark file so that this package knows about it otherwise it's going to
+    try and repatch Mailman, which will fail and you will not be able to
+    upgrade alternc-mailman. To fix this, do the following:
+  
+    mkdir -p /usr/share/alternc-mailman/patches
+    touch /usr/share/alternc-mailman/patches/mailman-true-virtual-2.1.9.patch
+    ln -s /usr/share/alternc-mailman/patches/mailman-true-virtual-2.1.9.patch \
+          /usr/share/alternc-mailman/patches/mailman-true-virtual.applied
+  
+    Only then install this package. Those steps are only required for
+    installations that are already patched.
+
+ -- Antoine Beaupré <antoine@koumbit.org>  Thu, 24 Apr 2008 18:15:37 -0400
+

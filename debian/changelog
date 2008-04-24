@@ -1,10 +1,8 @@
 alternc-mailman (1.6) stable; urgency=low
 
   [ Antoine ]
-  * this releases finally packages the VirtualMailman patches properly,
-    instead of assuming that the admin installed the patches on his
-    own. The patches are installed during the installation, after
-    confirmation by the user. (#1106)
+  * fix list creation for patched VirtualMailman installations (#1106)
+  * start applying those patches automatically on installation
   * this also fixes list creation for non-patched installations (#1105)
   * 0.9.8 compatibility (#1119)
   * make sure all mailing lists names are lowercase (#1103)
