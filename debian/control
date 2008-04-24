@@ -21,12 +21,3 @@ Description: Mailman module for AlternC
  called m_mailman.
  .
  More information on http://www.alternc.org/
-Description-fr: Modules de gestion de listes par Mailman pour AlternC
- AlternC est un logiciel d'hébergement integral basé sur le
- projet français de Valentin Lacambre « altern.org ».
- .
- Ce paquet est un module optionnel qui permet aux utilisateurs
- du bureau AlternC de gérer leurs listes sous mailman. Ce module
- ajoute la classe m_mailman à AlternC
- .
- Pour plus d'informations, consultez http://www.alternc.org/
