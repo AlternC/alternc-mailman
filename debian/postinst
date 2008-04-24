@@ -2,6 +2,8 @@
 
 set -e
 
+. /usr/share/debconf/confmodule
+
 CONFIGFILE="/etc/alternc/local.sh"
 MENUFILE="/etc/alternc/menulist.txt"
 MAILMAN_SCRIPT="/var/lib/mailman/mail/mailman"
