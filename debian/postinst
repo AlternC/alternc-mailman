@@ -59,6 +59,7 @@ case "$1" in
                         echo "patch applied sucessfully"
                         # this will tell alternc-mailman the patch was applied successfully
                         ln -fs $PATCHFILE $PATCH_MARKER
+                        invoke-rc.d mailman restart || true
                     else
                         echo "cannot apply patch, your mailman is probably broken now, aborting"
                         false
