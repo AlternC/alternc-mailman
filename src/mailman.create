@@ -26,6 +26,7 @@ $( = $);
 if (!($listname =~ /^([a-z0-9\._-]+\@[a-z0-9\.-]+)$/)) {
     die "List name is incorrect.";
 }
+$listname=$1;
 
 if (!($email =~ /^([a-z0-9_\+\.-]+\@[a-z0-9\.-]+)$/)) {
     die "Email is incorrect.";
