@@ -6,6 +6,11 @@
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
 
+MAJOR=$(shell sed -ne 's/^[^(]*(\([^)]*\)).*/\1/;1p' debian/changelog)
+REV=$(shell LANG=C svn info --non-interactive | awk '/^Revision:/ { print $$2 }')
+VERSION="${MAJOR}~svn${REV}"
+export VERSION
+
 build: build-stamp
 build-stamp:
 	dh_testdir
@@ -67,3 +72,9 @@ binary-arch: build install binary-common
 binary: binary-common
 
 .PHONY: build clean binary binary-common binary-arch binary-indep install 
+
+build-snapshot:
+	@echo "building a package based on the current snapshot (${VERSION})"
+	svn update || true
+	svn export . ../alternc-mailman-${VERSION}
+	cd ../alternc-mailman-${VERSION} && sed -i -e '0,/UNRELEASED/s/)/~svn${REV})/' debian/changelog && debuild
