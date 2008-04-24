@@ -40,5 +40,3 @@ if (!($password =~ /^(.+)$/)) {
 $password=$1;
 
 exec($M_PATH." -q ".escapeshellarg($listname)." ".escapeshellarg($email)." ".escapeshellarg($password));
-
-0;
