@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 
 set -e
 
@@ -11,7 +11,7 @@ MAILMAN_CONFIG="/etc/mailman/mm_cfg.py"
 MAILMAN_CONFIG_TEMPLATE="/etc/alternc/templates/mailman/mm_cfg.py"
 MAILMAN_CONFIG_BACKUP="/var/backups/alternc/etc-mailman-mm_cfg.py"
 MAILMAN_SCRIPT="/var/lib/mailman/mail/mailman"
-MAILMAN_PASS="`perl -e 'print map{("a".."z","A".."Z",0..9)[int(rand(62))]}(1..10)' `"
+MAILMAN_PASS="`perl -e 'print map{("a".."z","A".."Z",0..9)[int(rand(62))]}(1..10)' `" # copy-pasted from alternc/debian/config
 
 case "$1" in
   configure)
@@ -33,39 +33,6 @@ case "$1" in
     sed -e "s/%%fqdn%%/$FQDN/" < "$MAILMAN_CONFIG_TEMPLATE" > "$MAILMAN_CONFIG"
     cp -a -f "$MAILMAN_CONFIG" "$MAILMAN_CONFIG_BACKUP"
 
-    # Create the "mailman" list if it does not exist yet
-    if [ ! -d /var/lib/mailman/lists/mailman ]; then
-        /var/lib/mailman/bin/newlist -q mailman "root@$FQDN" "${MAILMAN_PASS}"
-        ( echo "INSERT INTO mailman SET
-                id=NULL, uid=2000, list='mailman', domain='${FQDN}', name='mailman';"
-          echo "INSERT INTO mail_domain SET
-                mail='mailman@${FQDN}', alias='mailman_${FQDN}', uid=2000, pop=0, type=1;"
-          echo "INSERT INTO mail_alias SET
-                mail='mailman_${FQDN}', alias='\"| $MAILMAN_SCRIPT post mailman\"';"
-          for kind in request owner admin bounces confirm join \
-                      leave subscribe unsubscribe; do
-              echo "INSERT INTO mail_domain SET
-                    mail='mailman-${kind}@${FQDN}', alias='mailman-${kind}_${FQDN}', uid=2000, pop=0, type=1;"
-              echo "INSERT INTO mail_alias SET
-                    mail='mailman-${kind}_${FQDN}', alias='\"| $MAILMAN_SCRIPT ${kind} mailman\"');" 
-          done
-        ) | mysql -f --defaults-file=/etc/alternc/my.cnf || true
-    fi
-
-    ln -sf /usr/lib/cgi-bin/mailman /var/alternc/cgi-bin/mailman
-    alternc.install
-
-    # Process the language compilation.
-    /usr/share/alternc/install/dopo.sh
-
-    # ADD Mailman menu item : 
-    if ! grep -q "^menu_mailman.php$" "$MENUFILE"; then
-        rm -f $MENUFILE.alternc_mailman
-        sed -e "s/menu_ftp.php/&\\
-menu_mailman.php/" <$MENUFILE >$MENUFILE.alternc_mailman
-        mv -f $MENUFILE.alternc_mailman $MENUFILE
-    fi
-    # "
     MAILMAN_VERSION=`dpkg -l mailman | grep ^ii | awk '{print $3}' | sed -e s/-.*//`
     echo "detected mailman version $MAILMAN_VERSOIN"
     PATCHFILE="/usr/share/alternc-mailman/patches/mailman-true-virtual-$MAILMAN_VERSION"
@@ -105,6 +72,41 @@ menu_mailman.php/" <$MENUFILE >$MENUFILE.alternc_mailman
         fi
     else
         echo "no patchfile for mailman $MAILMAN_VERSION"
+    fi
+    # tell debconf to go away, otherwise alternc.install will freeze
+    db_stop
+
+    # Create the "mailman" list if it does not exist yet
+    if [ ! -d /var/lib/mailman/lists/mailman ]; then
+        /var/lib/mailman/bin/newlist -q mailman "root@$FQDN" "${MAILMAN_PASS}"
+        ( echo "INSERT INTO mailman SET
+                id=NULL, uid=2000, list='mailman', domain='${FQDN}', name='mailman';"
+          echo "INSERT INTO mail_domain SET
+                mail='mailman@${FQDN}', alias='mailman_${FQDN}', uid=2000, pop=0, type=1;"
+          echo "INSERT INTO mail_alias SET
+                mail='mailman_${FQDN}', alias='\"| $MAILMAN_SCRIPT post mailman\"';"
+          for kind in request owner admin bounces confirm join \
+                      leave subscribe unsubscribe; do
+              echo "INSERT INTO mail_domain SET
+                    mail='mailman-${kind}@${FQDN}', alias='mailman-${kind}_${FQDN}', uid=2000, pop=0, type=1;"
+              echo "INSERT INTO mail_alias SET
+                    mail='mailman-${kind}_${FQDN}', alias='\"| $MAILMAN_SCRIPT ${kind} mailman\"');" 
+          done
+        ) | mysql -f --defaults-file=/etc/alternc/my.cnf || true
+    fi
+
+    ln -sf /usr/lib/cgi-bin/mailman /var/alternc/cgi-bin/mailman
+    alternc.install
+
+    # Process the language compilation.
+    /usr/share/alternc/install/dopo.sh
+
+    # ADD Mailman menu item : 
+    if ! grep -q "^menu_mailman.php$" "$MENUFILE"; then
+        rm -f $MENUFILE.alternc_mailman
+        sed -e "s/menu_ftp.php/&\\
+menu_mailman.php/" <$MENUFILE >$MENUFILE.alternc_mailman
+        mv -f $MENUFILE.alternc_mailman $MENUFILE
     fi
     ;;
 
