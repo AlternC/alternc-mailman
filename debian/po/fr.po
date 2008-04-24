@@ -11,13 +11,12 @@
 #
 #    Developers do not need to manually edit POT or PO files.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alternc-mailman@packages.debian.org\n"
 "POT-Creation-Date: 2008-04-24 17:46-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2008-04-24 17:51-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +27,7 @@ msgstr ""
 #. Description
 #: ../templates:1001
 msgid "Do you want to patch mailman for virtual support?"
-msgstr ""
+msgstr "Voulez-vous modifier Mailman pour supporter les listes \"virtuelles\"?"
 
 #. Type: boolean
 #. Description
@@ -38,7 +37,7 @@ msgid ""
 "same-name lists on different domains (ie. allow test@example.com and "
 "test@example.org to coexist). Mailman 2.x, by default, doesn't support that "
 "functionality but Koumbit.org has developped patches to make it."
-msgstr ""
+msgstr "Le plugin AlternC mailman peut optionnellement appliquer une rustine au code de Mailman afin de s'assurer qu'il supporte les listes du même nom sur des domaines différents (ie. permettre que test@exemple.com et test@exemple.org coexistent). Mailman 2.x, par défaut, ne supporte pas cette configuration mais Koumbit.org a développer des rustines pour ajouter cette fonctionalité."
 
 #. Type: boolean
 #. Description
@@ -47,7 +46,7 @@ msgid ""
 "The plugin only supports patching, no way to unpatch right now. Please "
 "understand that this process will modify core Mailman code and might break "
 "some functionality. It is running in production on Koumbit.org."
-msgstr ""
+msgstr "Ce processus ne fait qu'appliquer les patch et ne permet pas de renverser ce processus. Comprenez bien que ce processus va modifier le code de Mailman et va peut-être briser d'autres fonctionalités. Ces rustines sont présentement en production sur Koumbit.org."
 
 #. Type: boolean
 #. Description
@@ -56,7 +55,7 @@ msgid ""
 "Also, note that everytime the mailman package is upgraded or reinstalled, "
 "the patches will need to be reapplied manually. This can be done by "
 "reconfiguring the alternc-mailman package.  ."
-msgstr ""
+msgstr "Notez aussi que chaque fois que le paquet Mailman sera mis à jour ou réinstallé, ces patches devront être réappliquées. Dans le cas d'une mise à jour, il suffit de reconfigurer le paquet alternc-mailman. Dans le cas d'une réinstallation, il faudra réappliquer les patches à la main."
 
 #. Type: boolean
 #. Description
@@ -64,28 +63,4 @@ msgstr ""
 msgid ""
 "The patches are in /usr/share/alternc-mailman/patches. More information "
 "about the patch at http://wiki.koumbit.net/VirtualMailman."
-msgstr ""
-
-#~ msgid "Error installing AlternC-Mailman"
-#~ msgstr "Erreur à l'installation d'AlternC-Mailman"
-
-#~ msgid ""
-#~ "AlternC-Mailman requires a complete installed AlternC system to get "
-#~ "installed properly !"
-#~ msgstr ""
-#~ "AlternC-Mailman nécessite qu'AlternC soit installé pour pouvoir "
-#~ "continuer !"
-
-#~ msgid ""
-#~ "Please install AlternC and CONFIGURE IT before installing alternc-mailman "
-#~ "or additional modules (don't forget to launch 'alternc.install')."
-#~ msgstr ""
-#~ "Veuillez installer ET CONFIGURER AlternC avant d'installer alternc-"
-#~ "mailman ou tout autre module additionnel (ne pas oublier de lancer "
-#~ "'alternc.install')."
-
-#~ msgid ""
-#~ "Please check out the AlternC installation documentation before proceeding."
-#~ msgstr ""
-#~ "Merci de consulter la documentation d'installation d'AlternC avant de "
-#~ "continuer."
+msgstr "Les rustines sont dans /usr/share/alternc-mailman/patches. Plus d'informations à propos de ces rustines à htp://wiki.koumbit.net/VirtualMailman."
