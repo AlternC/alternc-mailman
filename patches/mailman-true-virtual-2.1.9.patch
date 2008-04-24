@@ -115,15 +115,15 @@
                  return True
 --- mailman/bin/rmlist.orig 2007-12-20 00:33:30.000000000 -0500
 +++ mailman/bin/rmlist      2007-12-20 00:33:37.000000000 -0500
-@@ -92,11 +92,6 @@
+@@ -92,6 +92,11 @@
          usage(1)
      listname = args[0].lower().strip()
  
--    if '@' in listname:
--        # note that --urlhost and --emailhost have precedence
--        firstname, domain = listname.split('@', 1)
--	listname = '%s-%s' % ( firstname, domain )
--
++    if '@' in listname:
++        # note that --urlhost and --emailhost have precedence
++        firstname, domain = listname.split('@', 1)
++        listname = '%s-%s' % ( firstname, domain )
++
      removeArchives = False
      for opt, arg in opts:
          if opt in ('-a', '--archives'):
