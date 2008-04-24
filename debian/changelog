@@ -1,3 +1,23 @@
+alternc-mailman (1.6) stable; urgency=low
+
+  [ Antoine ]
+  * this releases finally packages the VirtualMailman patches properly,
+    instead of assuming that the admin installed the patches on his
+    own. The patches are installed during the installation, after
+    confirmation by the user. (#1106)
+  * this also fixes list creation for non-patched installations (#1105)
+  * 0.9.8 compatibility (#1119)
+  * make sure all mailing lists names are lowercase (#1103)
+  * allow dashes in list names
+  * add portuguese translation
+  * adapt to standards 3.7.3 (copyright file fix)
+  * fix list removal (#1096)
+  
+  [ Pierre-Gilles ]
+  * fix URL of mailing lists when domain is an IP redirection
+
+ -- Antoine Beaupré <antoine@koumbit.org>  Thu, 24 Apr 2008 18:02:09 -0400
+
 alternc-mailman (1.5) stable; urgency=low
 
   * fix this to support lists with the same name on different hosts, get ready
