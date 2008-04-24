@@ -11,9 +11,9 @@ alternc-mailman (1.6) stable; urgency=low
     upgrade alternc-mailman. To fix this, do the following:
   
     mkdir -p /usr/share/alternc-mailman/patches
-    touch /usr/share/alternc-mailman/patches/mailman-true-virtual-2.1.9.patch
-    ln -s /usr/share/alternc-mailman/patches/mailman-true-virtual-2.1.9.patch \
-          /usr/share/alternc-mailman/patches/mailman-true-virtual.applied
+    cd /usr/share/alternc-mailman/patches
+    touch mailman-true-virtual-2.1.9.patch
+    ln -s mailman-true-virtual-2.1.9.patch mailman-true-virtual.applied
   
     Only then install this package. Those steps are only required for
     installations that are already patched.
