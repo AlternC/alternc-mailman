@@ -4,5 +4,5 @@ set -e
 
 # Source debconf library.
 . /usr/share/debconf/confmodule
-db_input medium alternc-mailman/patch-mailman || true
+db_input high alternc-mailman/patch-mailman || true
 db_go || true
