@@ -114,7 +114,7 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     /* the list' internal name */
     // $name = $login . '-' . $domain; # works only with the
     // VirtualMailman patch
-    $name = $login;
+    $name = $login = strtolower($login);
 
     if ($login=="") {
       $err->raise("mailman",2);
