@@ -15,8 +15,7 @@ case "$1" in
     . "$CONFIGFILE"
 
     echo "Installing mysql table"
-    mysql -u"$MYSQL_USER" -p"$MYSQL_PASS" -h"$MYSQL_HOST" "$MYSQL_DATABASE" \
-        < /usr/share/alternc/install/mailman.sql
+    mysql --defaults-file=/etc/alternc/my.cnf < /usr/share/alternc/install/mailman.sql
     
     # Install generated mailman configuration if it has not been modified since
     # last package configuration
@@ -47,8 +46,7 @@ case "$1" in
               echo "INSERT INTO mail_alias SET
                     mail='mailman-${kind}_${FQDN}', alias='\"| $MAILMAN_SCRIPT ${kind} mailman\"');" 
           done
-        ) | mysql -f -u"$MYSQL_USER" -p"$MYSQL_PASS" -h"$MYSQL_HOST" \
-              "$MYSQL_DATABASE" || true
+        ) | mysql -f --defaults-file=/etc/alternc/my.cnf || true
     fi
 
     ln -sf /usr/lib/cgi-bin/mailman /var/alternc/cgi-bin/mailman

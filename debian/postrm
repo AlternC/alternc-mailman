@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-CONFIGFILE="/etc/alternc/local.sh"
+CONFIGFILE="/etc/alternc/my.cnf"
 MENUFILE="/etc/alternc/menulist.txt"
 
 case "$1" in
@@ -18,8 +18,7 @@ case "$1" in
   purge)
     if [ -e "$CONFIGFILE" -a -x "/usr/bin/mysql" ]; then
         . "$CONFIGFILE"
-        mysql -f -u"$MYSQL_USER" -p"$MYSQL_PASS" -h"$MYSQL_HOST" \
-              "$MYSQL_DATABASE" -e "DROP TABLE IF EXISTS mailman"
+        mysql -f --defaults-file=/etc/alternc/my.cnf -e "DROP TABLE IF EXISTS mailman"
     fi
     ;;
 esac
