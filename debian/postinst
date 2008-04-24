@@ -63,6 +63,47 @@ case "$1" in
 menu_mailman.php/" <$MENUFILE >$MENUFILE.alternc_mailman
         mv -f $MENUFILE.alternc_mailman $MENUFILE
     fi
+    # "
+    MAILMAN_VERSION=`dpkg -l mailman | grep ^ii | awk '{print $3}' | sed -e s/-.*//`
+    echo "detected mailman version $MAILMAN_VERSOIN"
+    PATCHFILE="/usr/share/alternc-mailman/patches/mailman-true-virtual-$MAILMAN_VERSION"
+    PATCH_MARKER="/usr/share/alternc-mailman/patches/mailman-true-virtual.applied"
+    if [ -h $PATCH_MARKER ]; then
+        PATCH_VERSION=`readlink $PATCH_MARKER | sed -e s/^.*-//`
+        echo "mailman patch detected, version $PATCH_VERSION"
+        if [ "$PATCH_VERSION" = "$MAILMAN_VERSION" ]; then
+            echo "mailman already patched, will not patch again"
+        else
+            echo "wrong version of the patch, we assume that mailman was upgraded"
+            rm -f $PATCH_MARKER
+        fi
+    fi
+    if [ -r $PATCHFILE -a ! -h $PATCH_MARKER ]; then
+        db_get alternc-mailman/patch-mailman || true
+        if [ "$RET" = "true" ]; then
+            {
+                cd /var/lib
+                echo "testing the patch"
+                if patch --dry-run -p0 < $PATCHFILE; then
+                    echo "applying patch"
+                    if patch -p0 < $PATCHFILE; then
+                        echo "patch applied sucessfully"
+                        # this will tell alternc-mailman the patch was applied successfully
+                        ln -fs $PATCHFILE $PATCH_MARKER
+                    else
+                        echo "cannot apply patch, your mailman is probably broken now, aborting"
+                        false
+                    fi
+                else
+                    echo "patch will not apply cleanly, aborting"
+                fi
+            }
+        else
+            echo "not applying virtual mailman patch"
+        fi
+    else
+        echo "no patchfile for mailman $MAILMAN_VERSION"
+    fi
     ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)

@@ -47,6 +47,8 @@ install: build
 	    debian/alternc-mailman/usr/share/lintian/overrides/alternc-mailman
 	# remove CVS / SVN entries : 
 	find debian/alternc-mailman/ -depth \( -name CVS -o -name .svn \) -type d -exec rm -rf {} \;
+	cp -r patches debian/alternc-mailman/usr/share/alternc-mailman/patches
+
 binary-common: build install
 	dh_testdir
 	dh_testroot

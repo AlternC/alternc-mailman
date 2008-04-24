@@ -1,0 +1,8 @@
+#! /bin/sh
+
+set -e
+
+# Source debconf library.
+. /usr/share/debconf/confmodule
+db_input medium alternc-mailman/patch-mailman || true
+db_go || true

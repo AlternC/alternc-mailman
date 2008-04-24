@@ -6,9 +6,15 @@ bureau/locales/fr_FR/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/mailman.pot -text
 bureau/locales/pt_BR/LC_MESSAGES/mailman.po -text
 debian/compat -text
+debian/config -text
 debian/po/POTFILES.in -text
 debian/po/fr.po -text
 debian/po/templates.pot -text
+debian/templates -text
+patches/mailman-true-virtual-2.1.1.patch -text
+patches/mailman-true-virtual-2.1.4.patch -text
+patches/mailman-true-virtual-2.1.5.patch -text
+patches/mailman-true-virtual-2.1.9.patch -text
 src/mailman.create -text
 src/mailman.delete -text
 src/mailman.list -text
