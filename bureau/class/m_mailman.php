@@ -179,8 +179,11 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
 	return false;
       }
       // Wrapper created, sql ok, now let's create the list :)
-      exec("/usr/lib/alternc/mailman.create \"".escapeshellcmd($login."@".$domain)."\" \"".escapeshellcmd($owner)."\" \"".escapeshellcmd($password)."\"");
-      return true;
+      exec("/usr/lib/alternc/mailman.create \"".escapeshellcmd($login."@".$domain)."\" \"".escapeshellcmd($owner)."\" \"".escapeshellcmd($password)."\"", &$output, &$return);
+      if ($return) {
+        $err->raise("mailman", "failed to create mailman list. error: %d, output: %s", array($return, join("\n", $output)));
+      }
+      return !$return;
     } else {
       $err->raise("mailman",7); // quota
       return false;
