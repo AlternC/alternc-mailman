@@ -9,6 +9,7 @@
          urlhost = urlhost or domain
          emailhost = emailhost or mm_cfg.VIRTUAL_HOSTS.get(domain, domain)
  
+
 --- mailman/Mailman/Gui/General.py.orig	2007-02-28 16:35:58.000000000 -0500
 +++ mailman/Mailman/Gui/General.py	2007-10-04 02:42:44.000000000 -0400
 @@ -420,7 +420,7 @@
@@ -20,6 +21,7 @@
              # These values can't differ by other than case
              doc.addError(_("""<b>real_name</b> attribute not
              changed!  It must differ from the list's name by case
+
 --- mailman/Mailman/Handlers/CookHeaders.py.orig	2007-02-28 16:35:58.000000000 -0500
 +++ mailman/Mailman/Handlers/CookHeaders.py	2007-10-04 02:46:39.000000000 -0400
 @@ -180,7 +180,9 @@
@@ -33,6 +35,7 @@
      cset = Utils.GetCharSet(mlist.preferred_language)
      if mlist.description:
          # Don't wrap the header since here we just want to get it properly RFC
+
 --- mailman/Mailman/MailList.py.orig	2007-02-28 16:35:58.000000000 -0500
 +++ mailman/Mailman/MailList.py	2007-10-04 04:29:08.000000000 -0400
 @@ -185,9 +185,14 @@
@@ -113,6 +116,7 @@
                      # exact match against the complete list address
                      addr == listfullname):
                  return True
+
 --- mailman/bin/rmlist.orig 2007-12-20 00:33:30.000000000 -0500
 +++ mailman/bin/rmlist      2007-12-20 00:33:37.000000000 -0500
 @@ -92,6 +92,11 @@
