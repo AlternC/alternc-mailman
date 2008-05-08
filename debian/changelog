@@ -1,3 +1,10 @@
+alternc-mailman (1.7) stable; urgency=low
+
+  [ Patrick Hétu ]
+  * fix list URLs by adding a new variable (#1131)
+
+ -- Antoine Beaupré <antoine@koumbit.org>  Thu, 08 May 2008 16:05:56 -0400
+
 alternc-mailman (1.6) stable; urgency=low
 
   [ Antoine ]

@@ -1,3 +1,29 @@
+alternc-mailman (1.7) stable; urgency=low
+
+    add a configuration variable to control the domain in the list urls. if it
+    is set, it will be used to construct the urls in the mailing list
+    listings. If it is unset, the list's domain name will be used.
+
+    the default behaviour is therefore reverted to the one before 1.5 (svn
+    [2097]) where the list domain is used (without the prepended "mail.").
+
+    in case the variable is set, the administrator still needs to convert the
+    urls of existing lists and fix the default url in mm_cfg.py for new lists.
+    this can be done with a script like this in /var/lib/mailman/change_url:
+
+    def change_url(mlist):
+        mlist.web_page_url='https://listes.koumbit.net/cgi-bin/mailman/'
+        mlist.Save()
+        mlist.Unlock()
+
+    ... called like this:
+
+     /usr/lib/mailman/bin/withlist -l -r change_url -a
+     
+     See https://alternc.org/ticket/1131 for more information.
+
+ -- Antoine Beaupré <antoine@koumbit.org>  Thu, 08 May 2008 16:02:34 -0400
+
 alternc-mailman (1.6) stable; urgency=low
 
     This releases finally packages the VirtualMailman patches properly,

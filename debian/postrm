@@ -19,6 +19,7 @@ case "$1" in
     if [ -e "$CONFIGFILE" -a -x "/usr/bin/mysql" ]; then
         . "$CONFIGFILE"
         mysql -f --defaults-file=/etc/alternc/my.cnf -e "DROP TABLE IF EXISTS mailman"
+        mysql -f --defaults-file=/etc/alternc/my.cnf -e "DELETE FROM variable WHERE name = 'mailman_url'"
     fi
     ;;
 esac
