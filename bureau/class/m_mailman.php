@@ -206,7 +206,14 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     }
     $login=$db->f("list");
     $domain=$db->f("domain");
-    exec("/usr/lib/alternc/mailman.delete ".escapeshellarg($login.'@'.$domain), &$output, &$return);
+
+    if (file_exists("/usr/share/alternc-mailman/patches/mailman-true-virtual.applied")) {
+      exec("/usr/lib/alternc/mailman.delete ".escapeshellarg($login.'@'.$domain), &$output, &$return);
+    } else {
+      exec("/usr/lib/alternc/mailman.delete ".escapeshellarg($login), &$output, &$return);
+    }
+
+
     if ($return) {
       $err->raise("mailman", "failed to delete mailman list. error: %d, output: %s", $return, join("\n", $output));
       return false;
