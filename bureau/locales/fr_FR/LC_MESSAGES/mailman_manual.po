@@ -1,16 +1,19 @@
+# translation of mailman_manual.po to Spanish
 # French AlternC Translation
 # Copyright (C)  2002 the AlternC Development Team
 # <tech@alternc.org>
 #
+# Daniel Viñar Ulriksen <dani@belil.net>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: $Id: mailman.po 1185 2004-09-06 17:42:02Z anonymous $\n"
-"PO-Revision-Date: 2003-02-03 08:16 +0000\n"
-"Last-Translator: Benjamin Sonntag <benjamin@octopuce.com>\n"
-"Language-Team: French <tech@alternc.org>\n"
+"Project-Id-Version: mailman_manual\n"
+"PO-Revision-Date: 2008-02-17 01:11-0400\n"
+"Last-Translator: Daniel Viñar Ulriksen <dani@belil.net>\n"
+"Language-Team: Spanish <i18n@alternc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
 msgid "err_mailman_1"
 msgstr "Aucune liste de discussion de trouvé"
@@ -41,4 +44,13 @@ msgstr "La liste spécifiée n'existe pas"
 
 msgid "err_mailman_10"
 msgstr "Une liste du même nom existe deja. Choisissez un autre nom."
+
+msgid "man_mailman_1"
+msgstr ""
+"<ul> "
+"<li>Mailman est un gestionnaire de liste de discussion/diffusion très puissant. Il possède une interface web complète de gestion de liste, accessible par les différents liens ci-dessus.</li>"
+"<li>Mailman permet de modérer une liste : pour modérer les futurs abonnés, aller dans \"Options de confidentialité\"->\"Filtres expéditeur\" puis choisissez \"Oui\" dans \"Les envois des nouveaux abonnés doivent être modérés par défaut?\". En effet, mailman peut modérer CHAQUE abonné d'une liste.</li>"
+"<li>Pour modérer les NON-abonnés d'une liste, aller dans \"Options de confidentialité\"->\"Filtres expéditeur\" puis choisissez parmi \"Accepter En attente Rejeter Ignorer\" pour \"Action à entreprendre pour les envois des non-abonnés\"</li>"
+"<li>De nombreuses autres options peuvent être modifiées dans mailman. Pour toute information, cliquez sur le lien \"Détails de ...\" en dessous de chaque élément configurable, ou contactez-nous.</li>"
+"</ul>"
 
