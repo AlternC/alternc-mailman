@@ -94,7 +94,7 @@ case "$1" in
               echo "INSERT INTO mail_alias SET
                     mail='mailman-${kind}_${FQDN}', alias='\"| $MAILMAN_SCRIPT ${kind} mailman\"');" 
           done
-        ) | mysql -f --defaults-file=/etc/alternc/my.cnf || true
+        ) | mysql --defaults-file=/etc/alternc/my.cnf -f || true
     fi
 
     ln -sf /usr/lib/cgi-bin/mailman /var/alternc/cgi-bin/mailman
