@@ -81,20 +81,15 @@ case "$1" in
     # Create the "mailman" list if it does not exist yet
     if [ ! -d /var/lib/mailman/lists/mailman ]; then
         /var/lib/mailman/bin/newlist -q mailman "root@$FQDN" "${MAILMAN_PASS}"
-        ( echo "INSERT INTO mailman SET
-                id=NULL, uid=2000, list='mailman', domain='${FQDN}', name='mailman';"
-          echo "INSERT INTO mail_domain SET
-                mail='mailman@${FQDN}', alias='mailman_${FQDN}', uid=2000, pop=0, type=1;"
-          echo "INSERT INTO mail_alias SET
-                mail='mailman_${FQDN}', alias='\"| $MAILMAN_SCRIPT post mailman\"';"
+        ( echo "INSERT INTO mailman SET id=NULL, uid=2000, list='mailman', domain='${FQDN}', name='mailman';"
+          echo "INSERT INTO mail_domain SET mail='mailman@${FQDN}', alias='mailman_${FQDN}', uid=2000, pop=0, type=1;"
+          echo "INSERT INTO mail_alias SET mail='mailman_${FQDN}', alias='\"| $MAILMAN_SCRIPT post mailman\"';"
           for kind in request owner admin bounces confirm join \
                       leave subscribe unsubscribe; do
-              echo "INSERT INTO mail_domain SET
-                    mail='mailman-${kind}@${FQDN}', alias='mailman-${kind}_${FQDN}', uid=2000, pop=0, type=1;"
-              echo "INSERT INTO mail_alias SET
-                    mail='mailman-${kind}_${FQDN}', alias='\"| $MAILMAN_SCRIPT ${kind} mailman\"');" 
+              echo "INSERT INTO mail_domain SET mail='mailman-${kind}@${FQDN}', alias='mailman-${kind}_${FQDN}', uid=2000, pop=0, type=1;"
+              echo "INSERT INTO mail_alias SET mail='mailman-${kind}_${FQDN}', alias='\"| $MAILMAN_SCRIPT ${kind} mailman\"';" 
           done
-        ) | mysql -f --defaults-file=/etc/alternc/my.cnf || true
+        ) | mysql --defaults-file=/etc/alternc/my.cnf -f || true
     fi
 
     ln -sf /usr/lib/cgi-bin/mailman /var/alternc/cgi-bin/mailman
