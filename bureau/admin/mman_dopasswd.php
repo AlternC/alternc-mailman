@@ -1,6 +1,6 @@
 <?php
 /*
- $Id$
+ $Id: mman_dopasswd.php 2 2003-06-13 20:30:40Z root $
  ----------------------------------------------------------------------
  AlternC - Web Hosting System
  Copyright (C) 2002 by the AlternC Development Team.
@@ -23,17 +23,20 @@
 
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ----------------------------------------------------------------------
- Original Author of file:  Benjamin Sonntag, Franck Missoum
- Purpose of file: Left frame : Managing Mailing-lists WITH MAILMAN 2.1
+ Original Author of file: Benjamin Sonntag
+ Purpose of file: Change a list's password.
  ----------------------------------------------------------------------
 */
+require_once("../class/config.php");
 
-/* ############# ML ############# */
-$q = $quota->getquota("mailman");
-
-if (isset($q["t"]) && $q["t"] > 0) { 
+$r=$mailman->passwd($id,$pass,$pass2);
+if (!$r) {
+	$error=$err->errstr();
+	include("mman_passwd.php");
+	exit();
+} else {
+	$error=_("The mailing list password has been successfully changed.");
+	include("mman_list.php");
+	exit();
+}
 ?>
-<div class="menu-box">
-<div class="menu-title"><img src="images/mailman.png" alt="<?php __("Mailing lists"); ?>" />&nbsp;<a href="mman_list.php"><?php __("Mailing lists"); ?></a> (<?= $q["u"]; ?>/<?= $q["t"]; ?>)<br /><small><?php __("(with mailman)"); ?></small></div>
-</div>
-<?php } ?>

@@ -5,6 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id: mailman.po,v 1.3 2003/06/15 18:58:03 root Exp $\n"
+"Report-Msgid-Bugs-To: i18n@alternc.org\n"
+"POT-Creation-Date: 2009-06-14 10:30+0200\n"
 "PO-Revision-Date: 2003-02-03 08:16 +0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@octopuce.com>\n"
 "Language-Team: English <dev@alternc.org>\n"
@@ -12,81 +14,125 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "quota_mailman"
-msgstr "Enviando listas (mailman)"
-
+#: admin/menu_mailman.php:37 admin/mman_add.php:38 admin/mman_list.php:37
+#: admin/mman_list.php:47 admin/mman_list.php:54 admin/mman_passwd.php:40
 msgid "Mailing lists"
 msgstr "Enviando listas "
 
-msgid "Email address"
-msgstr "Endereço de Email"
-
-msgid "Owner"
-msgstr "Dono"
-
-msgid "Initial list password"
-msgstr "Senha inicial da lista"
-
-msgid "Create the list."
-msgstr "Criar a lista."
-
-msgid "The list %s has been successfully deleted."
-msgstr "A lista %s foi removida com sucesso."
-
-msgid "The mailing list has been successfully created."
-msgstr "A lista de envios foi criada com sucesso."
-
-msgid "Delete"
-msgstr "Remover"
-
-msgid "List name"
-msgstr "Nome da lista"
-
-msgid "Public page"
-msgstr "Página publica"
-
-msgid "List admin"
-msgstr "Administrador da lista"
-
-msgid "Pending messages"
-msgstr "Mensagens faltando Ã¡ enviar"
-
-msgid "Delete the checked lists"
-msgstr "Remover as listas selecionadas"
-
-msgid "Create a list"
-msgstr "Criar a lista"
-
+#: admin/menu_mailman.php:37
 msgid "(with mailman)"
 msgstr "(com mailman)"
 
-##################################################################
-# m_mailman
+#: admin/mman_add.php:49
+msgid "Email address"
+msgstr "Endereço de Email"
 
-msgid "err_mailman_1"
-msgstr "A lista não definida ainda"
+#: admin/mman_add.php:52
+msgid "Owner"
+msgstr "Dono"
 
-msgid "err_mailman_2"
-msgstr "O login (parte esquerda do @) é obrigatório"
+#: admin/mman_add.php:55
+msgid "Initial list password"
+msgstr "Senha inicial da lista"
 
-msgid "err_mailman_3"
-msgstr "O email do dono e a senha são obrigatórios"
+#: admin/mman_add.php:59
+msgid "Create the list."
+msgstr "Criar a lista."
 
-msgid "err_mailman_4"
-msgstr "Este email está incorreto"
+#: admin/mman_del.php:57
+msgid "Deleting mailman lists"
+msgstr ""
 
-msgid "err_mailman_5"
-msgstr "Este domínio não  existe."
+#: admin/mman_del.php:58
+msgid "Please confirm the deletion of the following mailman lists:"
+msgstr ""
 
-msgid "err_mailman_6"
-msgstr "Este endereço de email (ou um da lista assinadas, lista não assinadas etc.) já  foi usado."
+#: admin/mman_del.php:69
+#, fuzzy
+msgid "Delete the selected mailman lists"
+msgstr "Remover as listas selecionadas"
 
-msgid "err_mailman_7"
-msgstr "Sua cota de listas de envio acabou, você não pode criar mais listas."
+#: admin/mman_del.php:69
+msgid "Don't delete lists and go back to the mailman list"
+msgstr ""
 
-msgid "err_mailman_9"
-msgstr "Esta lista nãoo existe"
+#: admin/mman_del.php:74
+msgid ""
+"Warning: Deleting a mailman list will destroy all the subscribed users, "
+"preferences and archives it contains! You will <b>NOT</b> be able to get "
+"your data back!"
+msgstr ""
 
-msgid "err_mailman_10"
-msgstr "Uma lista com o mesmo nome já  existe no servidor. Por favor escolha um outro nome."
+#: admin/mman_doadd.php:38
+msgid "The mailing list has been successfully created."
+msgstr "A lista de envios foi criada com sucesso."
+
+#: admin/mman_dodel.php:58
+#, php-format
+msgid "The list %s has been successfully deleted."
+msgstr "A lista %s foi removida com sucesso."
+
+#: admin/mman_dopasswd.php:38
+#, fuzzy
+msgid "The mailing list password has been successfully changed."
+msgstr "A lista de envios foi criada com sucesso."
+
+#: admin/mman_list.php:35
+msgid ""
+"No domain is installed on your account, you cannot create any mailing list!"
+msgstr ""
+
+#: admin/mman_list.php:60
+msgid "Delete"
+msgstr "Remover"
+
+#: admin/mman_list.php:60
+msgid "List name"
+msgstr "Nome da lista"
+
+#: admin/mman_list.php:70
+msgid "Public page"
+msgstr "Página publica"
+
+#: admin/mman_list.php:71
+msgid "List admin"
+msgstr "Administrador da lista"
+
+#: admin/mman_list.php:72
+msgid "Pending messages"
+msgstr "Mensagens faltando Ã¡ enviar"
+
+#: admin/mman_list.php:73
+msgid "Change password"
+msgstr ""
+
+#: admin/mman_list.php:74
+#, fuzzy
+msgid "List Members"
+msgstr "Nome da lista"
+
+#: admin/mman_list.php:79
+msgid "Delete the checked lists"
+msgstr "Remover as listas selecionadas"
+
+#: admin/mman_list.php:88
+msgid "Create a list"
+msgstr "Criar a lista"
+
+#: admin/mman_passwd.php:50
+#, php-format
+msgid "Changing password of list %s"
+msgstr ""
+
+#: admin/mman_passwd.php:52
+msgid "New list password"
+msgstr "Senha da lista"
+
+#: admin/mman_passwd.php:55
+msgid "Password confirmation"
+msgstr ""
+
+#: admin/mman_passwd.php:59
+msgid "Change the password."
+msgstr ""
 

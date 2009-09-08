@@ -1,6 +1,11 @@
 * text=auto !eol
+/.svnignore -text
 /alternc-mailman.conf -text
+bureau/admin/images/mailman.png -text
 bureau/admin/mman_dodel.php -text
+bureau/admin/mman_dopasswd.php -text
+bureau/admin/mman_passwd.php -text
+bureau/locales/Makefile -text
 bureau/locales/en_US/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/es_ES/LC_MESSAGES/mailman.po -text
 bureau/locales/es_ES/LC_MESSAGES/mailman_manual.po -text
@@ -8,6 +13,8 @@ bureau/locales/fr_FR/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/mailman.pot -text
 bureau/locales/mailman_manual.pot -text
 bureau/locales/pt_BR/LC_MESSAGES/mailman.po -text
+bureau/locales/pt_BR/LC_MESSAGES/mailman_manual.po -text
+debian/.svnignore -text
 debian/NEWS -text
 debian/compat -text
 debian/config -text
@@ -22,6 +29,7 @@ patches/mailman-true-virtual-2.1.9.patch -text
 src/mailman.create -text
 src/mailman.delete -text
 src/mailman.list -text
+src/mailman.passwd -text
 src/mailman.sub -text
 src/mailman.unsub -text
 /updatepot.sh -text

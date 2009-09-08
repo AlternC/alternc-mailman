@@ -1,0 +1,8 @@
+/build-stamp
+debian/alternc-mailman
+debian/alternc-mailman.debhelper.log
+debian/alternc-mailman.postrm.debhelper
+debian/alternc-mailman.substvars
+debian/files
+debian/postinst
+debian/postrm

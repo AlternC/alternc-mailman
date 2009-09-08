@@ -30,9 +30,6 @@
 
 class m_mailman {
 
-  /* ----------------------------------------------------------------- */
-  function m_mailman() {
-  }
 
   /* ----------------------------------------------------------------- */
   /**
@@ -42,16 +39,22 @@ class m_mailman {
     return "mailman";
   }
 
-  /*****************************************************************************/
-  /** Return the mailing-lists managed by this member : */
+
+  /* ----------------------------------------------------------------- */
+  /**
+   * Return the mailing-lists managed by this member :
+   * @param $domain string The domain's list we want (or null to prevent filtering on a specific domain)
+   * @param $order_by array how do we sort the lists (default is domain then listname)
+   * @return array an ordered array of associative arrays with all the members lists
+   */
   function enum_ml($domain = null, $order_by = array('domain', 'list')) {
     global $err,$db,$cuid;
     $err->log("mailman","enum_ml");
     $order_by = array_map("addslashes", $order_by);
     $order = 'ORDER BY `' . join('`,`', $order_by) . '`';
-$query = "SELECT * FROM mailman WHERE uid=$cuid".
-        (is_null($domain) ? "" : " AND domain='" . addslashes($domain) ."'" ) .
-	      " $order;";
+    $query = "SELECT * FROM mailman WHERE uid=$cuid".
+      (is_null($domain) ? "" : " AND domain='" . addslashes($domain) ."'" ) .
+      " $order;";
     $db->query($query);
     if (!$db->num_rows()) {
       $err->raise("mailman",1);
@@ -63,8 +66,13 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     }
     return $mls;
   }
+  
 
-  /*****************************************************************************/
+  /* ----------------------------------------------------------------- */
+  /**
+   * Return the list of domains that may be used by mailman for the current account
+   * @return array an array of domain names 
+   */
   function prefix_list() {
     global $db,$err,$cuid;
     $r=array();
@@ -74,7 +82,15 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     }
     return $r;
   }
-  /*****************************************************************************/
+
+
+  /* ----------------------------------------------------------------- */
+  /**
+   * Echoes a select list options of the list of domains that may be used 
+   * by mailman for the current account. 
+   * @param $current string the item that will be selected in the list
+   * @return array an array of domain names 
+   */
   function select_prefix_list($current) {
     global $db,$err;
     $r=$this->prefix_list();
@@ -86,28 +102,42 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     return true;
   }
 
-  /*****************************************************************************/
-	/** Get list informations */
-	function get_lst($id)
-	{
-		global $db, $err, $cuid;
-		$err->log("mailman","get_list", $cuid);
 
-		$q = "SELECT * FROM mailman WHERE uid = '" . $cuid . "' && id = '" . $id . "'";
-		$db->query($q);
-		$db->next_record();
-		if (!$db->f("id"))
-		{
-			$err->raise("mailman",9);
-			return false;
-		}
-		$login = $db->f("list");
-		$domain = $db->f("domain");
-		return $login . "@" . $domain;
-	}
+  /* ----------------------------------------------------------------- */
+  /**
+   * Get all th informations for a list
+   * @param $id integer is the list id in alternc's database.
+   * @return array an associative array with all the list informations
+   * or false if an error occured.
+   */
+  function get_lst($id)
+  {
+    global $db, $err, $cuid;
+    $err->log("mailman","get_list", $cuid);
+    
+    $q = "SELECT * FROM mailman WHERE uid = '" . $cuid . "' && id = '" . $id . "'";
+    $db->query($q);
+    $db->next_record();
+    if (!$db->f("id")) {
+      $err->raise("mailman",9);
+      return false;
+    }
+    $login = $db->f("list");
+    $domain = $db->f("domain");
+    return $login . "@" . $domain;
+  }
+  
 
-  /*****************************************************************************/
-  /** Create a new list for this member : */
+
+  /* ----------------------------------------------------------------- */
+  /**
+   * Create a new list for this member :
+   * @param $domain string the domain name on which the list will be attached
+   * @param $login string the left part of the @ for the list email 
+   * @param $owner the email address of the list administrator (required)
+   * @param $password the initial list password (required)
+   * @return boolean TRUE if the list has been created, or FALSE if an error occured
+   */
   function add_lst($domain,$login,$owner,$password) {
     global $db,$err,$quota,$mail,$cuid;
     $err->log("mailman","add_lst",$login."@".$domain." - ".$owner);
@@ -142,7 +172,7 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
         $err->raise("mailman",10);
         return false;
     }
-    // Prefixe OK, on verifie la non-existence des mails que l'on va créer...
+    // Prefix OK, let's check that all emails wrapper we will create are unused
     if (!$mail->available($login."@".$domain) ||
 	!$mail->available($login."-request@".$domain) ||
 	!$mail->available($login."-owner@".$domain) ||
@@ -157,10 +187,9 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
       $err->raise("mailman",6);
       return false;
     }
-    // Le compte n'existe pas, on vérifie le quota et on le créé.
+    // Check the quota
     if ($quota->cancreate("mailman")) {
-      // Creation de la liste : 1. recherche du nom de la liste
-      // CA NE MARCHE PAS !
+      // List creation : 1. insert into the DB
       $db->query("INSERT INTO mailman (uid,list,domain,name) VALUES ('$cuid','$login','$domain','$name');");
       if (!$mail->add_wrapper($login,$domain,"/var/lib/mailman/mail/mailman post $name","mailman") ||
 	  !$mail->add_wrapper($login."-request",$domain,"/var/lib/mailman/mail/mailman request $name","mailman") ||
@@ -173,6 +202,7 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
 	  !$mail->add_wrapper($login."-subscribe",$domain,"/var/lib/mailman/mail/mailman subscribe $name","mailman") ||
 	  !$mail->add_wrapper($login."-unsubscribe",$domain,"/var/lib/mailman/mail/mailman unsubscribe $name","mailman")
 	  ) {
+	// didn't work : rollback
 	$mail->del_wrapper($login,$domain);	        $mail->del_wrapper($login."-request",$domain);
 	$mail->del_wrapper($login."-owner",$domain);	$mail->del_wrapper($login."-admin",$domain);
 	$mail->del_wrapper($login."-bounces",$domain);	$mail->del_wrapper($login."-confirm",$domain);
@@ -193,11 +223,17 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     }
   }
 
-  /*****************************************************************************/
+
+  /* ----------------------------------------------------------------- */
+  /**
+   * Delete a mailing-list
+   * @param $id integer the id number of the mailing list in alternc's database
+   * @return boolean TRUE if the list has been deleted or FALSE if an error occured
+   */
   function delete_lst($id) {
     global $db,$err,$mail,$cuid;
     $err->log("mailman","delete_lst",$id);
-
+    // We delete lists only in the current member's account.
     $db->query("SELECT * FROM mailman WHERE id=$id and uid='$cuid';");
     $db->next_record();
     if (!$db->f("id")) {
@@ -213,7 +249,6 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
       exec("/usr/lib/alternc/mailman.delete ".escapeshellarg($login), &$output, &$return);
     }
 
-
     if ($return) {
       $err->raise("mailman", "failed to delete mailman list. error: %d, output: %s", $return, join("\n", $output));
       return false;
@@ -227,9 +262,12 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     return $login."@".$domain;
   }
 
+
   /* ----------------------------------------------------------------- */
-  /** Returns the list's members as a text file, one subscriber per
-   *   line.
+  /** Echoes the list's members as a text file, one subscriber per
+   *  line.
+   * @param $id integer The list whose members we want to dump
+   * @return void : this function ECHOES the result !
    */
  function members($id) {
     global $err,$db,$cuid;
@@ -245,17 +283,49 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
 
 
   /* ----------------------------------------------------------------- */
-  /** Fonction appellée par domaines lorsqu'un domaine est effacé.
-   * Cette fonction efface tous les comptes mails du domaine concerné.
-   * @param string $dom Domaine à effacer
-   * @return boolean TRUE si le domaine a bien été effacé, FALSE si une erreur s'est produite.
+  /** Change the mailman administrator password of a list
+   * @param $id integer The list number in alternc's database
+   * @param $pass string The new password
+   * @param $pass2 string The new password (confirmation)
+   * @return boolean TRUE if the password has been changed or FALSE if an error occured.
+   */
+ function passwd($id,$pass,$pass2) {
+   global $db,$err,$mail,$cuid;
+    $err->log("mailman","passwd",$id);
+
+    $db->query("SELECT * FROM mailman WHERE id=$id and uid='$cuid';");
+    $db->next_record();
+    if (!$db->f("id")) {
+      $err->raise("mailman",9);
+      return false;
+    }
+    if ($pass!=$pass2) {
+      $err->raise("mailman",11);
+      return false;
+    }
+    $login=$db->f("list");
+    $domain=$db->f("domain");
+
+    if (file_exists("/usr/share/alternc-mailman/patches/mailman-true-virtual.applied")) {
+      exec("/usr/lib/alternc/mailman.passwd ".escapeshellarg($login.'@'.$domain)." ".escapeshellarg($pass), &$output, &$return);
+    } else {
+      exec("/usr/lib/alternc/mailman.passwd ".escapeshellarg($login)." ".escapeshellarg($pass), &$output, &$return);
+    }
+    return true;
+  }
+
+
+  /* ----------------------------------------------------------------- */
+  /** This function is a hook who is called each time a domain is uninstalled
+   * in an account (or when we select "gesmx = no" in the domain panel.)
+   * @param string $dom Domaine to delete
+   * @return boolean TRUE if the domain has been deleted from mailman
    * @access private
    */
   function alternc_del_mx_domain($dom) {
     global $err;
     $err->log("mailman","del_dom",$dom);
 
-    // Suppression des listes du domaine
     $listes=$this->enum_ml($dom);
     while (list($key,$val)=each($listes)) {
       $this->delete_lst($val["id"]);
@@ -263,7 +333,14 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
     return true;
   }
 
+
   /* ----------------------------------------------------------------- */
+  /** Returns the quota for the current account as an array
+   * @param $name string The quota name we get (should always be "mailman" for this class
+   * @return array an array with used (key 'u') and totally available (key 't') quota for the current account.
+   * or FALSE if an error occured
+   * @access private
+   */ 
   function alternc_get_quota($name) {
     global $err,$cuid,$db;
     if ($name=="mailman") {
@@ -272,6 +349,8 @@ $query = "SELECT * FROM mailman WHERE uid=$cuid".
       return $db->f("cnt");
     } else return false;
   }
+
+
 
 } /* Class m_mailman */
 

@@ -45,6 +45,9 @@ msgstr "La liste spécifiée n'existe pas"
 msgid "err_mailman_10"
 msgstr "Une liste du même nom existe deja. Choisissez un autre nom."
 
+msgid "err_mailman_11"
+msgstr "Les deux mots de passes sont différents, réessayez."
+
 msgid "man_mailman_1"
 msgstr ""
 "<ul> "
@@ -54,3 +57,5 @@ msgstr ""
 "<li>De nombreuses autres options peuvent être modifiées dans mailman. Pour toute information, cliquez sur le lien \"Détails de ...\" en dessous de chaque élément configurable, ou contactez-nous.</li>"
 "</ul>"
 
+msgid "quota_mailman"
+msgstr "Listes de discussions (mailman)"

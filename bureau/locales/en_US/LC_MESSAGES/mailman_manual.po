@@ -28,15 +28,30 @@ msgid "err_mailman_5"
 msgstr "This domain does not exist."
 
 msgid "err_mailman_6"
-msgstr "This email address (or one of the list-subscribe, list-unsubscribe etc.) are already used."
+msgstr ""
+"This email address (or one of the list-subscribe, list-unsubscribe etc.) are "
+"already used."
 
 msgid "err_mailman_7"
 msgstr "Your mailing-list quota is over, you cannot create more mailing-lists."
+
+msgid "err_mailman_8"
+msgstr "The part before @ cannot contain a _"
 
 msgid "err_mailman_9"
 msgstr "This list does not exist"
 
 msgid "err_mailman_10"
-msgstr "A list with the same name already exist on the server. Please choose another name."
+msgstr ""
+"A list with the same name already exist on the server. Please choose another "
+"name."
 
+msgid "err_mailman_11"
+msgstr "The passwords are differents, please try again"
 
+#, fuzzy
+msgid "man_mailman_1"
+msgstr "No list defined yet"
+
+msgid "quota_mailman"
+msgstr "Mailing lists (mailman)"

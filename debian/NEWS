@@ -1,3 +1,16 @@
+alternc-mailman (1.8) stable; urgency=low
+
+    This version changes the following : 
+    * The blue desktop is alternc's default as for 0.9.10. alternc-mailman 1.8 is using 
+      this blue desktop as a default too, and the code in the admin/ folder is now compliant
+      with this frameless way of showing the panel pages.
+    * Users are now able to change a list password from AlternC (useful when a user forgot his 
+      list's password). A new perl binary has been added to call /var/lib/mailman/bin/change_pw 
+      accordingly
+    * The code has been reworked to include only clean, javadoc-compliant, english written comments
+
+ -- Benjamin Sonntag <benjamin@sonntag.fr>  Mon, 15 Jun 2009 07:20:00 +0200
+
 alternc-mailman (1.7) stable; urgency=low
 
     add a configuration variable to control the domain in the list urls. if it

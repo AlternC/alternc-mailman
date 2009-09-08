@@ -1,6 +1,6 @@
 <?php
 /*
- $Id$
+ $Id: mman_passwd.php 2516 2009-06-14 12:42:14Z benjamin $
  ----------------------------------------------------------------------
  AlternC - Web Hosting System
  Copyright (C) 2002 by the AlternC Development Team.
@@ -24,13 +24,15 @@
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ----------------------------------------------------------------------
  Original Author of file: Benjamin Sonntag
- Purpose of file: ask for the required values to create a mailing-list
+ Purpose of file: ask for the required value to change a list's password
  ----------------------------------------------------------------------
 */
 require_once("../class/config.php");
 include_once("head.php");
 
-if (!$quota->cancreate("mailman")) {
+$id=intval($_REQUEST["id"]);
+
+if (!($me=$mailman->get_lst($id))) {
 	$error=$err->errstr();
 }
 
@@ -43,20 +45,18 @@ if (!$quota->cancreate("mailman")) {
 		exit();
 	}
 ?>
-<form method="post" action="mman_doadd.php">
+<form method="post" action="mman_dopasswd.php">
 <input type="hidden" name="id" value="<?php echo $id ?>" />
+<?php echo "<h3>".printf(_("Changing password of list %s"),$me)."</h3>"; ?>
 <table>
-<tr><th><label for="login"><?php __("Email address"); ?></label></th><td>
-	<input type="text" class="int" id="login" name="login" value="<?php echo $login; ?>" size="20" maxlength="64" /><b>&nbsp;@&nbsp;</b><select class="inl" name="domain"><?php $mailman->select_prefix_list($domain); ?></select>
-</td></tr>
-<tr><th><label for="owner"><?php __("Owner"); ?> *</label></th><td>
-	Email : <input type="text" class="int" id="owner" name="owner" value="<?php echo $owner; ?>" size="20" maxlength="64" />
+<tr><th><label for="pass"><?php __("New list password"); ?> </label></th><td>
+	<input type="password" class="int" id="pass" name="pass" value="<?php echo $pass; ?>" size="20" maxlength="64" />
 	</td></tr>
-<tr><th><label for="pass"><?php __("Initial list password"); ?> </label></th><td>
-	<input type="text" class="int" id="pass" name="pass" value="<?php echo $pass; ?>" size="20" maxlength="64" />
+<tr><th><label for="pass2"><?php __("Password confirmation"); ?> </label></th><td>
+	<input type="password" class="int" id="pass2" name="pass2" value="" size="20" maxlength="64" />
 	</td></tr>
 <tr><td colspan="2">
-  <input type="submit" class="inb" name="submit" value="<?php __("Create the list."); ?>"/>
+  <input type="submit" class="inb" name="submit" value="<?php __("Change the password."); ?>"/>
 </td></tr>
 </table>
 </form>

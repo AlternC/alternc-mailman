@@ -3,8 +3,6 @@
 # Copyright (C)  2002 the AlternC Development Team
 # <tech@alternc.org>
 #
-# Daniel Viñar Ulriksen <dani@belil.net>, 2008.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: mailman_manual\n"
@@ -46,6 +44,11 @@ msgstr ""
 msgid "err_mailman_10"
 msgstr ""
 
+msgid "err_mailman_11"
+msgstr ""
+
 msgid "man_mailman_1"
 msgstr ""
 
+msgid "quota_mailman"
+msgstr "Listes de discussions (mailman)"

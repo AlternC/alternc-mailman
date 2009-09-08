@@ -1,0 +1,51 @@
+# English AlternC Translation
+# Copyright (C)  2002 the AlternC Development Team
+# <tech@alternc.org>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: $Id: mailman.po,v 1.3 2003/06/15 18:58:03 root Exp $\n"
+"Report-Msgid-Bugs-To: i18n@alternc.org\n"
+"POT-Creation-Date: 2009-06-14 10:30+0200\n"
+"PO-Revision-Date: 2003-02-03 08:16 +0000\n"
+"Last-Translator: Benjamin Sonntag <benjamin@octopuce.com>\n"
+"Language-Team: English <dev@alternc.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "err_mailman_1"
+msgstr "A lista não definida ainda"
+
+msgid "err_mailman_2"
+msgstr "O login (parte esquerda do @) é obrigatório"
+
+msgid "err_mailman_3"
+msgstr "O email do dono e a senha são obrigatórios"
+
+msgid "err_mailman_4"
+msgstr "Este email está incorreto"
+
+msgid "err_mailman_5"
+msgstr "Este domínio não  existe."
+
+msgid "err_mailman_6"
+msgstr ""
+"Este endereço de email (ou um da lista assinadas, lista não assinadas "
+"etc.) já  foi usado."
+
+msgid "err_mailman_7"
+msgstr ""
+"Sua cota de listas de envio acabou, você não pode criar mais listas."
+
+msgid "err_mailman_9"
+msgstr "Esta lista nãoo existe"
+
+msgid "err_mailman_10"
+msgstr ""
+"Uma lista com o mesmo nome já  existe no servidor. Por favor escolha um "
+"outro nome."
+
+msgid "quota_mailman"
+msgstr "Enviando listas (mailman)"
+

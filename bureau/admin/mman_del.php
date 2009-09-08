@@ -29,6 +29,16 @@
 */
 require_once("../class/config.php");
 
+$fields = array (
+	"d"    => array ("request", "array", ""),
+);
+getFields($fields);
+if (!is_array($d)) {
+        $d[]=$d;
+}
+reset($d);
+
+
 $stchange=(!$quota->cancreate("mailman"));
 
 $error="";
@@ -38,13 +48,6 @@ if (empty($d))
 	include ("mman_list.php");
 	exit();
 }
-
-if (!is_array($d))
-{
-	$tmp = array($d);
-	$d = $tmp;
-}
-reset($d);
 
 include("head.php");
 
@@ -66,5 +69,11 @@ foreach ($d as $id)
 <p><input type="submit" class="inb" name="confirm" value="<?php __("Delete the selected mailman lists"); ?>" /> - <input type="submit" name="cancel" id="cancel" class="inb" value="<?php __("Don't delete lists and go back to the mailman list"); ?>" />
 </p>
 </form>
+
+<p>
+<?php __("Warning: Deleting a mailman list will destroy all the subscribed users, preferences and archives it contains! You will <b>NOT</b> be able to get your data back!"); ?>
+</p>
+
+
 </body>
 </html>

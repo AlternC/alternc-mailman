@@ -1,3 +1,12 @@
+alternc-mailman (1.8) stable; urgency=low
+
+  * reformatting of the class comments in the code (all comments are in english now)
+  * changing desktop color to blue :) 
+  * misc security sanitizing patchs from alternc 0.9.10pre
+  * added the ability to change a list's password from the panel (in case you forgot it)
+	
+ -- Benjamin Sonntag <benjamin@sonntag.fr>  Sat, 14 Jun 2009 10:43:00 +0200
+
 alternc-mailman (1.7) stable; urgency=low
 
   [ Patrick Hétu ]
