@@ -264,19 +264,31 @@ class m_mailman {
 
 
   /* ----------------------------------------------------------------- */
-  /** Echoes the list's members as a text file, one subscriber per
-   *  line.
+  /** Echoes the list's members as a text file, one subscriber per line.
+   * 
+   *  Assumes that you are using the Mailman multi-domain patch,
+   *  but will fallback to check only the list name (without domain)
+   *  to support also installations without the patch.
+   *
    * @param $id integer The list whose members we want to dump
    * @return void : this function ECHOES the result !
    */
- function members($id) {
+  function members($id) {
     global $err,$db,$cuid;
     $err->log("mailman","members");
-    $db->query("SELECT * FROM mailman WHERE uid='$cuid' AND id='$id';");
+    $db->query("SELECT CONCAT(list, '-', domain) as list FROM mailman WHERE
+uid='$cuid' AND id='$id';");
+                          
     if (!$db->num_rows()) {
-      $err->raise("mailman",1);
-      return false;
+      // fallback
+      $db->query("SELECT list FROM mailman WHERE uid='$cuid' AND id='$id';");
+
+      if (!$db->num_rows()) {
+        $err->raise("mailman",1);
+        return false;
+      }
     }
+
     $db->next_record();
     passthru("/usr/lib/alternc/mailman.list ".$db->Record["list"]);
   }
