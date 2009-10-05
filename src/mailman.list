@@ -22,6 +22,6 @@ if (!($listname =~ /^([-\.a-z0-9]+)$/)) {
 }
 $listname=$1;
 
-exec($M_PATH." '". $listname ."'");
+exec($M_PATH." -f '". $listname ."'");
 
 0;
