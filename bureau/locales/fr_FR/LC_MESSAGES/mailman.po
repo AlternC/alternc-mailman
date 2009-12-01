@@ -118,6 +118,21 @@ msgstr "Effacer les listes cochées"
 msgid "Create a list"
 msgstr "Créer une nouvelle liste"
 
+msgid "Deleting mailman lists"
+msgstr "Effacement des listes mailman"
+
+msgid "Please confirm the deletion of the following mailman lists:"
+msgstr "Merci de confirmer l'effacement des listes mailman suivantes :"
+
+msgid "Delete the selected mailman lists"
+msgstr "Efface les listes sélectionnées"
+
+msgid "Don't delete lists and go back to the mailman list"
+msgstr "Ne pas effacer les listes, retourner aux listes mailman"
+
+#~ msgid "quota_mailman"
+#~ msgstr "Listes de discussions (mailman)"
+
 #: admin/mman_passwd.php:50
 #, php-format
 msgid "Changing password of list %s"
@@ -134,4 +149,3 @@ msgstr "Confirmation du mot de passe"
 #: admin/mman_passwd.php:59
 msgid "Change the password."
 msgstr "Modifier le mot de passe."
-
