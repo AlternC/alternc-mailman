@@ -43,17 +43,10 @@ msgstr "Créer cette liste."
 msgid "Deleting mailman lists"
 msgstr "Effacement de listes mailman"
 
-#: admin/mman_del.php:58
-msgid "Please confirm the deletion of the following mailman lists:"
-msgstr "Merci de confirmer l'effacement des listes mailman ci-dessous : "
-
 #: admin/mman_del.php:69
 msgid "Delete the selected mailman lists"
 msgstr "Effacer les listes mailman cochées"
 
-#: admin/mman_del.php:69
-msgid "Don't delete lists and go back to the mailman list"
-msgstr "Ne pas effacer les listes et retourner à la liste des listes"
 
 #: admin/mman_del.php:74
 msgid ""
@@ -118,14 +111,8 @@ msgstr "Effacer les listes cochées"
 msgid "Create a list"
 msgstr "Créer une nouvelle liste"
 
-msgid "Deleting mailman lists"
-msgstr "Effacement des listes mailman"
-
 msgid "Please confirm the deletion of the following mailman lists:"
 msgstr "Merci de confirmer l'effacement des listes mailman suivantes :"
-
-msgid "Delete the selected mailman lists"
-msgstr "Efface les listes sélectionnées"
 
 msgid "Don't delete lists and go back to the mailman list"
 msgstr "Ne pas effacer les listes, retourner aux listes mailman"
