@@ -23,7 +23,7 @@ delete @ENV{'IFS', 'CDPATH', 'ENV', 'BASH_ENV'};
 $< = $>;
 $( = $);
 
-if (!($listname =~ /^([a-z0-9\._-]+\@[a-z0-9\.-]+)$/)) {
+if (!($listname =~ /^([a-z0-9\._-]+)$/)) {
     die "List name is incorrect.";
 }
 $listname=$1;
