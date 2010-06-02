@@ -55,6 +55,8 @@ include("head.php");
 </head>
 <body>
 <h3><?php __("Deleting mailman lists"); ?></h3>
+<hr id="topbar"/>
+<br />
 <p><?php __("Please confirm the deletion of the following mailman lists:"); ?></p>
 <form action="mman_dodel.php" method="post">
 <?php

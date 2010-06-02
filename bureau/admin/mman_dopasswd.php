@@ -29,6 +29,13 @@
 */
 require_once("../class/config.php");
 
+$fields = array (
+	"id"     => array ("request", "integer", ""),
+	"pass"     => array ("request", "string", ""),
+	"pass2"     => array ("request", "string", ""),
+);
+getFields($fields);
+
 $r=$mailman->passwd($id,$pass,$pass2);
 if (!$r) {
 	$error=$err->errstr();

@@ -30,27 +30,36 @@
 require_once("../class/config.php");
 include_once("head.php");
 
-$id=intval($_REQUEST["id"]);
+$fields = array (
+	"id"     => array ("request", "integer", ""),
+);
+getFields($fields);
+
 
 if (!($me=$mailman->get_lst($id))) {
 	$error=$err->errstr();
-}
+	?>
+	  <h3><?php __("Mailing lists"); ?></h3>
+<?php 
+ echo "<p class=\"error\">$error</p>";
+ include_once("foot.php");
+ exit();
+ }
 
 ?>
 <h3><?php __("Mailing lists"); ?></h3>
 <?php
 	if ($error) {
 		echo "<p class=\"error\">$error</p>";
-		include_once("foot.php");
-		exit();
 	}
+
 ?>
-<form method="post" action="mman_dopasswd.php">
+<form method="post" action="mman_dopasswd.php" name="main" id="main">
 <input type="hidden" name="id" value="<?php echo $id ?>" />
-<?php echo "<h3>".printf(_("Changing password of list %s"),$me)."</h3>"; ?>
-<table>
+<?php echo "<h3>".sprintf(_("Changing password of list %s"),$me)."</h3>"; ?>
+<table class="tedit">
 <tr><th><label for="pass"><?php __("New list password"); ?> </label></th><td>
-	<input type="password" class="int" id="pass" name="pass" value="<?php echo $pass; ?>" size="20" maxlength="64" />
+	<input type="password" class="int" id="pass" name="pass" value="" size="20" maxlength="64" />
 	</td></tr>
 <tr><th><label for="pass2"><?php __("Password confirmation"); ?> </label></th><td>
 	<input type="password" class="int" id="pass2" name="pass2" value="" size="20" maxlength="64" />
@@ -59,5 +68,12 @@ if (!($me=$mailman->get_lst($id))) {
   <input type="submit" class="inb" name="submit" value="<?php __("Change the password."); ?>"/>
 </td></tr>
 </table>
-</form>
+  </form>
+
+<script type="text/javascript">
+document.forms['main'].pass.focus();
+document.forms['main'].setAttribute('autocomplete', 'off');
+</script>
+
+
 <?php include_once("foot.php"); ?>

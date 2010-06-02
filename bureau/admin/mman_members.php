@@ -29,6 +29,12 @@
 */
 require_once("../class/config.php");
 
+$fields = array (
+	"id"     => array ("request", "integer", ""),
+);
+getFields($fields);
+
+
 header("content-type: text/plain");
 header("content-disposition: attachment; filename=list.txt");
 $mailman->members($id);

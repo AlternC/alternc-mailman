@@ -35,6 +35,8 @@ if (count($dom->enum_domains())==0) {
   $error=_("No domain is installed on your account, you cannot create any mailing list!");
   ?>
 	    <h3><?php __("Mailing lists"); ?></h3>
+<hr id="topbar"/>
+<br />
 	 <?php echo "<p class=\"error\">$error</p>"; ?>
 <?php include_once("foot.php");
 
@@ -45,6 +47,8 @@ if(!$r=$mailman->enum_ml()) {
   $error.=$err->errstr();
 	?>
 	<h3><?php __("Mailing lists"); ?></h3>
+<hr id="topbar"/>
+<br />
 	<?php echo "<p class=\"error\">$error</p>"; ?>
 
 	<?php
@@ -52,6 +56,8 @@ if(!$r=$mailman->enum_ml()) {
 else {
 	?>
 	    <h3><?php __("Mailing lists"); ?></h3>
+<hr id="topbar"/>
+<br />
 
  <?php if ($error) echo "<p class=\"error\">$error</p>"; ?>
 
@@ -85,7 +91,7 @@ else {
 
 if ($quota->cancreate("mailman")) {
 ?>
-	<a href="mman_add.php"><?php __("Create a list"); ?></a><br />
+	<span class="ina"><a href="mman_add.php"><?php __("Create a list"); ?></a></span><br />
 	<?php
 }
 ?>

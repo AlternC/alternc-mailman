@@ -29,6 +29,13 @@
 */
 require_once("../class/config.php");
 
+$fields = array (
+	"confirm"     => array ("request", "integer", ""),
+	"cancel"     => array ("request", "integer", ""),
+	"d"    => array ("request", "array", ""),
+);
+getFields($fields);
+
 $stchange = (!$quota->cancreate("mailman"));
 
 if ($cancel)

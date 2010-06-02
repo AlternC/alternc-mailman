@@ -138,7 +138,7 @@ class m_mailman {
    * @param $password the initial list password (required)
    * @return boolean TRUE if the list has been created, or FALSE if an error occured
    */
-  function add_lst($domain,$login,$owner,$password) {
+  function add_lst($domain,$login,$owner,$password,$password2) {
     global $db,$err,$quota,$mail,$cuid;
     $err->log("mailman","add_lst",$login."@".$domain." - ".$owner);
     /* the list' internal name */
@@ -159,6 +159,10 @@ class m_mailman {
     }
     if (checkmail($owner)) {
       $err->raise("mailman",4);
+      return false;
+    }
+    if ($password!=$password2) {
+      $err->raise("mailman",12);
       return false;
     }
     $r=$this->prefix_list();
@@ -212,7 +216,7 @@ class m_mailman {
 	return false;
       }
       // Wrapper created, sql ok, now let's create the list :)
-      exec("/usr/lib/alternc/mailman.create \"".escapeshellcmd($login."@".$domain)."\" \"".escapeshellcmd($owner)."\" \"".escapeshellcmd($password)."\"", &$output, &$return);
+      exec("/usr/lib/alternc/mailman.create ".escapeshellarg($login."@".$domain)." ".escapeshellarg($owner)." ".escapeshellarg($password)."", &$output, &$return);
       if ($return) {
         $err->raise("mailman", "failed to create mailman list. error: %d, output: %s", $return, join("\n", $output));
       }

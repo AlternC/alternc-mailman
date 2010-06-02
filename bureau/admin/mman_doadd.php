@@ -29,7 +29,16 @@
 */
 require_once("../class/config.php");
 
-$r=$mailman->add_lst($domain,$login,$owner,$pass);
+$fields = array (
+	"domain"     => array ("request", "string", ""),
+	"login"     => array ("request", "string", ""),
+	"owner"     => array ("request", "string", ""),
+	"pass"     => array ("request", "string", ""),
+	"pass2"     => array ("request", "string", ""),
+);
+getFields($fields);
+
+$r=$mailman->add_lst($domain,$login,$owner,$pass,$pass2);
 if (!$r) {
 	$error=$err->errstr();
 	include("mman_add.php");

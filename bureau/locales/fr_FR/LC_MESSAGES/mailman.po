@@ -35,6 +35,10 @@ msgstr "Propriétaire"
 msgid "Initial list password"
 msgstr "Mot de passe initial"
 
+#: admin/mman_add.php:55
+msgid "Initial list password (confirm)"
+msgstr "Mot de passe initial (confirmation)"
+
 #: admin/mman_add.php:59
 msgid "Create the list."
 msgstr "Créer cette liste."

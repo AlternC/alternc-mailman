@@ -48,6 +48,9 @@ msgstr "Une liste du même nom existe deja. Choisissez un autre nom."
 msgid "err_mailman_11"
 msgstr "Les deux mots de passes sont différents, réessayez."
 
+msgid "err_mailman_12"
+msgstr "Les deux mots de passes sont différents, vérifiez"
+
 msgid "man_mailman_1"
 msgstr ""
 "<ul> "
