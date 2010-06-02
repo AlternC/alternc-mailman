@@ -29,40 +29,57 @@
 */
 require_once("../class/config.php");
 include_once("head.php");
+?>
+	<h3><?php __("Mailing lists"); ?></h3>
 
+<?php
 // If there is no installed domain, let's failed definitely !
 if (count($dom->enum_domains())==0) {
   $error=_("No domain is installed on your account, you cannot create any mailing list!");
   ?>
-	    <h3><?php __("Mailing lists"); ?></h3>
 <hr id="topbar"/>
 <br />
 	 <?php echo "<p class=\"error\">$error</p>"; ?>
 <?php include_once("foot.php");
-
-			exit();
+  exit();
 	 }
 
 if(!$r=$mailman->enum_ml()) {
   $error.=$err->errstr();
 	?>
-	<h3><?php __("Mailing lists"); ?></h3>
 <hr id="topbar"/>
 <br />
 	<?php echo "<p class=\"error\">$error</p>"; ?>
-
+<?php
+if ($quota->cancreate("mailman")) {
+?>
+<p>
+<span class="inb"><a href="mman_add.php"><?php __("Create a list"); ?></a></span>
+</p>
 	<?php
 }
-else {
+?>
+
+	<?php
+} else {
 	?>
-	    <h3><?php __("Mailing lists"); ?></h3>
 <hr id="topbar"/>
 <br />
-
  <?php if ($error) echo "<p class=\"error\">$error</p>"; ?>
 
+<?php
+if ($quota->cancreate("mailman")) {
+?>
+<p>
+<span class="inb"><a href="mman_add.php"><?php __("Create a list"); ?></a></span>
+</p>
+	<?php
+}
+?>
+
+
 	<form method="post" action="mman_del.php">
-	<table cellspacing="0" cellpadding="4" border="1">
+	<table class="tlist">
 	<tr><th><?php __("Delete"); ?></th><th><?php __("List name"); ?></th><th colspan="4">&nbsp;</th></tr>
 	<?php
 	reset($r);
@@ -73,27 +90,23 @@ else {
 		<tr class="lst<?php echo $col; ?>">
 			<td align="center"><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>" id="d_<?php echo $val["id"]; ?>" /></td>
 			<td><label for="d_<?php echo $val["id"]; ?>"><?php echo $val["list"]."@".$val["domain"] ?></label></td>
-			<td>&nbsp;<a href="https://<?php echo $val["domain"]; ?>/cgi-bin/mailman/listinfo/<?php echo $val["name"] ?>"><?php __("Public page"); ?></a>&nbsp;</td>
-			<td>&nbsp;<a href="https://<?php echo $val["domain"]; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a>&nbsp;</td>
-			<td>&nbsp;<a href="https://<?php echo $val["domain"]; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a>&nbsp;</td>
-			<td>&nbsp;<a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a>&nbsp;</td>
-			<td>&nbsp;<a href="mman_members.php?id=<?php echo $val["id"] ?>"><?php __("List Members"); ?></a>&nbsp;</td>
+			<td><div class="ina"><a href="https://<?php echo $val["domain"]; ?>/cgi-bin/mailman/listinfo/<?php echo $val["name"] ?>"><?php __("Public page"); ?></a></div></td>
+			<td><div class="ina"><a href="https://<?php echo $val["domain"]; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a></div></td>
+			<td><div class="ina"><a href="https://<?php echo $val["domain"]; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a></div></td>
+			<td><div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div></td>
+			<td><div class="ina"><a href="mman_members.php?id=<?php echo $val["id"] ?>"><?php __("List Members"); ?></a></div></td>
 		</tr>
 		<?php
 		}
 	?>
-	<tr><td colspan="6" align="center"><input type="submit" class="inb" name="submit" value="<?php __("Delete the checked lists"); ?>" /></td></tr>
 	</table>
-	</form>
+<br />
+<input type="submit" class="inb" name="submit" value="<?php __("Delete the checked lists"); ?>" />
+</form>
 
 	<?php
-}
+	    }
 
-if ($quota->cancreate("mailman")) {
-?>
-	<span class="ina"><a href="mman_add.php"><?php __("Create a list"); ?></a></span><br />
-	<?php
-}
 ?>
 
 <ul>

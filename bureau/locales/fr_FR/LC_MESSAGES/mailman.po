@@ -24,20 +24,20 @@ msgid "(with mailman)"
 msgstr "(avec mailman)"
 
 #: admin/mman_add.php:49
-msgid "Email address"
-msgstr "Adresse email"
+msgid "List's email address"
+msgstr "Adresse email de la liste"
 
 #: admin/mman_add.php:52
-msgid "Owner"
-msgstr "Propriétaire"
+msgid "Email of the list's administrator"
+msgstr "Adresse email de l'administrateur de la liste"
 
 #: admin/mman_add.php:55
-msgid "Initial list password"
-msgstr "Mot de passe initial"
+msgid "List password"
+msgstr "Mot de passe de la liste"
 
 #: admin/mman_add.php:55
-msgid "Initial list password (confirm)"
-msgstr "Mot de passe initial (confirmation)"
+msgid "List password (confirm)"
+msgstr "Mot de passe de la liste (confirmation)"
 
 #: admin/mman_add.php:59
 msgid "Create the list."

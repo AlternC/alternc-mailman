@@ -30,9 +30,9 @@
 require_once("../class/config.php");
 
 $fields = array (
-	"confirm"     => array ("request", "integer", ""),
-	"cancel"     => array ("request", "integer", ""),
-	"d"    => array ("request", "array", ""),
+	"confirm"     => array ("request", "string", ""),
+	"cancel"     => array ("request", "string", ""),
+	"d"    => array ("request", "array", array()),
 );
 getFields($fields);
 
