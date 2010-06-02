@@ -1,3 +1,12 @@
+alternc-mailman (1.9) stable; urgency=low
+
+  * stylesheet from alternc's standard
+  * independent of register_globals 
+  * confirm password when creating list
+  * listname check depending on the multi-domain patch status
+	
+ -- Benjamin Sonntag <benjamin@sonntag.fr>  Wed, 2 Jun 2010 20:08:00 +0200
+
 alternc-mailman (1.8) stable; urgency=low
 
   * reformatting of the class comments in the code (all comments are in english now)
