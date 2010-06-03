@@ -56,7 +56,7 @@ if (!$quota->cancreate("mailman")) {
 	<input type="password" class="int" id="pass" name="pass" value="<?php ehe($pass); ?>" size="20" maxlength="64" />
 	</td></tr>
 <tr><th><label for="pass"><?php __("List password (confirm)"); ?> </label></th><td>
-	<input type="password" class="int" id="pass2" name="pass2" value="<?php ehe($pass); ?>" size="20" maxlength="64" />
+	<input type="password" class="int" id="pass2" name="pass2" value="<?php ehe($pass2); ?>" size="20" maxlength="64" />
 	</td></tr>
 <tr class="trbtn"><td colspan="2">
   <input type="submit" class="inb" name="submit" value="<?php __("Create the list."); ?>"/>
