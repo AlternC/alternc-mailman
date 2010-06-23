@@ -143,6 +143,11 @@ class m_mailman {
     $err->log("mailman","add_lst",$login."@".$domain." - ".$owner);
     /* the list' internal name */
     $login = strtolower($login);
+    if (!checkloginmail($login)) {
+      $err->raise("mailman",8);
+      return false;
+    }
+
     if (file_exists("/usr/share/alternc-mailman/patches/mailman-true-virtual.applied")) {
       $name = $login . '-' . $domain;
     } else {

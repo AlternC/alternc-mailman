@@ -37,7 +37,7 @@ msgid "err_mailman_7"
 msgstr "Vous avez atteint votre quota de listes de discussions, vous ne pouvez plus en créer."
 
 msgid "err_mailman_8"
-msgstr "La partie gauche du @ ne peut pas contenir le caractère '_'"
+msgstr "La partie gauche du @ ne peut pas contenir de caractères spéciaux (_, espace etc.)"
 
 msgid "err_mailman_9"
 msgstr "La liste spécifiée n'existe pas"

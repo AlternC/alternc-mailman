@@ -36,7 +36,7 @@ msgid "err_mailman_7"
 msgstr "Your mailing-list quota is over, you cannot create more mailing-lists."
 
 msgid "err_mailman_8"
-msgstr "The part before @ cannot contain a _"
+msgstr "The part before @ cannot contain special chars (space, _ etc.)"
 
 msgid "err_mailman_9"
 msgstr "This list does not exist"
