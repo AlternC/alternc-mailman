@@ -1,19 +1,21 @@
 alternc-mailman (1.9) stable; urgency=low
 
   * stylesheet from alternc's standard
-  * independent of register_globals 
+  * independent of register_globals
   * confirm password when creating list
   * listname check depending on the multi-domain patch status
-	
+  * reverted the 'list url' behavior to http://fqdn-of-the-panel/cgi-bin/mailman
+	see http://benjamin.sonntag.fr/download/mailman-discussion.mp3 for a complete audio note about it... (french)
+
  -- Benjamin Sonntag <benjamin@sonntag.fr>  Wed, 2 Jun 2010 20:08:00 +0200
 
 alternc-mailman (1.8) stable; urgency=low
 
   * reformatting of the class comments in the code (all comments are in english now)
-  * changing desktop color to blue :) 
+  * changing desktop color to blue :)
   * misc security sanitizing patchs from alternc 0.9.10pre
   * added the ability to change a list's password from the panel (in case you forgot it)
-	
+
  -- Benjamin Sonntag <benjamin@sonntag.fr>  Sat, 14 Jun 2009 10:43:00 +0200
 
 alternc-mailman (1.7) stable; urgency=low
@@ -35,7 +37,7 @@ alternc-mailman (1.6) stable; urgency=low
   * add portuguese translation
   * adapt to standards 3.7.3 (copyright file fix)
   * fix list removal (#1096)
-  
+
   [ Pierre-Gilles ]
   * fix URL of mailing lists when domain is an IP redirection
 
@@ -65,7 +67,7 @@ alternc-mailman (1.4.12) stable; urgency=low
 
 alternc-mailman (1.4.11) stable; urgency=low
 
-  * Correcting a bug on postinst that causes a crash for ALL MAILS 
+  * Correcting a bug on postinst that causes a crash for ALL MAILS
     coming in the server : postfix was sending all mails to mailman !
 
  -- Benjamin Sonntag <benjamin@alternc.org>  Mon,  8 May 2006 23:25:30 +0200
@@ -130,7 +132,7 @@ alternc-mailman (1.2) testing; urgency=medium
 
   * Upstream package upgrade for AlternC 0.9.3
   * Upstream package upgrade from mailman sarge
-	
+
  -- Benjamin Sonntag <benjamin@alternc.org>  Fri, 01 Apr 2005 20:31:00 +0200
 
 alternc-mailman (1.1-3) unstable; urgency=medium
@@ -157,7 +159,7 @@ alternc-mailman (1.0-3) unstable; urgency=low
   * Upstream package upgrade for AlternC 1.0
 
  -- Benjamin Sonntag <benjamin@alternc.org>  Fri, 13 Jun 2003 00:00:00 +0100
-	
+
 alternc-mailman (1.0-3) unstable; urgency=low
 
   * Adding postinst, postrm scripts with correct apache/apache-ssl/alternc reconfiguration
