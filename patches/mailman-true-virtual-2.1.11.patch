@@ -1,5 +1,5 @@
---- bin/newlist.orig	2007-02-28 16:35:57.000000000 -0500
-+++ bin/newlist	2010-09-23 10:13:17.000000000 -0400
+--- mailman/bin/newlist.orig	2007-02-28 16:35:57.000000000 -0500
++++ mailman/bin/newlist	2010-09-23 10:13:17.000000000 -0400
 @@ -164,7 +164,7 @@
  
      if '@' in listname:
@@ -9,8 +9,8 @@
          urlhost = urlhost or domain
          emailhost = emailhost or mm_cfg.VIRTUAL_HOSTS.get(domain, domain)
  
---- Mailman/Gui/General.py.orig	2010-05-20 17:39:38.000000000 -0400
-+++ Mailman/Gui/General.py	2010-09-23 10:13:17.000000000 -0400
+--- mailman/Mailman/Gui/General.py.orig	2010-05-20 17:39:38.000000000 -0400
++++ mailman/Mailman/Gui/General.py	2010-09-23 10:13:17.000000000 -0400
 @@ -426,7 +426,7 @@
  
      def _setValue(self, mlist, property, val, doc):
@@ -20,8 +20,8 @@
              # These values can't differ by other than case
              doc.addError(_("""<b>real_name</b> attribute not
              changed!  It must differ from the list's name by case
---- Mailman/Handlers/CookHeaders.py.orig	2007-02-28 16:35:58.000000000 -0500
-+++ Mailman/Handlers/CookHeaders.py	2010-09-23 10:13:17.000000000 -0400
+--- mailman/Mailman/Handlers/CookHeaders.py.orig	2007-02-28 16:35:58.000000000 -0500
++++ mailman/Mailman/Handlers/CookHeaders.py	2010-09-23 10:13:17.000000000 -0400
 @@ -180,7 +180,9 @@
      if msgdata.get('_nolist') or not mlist.include_rfc2369_headers:
          return
@@ -33,8 +33,8 @@
      cset = Utils.GetCharSet(mlist.preferred_language)
      if mlist.description:
          # Don't wrap the header since here we just want to get it properly RFC
---- Mailman/MailList.py.orig	2010-05-20 17:39:38.000000000 -0400
-+++ Mailman/MailList.py	2010-09-23 10:13:17.000000000 -0400
+--- mailman/Mailman/MailList.py.orig	2010-05-20 17:39:38.000000000 -0400
++++ mailman/Mailman/MailList.py	2010-09-23 10:13:17.000000000 -0400
 @@ -185,9 +185,14 @@
          return self._full_path
  
@@ -104,8 +104,8 @@
                      # exact match against the complete list address
                      addr == listfullname):
                  return True
---- bin/rmlist.orig	2010-05-20 17:39:37.000000000 -0400
-+++ bin/rmlist	2010-09-23 10:13:19.000000000 -0400
+--- mailman/bin/rmlist.orig	2010-05-20 17:39:37.000000000 -0400
++++ mailman/bin/rmlist	2010-09-23 10:13:19.000000000 -0400
 @@ -92,6 +92,11 @@
          usage(1)
      listname = args[0].lower().strip()

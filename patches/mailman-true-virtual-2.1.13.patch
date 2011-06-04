@@ -1,5 +1,5 @@
---- bin/newlist.orig	2011-06-04 16:03:31.000000000 +0200
-+++ bin/newlist	2011-06-04 16:06:45.000000000 +0200
+--- mailman/bin/newlist.orig	2011-06-04 16:03:31.000000000 +0200
++++ mailman/bin/newlist	2011-06-04 16:06:45.000000000 +0200
 @@ -164,7 +164,7 @@
  
      if '@' in listname:
@@ -9,8 +9,8 @@
          urlhost = urlhost or domain
          emailhost = emailhost or mm_cfg.VIRTUAL_HOSTS.get(domain, domain)
  
---- bin/rmlist.orig	2011-06-04 16:03:35.000000000 +0200
-+++ bin/rmlist	2011-06-04 16:06:45.000000000 +0200
+--- mailman/bin/rmlist.orig	2011-06-04 16:03:35.000000000 +0200
++++ mailman/bin/rmlist	2011-06-04 16:06:45.000000000 +0200
 @@ -92,6 +92,11 @@
          usage(1)
      listname = args[0].lower().strip()
@@ -23,8 +23,8 @@
      removeArchives = False
      for opt, arg in opts:
          if opt in ('-a', '--archives'):
---- Mailman/Gui/General.py.orig	2011-02-16 21:14:58.000000000 +0100
-+++ Mailman/Gui/General.py	2011-06-04 16:06:45.000000000 +0200
+--- mailman/Mailman/Gui/General.py.orig	2011-02-16 21:14:58.000000000 +0100
++++ mailman/Mailman/Gui/General.py	2011-06-04 16:06:45.000000000 +0200
 @@ -426,7 +426,7 @@
  
      def _setValue(self, mlist, property, val, doc):
@@ -34,8 +34,8 @@
              # These values can't differ by other than case
              doc.addError(_("""<b>real_name</b> attribute not
              changed!  It must differ from the list's name by case
---- Mailman/Handlers/CookHeaders.py.orig	2011-06-04 16:03:20.000000000 +0200
-+++ Mailman/Handlers/CookHeaders.py	2011-06-04 16:06:45.000000000 +0200
+--- mailman/Mailman/Handlers/CookHeaders.py.orig	2011-06-04 16:03:20.000000000 +0200
++++ mailman/Mailman/Handlers/CookHeaders.py	2011-06-04 16:06:45.000000000 +0200
 @@ -180,7 +180,9 @@
      if msgdata.get('_nolist') or not mlist.include_rfc2369_headers:
          return
@@ -47,8 +47,8 @@
      cset = Utils.GetCharSet(mlist.preferred_language)
      if mlist.description:
          # Don't wrap the header since here we just want to get it properly RFC
---- Mailman/MailList.py.orig	2011-06-04 15:59:14.000000000 +0200
-+++ Mailman/MailList.py	2011-06-04 16:06:45.000000000 +0200
+--- mailman/Mailman/MailList.py.orig	2011-06-04 15:59:14.000000000 +0200
++++ mailman/Mailman/MailList.py	2011-06-04 16:06:45.000000000 +0200
 @@ -185,9 +185,14 @@
          return self._full_path
  

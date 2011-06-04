@@ -3,20 +3,20 @@
 # Copyright (C)  2002 the AlternC Development Team
 # <tech@alternc.org>
 #
-# Daniel Viñar Ulriksen <dani@belil.net>, 2008.
+# Daniel ViÃ±ar Ulriksen <dani@belil.net>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: mailman_manual\n"
 "PO-Revision-Date: 2008-02-17 01:11-0400\n"
-"Last-Translator: Daniel Viñar Ulriksen <dani@belil.net>\n"
+"Last-Translator: Daniel ViÃ±ar Ulriksen <dani@belil.net>\n"
 "Language-Team: Spanish <i18n@alternc.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
 msgid "err_mailman_1"
-msgstr "Aucune liste de discussion de trouvé"
+msgstr "Aucune liste de discussion de trouvÃ©"
 
 msgid "err_mailman_2"
 msgstr "Le login (partie gauche de @) est obligatoire."
@@ -31,33 +31,33 @@ msgid "err_mailman_5"
 msgstr "Ce domaine n'existe pas."
 
 msgid "err_mailman_6"
-msgstr "Cette adresse email (ou l'un des liste-subscribe, liste-unsubscribe etc.) est déjà utilisée."
+msgstr "Cette adresse email (ou l'un des liste-subscribe, liste-unsubscribe etc.) est dÃ©jÃ  utilisÃ©e."
 
 msgid "err_mailman_7"
-msgstr "Vous avez atteint votre quota de listes de discussions, vous ne pouvez plus en créer."
+msgstr "Vous avez atteint votre quota de listes de discussions, vous ne pouvez plus en crÃ©er."
 
 msgid "err_mailman_8"
-msgstr "La partie gauche du @ ne peut pas contenir de caractères spéciaux (_, espace etc.)"
+msgstr "La partie gauche du @ ne peut pas contenir de caractÃ¨res spÃ©ciaux (_, espace etc.)"
 
 msgid "err_mailman_9"
-msgstr "La liste spécifiée n'existe pas"
+msgstr "La liste spÃ©cifiÃ©e n'existe pas"
 
 msgid "err_mailman_10"
-msgstr "Une liste du même nom (partie gauche de l'@) existe deja sur ce serveur. Vous devez choisir un autre nom."
+msgstr "Une liste du mÃªme nom (partie gauche de l'@) existe deja sur ce serveur. Vous devez choisir un autre nom."
 
 msgid "err_mailman_11"
-msgstr "Les deux mots de passes sont différents, réessayez."
+msgstr "Les deux mots de passes sont diffÃ©rents, rÃ©essayez."
 
 msgid "err_mailman_12"
-msgstr "Les deux mots de passes sont différents, vérifiez"
+msgstr "Les deux mots de passes sont diffÃ©rents, vÃ©rifiez"
 
 msgid "man_mailman_1"
 msgstr ""
 "<ul> "
-"<li>Mailman est un gestionnaire de liste de discussion/diffusion très puissant. Il possède une interface web complète de gestion de liste, accessible par les différents liens ci-dessus.</li>"
-"<li>Mailman permet de modérer une liste : pour modérer les futurs abonnés, aller dans \"Options de confidentialité\"->\"Filtres expéditeur\" puis choisissez \"Oui\" dans \"Les envois des nouveaux abonnés doivent être modérés par défaut?\". En effet, mailman peut modérer CHAQUE abonné d'une liste.</li>"
-"<li>Pour modérer les NON-abonnés d'une liste, aller dans \"Options de confidentialité\"->\"Filtres expéditeur\" puis choisissez parmi \"Accepter En attente Rejeter Ignorer\" pour \"Action à entreprendre pour les envois des non-abonnés\"</li>"
-"<li>De nombreuses autres options peuvent être modifiées dans mailman. Pour toute information, cliquez sur le lien \"Détails de ...\" en dessous de chaque élément configurable, ou contactez-nous.</li>"
+"<li>Mailman est un gestionnaire de liste de discussion/diffusion trÃ¨s puissant. Il possÃ¨de une interface web complÃ¨te de gestion de liste, accessible par les diffÃ©rents liens ci-dessus.</li>"
+"<li>Mailman permet de modÃ©rer une liste : pour modÃ©rer les futurs abonnÃ©s, aller dans \"Options de confidentialitÃ©\"->\"Filtres expÃ©diteur\" puis choisissez \"Oui\" dans \"Les envois des nouveaux abonnÃ©s doivent Ãªtre modÃ©rÃ©s par dÃ©faut?\". En effet, mailman peut modÃ©rer CHAQUE abonnÃ© d'une liste.</li>"
+"<li>Pour modÃ©rer les NON-abonnÃ©s d'une liste, aller dans \"Options de confidentialitÃ©\"->\"Filtres expÃ©diteur\" puis choisissez parmi \"Accepter En attente Rejeter Ignorer\" pour \"Action Ã  entreprendre pour les envois des non-abonnÃ©s\"</li>"
+"<li>De nombreuses autres options peuvent Ãªtre modifiÃ©es dans mailman. Pour toute information, cliquez sur le lien \"DÃ©tails de ...\" en dessous de chaque Ã©lÃ©ment configurable, ou contactez-nous.</li>"
 "</ul>"
 
 msgid "quota_mailman"
