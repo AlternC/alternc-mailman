@@ -64,7 +64,7 @@ DEFAULT_URL_HOST   = '%%fqdn%%'
 add_virtualhost(DEFAULT_URL_HOST, DEFAULT_EMAIL_HOST)
 
 DEFAULT_HOST_NAME = '%%fqdn%%'
-DEFAULT_URL_PATTERN = 'http://%%fqdn%%/cgi-bin/mailman/'
+DEFAULT_URL_PATTERN = 'http://%s/cgi-bin/mailman/'
 IMAGE_LOGOS       = '/images/mailman/'
 USE_ENVELOPE_SENDER = 0
 DEFAULT_SEND_REMINDERS = 0
