@@ -3,7 +3,7 @@ alternc-mailman (2.0) stable; urgency=low
   * fix patch for mailman-virtual for 2.1.13 (squeeze version)
   * fix the mm_cfg error (missing %s) and postinst (typos)
 
- -- Benjamin Sonntag <benjamin@sonntag.fr>  Sat, 4 Jun 2011 15:52:00 +0200
+ -- Benjamin Sonntag <benjamin@alternc.org> Sat, 4 Jun 2011 18:18:18 +0200
 
 alternc-mailman (1.9) stable; urgency=low
 

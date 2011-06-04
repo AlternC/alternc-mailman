@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Antoine Beaupré <antoine@koumbit.org>
 Uploaders: Benjamin Sonntag <benjamin@alternc.org>
 Build-Depends: debhelper (>= 4.0.2), po-debconf
-Standards-Version: 3.7.3
+Standards-Version: 3.9.1
 
 Package: alternc-mailman
 Priority: optional
