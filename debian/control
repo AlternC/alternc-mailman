@@ -13,11 +13,20 @@ Architecture: all
 Pre-Depends: alternc (>= 0.9.8)
 Depends: mailman (>= 2.1), mysql-client, debconf, perl-suid, patch
 Description: Mailman module for AlternC
- AlternC is a hosting software suite based on Valentin
- Lacambre's altern.org French hosting service.
+ AlternC is a mutualized hosting software manager for Linux.
+ It allows you to manage your websites, domains, ftp, emails, aliases,
+ web statistics, mailing-lists, jabber accounts, etc.
  .
- This package is an optional module that add mailman mailing-lists
- managment to the virtual desktop. It declares a new AlternC class
- called m_mailman.
+ This package is an optional module that adds mailman mailing-lists
+ managment to the virtual desktop. 
  .
- More information on http://www.alternc.org/
+ More information on http://www.alternc.com/
+Description-fr.UTF-8: Module Mailman pour AlternC
+ AlternC est un logiciel d'hébergement mutualisé pour serveur Linux.
+ Il permet de gérer les sites web, domaines, ftp, emails, alias,
+ statistiques web, listes de discussions, comptes jabber, etc.
+ .
+ Ce paquet est un module optionnel qui permet aux utilisateurs
+ de gérer des listes de diffusion et discussions via Mailman dans AlternC.
+ .
+ Pour plus d'informations, consultez http://www.alternc.com/
