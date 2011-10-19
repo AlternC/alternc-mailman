@@ -12,3 +12,4 @@ var/alternc/bureau/locales/en_US/LC_MESSAGES
 var/alternc/bureau/locales/fr_FR/LC_MESSAGES
 var/alternc/cgi-bin
 var/backups/alternc
+var/lib/mailman/bin
