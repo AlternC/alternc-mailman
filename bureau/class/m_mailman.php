@@ -337,6 +337,58 @@ uid='$cuid' AND id='$id';");
 
 
   /* ----------------------------------------------------------------- */
+  /**
+   * Returns the current url for $list administration
+   * @param $list integer the list for which we want the url
+   * @return string the url (starting by http or https) or false if an error occured
+   */
+  function get_list_url($list) {
+    global $db,$err,$cuid;
+    $q = "SELECT * FROM mailman WHERE uid = '" . $cuid . "' && id = '" . intval($list) . "'";
+    $db->query($q);
+    $db->next_record();
+    if (!$db->f("id")) {
+      $err->raise("mailman",9);
+      return false;
+    }
+    $list=$db->Record["name"];
+    unset($out);
+    $exec="/usr/lib/alternc/mailman.geturl ".escapeshellarg($list);
+    exec($exec,$out,$ret);
+    if ($ret) return false;
+    if ($out[0]) 
+      return $out[0]; 
+    else 
+      return false;
+  }
+
+
+  /* ----------------------------------------------------------------- */
+  /**
+   * Set the management url for $list 
+   * @param $list integer the list for which we want to change the url
+   * @param $url string the url, MUST be either http:// or https:// + domain + /cgi-bin/mailman/
+   * @return boolean TRUE if the url has been changes
+   */
+  function set_list_url($list,$newurl) {
+    global $db,$err,$cuid;
+    $q = "SELECT * FROM mailman WHERE uid = '" . $cuid . "' && id = '" . intval($list) . "'";
+    $db->query($q);
+    $db->next_record();
+    if (!$db->f("id")) {
+      $err->raise("mailman",9);
+      return false;
+    }
+    $list=$db->Record["name"];
+    unset($out);
+    $exec="/usr/lib/alternc/mailman.seturl ".escapeshellarg($list)." ".escapeshellarg($newurl);
+    exec($exec,$out,$ret);
+    if ($ret) return false;
+    return true;
+  }
+
+
+  /* ----------------------------------------------------------------- */
   /** This function is a hook who is called each time a domain is uninstalled
    * in an account (or when we select "gesmx = no" in the domain panel.)
    * @param string $dom Domaine to delete

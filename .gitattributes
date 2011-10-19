@@ -4,7 +4,9 @@
 bureau/admin/images/mailman.png -text
 bureau/admin/mman_dodel.php -text
 bureau/admin/mman_dopasswd.php -text
+bureau/admin/mman_dourl.php -text
 bureau/admin/mman_passwd.php -text
+bureau/admin/mman_url.php -text
 bureau/locales/Makefile -text
 bureau/locales/en_US/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/es_ES/LC_MESSAGES/mailman.po -text
@@ -28,10 +30,14 @@ patches/mailman-true-virtual-2.1.13.patch -text
 patches/mailman-true-virtual-2.1.4.patch -text
 patches/mailman-true-virtual-2.1.5.patch -text
 patches/mailman-true-virtual-2.1.9.patch -text
+src/get_url_alternc.py -text
 src/mailman.create -text
 src/mailman.delete -text
+src/mailman.geturl -text
 src/mailman.list -text
 src/mailman.passwd -text
+src/mailman.seturl -text
 src/mailman.sub -text
 src/mailman.unsub -text
+src/set_url_alternc.py -text
 /updatepot.sh -text

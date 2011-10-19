@@ -1,0 +1,35 @@
+#!/usr/bin/perl 
+
+use strict;
+
+my ($listname) = @ARGV;
+
+my $M_PATH = "/usr/lib/mailman/bin/withlist";
+
+if (!$listname) {
+    print "Usage: mailman.geturl <listname>\n";
+    exit(1);
+}
+
+sub escapeshellarg {
+	my ($st) = @_;
+	$st =~ s/\'/\'\\\'\'/;
+	return "'".$st."'";
+}
+
+$ENV{PATH} = "";
+delete @ENV{'IFS', 'CDPATH', 'ENV', 'BASH_ENV'};
+
+$< = $>;
+$( = $);
+
+if (!(
+    ($listname =~ /^([a-z0-9\._\+-]+)$/) || 
+    ($listname =~ /^([a-z0-9\._-]+\@[a-z0-9\.-]+)$/) 
+    )) {
+    die "List name is incorrect.";
+}
+$listname=$1;
+
+
+exec($M_PATH." -q -l -r get_url_alternc ".escapeshellarg($listname));

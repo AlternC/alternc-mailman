@@ -1,0 +1,43 @@
+#!/usr/bin/perl 
+
+use strict;
+
+my ($listname,$url) = @ARGV;
+
+my $M_PATH = "/usr/lib/mailman/bin/withlist";
+
+if (!$listname || !$url) {
+    print "Usage: mailman.seturl <listname> <url>\n";
+    exit(1);
+}
+
+sub escapeshellarg {
+	my ($st) = @_;
+	$st =~ s/\'/\'\\\'\'/;
+	return "'".$st."'";
+}
+
+$ENV{PATH} = "";
+delete @ENV{'IFS', 'CDPATH', 'ENV', 'BASH_ENV'};
+
+$< = $>;
+$( = $);
+
+if (!(
+    ($listname =~ /^([a-z0-9\._\+-]+)$/) || 
+    ($listname =~ /^([a-z0-9\._-]+\@[a-z0-9\.-]+)$/) 
+    )) {
+    die "List name is incorrect.";
+}
+$listname=$1;
+
+if (!
+    ($url =~ /^(https?:\/\/[a-z0-9\._-]+\/cgi-bin\/mailman\/)$/)
+    ) {
+    die "URL is incorrect.";
+}
+$url=$1;
+
+# /usr/lib/mailman/bin/withlist -q -l -r fix_url_alternc "$1" "$2"
+exec($M_PATH." -q -l -r set_url_alternc ".escapeshellarg($listname)." ".escapeshellarg($url));
+

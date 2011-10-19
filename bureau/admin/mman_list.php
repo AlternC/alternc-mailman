@@ -88,12 +88,14 @@ if ($quota->cancreate("mailman")) {
 		$col=3-$col;
 		?>
 		<tr class="lst<?php echo $col; ?>">
-		   <td align="center"><?php if ($val["list"]!="mailman") { ?><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>" id="d_<?php echo $val["id"]; ?>" /><?php } ?></td>
-		   <td><label for="d_<?php echo $val["id"]; ?>"><?php echo $val["list"]."@".$val["domain"] ?></label></td>
+		   <td align="center" rowspan="2"><?php if ($val["list"]!="mailman") { ?><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>" id="d_<?php echo $val["id"]; ?>" /><?php } ?></td>
+		   <td rowspan="2"><label for="d_<?php echo $val["id"]; ?>"><?php echo $val["list"]."@".$val["domain"] ?></label></td>
 			<td><div class="ina"><a href="http://<?php echo $L_FQDN; ?>/cgi-bin/mailman/listinfo/<?php echo $val["name"] ?>"><?php __("Public page"); ?></a></div></td>
 			<td><div class="ina"><a href="http://<?php echo $L_FQDN; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a></div></td>
 			<td><div class="ina"><a href="http://<?php echo $L_FQDN; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a></div></td>
+</tr><tr class="lst<?php echo $col; ?>">
 			<td><div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div></td>
+			<td><div class="ina"><a href="mman_url.php?id=<?php echo $val["id"] ?>"><?php __("Change url"); ?></a></div></td>
 			<td><div class="ina"><a href="mman_members.php?id=<?php echo $val["id"] ?>"><?php __("List Members"); ?></a></div></td>
 		</tr>
 		<?php

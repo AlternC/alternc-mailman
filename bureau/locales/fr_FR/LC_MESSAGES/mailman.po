@@ -140,3 +140,24 @@ msgstr "Confirmation du mot de passe"
 #: admin/mman_passwd.php:59
 msgid "Change the password."
 msgstr "Modifier le mot de passe."
+
+msgid "The mailing list management url has been successfully changed."
+msgstr "L'adresse URL de gestion de la liste a été modifiée avec succès."
+
+msgid "This is the current url to access administration and public pages for this list. If you want to change it, select another url in the list and submit this form. <br />If you don't know what you are doing, don't change anything here."
+msgstr "Voici l'adresse actuelle d'administration de votre liste, et des pages publiques. Si vous souhaitez la changer, choisissez une autre adresse dans la liste ci-dessous et validez. <br />Si vous ne savez pas de quoi il s'agit, ne touchez à rien."
+
+msgid "Changing management url of list %s"
+msgstr "Modification de l'adresse de gestion de la liste %s"
+
+msgid "Current list url"
+msgstr "Adresse actuelle"
+
+msgid "New list management url"
+msgstr "Nouvelle adresse de la liste"
+
+msgid "Change the url."
+msgstr "Modifier l'adresse."
+
+msgid "Change url"
+msgstr "Changer l'adresse"

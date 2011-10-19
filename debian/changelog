@@ -1,3 +1,9 @@
+alternc-mailman (2.1) stable; urgency=low
+
+  * ADD the ability to choose the URL of the web pages for mailman lists
+
+ -- Benjamin Sonntag <benjamin@alternc.org>  Wed, 19 Oct 2011 17:12:00 +0200
+
 alternc-mailman (2.0) stable; urgency=low
 
   * fix patch for mailman-virtual for 2.1.13 (squeeze version)
