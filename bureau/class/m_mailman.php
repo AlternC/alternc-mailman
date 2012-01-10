@@ -221,7 +221,11 @@ class m_mailman {
 	return false;
       }
       // Wrapper created, sql ok, now let's create the list :)
-      exec("/usr/lib/alternc/mailman.create ".escapeshellarg($login."@".$domain)." ".escapeshellarg($owner)." ".escapeshellarg($password)."", &$output, &$return);
+			if (file_exists("/usr/share/alternc-mailman/patches/mailman-true-virtual.applied")) {
+      	exec("/usr/lib/alternc/mailman.create ".escapeshellarg($login."@".$domain)." ".escapeshellarg($owner)." ".escapeshellarg($password)."", &$output, &$return);
+    	} else {
+      	exec("/usr/lib/alternc/mailman.create ".escapeshellarg($login)." ".escapeshellarg($owner)." ".escapeshellarg($password)."", &$output, &$return);
+    	}
       if ($return) {
         $err->raise("mailman", "failed to create mailman list. error: %d, output: %s", $return, join("\n", $output));
       }
