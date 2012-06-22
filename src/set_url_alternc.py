@@ -38,7 +38,15 @@ from Mailman.i18n import _
 
 
 def set_url_alternc(mlist, args):
-    mlist.web_page_url = sys.argv[6]
+
+    web_page_url = sys.argv[6]
+
+    if web_page_url:
+        web_page_url = mm_cfg.DEFAULT_URL_PATTERN % web_page_url
+    else:
+        web_page_url = mm_cfg.DEFAULT_URL_PATTERN % mm_cfg.DEFAULT_URL_HOST
+
+    mlist.web_page_url = web_page_url
     mlist.Save()
     mlist.Unlock()
 
