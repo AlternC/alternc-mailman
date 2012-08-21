@@ -10,42 +10,53 @@ msgstr ""
 "PO-Revision-Date: 2003-02-03 08:16 +0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@octopuce.com>\n"
 "Language-Team: English <dev@alternc.org>\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "err_mailman_1"
-msgstr "A lista não definida ainda"
+msgstr "A lista nÃ£o definida ainda"
 
 msgid "err_mailman_2"
-msgstr "O login (parte esquerda do @) é obrigatório"
+msgstr "O login (parte esquerda do @) Ã© obrigatÃ³rio"
 
 msgid "err_mailman_3"
-msgstr "O email do dono e a senha são obrigatórios"
+msgstr "O email do dono e a senha sÃ£o obrigatÃ³rios"
 
 msgid "err_mailman_4"
-msgstr "Este email está incorreto"
+msgstr "Este email estÃ¡ incorreto"
 
 msgid "err_mailman_5"
-msgstr "Este domínio não  existe."
+msgstr "Este domÃ­nio nÃ£o  existe."
 
 msgid "err_mailman_6"
 msgstr ""
-"Este endereço de email (ou um da lista assinadas, lista não assinadas "
-"etc.) já  foi usado."
+"Este endereÃ§o de email (ou um da lista assinadas, lista nÃ£o assinadas etc.) "
+"jÃ¡Â  foi usado."
 
 msgid "err_mailman_7"
-msgstr ""
-"Sua cota de listas de envio acabou, você não pode criar mais listas."
+msgstr "Sua cota de listas de envio acabou, vocÃª nÃ£o pode criar mais listas."
+
+#, fuzzy
+msgid "err_mailman_8"
+msgstr "A lista nÃ£o definida ainda"
 
 msgid "err_mailman_9"
-msgstr "Esta lista nãoo existe"
+msgstr "Esta lista nÃ£oo existe"
 
 msgid "err_mailman_10"
 msgstr ""
-"Uma lista com o mesmo nome já  existe no servidor. Por favor escolha um "
+"Uma lista com o mesmo nome jÃ¡Â  existe no servidor. Por favor escolha um "
 "outro nome."
+
+#, fuzzy
+msgid "err_mailman_11"
+msgstr "A lista nÃ£o definida ainda"
+
+#, fuzzy
+msgid "man_mailman_1"
+msgstr "A lista nÃ£o definida ainda"
 
 msgid "quota_mailman"
 msgstr "Enviando listas (mailman)"
-

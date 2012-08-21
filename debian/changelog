@@ -1,6 +1,8 @@
 alternc-mailman (2.1) stable; urgency=low
 
   * ADD the ability to choose the URL of the web pages for mailman lists
+  * ADD the sync_members (from a textfield) functionality
+  * CHANGE locales to be UTF-8 encoded + adding de_DE and pt_BR + standard way of doing locales/ in AlternC
 
  -- Benjamin Sonntag <benjamin@alternc.org>  Wed, 19 Oct 2011 17:12:00 +0200
 

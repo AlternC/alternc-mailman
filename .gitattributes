@@ -9,6 +9,8 @@ bureau/admin/mman_passwd.php -text
 bureau/admin/mman_syncmembers.php -text
 bureau/admin/mman_url.php -text
 bureau/locales/Makefile -text
+bureau/locales/de_DE/LC_MESSAGES/mailman.pot -text
+bureau/locales/de_DE/LC_MESSAGES/mailman_manual.pot -text
 bureau/locales/en_US/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/es_ES/LC_MESSAGES/mailman.po -text
 bureau/locales/es_ES/LC_MESSAGES/mailman_manual.po -text
@@ -42,4 +44,3 @@ src/mailman.sub -text
 src/mailman.sync -text
 src/mailman.unsub -text
 src/set_url_alternc.py -text
-/updatepot.sh -text
