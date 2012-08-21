@@ -93,9 +93,6 @@ case "$1" in
     ln -sf /usr/lib/cgi-bin/mailman /var/alternc/cgi-bin/mailman
     alternc.install
 
-    # Process the language compilation.
-    /usr/share/alternc/install/dopo.sh
-
     # ADD Mailman menu item : 
     if ! grep -q "^menu_mailman.php$" "$MENUFILE"; then
         rm -f $MENUFILE.alternc_mailman
