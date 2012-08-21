@@ -24,7 +24,10 @@ debian/NEWS -text
 debian/compat -text
 debian/config -text
 debian/po/POTFILES.in -text
+debian/po/de.po -text
+debian/po/es.po -text
 debian/po/fr.po -text
+debian/po/pt.po -text
 debian/po/templates.pot -text
 debian/templates -text
 patches/mailman-true-virtual-2.1.1.patch -text

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
 "Report-Msgid-Bugs-To: i18n@alternc.org\n"
-"POT-Creation-Date: 2009-06-14 10:30+0200\n"
+"POT-Creation-Date: 2012-08-21 12:18+0200\n"
 "PO-Revision-Date: 2003-02-03 08:16 +0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@octopuce.com>\n"
 "Language-Team: English <dev@alternc.org>\n"
@@ -15,14 +15,185 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin/menu_mailman.php:37 admin/mman_add.php:38 admin/mman_list.php:37
-#: admin/mman_list.php:47 admin/mman_list.php:54 admin/mman_passwd.php:40
+#: ../admin/menu_mailman.php:37 admin/menu_mailman.php:37
+msgid "(with mailman)"
+msgstr "(with mailman)"
+
+#: ../admin/menu_mailman.php:37 ../admin/mman_add.php:38
+#: ../admin/mman_list.php:33 ../admin/mman_passwd.php:42
+#: ../admin/mman_passwd.php:50 ../admin/mman_url.php:42
+#: ../admin/mman_url.php:50 admin/menu_mailman.php:37 admin/mman_add.php:38
+#: admin/mman_list.php:37 admin/mman_list.php:47 admin/mman_list.php:54
+#: admin/mman_passwd.php:40
 msgid "Mailing lists"
 msgstr "Mailing lists"
 
-#: admin/menu_mailman.php:37
-msgid "(with mailman)"
-msgstr "(with mailman)"
+#: ../admin/mman_add.php:49
+#, fuzzy
+msgid "List's email address"
+msgstr "Email address"
+
+#: ../admin/mman_add.php:52
+msgid "Email of the list's administrator"
+msgstr ""
+
+#: ../admin/mman_add.php:55
+#, fuzzy
+msgid "List password"
+msgstr "New list password"
+
+#: ../admin/mman_add.php:58
+#, fuzzy
+msgid "List password (confirm)"
+msgstr "Password confirmation"
+
+#: ../admin/mman_add.php:62 admin/mman_add.php:59
+msgid "Create the list."
+msgstr "Create the list."
+
+#: ../admin/mman_add.php:63 ../admin/mman_url.php:85
+msgid "Cancel"
+msgstr ""
+
+#: ../admin/mman_del.php:57 admin/mman_del.php:57
+msgid "Deleting mailman lists"
+msgstr "Deleting mailman lists"
+
+#: ../admin/mman_del.php:60 admin/mman_del.php:58
+msgid "Please confirm the deletion of the following mailman lists:"
+msgstr "Please confirm the deletion of the following mailman lists:"
+
+#: ../admin/mman_del.php:71 admin/mman_del.php:69
+msgid "Delete the selected mailman lists"
+msgstr "Delete the selected mailman lists"
+
+#: ../admin/mman_del.php:71 admin/mman_del.php:69
+msgid "Don't delete lists and go back to the mailman list"
+msgstr "Don't delete lists and go back to the mailman list"
+
+#: ../admin/mman_del.php:76 admin/mman_del.php:74
+msgid ""
+"Warning: Deleting a mailman list will destroy all the subscribed users, "
+"preferences and archives it contains! You will <b>NOT</b> be able to get "
+"your data back!"
+msgstr ""
+"Warning: Deleting a mailman list will destroy all the subscribed users, "
+"preferences and archives it contains! You will <b>NOT</b> be able to get "
+"your data back!"
+
+#: ../admin/mman_doadd.php:47 admin/mman_doadd.php:38
+msgid "The mailing list has been successfully created."
+msgstr "The mailing list has been successfully created."
+
+#: ../admin/mman_dodel.php:65 admin/mman_dodel.php:58
+#, php-format
+msgid "The list %s has been successfully deleted."
+msgstr "The list %s has been successfully deleted."
+
+#: ../admin/mman_dopasswd.php:45 admin/mman_dopasswd.php:38
+msgid "The mailing list password has been successfully changed."
+msgstr "The mailing list password has been successfully changed."
+
+#: ../admin/mman_dourl.php:44
+#, fuzzy
+msgid "The mailing list management url has been successfully changed."
+msgstr "The mailing list password has been successfully changed."
+
+#: ../admin/mman_list.php:38 admin/mman_list.php:35
+msgid ""
+"No domain is installed on your account, you cannot create any mailing list!"
+msgstr ""
+"No domain is installed on your account, you cannot create any mailing list!"
+
+#: ../admin/mman_list.php:57 ../admin/mman_list.php:74 admin/mman_list.php:88
+msgid "Create a list"
+msgstr "Create a list"
+
+#: ../admin/mman_list.php:83 admin/mman_list.php:60
+msgid "Delete"
+msgstr "Delete"
+
+#: ../admin/mman_list.php:83 admin/mman_list.php:60
+msgid "List name"
+msgstr "List name"
+
+#: ../admin/mman_list.php:93 admin/mman_list.php:70
+msgid "Public page"
+msgstr "Public page"
+
+#: ../admin/mman_list.php:94 admin/mman_list.php:71
+msgid "List admin"
+msgstr "List admin"
+
+#: ../admin/mman_list.php:95 admin/mman_list.php:72
+msgid "Pending messages"
+msgstr "Pending messages"
+
+#: ../admin/mman_list.php:98 admin/mman_list.php:73
+msgid "Change password"
+msgstr "Change password"
+
+#: ../admin/mman_list.php:99
+#, fuzzy
+msgid "Change url"
+msgstr "Change password"
+
+#: ../admin/mman_list.php:100 admin/mman_list.php:74
+msgid "List Members"
+msgstr "List Members"
+
+#: ../admin/mman_list.php:101
+#, fuzzy
+msgid "Sync Members"
+msgstr "List Members"
+
+#: ../admin/mman_list.php:108 admin/mman_list.php:79
+msgid "Delete the checked lists"
+msgstr "Delete the checked lists"
+
+#: ../admin/mman_passwd.php:59 admin/mman_passwd.php:50
+#, php-format
+msgid "Changing password of list %s"
+msgstr "Changing password of list %s"
+
+#: ../admin/mman_passwd.php:61 admin/mman_passwd.php:52
+msgid "New list password"
+msgstr "New list password"
+
+#: ../admin/mman_passwd.php:64 admin/mman_passwd.php:55
+msgid "Password confirmation"
+msgstr "Password confirmation"
+
+#: ../admin/mman_passwd.php:68 admin/mman_passwd.php:59
+msgid "Change the password."
+msgstr "Change the password."
+
+#: ../admin/mman_url.php:58
+msgid ""
+"This is the current url to access administration and public pages for this "
+"list. If you want to change it, select another url in the list and submit "
+"this form. <br />If you don't know what you are doing, don't change anything "
+"here."
+msgstr ""
+
+#: ../admin/mman_url.php:63
+#, fuzzy, php-format
+msgid "Changing management url of list %s"
+msgstr "Changing password of list %s"
+
+#: ../admin/mman_url.php:65
+#, fuzzy
+msgid "Current list url"
+msgstr "Create a list"
+
+#: ../admin/mman_url.php:68
+msgid "New list management url"
+msgstr ""
+
+#: ../admin/mman_url.php:84
+#, fuzzy
+msgid "Change the url."
+msgstr "Change the password."
 
 #: admin/mman_add.php:49
 msgid "Email address"
@@ -35,105 +206,3 @@ msgstr "Owner"
 #: admin/mman_add.php:55
 msgid "Initial list password"
 msgstr "Initial list password"
-
-#: admin/mman_add.php:59
-msgid "Create the list."
-msgstr "Create the list."
-
-#: admin/mman_del.php:57
-msgid "Deleting mailman lists"
-msgstr "Deleting mailman lists"
-
-#: admin/mman_del.php:58
-msgid "Please confirm the deletion of the following mailman lists:"
-msgstr "Please confirm the deletion of the following mailman lists:"
-
-#: admin/mman_del.php:69
-msgid "Delete the selected mailman lists"
-msgstr "Delete the selected mailman lists"
-
-#: admin/mman_del.php:69
-msgid "Don't delete lists and go back to the mailman list"
-msgstr "Don't delete lists and go back to the mailman list"
-
-#: admin/mman_del.php:74
-msgid ""
-"Warning: Deleting a mailman list will destroy all the subscribed users, "
-"preferences and archives it contains! You will <b>NOT</b> be able to get "
-"your data back!"
-msgstr ""
-"Warning: Deleting a mailman list will destroy all the subscribed users, "
-"preferences and archives it contains! You will <b>NOT</b> be able to get "
-"your data back!"
-
-#: admin/mman_doadd.php:38
-msgid "The mailing list has been successfully created."
-msgstr "The mailing list has been successfully created."
-
-#: admin/mman_dodel.php:58
-#, php-format
-msgid "The list %s has been successfully deleted."
-msgstr "The list %s has been successfully deleted."
-
-#: admin/mman_dopasswd.php:38
-msgid "The mailing list password has been successfully changed."
-msgstr "The mailing list password has been successfully changed."
-
-#: admin/mman_list.php:35
-msgid ""
-"No domain is installed on your account, you cannot create any mailing list!"
-msgstr ""
-"No domain is installed on your account, you cannot create any mailing list!"
-
-#: admin/mman_list.php:60
-msgid "Delete"
-msgstr "Delete"
-
-#: admin/mman_list.php:60
-msgid "List name"
-msgstr "List name"
-
-#: admin/mman_list.php:70
-msgid "Public page"
-msgstr "Public page"
-
-#: admin/mman_list.php:71
-msgid "List admin"
-msgstr "List admin"
-
-#: admin/mman_list.php:72
-msgid "Pending messages"
-msgstr "Pending messages"
-
-#: admin/mman_list.php:73
-msgid "Change password"
-msgstr "Change password"
-
-#: admin/mman_list.php:74
-msgid "List Members"
-msgstr "List Members"
-
-#: admin/mman_list.php:79
-msgid "Delete the checked lists"
-msgstr "Delete the checked lists"
-
-#: admin/mman_list.php:88
-msgid "Create a list"
-msgstr "Create a list"
-
-#: admin/mman_passwd.php:50
-#, php-format
-msgid "Changing password of list %s"
-msgstr "Changing password of list %s"
-
-#: admin/mman_passwd.php:52
-msgid "New list password"
-msgstr "New list password"
-
-#: admin/mman_passwd.php:55
-msgid "Password confirmation"
-msgstr "Password confirmation"
-
-#: admin/mman_passwd.php:59
-msgid "Change the password."
-msgstr "Change the password."
