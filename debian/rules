@@ -42,7 +42,7 @@ install: build
 	install -m 02755 -o root -g list \
 		src/mailman.create src/mailman.delete src/mailman.list src/mailman.passwd \
 		src/mailman.sub src/mailman.unsub \
-		src/mailman.seturl src/mailman.geturl \
+		src/mailman.seturl src/mailman.geturl src/mailman.sync \
 		debian/alternc-mailman/usr/lib/alternc/
 	install -m 0644 mailman.sql \
 		debian/alternc-mailman/usr/share/alternc/install/

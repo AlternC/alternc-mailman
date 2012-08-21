@@ -308,6 +308,37 @@ uid='$cuid' AND id='$id';");
 
 
   /* ----------------------------------------------------------------- */
+  /** Synchronize the list's members from a text file, one subscriber per line.
+   * 
+   *  Assumes that you are using the Mailman multi-domain patch,
+   *  but will fallback to check only the list name (without domain)
+   *  to support also installations without the patch.
+   *
+   * @param $id integer The list whose members we want to dump
+   * @return void : this function ECHOES the result !
+   */
+  function syncmembers($id,$members) {
+    global $err,$db,$cuid;
+    $err->log("mailman","members");
+    $db->query("SELECT CONCAT(list, '-', domain) as list FROM mailman WHERE
+uid='$cuid' AND id='$id';");
+                          
+    if (!$db->num_rows()) {
+      // fallback
+      $db->query("SELECT list FROM mailman WHERE uid='$cuid' AND id='$id';");
+
+      if (!$db->num_rows()) {
+        $err->raise("mailman",1);
+        return false;
+      }
+    }
+
+    $db->next_record();
+    passthru("/usr/lib/alternc/mailman.list ".$db->Record["list"]);
+  }
+
+
+  /* ----------------------------------------------------------------- */
   /** Change the mailman administrator password of a list
    * @param $id integer The list number in alternc's database
    * @param $pass string The new password
