@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: AlternC-mailman 2.0\n"
-"Report-Msgid-Bugs-To: alternc-mailman@packages.debian.org\n"
-"POT-Creation-Date: 2008-04-24 17:46-0400\n"
+"Project-Id-Version: AlternC 2.0\n"
+"Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
+"POT-Creation-Date: 2012-08-21 12:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: <i18n@alternc.org>\n"
 "Language-Team: <i18n@alternc.org>\n"
