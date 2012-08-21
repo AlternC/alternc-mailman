@@ -50,9 +50,5 @@ msgstr ""
 msgid "err_mailman_11"
 msgstr "The passwords are differents, please try again"
 
-#, fuzzy
-msgid "man_mailman_1"
-msgstr "No list defined yet"
-
 msgid "quota_mailman"
 msgstr "Mailing lists (mailman)"
