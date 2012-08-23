@@ -5,7 +5,7 @@ MENUFILE="/etc/alternc/menulist.txt"
 
 case "$1" in
   remove)
-    alternc.install
+    alternc.install || true     # don't fail removal if alternc.install bails out
 
     # FIXME : apache2 compliance ? 
     rm -f /var/alternc/cgi-bin/mailman /etc/apache{,-ssl}/conf.d/alternc-mailman.conf
