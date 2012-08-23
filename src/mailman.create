@@ -4,7 +4,10 @@ use strict;
 
 my ($listname,$email,$password) = @ARGV;
 
-my $M_PATH = "/var/lib/mailman/bin/newlist";
+my $M_PATH = "/usr/lib/mailman/bin/newlist";
+if ( ! -f $M_PATH ) {
+    $M_PATH = "/var/lib/mailman/bin/newlist";
+}
 
 if (!$listname || !$email || !$password) {
     print "Usage: mailman.create <listname> <email> <password>\n";

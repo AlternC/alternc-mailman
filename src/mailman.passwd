@@ -4,7 +4,10 @@ use strict;
 
 my ($listname,$password) = @ARGV;
 
-my $M_PATH = "/var/lib/mailman/bin/change_pw";
+my $M_PATH = "/usr/lib/mailman/bin/change_pw";
+if ( ! -f $M_PATH ) {
+    $M_PATH = "/var/lib/mailman/bin/change_pw";
+}
 
 if (!$listname || !$password) {
     print "Usage: mailman.passwd <listname> <password>\n";

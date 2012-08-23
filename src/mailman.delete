@@ -4,7 +4,11 @@ use strict;
 
 my ($listname) = @ARGV;
 
-my $M_PATH = "/var/lib/mailman/bin/rmlist";
+my $M_PATH = "/usr/lib/mailman/bin/rmlist";
+if ( ! -f $M_PATH ) {
+    $M_PATH = "/var/lib/mailman/bin/rmlist";
+}
+
 
 if (!$listname) {
     print "Usage: mailman.delete <listname>\n";

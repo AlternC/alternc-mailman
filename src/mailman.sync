@@ -4,7 +4,10 @@ use strict;
 
 my ($listname) = @ARGV;
 
-my $M_PATH = "/var/lib/mailman/bin/sync_members";
+my $M_PATH = "/usr/lib/mailman/bin/sync_members";
+if ( ! -f $M_PATH ) {
+    $M_PATH = "/var/lib/mailman/bin/sync_members";
+}
 
 if (!$listname) {
     print "Usage: mailman.sync <listname>\n";
