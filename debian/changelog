@@ -1,3 +1,10 @@
+alternc-mailman (2.1.1) stable; urgency=low
+
+  * postinst changes to handle mailman executables in /usr/lib/mailman/bin
+    (since 2.1.9 of Debian mailman package ...)
+
+ -- Dominique Rousseau <d.rousseau@nnx.com>  Thu, 23 Aug 2012 19:33:00 +0200
+
 alternc-mailman (2.1) stable; urgency=low
 
   * ADD the ability to choose the URL of the web pages for mailman lists
