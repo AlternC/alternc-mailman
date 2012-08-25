@@ -48,8 +48,5 @@ msgstr ""
 msgid "err_mailman_11"
 msgstr ""
 
-msgid "man_mailman_1"
-msgstr ""
-
 msgid "quota_mailman"
 msgstr "Listes de discussions (mailman)"

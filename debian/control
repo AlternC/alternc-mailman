@@ -1,8 +1,7 @@
 Source: alternc-mailman
 Section: admin
 Priority: optional
-Maintainer: Antoine Beaupré <antoine@koumbit.org>
-Uploaders: Benjamin Sonntag <benjamin@alternc.org>
+Maintainer: Benjamin Sonntag <benjamin@alternc.org>
 Build-Depends: debhelper (>= 4.0.2), po-debconf
 Standards-Version: 3.9.1
 
@@ -10,7 +9,7 @@ Package: alternc-mailman
 Priority: optional
 Section: admin
 Architecture: all
-Pre-Depends: alternc (>= 0.9.8)
+Pre-Depends: alternc (>= 1.1)
 Depends: mailman (>= 2.1), mysql-client, debconf, perl-suid, patch
 Description: Mailman module for AlternC
  AlternC is a mutualized hosting software manager for Linux.

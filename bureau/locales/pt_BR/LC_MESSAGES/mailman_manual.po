@@ -54,9 +54,9 @@ msgstr ""
 msgid "err_mailman_11"
 msgstr "A lista não definida ainda"
 
-#, fuzzy
-msgid "man_mailman_1"
-msgstr "A lista não definida ainda"
-
 msgid "quota_mailman"
 msgstr "Enviando listas (mailman)"
+
+#, fuzzy
+#~ msgid "man_mailman_1"
+#~ msgstr "A lista não definida ainda"

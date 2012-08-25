@@ -1,13 +1,9 @@
 <?php
 /*
- $Id$
  ----------------------------------------------------------------------
  AlternC - Web Hosting System
- Copyright (C) 2002 by the AlternC Development Team.
- http://alternc.org/
- ----------------------------------------------------------------------
- Based on:
- Valentin Lacambre's web hosting softwares: http://altern.org/
+ Copyright (C) 2000-2012 by the AlternC Development Team.
+ https://alternc.org/
  ----------------------------------------------------------------------
  LICENSE
 
@@ -23,7 +19,6 @@
 
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ----------------------------------------------------------------------
- Original Author of file: Benjamin Sonntag
  Purpose of file: Manage mailing-lists with Mailman
  ----------------------------------------------------------------------
 */
@@ -32,17 +27,7 @@ class m_mailman {
 
 
   /* ----------------------------------------------------------------- */
-  /**
-   * Quota name
-   */
-  function alternc_quota_names() {
-    return "mailman";
-  }
-
-
-  /* ----------------------------------------------------------------- */
-  /**
-   * Return the mailing-lists managed by this member :
+  /** Return the mailing-lists managed by this member:
    * @param $domain string The domain's list we want (or null to prevent filtering on a specific domain)
    * @param $order_by array how do we sort the lists (default is domain then listname)
    * @return array an ordered array of associative arrays with all the members lists
@@ -67,9 +52,9 @@ class m_mailman {
     return $mls;
   }
   
+
   /* ----------------------------------------------------------------- */
-  /**
-   * Count mailing list for a user
+  /** Count mailing list for a user
    * @param $uid integer The uid of the user we want info about
    */
   function count_ml_user($uid) {
@@ -82,9 +67,9 @@ class m_mailman {
     }
   }
 
+
   /* ----------------------------------------------------------------- */
-  /**
-   * Return the list of domains that may be used by mailman for the current account
+  /** Return the list of domains that may be used by mailman for the current account
    * @return array an array of domain names 
    */
   function prefix_list() {
@@ -99,8 +84,7 @@ class m_mailman {
 
 
   /* ----------------------------------------------------------------- */
-  /**
-   * Echoes a select list options of the list of domains that may be used 
+  /** Echoes a select list options of the list of domains that may be used 
    * by mailman for the current account. 
    * @param $current string the item that will be selected in the list
    * @return array an array of domain names 
@@ -118,14 +102,12 @@ class m_mailman {
 
 
   /* ----------------------------------------------------------------- */
-  /**
-   * Get all th informations for a list
+  /** Get all the informations for a list
    * @param $id integer is the list id in alternc's database.
    * @return array an associative array with all the list informations
    * or false if an error occured.
    */
-  function get_lst($id)
-  {
+  function get_lst($id) {
     global $db, $err, $cuid;
     $err->log("mailman","get_list", $cuid);
     
@@ -140,12 +122,39 @@ class m_mailman {
     $domain = $db->f("domain");
     return $login . "@" . $domain;
   }
-  
 
 
   /* ----------------------------------------------------------------- */
-  /**
-   * Create a new list for this member :
+  /** Add a mail in 'address' table for mailman delivery
+   * @param $login string the left part of the @ for the list email 
+   * @param $dom_id the domain-ID on which the list will be attached
+   * @param $function the function of that wrapper (owner, post, bounce ...)
+   * @param $list the mailman list name
+   * @return boolean TRUE if the wrapper has been created, or FALSE if an error occured
+   */
+  private function add_wrapper($login,$dom_id,$function,$list) {
+    global $db;
+    // TODO: TEST THIS, I'M NOT SURE IT'S ENOUGH TO DEFINE IT THAT WAY !!
+    $db->query("INSERT INTO address SET type='mailman', delivery='mailman', address='".addslashes($login)."', domain_id=$dom_id;");
+    return true;    
+  }
+
+
+  /* ----------------------------------------------------------------- */
+  /** Delete a mail in 'address' table for mailman delivery
+   * @param $login string the left part of the @ for the list email 
+   * @param $dom_id integer the domain-ID on which the list will be attached
+   * @return boolean TRUE if the wrapper has been deleted, or FALSE if an error occured
+   */
+  private function del_wrapper($login,$dom_id) {
+    global $db;
+    $db->query("DELETE FROM address WHERE type='mailman' AND address='".addslashes($login)."' AND domain_id=$dom_id;");
+    return true;
+  }
+
+
+  /* ----------------------------------------------------------------- */
+  /** Create a new list for this member:
    * @param $domain string the domain name on which the list will be attached
    * @param $login string the left part of the @ for the list email 
    * @param $owner the email address of the list administrator (required)
@@ -153,12 +162,16 @@ class m_mailman {
    * @return boolean TRUE if the list has been created, or FALSE if an error occured
    */
   function add_lst($domain,$login,$owner,$password,$password2) {
-    global $db,$err,$quota,$mail,$cuid;
+    global $db,$err,$quota,$mail,$cuid,$dom;
     $err->log("mailman","add_lst",$login."@".$domain." - ".$owner);
     /* the list' internal name */
     $login = strtolower($login);
-    if (!checkloginmail($login)) {
-      $err->raise("mailman",8);
+    if (!filter_var($login."@".$domain,FILTER_VALIDATE_EMAIL)) {
+      $err->raise("mailman",_("The email you entered is syntaxically incorrect"));
+      return false;
+    }
+
+    if (!($dom_id=$dom->get_domain_byname($domain)) {
       return false;
     }
 
@@ -214,28 +227,28 @@ class m_mailman {
     if ($quota->cancreate("mailman")) {
       // List creation : 1. insert into the DB
       $db->query("INSERT INTO mailman (uid,list,domain,name) VALUES ('$cuid','$login','$domain','$name');");
-      if (!$mail->add_wrapper($login,$domain,"/var/lib/mailman/mail/mailman post $name","mailman") ||
-	  !$mail->add_wrapper($login."-request",$domain,"/var/lib/mailman/mail/mailman request $name","mailman") ||
-	  !$mail->add_wrapper($login."-owner",$domain,"/var/lib/mailman/mail/mailman owner $name","mailman") ||
-	  !$mail->add_wrapper($login."-admin",$domain,"/var/lib/mailman/mail/mailman admin $name","mailman") ||
-	  !$mail->add_wrapper($login."-bounces",$domain,"/var/lib/mailman/mail/mailman bounces $name","mailman") ||
-	  !$mail->add_wrapper($login."-confirm",$domain,"/var/lib/mailman/mail/mailman confirm $name","mailman") ||
-	  !$mail->add_wrapper($login."-join",$domain,"/var/lib/mailman/mail/mailman join $name","mailman") ||
-	  !$mail->add_wrapper($login."-leave",$domain,"/var/lib/mailman/mail/mailman leave $name","mailman") ||
-	  !$mail->add_wrapper($login."-subscribe",$domain,"/var/lib/mailman/mail/mailman subscribe $name","mailman") ||
-	  !$mail->add_wrapper($login."-unsubscribe",$domain,"/var/lib/mailman/mail/mailman unsubscribe $name","mailman")
+      if (!$this->add_wrapper($login,$dom_id,"post",$name) ||
+	  !$this->add_wrapper($login."-request",$dom_id,"request",$name) ||
+	  !$this->add_wrapper($login."-owner",$dom_id,"owner",$name) ||
+	  !$this->add_wrapper($login."-admin",$dom_id,"admin",$name) ||
+	  !$this->add_wrapper($login."-bounces",$dom_id,"bounces",$name) ||
+	  !$this->add_wrapper($login."-confirm",$dom_id,"confirm",$name) ||
+	  !$this->add_wrapper($login."-join",$dom_id,"join",$name) ||
+	  !$this->add_wrapper($login."-leave",$dom_id,"leave",$name) ||
+	  !$this->add_wrapper($login."-subscribe",$dom_id,"subscribe",$name) ||
+	  !$this->add_wrapper($login."-unsubscribe",$dom_id,"unsubscribe",$name)
 	  ) {
 	// didn't work : rollback
-	$mail->del_wrapper($login,$domain);	        $mail->del_wrapper($login."-request",$domain);
-	$mail->del_wrapper($login."-owner",$domain);	$mail->del_wrapper($login."-admin",$domain);
-	$mail->del_wrapper($login."-bounces",$domain);	$mail->del_wrapper($login."-confirm",$domain);
-	$mail->del_wrapper($login."-join",$domain);	$mail->del_wrapper($login."-leave",$domain);
-	$mail->del_wrapper($login."-subscribe",$domain);	$mail->del_wrapper($login."-unsubscribe",$domain);
+	$this->del_wrapper($login,$dom_id);	        $this->del_wrapper($login."-request",$dom_id);
+	$this->del_wrapper($login."-owner",$dom_id);	$this->del_wrapper($login."-admin",$dom_id);
+	$this->del_wrapper($login."-bounces",$dom_id);	$this->del_wrapper($login."-confirm",$dom_id);
+	$this->del_wrapper($login."-join",$dom_id);	$this->del_wrapper($login."-leave",$dom_id);
+	$this->del_wrapper($login."-subscribe",$dom_id);	$this->del_wrapper($login."-unsubscribe",$dom_id);
 	$db->query("DELETE FROM mailman WHERE name='$name';");
 	return false;
       }
       // Wrapper created, sql ok, now let's create the list :)
-			if (file_exists("/usr/share/alternc-mailman/patches/mailman-true-virtual.applied")) {
+      if (file_exists("/usr/share/alternc-mailman/patches/mailman-true-virtual.applied")) {
       	exec("/usr/lib/alternc/mailman.create ".escapeshellarg($login."@".$domain)." ".escapeshellarg($owner)." ".escapeshellarg($password)."", &$output, &$return);
     	} else {
       	exec("/usr/lib/alternc/mailman.create ".escapeshellarg($login)." ".escapeshellarg($owner)." ".escapeshellarg($password)."", &$output, &$return);
@@ -252,8 +265,7 @@ class m_mailman {
 
 
   /* ----------------------------------------------------------------- */
-  /**
-   * Delete a mailing-list
+  /** Delete a mailing-list
    * @param $id integer the id number of the mailing list in alternc's database
    * @return boolean TRUE if the list has been deleted or FALSE if an error occured
    */
@@ -281,11 +293,11 @@ class m_mailman {
       return false;
     }
     $db->query("DELETE FROM mailman WHERE id=$id");
-    $mail->del_wrapper($login,$domain);	        $mail->del_wrapper($login."-request",$domain);
-    $mail->del_wrapper($login."-owner",$domain);	$mail->del_wrapper($login."-admin",$domain);
-    $mail->del_wrapper($login."-bounces",$domain);	$mail->del_wrapper($login."-confirm",$domain);
-    $mail->del_wrapper($login."-join",$domain);	$mail->del_wrapper($login."-leave",$domain);
-    $mail->del_wrapper($login."-subscribe",$domain);	$mail->del_wrapper($login."-unsubscribe",$domain);
+    $this->del_wrapper($login,$domain);	        $this->del_wrapper($login."-request",$domain);
+    $this->del_wrapper($login."-owner",$domain);	$this->del_wrapper($login."-admin",$domain);
+    $this->del_wrapper($login."-bounces",$domain);	$this->del_wrapper($login."-confirm",$domain);
+    $this->del_wrapper($login."-join",$domain);	$this->del_wrapper($login."-leave",$domain);
+    $this->del_wrapper($login."-subscribe",$domain);	$this->del_wrapper($login."-unsubscribe",$domain);
     return $login."@".$domain;
   }
 
@@ -303,8 +315,7 @@ class m_mailman {
   function members($id) {
     global $err,$db,$cuid;
     $err->log("mailman","members");
-    $db->query("SELECT CONCAT(list, '-', domain) as list FROM mailman WHERE
-uid='$cuid' AND id='$id';");
+    $db->query("SELECT CONCAT(list, '-', domain) as list FROM mailman WHERE uid='$cuid' AND id='$id';");
                           
     if (!$db->num_rows()) {
       // fallback
@@ -334,8 +345,7 @@ uid='$cuid' AND id='$id';");
   function syncmembers($id,$members) {
     global $err,$db,$cuid;
     $err->log("mailman","members");
-    $db->query("SELECT CONCAT(list, '-', domain) as list FROM mailman WHERE
-uid='$cuid' AND id='$id';");
+    $db->query("SELECT CONCAT(list, '-', domain) as list FROM mailman WHERE uid='$cuid' AND id='$id';");
                           
     if (!$db->num_rows()) {
       // fallback
@@ -386,8 +396,7 @@ uid='$cuid' AND id='$id';");
 
 
   /* ----------------------------------------------------------------- */
-  /**
-   * Returns the current url for $list administration
+  /** Returns the current url for $list administration
    * @param $list integer the list for which we want the url
    * @return string the url (starting by http or https) or false if an error occured
    */
@@ -413,8 +422,7 @@ uid='$cuid' AND id='$id';");
 
 
   /* ----------------------------------------------------------------- */
-  /**
-   * Set the management url for $list 
+  /** Set the management url for $list 
    * @param $list integer the list for which we want to change the url
    * @param $url string the url, MUST be either http:// or https:// + domain + /cgi-bin/mailman/
    * @return boolean TRUE if the url has been changes
@@ -438,17 +446,25 @@ uid='$cuid' AND id='$id';");
 
 
   /* ----------------------------------------------------------------- */
+  /** Quota name
+   */
+  function hook_quota_names() {
+    return "mailman";
+  }
+
+
+  /* ----------------------------------------------------------------- */
   /** This function is a hook who is called each time a domain is uninstalled
    * in an account (or when we select "gesmx = no" in the domain panel.)
-   * @param string $dom Domaine to delete
+   * @param string $dom_id Domaine to delete
    * @return boolean TRUE if the domain has been deleted from mailman
    * @access private
    */
-  function alternc_del_mx_domain($dom) {
-    global $err;
-    $err->log("mailman","del_dom",$dom);
-
-    $listes=$this->enum_ml($dom);
+  function hook_dom_del_mx_domain($dom_id) {
+    global $err,$dom;
+    $err->log("mailman","del_dom",$dom_id);
+    $domain=$dom->get_domain_byid($dom_id);
+    $listes=$this->enum_ml($domain);
     while (list($key,$val)=each($listes)) {
       $this->delete_lst($val["id"]);
     }
@@ -463,7 +479,7 @@ uid='$cuid' AND id='$id';");
    * or FALSE if an error occured
    * @access private
    */ 
-  function alternc_get_quota($name) {
+  function hook_quota_get($name) {
     global $err,$cuid,$db;
     if ($name=="mailman") {
       $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE uid='$cuid';");
@@ -471,9 +487,8 @@ uid='$cuid' AND id='$id';");
       return $db->f("cnt");
     } else return false;
   }
-
+  
 
 
 } /* Class m_mailman */
 
-?>
