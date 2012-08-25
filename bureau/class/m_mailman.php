@@ -67,6 +67,20 @@ class m_mailman {
     return $mls;
   }
   
+  /* ----------------------------------------------------------------- */
+  /**
+   * Count mailing list for a user
+   * @param $uid integer The uid of the user we want info about
+   */
+  function count_ml_user($uid) {
+    global $db,$err,$cuid;
+    $db->query("SELECT COUNT(*) AS count FROM mailman WHERE uid='{$uid}';");
+    if ($db->next_record()) {
+      return $db->f('count');
+    } else {
+      return 0;
+    }
+  }
 
   /* ----------------------------------------------------------------- */
   /**
