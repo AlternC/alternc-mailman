@@ -10,7 +10,7 @@ Priority: optional
 Section: admin
 Architecture: all
 Pre-Depends: alternc (>= 1.1)
-Depends: mailman (>= 2.1), mysql-client, debconf, perl-suid, patch
+Depends: mailman (>= 2.1), mysql-client, debconf, patch
 Description: Mailman module for AlternC
  AlternC is a mutualized hosting software manager for Linux.
  It allows you to manage your websites, domains, ftp, emails, aliases,

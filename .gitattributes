@@ -6,7 +6,6 @@ bureau/admin/mman_dodel.php -text
 bureau/admin/mman_dopasswd.php -text
 bureau/admin/mman_dourl.php -text
 bureau/admin/mman_passwd.php -text
-bureau/admin/mman_syncmembers.php -text
 bureau/admin/mman_url.php -text
 bureau/locales/Makefile -text
 bureau/locales/de_DE/LC_MESSAGES/mailman.po -text

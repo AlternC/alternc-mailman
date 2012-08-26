@@ -39,7 +39,6 @@ class m_mailman {
 	  _("A fatal error happened when deleting the list"),
 	  _("A fatal error happened when changing the list password"),
 	  _("A fatal error happened when getting the list url"),
-	  _(""),
 	  );
   }
 
@@ -244,7 +243,7 @@ class m_mailman {
     // Check the quota
     if ($quota->cancreate("mailman")) {
       // List creation : 1. insert into the DB
-      $db->query("INSERT INTO mailman (uid,list,domain,name) VALUES ('$cuid','$login','$domain','$name');");
+      $db->query("INSERT INTO mailman (uid,list,domain,name,mailman_action) VALUES ('$cuid','$login','$domain','$name','CREATE');");
       if (!$this->add_wrapper($login,$dom_id,"post",$name) ||
 	  !$this->add_wrapper($login."-request",$dom_id,"request",$name) ||
 	  !$this->add_wrapper($login."-owner",$dom_id,"owner",$name) ||
@@ -265,16 +264,7 @@ class m_mailman {
 	$db->query("DELETE FROM mailman WHERE name='$name';");
 	return false;
       }
-      // Wrapper created, sql ok, now let's create the list :)
-      if (file_exists("/usr/share/alternc-mailman/patches/mailman-true-virtual.applied")) {
-      	exec("/usr/lib/alternc/mailman.create ".escapeshellarg($login."@".$domain)." ".escapeshellarg($owner)." ".escapeshellarg($password)."", &$output, &$return);
-    	} else {
-      	exec("/usr/lib/alternc/mailman.create ".escapeshellarg($login)." ".escapeshellarg($owner)." ".escapeshellarg($password)."", &$output, &$return);
-    	}
-      if ($return) {
-        $err->raise("mailman", "failed to create mailman list. error: %d, output: %s", $return, join("\n", $output));
-      }
-      return !$return;
+      return true;
     } else {
       $err->raise("mailman",_("Your mailing-list quota is over, you cannot create more mailing-lists.")); // quota
       return false;
@@ -297,20 +287,14 @@ class m_mailman {
       $err->raise("mailman",_("This list does not exist"));
       return false;
     }
+    if ($db->f("mail_action")!='OK') {
+      $err->raise("mailman",_("This list has pending action, you cannot delete it"));
+      return false;
+    }
     $login=$db->f("list");
     $domain=$db->f("domain");
 
-    if (file_exists("/usr/share/alternc-mailman/patches/mailman-true-virtual.applied")) {
-      exec("/usr/lib/alternc/mailman.delete ".escapeshellarg($login.'@'.$domain), &$output, &$return);
-    } else {
-      exec("/usr/lib/alternc/mailman.delete ".escapeshellarg($login), &$output, &$return);
-    }
-
-    if ($return) {
-      $err->raise("mailman", "failed to delete mailman list. error: %d, output: %s", $return, join("\n", $output));
-      return false;
-    }
-    $db->query("DELETE FROM mailman WHERE id=$id");
+    $db->query("UPDATE MAILMAN SET mailman_action='DELETE' WHERE id=$id");
     $this->del_wrapper($login,$domain);	        $this->del_wrapper($login."-request",$domain);
     $this->del_wrapper($login."-owner",$domain);	$this->del_wrapper($login."-admin",$domain);
     $this->del_wrapper($login."-bounces",$domain);	$this->del_wrapper($login."-confirm",$domain);
@@ -330,6 +314,7 @@ class m_mailman {
    * @param $id integer The list whose members we want to dump
    * @return void : this function ECHOES the result !
    */
+  /** FIXME: this function has no equivalent in cron mode, remove this */
   function members($id) {
     global $err,$db,$cuid;
     $err->log("mailman","members");
@@ -360,6 +345,7 @@ class m_mailman {
    * @param $id integer The list whose members we want to dump
    * @return void : this function ECHOES the result !
    */
+  /** FIXME: this function has no equivalent in cron mode, remove this */
   function syncmembers($id,$members) {
     global $err,$db,$cuid;
     $err->log("mailman","members");
@@ -403,12 +389,7 @@ class m_mailman {
     }
     $login=$db->f("list");
     $domain=$db->f("domain");
-
-    if (file_exists("/usr/share/alternc-mailman/patches/mailman-true-virtual.applied")) {
-      exec("/usr/lib/alternc/mailman.passwd ".escapeshellarg($login.'@'.$domain)." ".escapeshellarg($pass), &$output, &$return);
-    } else {
-      exec("/usr/lib/alternc/mailman.passwd ".escapeshellarg($login)." ".escapeshellarg($pass), &$output, &$return);
-    }
+    $db->query("UPDATE mailman SET mailman_action='PASSWORD', password='".addslashes($pass)."' WHERE id=$id;");
     return true;
   }
 
@@ -418,6 +399,7 @@ class m_mailman {
    * @param $list integer the list for which we want the url
    * @return string the url (starting by http or https) or false if an error occured
    */
+  /** FIXME: this function has no equivalent in cron mode, remove this */
   function get_list_url($list) {
     global $db,$err,$cuid;
     $q = "SELECT * FROM mailman WHERE uid = '" . $cuid . "' && id = '" . intval($list) . "'";
@@ -456,9 +438,7 @@ class m_mailman {
     }
     $list=$db->Record["name"];
     unset($out);
-    $exec="/usr/lib/alternc/mailman.seturl ".escapeshellarg($list)." ".escapeshellarg($newurl);
-    exec($exec,$out,$ret);
-    if ($ret) return false;
+    $db->query("UPDATE mailman SET mailman_action='SETURL', url='".addslashes($newurl)."' WHERE id=$id;");
     return true;
   }
 
