@@ -287,14 +287,14 @@ class m_mailman {
       $err->raise("mailman",_("This list does not exist"));
       return false;
     }
-    if ($db->f("mail_action")!='OK') {
+    if ($db->f("mailman_action")!='OK') {
       $err->raise("mailman",_("This list has pending action, you cannot delete it"));
       return false;
     }
     $login=$db->f("list");
     $domain=$db->f("domain");
 
-    $db->query("UPDATE MAILMAN SET mailman_action='DELETE' WHERE id=$id");
+    $db->query("UPDATE mailman SET mailman_action='DELETE' WHERE id=$id");
     $this->del_wrapper($login,$domain);	        $this->del_wrapper($login."-request",$domain);
     $this->del_wrapper($login."-owner",$domain);	$this->del_wrapper($login."-admin",$domain);
     $this->del_wrapper($login."-bounces",$domain);	$this->del_wrapper($login."-confirm",$domain);

@@ -80,15 +80,15 @@ done
 mysql_query "SELECT id, list, domain, password FROM mailman WHERE mailman_action='PASSWORD';"|while read id list domain password ; do
     if [ ! -d "/var/lib/mailman/lists/$list" ]
     then
-	mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK' WHERE id='$id';"
+	mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK', password='' WHERE id='$id';"
     else
 	# Password the list : 
 	su - list -c "/usr/lib/mailman/bin/change_pw -l \"$list\" -p \"$password\""
 	if [ "$?" -eq "0" ]
 	then
-	    mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
+	    mysql_query "UPDATE mailman SET password='', mailman_result='', mailman_action='OK' WHERE id='$id';"
 	else
-	    mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when changing the list password', mailman_action='OK' WHERE id='$id';"
+	    mysql_query "UPDATE mailman SET password='', mailman_result='A fatal error happened when changing the list password', mailman_action='OK' WHERE id='$id';"
 	fi
     fi
 done

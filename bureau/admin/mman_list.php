@@ -30,7 +30,7 @@ $error="";
 $mman_status=array(
 		   "PASSWORD" => _("Password change pending"),
 		   "SETURL" => _("Url change pending"),
-   );
+		   );
 
 ?>
 
@@ -56,15 +56,12 @@ if(!$r=$mailman->enum_ml()) {
 <?php echo "<p class=\"error\">$error</p>"; ?>
 <?php
   if ($quota->cancreate("mailman")) {
-?>
-<p>
-<span class="inb"><a href="mman_add.php"><?php __("Create a list"); ?></a></span>
-</p>
-	<?php
-}
-?>
-
-	<?php
+    require_once("mman_add.php"); 
+    exit();
+  } else {
+    require_once("main.php");
+    exit();
+  }
 } else {
 	?>
 <hr id="topbar"/>

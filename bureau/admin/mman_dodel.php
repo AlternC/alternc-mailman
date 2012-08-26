@@ -32,6 +32,7 @@ $fields = array (
 );
 getFields($fields);
 
+$error="";
 $stchange = (!$quota->cancreate("mailman"));
 
 if ($cancel) {
