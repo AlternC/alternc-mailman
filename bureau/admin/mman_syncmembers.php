@@ -1,13 +1,9 @@
 <?php
 /*
- $Id: mman_syncmembers.php 2714 2010-06-02 18:06:46Z benjamin $
  ----------------------------------------------------------------------
  AlternC - Web Hosting System
- Copyright (C) 2002 by the AlternC Development Team.
- http://alternc.org/
- ----------------------------------------------------------------------
- Based on:
- Valentin Lacambre's web hosting softwares: http://altern.org/
+ Copyright (C) 2000-2012 by the AlternC Development Team.
+ https://alternc.org/
  ----------------------------------------------------------------------
  LICENSE
 
@@ -23,17 +19,17 @@
 
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ----------------------------------------------------------------------
- Original Author of file: Benjamin Sonntag, Franck Missoum
  Purpose of file: Synchronize the members of a mailman list 
  with a textfield posted from a webform (can be used as an api too)
  ----------------------------------------------------------------------
 */
+
 require_once("../class/config.php");
 
 $fields = array (
-	"id"     => array ("request", "integer", ""),
-	"members"     => array ("request", "string", ""),
-);
+		 "id"     => array ("request", "integer", ""),
+		 "members"     => array ("request", "string", ""),
+		 );
 getFields($fields);
 
 $members=trim($members);

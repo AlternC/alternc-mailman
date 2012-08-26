@@ -1,13 +1,9 @@
 <?php
 /*
- $Id$
  ----------------------------------------------------------------------
  AlternC - Web Hosting System
- Copyright (C) 2002 by the AlternC Development Team.
- http://alternc.org/
- ----------------------------------------------------------------------
- Based on:
- Valentin Lacambre's web hosting softwares: http://altern.org/
+ Copyright (C) 2000-2012 by the AlternC Development Team.
+ https://alternc.org/
  ----------------------------------------------------------------------
  LICENSE
 
@@ -23,10 +19,10 @@
 
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ----------------------------------------------------------------------
- Original Author of file: Benjamin Sonntag
  Purpose of file: Delete mailing-lists
  ----------------------------------------------------------------------
 */
+
 require_once("../class/config.php");
 
 $fields = array (
@@ -38,15 +34,13 @@ if (!is_array($d)) {
 }
 reset($d);
 
-
 $stchange=(!$quota->cancreate("mailman"));
 
 $error="";
 
-if (empty($d))
-{
-	include ("mman_list.php");
-	exit();
+if (empty($d)) {
+  include ("mman_list.php");
+  exit();
 }
 
 include("head.php");
@@ -54,17 +48,16 @@ include("head.php");
 ?>
 </head>
 <body>
-<h3><?php __("Deleting mailman lists"); ?></h3>
+  <h3><?php __("Deleting mailman lists"); ?></h3>
 <hr id="topbar"/>
 <br />
 <p><?php __("Please confirm the deletion of the following mailman lists:"); ?></p>
 <form action="mman_dodel.php" method="post">
 <?php
 
-foreach ($d as $id)
-{
-	echo "<input type=\"hidden\" name=\"d[]\" value=\"" . $id . "\" />";
-	echo $mailman->get_lst($id) . "<br />";
+foreach ($d as $id) {
+  echo "<input type=\"hidden\" name=\"d[]\" value=\"" . $id . "\" />";
+  echo $mailman->get_lst($id) . "<br />";
 }
 
 ?>

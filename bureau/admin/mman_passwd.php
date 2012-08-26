@@ -1,13 +1,9 @@
 <?php
 /*
- $Id: mman_passwd.php 2516 2009-06-14 12:42:14Z benjamin $
  ----------------------------------------------------------------------
  AlternC - Web Hosting System
- Copyright (C) 2002 by the AlternC Development Team.
- http://alternc.org/
- ----------------------------------------------------------------------
- Based on:
- Valentin Lacambre's web hosting softwares: http://altern.org/
+ Copyright (C) 2000-2012 by the AlternC Development Team.
+ https://alternc.org/
  ----------------------------------------------------------------------
  LICENSE
 
@@ -23,7 +19,6 @@
 
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ----------------------------------------------------------------------
- Original Author of file: Benjamin Sonntag
  Purpose of file: ask for the required value to change a list's password
  ----------------------------------------------------------------------
 */
@@ -31,20 +26,20 @@ require_once("../class/config.php");
 include_once("head.php");
 
 $fields = array (
-	"id"     => array ("request", "integer", ""),
-);
+		 "id"     => array ("request", "integer", ""),
+		 );
 getFields($fields);
 
 
 if (!($me=$mailman->get_lst($id))) {
-	$error=$err->errstr();
-	?>
+  $error=$err->errstr();
+  ?>
 	  <h3><?php __("Mailing lists"); ?></h3>
 <?php 
  echo "<p class=\"error\">$error</p>";
  include_once("foot.php");
  exit();
- }
+}
 
 ?>
 <h3><?php __("Mailing lists"); ?></h3>
@@ -71,9 +66,11 @@ if (!($me=$mailman->get_lst($id))) {
   </form>
 
 <script type="text/javascript">
-document.forms['main'].pass.focus();
-document.forms['main'].setAttribute('autocomplete', 'off');
+  $(document).ready(function() {
+      $('#pass').focus();
+      $('#pass').attr('autocomplete','off');
+      $('#pass2').attr('autocomplete','off');
+    });
 </script>
-
 
 <?php include_once("foot.php"); ?>

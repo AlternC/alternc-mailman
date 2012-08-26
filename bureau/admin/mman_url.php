@@ -1,13 +1,9 @@
 <?php
 /*
- $Id: mman_url.php 2516 2009-06-14 12:42:14Z benjamin $
  ----------------------------------------------------------------------
  AlternC - Web Hosting System
- Copyright (C) 2002 by the AlternC Development Team.
- http://alternc.org/
- ----------------------------------------------------------------------
- Based on:
- Valentin Lacambre's web hosting softwares: http://altern.org/
+ Copyright (C) 2000-2012 by the AlternC Development Team.
+ https://alternc.org/
  ----------------------------------------------------------------------
  LICENSE
 
@@ -23,22 +19,22 @@
 
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ----------------------------------------------------------------------
- Original Author of file: Benjamin Sonntag
  Purpose of file: change and tell the url of the mailman.
  ----------------------------------------------------------------------
 */
+
 require_once("../class/config.php");
 include_once("head.php");
 
 $fields = array (
-	"id"     => array ("request", "integer", ""),
-);
+		 "id"     => array ("request", "integer", ""),
+		 );
 getFields($fields);
 
 
 if (!($me=$mailman->get_lst($id))) {
-	$error=$err->errstr();
-	?>
+  $error=$err->errstr();
+  ?>
 	  <h3><?php __("Mailing lists"); ?></h3>
 <?php 
  echo "<p class=\"error\">$error</p>";
@@ -49,9 +45,9 @@ if (!($me=$mailman->get_lst($id))) {
 ?>
 <h3><?php __("Mailing lists"); ?></h3>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-	}
+if ($error) {
+  echo "<p class=\"error\">$error</p>";
+}
 
 $cururl=$mailman->get_list_url($id);
 
@@ -69,12 +65,12 @@ __("This is the current url to access administration and public pages for this l
 	<select name="newurl" class="inl" id="newurl" >
   <?php
   list($name,$ldom)=explode("@",$me);
-  $alist=array(
-	       "http://".$_SERVER["HTTP_HOST"]."/cgi-bin/mailman/"=>"http://".$_SERVER["HTTP_HOST"]."/cgi-bin/mailman/",
-	       "https://".$_SERVER["HTTP_HOST"]."/cgi-bin/mailman/"=>"https://".$_SERVER["HTTP_HOST"]."/cgi-bin/mailman/",
-	       "http://".$ldom."/cgi-bin/mailman/"=>"http://".$ldom."/cgi-bin/mailman/",
-	       "https://".$ldom."/cgi-bin/mailman/"=>"https://".$ldom."/cgi-bin/mailman/",
-	       );
+$alist=array(
+	     "http://".$_SERVER["HTTP_HOST"]."/cgi-bin/mailman/"=>"http://".$_SERVER["HTTP_HOST"]."/cgi-bin/mailman/",
+	     "https://".$_SERVER["HTTP_HOST"]."/cgi-bin/mailman/"=>"https://".$_SERVER["HTTP_HOST"]."/cgi-bin/mailman/",
+	     "http://".$ldom."/cgi-bin/mailman/"=>"http://".$ldom."/cgi-bin/mailman/",
+	     "https://".$ldom."/cgi-bin/mailman/"=>"https://".$ldom."/cgi-bin/mailman/",
+	     );
 eoption($alist,$cururl);
 
 ?>
@@ -88,8 +84,8 @@ eoption($alist,$cururl);
   </form>
 
 <script type="text/javascript">
-document.forms['main'].newurl.focus();
+  $(document).ready(function() {
+      $('#newurl').focus();
 </script>
-
 
 <?php include_once("foot.php"); ?>

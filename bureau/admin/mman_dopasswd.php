@@ -1,13 +1,9 @@
 <?php
 /*
- $Id: mman_dopasswd.php 2 2003-06-13 20:30:40Z root $
  ----------------------------------------------------------------------
  AlternC - Web Hosting System
- Copyright (C) 2002 by the AlternC Development Team.
- http://alternc.org/
- ----------------------------------------------------------------------
- Based on:
- Valentin Lacambre's web hosting softwares: http://altern.org/
+ Copyright (C) 2000-2012 by the AlternC Development Team.
+ https://alternc.org/
  ----------------------------------------------------------------------
  LICENSE
 
@@ -23,10 +19,10 @@
 
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ----------------------------------------------------------------------
- Original Author of file: Benjamin Sonntag
  Purpose of file: Change a list's password.
  ----------------------------------------------------------------------
 */
+
 require_once("../class/config.php");
 
 $fields = array (
@@ -38,12 +34,12 @@ getFields($fields);
 
 $r=$mailman->passwd($id,$pass,$pass2);
 if (!$r) {
-	$error=$err->errstr();
-	include("mman_passwd.php");
-	exit();
+  $error=$err->errstr();
+  include("mman_passwd.php");
+  exit();
 } else {
-	$error=_("The mailing list password has been successfully changed.");
-	include("mman_list.php");
-	exit();
+  $error=_("The mailing list password has been successfully changed.");
+  include("mman_list.php");
+  exit();
 }
 ?>

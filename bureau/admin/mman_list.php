@@ -1,13 +1,9 @@
 <?php
 /*
- $Id$
  ----------------------------------------------------------------------
  AlternC - Web Hosting System
- Copyright (C) 2002 by the AlternC Development Team.
- http://alternc.org/
- ----------------------------------------------------------------------
- Based on:
- Valentin Lacambre's web hosting softwares: http://altern.org/
+ Copyright (C) 2000-2012 by the AlternC Development Team.
+ https://alternc.org/
  ----------------------------------------------------------------------
  LICENSE
 
@@ -23,35 +19,37 @@
 
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ----------------------------------------------------------------------
- Original Author of file: Benjamin Sonntag, Franck Missoum
  Purpose of file: Show the Mailing-Lists owned by the current user
  ----------------------------------------------------------------------
 */
+
 require_once("../class/config.php");
 include_once("head.php");
+$error="";
 ?>
-	<h3><?php __("Mailing lists"); ?></h3>
+
+<h3><?php __("Mailing lists"); ?></h3>
 
 <?php
 // If there is no installed domain, let's failed definitely !
 if (count($dom->enum_domains())==0) {
   $error=_("No domain is installed on your account, you cannot create any mailing list!");
-  ?>
+?>
 <hr id="topbar"/>
 <br />
-	 <?php echo "<p class=\"error\">$error</p>"; ?>
+<?php echo "<p class=\"error\">$error</p>"; ?>
 <?php include_once("foot.php");
   exit();
-	 }
+}
 
 if(!$r=$mailman->enum_ml()) {
   $error.=$err->errstr();
-	?>
+?>
 <hr id="topbar"/>
 <br />
-	<?php echo "<p class=\"error\">$error</p>"; ?>
+<?php echo "<p class=\"error\">$error</p>"; ?>
 <?php
-if ($quota->cancreate("mailman")) {
+  if ($quota->cancreate("mailman")) {
 ?>
 <p>
 <span class="inb"><a href="mman_add.php"><?php __("Create a list"); ?></a></span>

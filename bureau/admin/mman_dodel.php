@@ -1,13 +1,9 @@
 <?php
 /*
- $Id: mman_dodel.php 2 2003-06-13 20:30:40Z root $
  ----------------------------------------------------------------------
  AlternC - Web Hosting System
- Copyright (C) 2002 by the AlternC Development Team.
- http://alternc.org/
- ----------------------------------------------------------------------
- Based on:
- Valentin Lacambre's web hosting softwares: http://altern.org/
+ Copyright (C) 2000-2012 by the AlternC Development Team.
+ https://alternc.org/a
  ----------------------------------------------------------------------
  LICENSE
 
@@ -23,10 +19,10 @@
 
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ----------------------------------------------------------------------
- Original Author of file: Benjamin Sonntag
  Purpose of file: Delete mailing-lists
  ----------------------------------------------------------------------
 */
+
 require_once("../class/config.php");
 
 $fields = array (
@@ -38,33 +34,26 @@ getFields($fields);
 
 $stchange = (!$quota->cancreate("mailman"));
 
-if ($cancel)
-{
-	include ("mman_list.php");
-	exit();
+if ($cancel) {
+  include ("mman_list.php");
+  exit();
 }
 
-if (!is_array($d))
-{
-	$tmp = array($d);
-	$d = $tmp;
+if (!is_array($d)) {
+  $tmp = array($d);
+  $d = $tmp;
 }
 reset($d);
 
-if ($confirm)
-{
-	foreach ($d as $id)
-	{
-		$r = $mailman->delete_lst($id);
-		if (!$r)
-		{
-			$error .= $err->errstr() . "<br />";
-		}
-		else
-		{
-			$error .= sprintf(_("The list %s has been successfully deleted."), $r) . "<br />";
-		}
-	}
+if ($confirm) {
+  foreach ($d as $id) {
+    $r = $mailman->delete_lst($id);
+    if (!$r) {
+      $error .= $err->errstr() . "<br />";
+    } else {
+      $error .= sprintf(_("The list %s has been successfully deleted."), $r) . "<br />";
+    }
+  }
 }
 
 include ("mman_list.php");

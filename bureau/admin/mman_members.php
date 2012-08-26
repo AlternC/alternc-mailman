@@ -1,13 +1,9 @@
 <?php
 /*
- $Id$
  ----------------------------------------------------------------------
  AlternC - Web Hosting System
- Copyright (C) 2002 by the AlternC Development Team.
- http://alternc.org/
- ----------------------------------------------------------------------
- Based on:
- Valentin Lacambre's web hosting softwares: http://altern.org/
+ Copyright (C) 2000-2012 by the AlternC Development Team.
+ https://alternc.org/
  ----------------------------------------------------------------------
  LICENSE
 
@@ -23,15 +19,15 @@
 
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ----------------------------------------------------------------------
- Original Author of file: Benjamin Sonntag, Franck Missoum
  Purpose of file: Show the Mailing-Lists owned by the current user
  ----------------------------------------------------------------------
 */
+
 require_once("../class/config.php");
 
 $fields = array (
-	"id"     => array ("request", "integer", ""),
-);
+		 "id"     => array ("request", "integer", ""),
+		 );
 getFields($fields);
 
 
