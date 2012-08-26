@@ -39,10 +39,12 @@ install: build
 	install -m 0644 alternc-mailman.conf debian/alternc-mailman/etc/apache/conf.d/
 	install -m 0644 alternc-mailman.conf debian/alternc-mailman/etc/apache-ssl/conf.d/
 	# Install the binaries : -rwxr-sr-x
-	install -m 02755 -o root -g list \
-		src/mailman.create src/mailman.delete src/mailman.list src/mailman.passwd \
-		src/mailman.sub src/mailman.unsub \
-		src/mailman.seturl src/mailman.geturl src/mailman.sync \
+#	install -m 02755 -o root -g list \
+#		src/mailman.create src/mailman.delete src/mailman.list src/mailman.passwd \
+#		src/mailman.sub src/mailman.unsub \
+#		src/mailman.seturl src/mailman.geturl src/mailman.sync \
+#		debian/alternc-mailman/usr/lib/alternc/
+	install -m 0755 update_mailman.sh \
 		debian/alternc-mailman/usr/lib/alternc/
 	install -m 0644 mailman.sql \
 		debian/alternc-mailman/usr/share/alternc/install/
@@ -52,6 +54,8 @@ install: build
 	# remove CVS / SVN entries : 
 	find debian/alternc-mailman/ -depth \( -name CVS -o -name .svn \) -type d -exec rm -rf {} \;
 	cp -r patches debian/alternc-mailman/usr/share/alternc-mailman/patches
+	install -m 0755 upgrade_mailman_check.sh debian/alternc-mailman/usr/share/alternc/install/
+	install -m 0755 upgrades-mailman/* debian/alternc-mailman/usr/share/alternc/install/upgrades-mailman/
 
 binary-common: build install
 	dh_testdir
@@ -62,9 +66,8 @@ binary-common: build install
 	dh_installdebconf
 	dh_link
 	dh_compress
-	dh_fixperms --exclude mailman.delete \
-		--exclude mailman.create --exclude mailman.list \
-		--exclude mailman.sub --exclude mailman.unsub 
+	dh_fixperms
+	dh_installcron
 	dh_installdeb
 	dh_perl
 	dh_gencontrol -- -cdebian/control

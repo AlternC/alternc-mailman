@@ -1,3 +1,10 @@
+alternc-mailman (2.2) stable; urgency=low
+
+  * BIG change: now using a cron names update_mailman.sh which does ALL the action as root:root or list:list
+  * SQL: as a result, SQL table mailman now has mailman_action and mailman_result.
+
+ -- Benjamin Sonntag <benjamin@alternc.org>  Wed, 26 Aug 2012 17:12:00 +0200
+
 alternc-mailman (2.1.1) stable; urgency=low
 
   * postinst changes to handle mailman executables in /usr/lib/mailman/bin

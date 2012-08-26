@@ -27,6 +27,24 @@ class m_mailman {
 
 
   /* ----------------------------------------------------------------- */
+  /** Dummy function for translation texts.
+   */
+  function _cron_result() {
+    // We set the cron available result message here 
+    // so that gettext see them ;) 
+    array(
+	  _("This list already exist"),
+	  _("This list does not exist"),
+	  _("A fatal error happened when creating the list"),
+	  _("A fatal error happened when deleting the list"),
+	  _("A fatal error happened when changing the list password"),
+	  _("A fatal error happened when getting the list url"),
+	  _(""),
+	  );
+  }
+
+
+  /* ----------------------------------------------------------------- */
   /** Return the mailing-lists managed by this member:
    * @param $domain string The domain's list we want (or null to prevent filtering on a specific domain)
    * @param $order_by array how do we sort the lists (default is domain then listname)

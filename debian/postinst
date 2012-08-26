@@ -132,7 +132,9 @@ case "$1" in
     fi
 
     ln -sf /usr/lib/cgi-bin/mailman /var/alternc/cgi-bin/mailman
-    alternc.install || true         # don't fail package config if alternc.install bails out
+
+    echo "checking for upgrades"
+    /usr/share/alternc/install/upgrade_mailman_check.sh $2
 
     # ADD Mailman menu item : 
     if ! grep -q "^menu_mailman.php$" "$MENUFILE"; then
@@ -141,6 +143,11 @@ case "$1" in
 menu_mailman.php/" <$MENUFILE >$MENUFILE.alternc_mailman
         mv -f $MENUFILE.alternc_mailman $MENUFILE
     fi
+
+    echo "**********************************************"
+    echo "*            ALTERNC-MAILMAN                 *"
+    echo "* Please run alternc.install to fully deploy *"
+    echo "**********************************************"
     ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)

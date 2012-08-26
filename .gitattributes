@@ -23,6 +23,7 @@ debian/.svnignore -text
 debian/NEWS -text
 debian/compat -text
 debian/config -text
+debian/cron.d -text
 debian/po/POTFILES.in -text
 debian/po/de.po -text
 debian/po/es.po -text
@@ -49,3 +50,6 @@ src/mailman.sub -text
 src/mailman.sync -text
 src/mailman.unsub -text
 src/set_url_alternc.py -text
+src/update_mailman.sh -text
+/upgrade_mailman_check.sh -text
+upgrades-mailman/2.2.sql -text
