@@ -171,7 +171,7 @@ class m_mailman {
       return false;
     }
 
-    if (!($dom_id=$dom->get_domain_byname($domain)) {
+    if (!($dom_id=$dom->get_domain_byname($domain))) {
       return false;
     }
 
