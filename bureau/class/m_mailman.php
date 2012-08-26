@@ -42,7 +42,7 @@ class m_mailman {
       " $order;";
     $db->query($query);
     if (!$db->num_rows()) {
-      $err->raise("mailman",1);
+      $err->raise("mailman",_("No list defined yet"));
       return array();
     }
     $mls=array();
@@ -115,7 +115,7 @@ class m_mailman {
     $db->query($q);
     $db->next_record();
     if (!$db->f("id")) {
-      $err->raise("mailman",9);
+      $err->raise("mailman",_("This list does not exist"));
       return false;
     }
     $login = $db->f("list");
@@ -182,15 +182,15 @@ class m_mailman {
     }
 
     if ($login=="") {
-      $err->raise("mailman",2);
+      $err->raise("mailman",_("The login (left part of the @) is mandatory"));
       return false;
     }
     if (!$owner || !$password) {
-      $err->raise("mailman",3);
+      $err->raise("mailman",_("The owner email and the password are mandatory"));
       return false;
     }
     if (checkmail($owner)) {
-      $err->raise("mailman",4);
+      $err->raise("mailman",_("This email is incorrect"));
       return false;
     }
     if ($password!=$password2) {
@@ -199,13 +199,13 @@ class m_mailman {
     }
     $r=$this->prefix_list();
     if (!in_array($domain,$r) || $domain=="") {
-      $err->raise("mailman",5);
+      $err->raise("mailman",_("This domain does not exist."));
       return false;
     }
     $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE name='$name';");
     $db->next_record();
     if ($db->f("cnt")) {
-        $err->raise("mailman",10);
+      $err->raise("mailman",_("A list with the same name already exist on the server. Please choose another name."));
         return false;
     }
     // Prefix OK, let's check that all emails wrapper we will create are unused
@@ -220,7 +220,7 @@ class m_mailman {
 	!$mail->available($login."-subscribe@".$domain) ||
 	!$mail->available($login."-unsubscribe@".$domain)) {
       // This is a mail account already !!!
-      $err->raise("mailman",6);
+      $err->raise("mailman",_("This email address (or one of the list-subscribe, list-unsubscribe etc.) are already used."));
       return false;
     }
     // Check the quota
@@ -258,7 +258,7 @@ class m_mailman {
       }
       return !$return;
     } else {
-      $err->raise("mailman",7); // quota
+      $err->raise("mailman",_("Your mailing-list quota is over, you cannot create more mailing-lists.")); // quota
       return false;
     }
   }
@@ -276,7 +276,7 @@ class m_mailman {
     $db->query("SELECT * FROM mailman WHERE id=$id and uid='$cuid';");
     $db->next_record();
     if (!$db->f("id")) {
-      $err->raise("mailman",9);
+      $err->raise("mailman",_("This list does not exist"));
       return false;
     }
     $login=$db->f("list");
@@ -322,7 +322,7 @@ class m_mailman {
       $db->query("SELECT list FROM mailman WHERE uid='$cuid' AND id='$id';");
 
       if (!$db->num_rows()) {
-        $err->raise("mailman",1);
+        $err->raise("mailman",_("No list defined yet"));
         return false;
       }
     }
@@ -352,7 +352,7 @@ class m_mailman {
       $db->query("SELECT list FROM mailman WHERE uid='$cuid' AND id='$id';");
 
       if (!$db->num_rows()) {
-        $err->raise("mailman",1);
+        $err->raise("mailman",_("No list defined yet"));
         return false;
       }
     }
@@ -376,11 +376,11 @@ class m_mailman {
     $db->query("SELECT * FROM mailman WHERE id=$id and uid='$cuid';");
     $db->next_record();
     if (!$db->f("id")) {
-      $err->raise("mailman",9);
+      $err->raise("mailman",_("This list does not exist"));
       return false;
     }
     if ($pass!=$pass2) {
-      $err->raise("mailman",11);
+      $err->raise("mailman",_("The passwords are differents, please try again"));
       return false;
     }
     $login=$db->f("list");
@@ -406,7 +406,7 @@ class m_mailman {
     $db->query($q);
     $db->next_record();
     if (!$db->f("id")) {
-      $err->raise("mailman",9);
+      $err->raise("mailman",_("This list does not exist"));
       return false;
     }
     $list=$db->Record["name"];
@@ -433,7 +433,7 @@ class m_mailman {
     $db->query($q);
     $db->next_record();
     if (!$db->f("id")) {
-      $err->raise("mailman",9);
+      $err->raise("mailman",_("This list does not exist"));
       return false;
     }
     $list=$db->Record["name"];
@@ -449,7 +449,7 @@ class m_mailman {
   /** Quota name
    */
   function hook_quota_names() {
-    return "mailman";
+    return array("mailman"=>_("Mailing lists (mailman)"));
   }
 
 
