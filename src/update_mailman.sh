@@ -42,15 +42,15 @@ echo $$ > "$LOCK_FILE"
 mysql_query "SELECT id, list, domain, owner, password FROM mailman WHERE mailman_action='CREATE';"|while read id list domain owner password ; do
     if [ -d "/var/lib/mailman/lists/$list" ]
     then
-	mysql_query "UPDATE mailman SET mailman_result='This list already exist', mailman_action='' WHERE id='$id';"
+	mysql_query "UPDATE mailman SET mailman_result='This list already exist', mailman_action='OK' WHERE id='$id';"
     else
 	# Create the list : 
 	su - list -c "/usr/lib/mailman/bin/newlist -q \"$list\" \"$owner\" \"$password\""
 	if [ "$?" -eq "0" ]
 	then
-	    mysql_query "UPDATE mailman SET mailman_result='', mailman_action='' WHERE id='$id';"
+	    mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
 	else
-	    mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when creating the list', mailman_action='' WHERE id='$id';"
+	    mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when creating the list', mailman_action='OK' WHERE id='$id';"
 	fi
     fi
 done
@@ -59,7 +59,7 @@ done
 mysql_query "SELECT id, list, domain FROM mailman WHERE mailman_action='DELETE';"|while read id list domain ; do
     if [ ! -d "/var/lib/mailman/lists/$list" ]
     then
-	mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='' WHERE id='$id';"
+	mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK' WHERE id='$id';"
     else
 	# Delete the list : 
 	mysql_query "UPDATE mailman SET mailman_action='DELETING' WHERE id='$id';"
@@ -70,7 +70,7 @@ mysql_query "SELECT id, list, domain FROM mailman WHERE mailman_action='DELETE';
 	    su - list -c "/usr/lib/mailman/bin/rmlist -a \"$list\""
 	    mysql_query "DELETE FROM mailman WHERE id='$id';"
 	else
-	    mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when deleting the list', mailman_action='' WHERE id='$id';"
+	    mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when deleting the list', mailman_action='OK' WHERE id='$id';"
 	fi
     fi
 done
@@ -80,15 +80,15 @@ done
 mysql_query "SELECT id, list, domain, password FROM mailman WHERE mailman_action='PASSWORD';"|while read id list domain password ; do
     if [ ! -d "/var/lib/mailman/lists/$list" ]
     then
-	mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='' WHERE id='$id';"
+	mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK' WHERE id='$id';"
     else
 	# Password the list : 
 	su - list -c "/usr/lib/mailman/bin/change_pw -l \"$list\" -p \"$password\""
 	if [ "$?" -eq "0" ]
 	then
-	    mysql_query "UPDATE mailman SET mailman_result='', mailman_action='' WHERE id='$id';"
+	    mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
 	else
-	    mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when changing the list password', mailman_action='' WHERE id='$id';"
+	    mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when changing the list password', mailman_action='OK' WHERE id='$id';"
 	fi
     fi
 done
@@ -98,15 +98,15 @@ done
 mysql_query "SELECT id, list, domain FROM mailman WHERE mailman_action='GETURL';"|while read id list domain ; do
     if [ ! -d "/var/lib/mailman/lists/$list" ]
     then
-	mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='' WHERE id='$id';"
+	mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK' WHERE id='$id';"
     else
 	# Get the list's URL : 
 	URL=`su -p - list -c "/usr/lib/mailman/bin/withlist -q -l -r get_url_alternc \"$list\" " 2>/dev/null `
 	if [ "$?" -eq "0" ]
 	then
-	    mysql_query "UPDATE mailman SET mailman_result='', mailman_action='', url='$URL' WHERE id='$id';"
+	    mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK', url='$URL' WHERE id='$id';"
 	else
-	    mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when getting the list url', mailman_action='' WHERE id='$id';"
+	    mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when getting the list url', mailman_action='OK' WHERE id='$id';"
 	fi
     fi
 done
@@ -116,15 +116,15 @@ done
 mysql_query "SELECT id, list, domain, url FROM mailman WHERE mailman_action='SETURL';"|while read id list domain url ; do
     if [ ! -d "/var/lib/mailman/lists/$list" ]
     then
-	mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='' WHERE id='$id';"
+	mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK' WHERE id='$id';"
     else
 	# SetURL the list : 
 	su - list -c "/usr/lib/mailman/bin/withlist -q -l -r set_url_alternc \"$list\" \"$url\""
 	if [ "$?" -eq "0" ]
 	then
-	    mysql_query "UPDATE mailman SET mailman_result='', mailman_action='' WHERE id='$id';"
+	    mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
 	else
-	    mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when changing the list password', mailman_action='' WHERE id='$id';"
+	    mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when changing the list password', mailman_action='OK' WHERE id='$id';"
 	fi
     fi
 done
