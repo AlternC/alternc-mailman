@@ -35,24 +35,25 @@ if (!$quota->cancreate("mailman")) {
 <hr id="topbar"/>
 <br />
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-	}
+  if (isset($error) && $error) {
+    echo "<p class=\"error\">$error</p>";
+  }
+if (!isset($domain)) $domain="";
 ?>
 <form method="post" action="mman_doadd.php" name="main" id="main" >
 <input type="hidden" name="id" value="<?php echo $id ?>" />
 <table class="tedit">
 <tr><th><label for="login"><?php __("List's email address"); ?></label></th><td>
-	<input type="text" class="int" id="login" name="login" value="<?php ehe($login); ?>" size="20" maxlength="64" /><b>&nbsp;@&nbsp;</b><select class="inl" name="domain"><?php $mailman->select_prefix_list($domain); ?></select>
+	<input type="text" class="int" id="login" name="login" value="<?php if (isset($login)) ehe($login); ?>" size="20" maxlength="64" /><b>&nbsp;@&nbsp;</b><select class="inl" name="domain"><?php $mailman->select_prefix_list($domain); ?></select>
 </td></tr>
 	<tr><th><label for="owner"><?php __("Email of the list's administrator"); ?> </label></th><td>
-	<input type="text" class="int" id="owner" name="owner" value="<?php ehe($owner); ?>" size="20" maxlength="64" />
+	<input type="text" class="int" id="owner" name="owner" value="<?php  if (isset($owner)) ehe($owner); ?>" size="20" maxlength="64" />
 	</td></tr>
 <tr><th><label for="pass"><?php __("List password"); ?> </label></th><td>
-	<input type="password" class="int" id="pass" name="pass" value="<?php ehe($pass); ?>" size="20" maxlength="64" />
+	<input type="password" class="int" id="pass" name="pass" value="<?php  if (isset($pass)) ehe($pass); ?>" size="20" maxlength="64" />
 	</td></tr>
 <tr><th><label for="pass"><?php __("List password (confirm)"); ?> </label></th><td>
-	<input type="password" class="int" id="pass2" name="pass2" value="<?php ehe($pass2); ?>" size="20" maxlength="64" />
+	<input type="password" class="int" id="pass2" name="pass2" value="<?php  if (isset($pass2)) ehe($pass2); ?>" size="20" maxlength="64" />
 	</td></tr>
 <tr class="trbtn"><td colspan="2">
   <input type="submit" class="inb" name="submit" value="<?php __("Create the list."); ?>"/>
