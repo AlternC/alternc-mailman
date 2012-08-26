@@ -31,7 +31,7 @@ $fields = array (
 		 );
 getFields($fields);
 
-
+$error="";
 if (!($me=$mailman->get_lst($id))) {
   $error=$err->errstr();
   ?>

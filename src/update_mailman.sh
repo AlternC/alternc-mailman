@@ -39,7 +39,7 @@ ionice > /dev/null && ionice="ionice -c 3 "
 echo $$ > "$LOCK_FILE"
 
 # List the lists to CREATE
-mysql_query "SELECT id, list, domain, owner, password FROM mailman WHERE mail_action='CREATE';"|while read id, list domain owner password ; do
+mysql_query "SELECT id, list, domain, owner, password FROM mailman WHERE mailman_action='CREATE';"|while read id list domain owner password ; do
     if [ -d "/var/lib/mailman/lists/$list" ]
     then
 	mysql_query "UPDATE mailman SET mailman_result='This list already exist', mailman_action='' WHERE id='$id';"
@@ -56,7 +56,7 @@ mysql_query "SELECT id, list, domain, owner, password FROM mailman WHERE mail_ac
 done
 
 # List the lists to DELETE
-mysql_query "SELECT id, list, domain FROM mailman WHERE mail_action='DELETE';"|while read id, list domain ; do
+mysql_query "SELECT id, list, domain FROM mailman WHERE mailman_action='DELETE';"|while read id list domain ; do
     if [ ! -d "/var/lib/mailman/lists/$list" ]
     then
 	mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='' WHERE id='$id';"
@@ -77,7 +77,7 @@ done
 
 
 # List the lists to PASSWORD
-mysql_query "SELECT id, list, domain, password FROM mailman WHERE mail_action='PASSWORD';"|while read id, list domain password ; do
+mysql_query "SELECT id, list, domain, password FROM mailman WHERE mailman_action='PASSWORD';"|while read id list domain password ; do
     if [ ! -d "/var/lib/mailman/lists/$list" ]
     then
 	mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='' WHERE id='$id';"
@@ -95,7 +95,7 @@ done
 
 
 # List the lists to GETURL
-mysql_query "SELECT id, list, domain FROM mailman WHERE mail_action='GETURL';"|while read id, list domain ; do
+mysql_query "SELECT id, list, domain FROM mailman WHERE mailman_action='GETURL';"|while read id list domain ; do
     if [ ! -d "/var/lib/mailman/lists/$list" ]
     then
 	mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='' WHERE id='$id';"
@@ -113,7 +113,7 @@ done
 
 
 # List the lists to SETURL
-mysql_query "SELECT id, list, domain, url FROM mailman WHERE mail_action='SETURL';"|while read id, list domain url ; do
+mysql_query "SELECT id, list, domain, url FROM mailman WHERE mailman_action='SETURL';"|while read id list domain url ; do
     if [ ! -d "/var/lib/mailman/lists/$list" ]
     then
 	mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='' WHERE id='$id';"

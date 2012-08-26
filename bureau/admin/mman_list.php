@@ -26,6 +26,12 @@
 require_once("../class/config.php");
 include_once("head.php");
 $error="";
+
+$mman_status=array(
+		   "PASSWORD" => _("Password change pending"),
+		   "SETURL" => _("Url change pending"),
+   );
+
 ?>
 
 <h3><?php __("Mailing lists"); ?></h3>
@@ -78,7 +84,7 @@ if ($quota->cancreate("mailman")) {
 
 	<form method="post" action="mman_del.php">
 	<table class="tlist">
-	<tr><th><?php __("Delete"); ?></th><th><?php __("List name"); ?></th><th colspan="4">&nbsp;</th></tr>
+	<tr><th><?php __("Delete"); ?></th><th><?php __("List name"); ?></th><th><?php __("List Status"); ?><th colspan="3">&nbsp;</th></tr>
 	<?php
 	reset($r);
 	$col=1;
@@ -93,10 +99,15 @@ if ($quota->cancreate("mailman")) {
 		   <?php } else { ?>
 		   <td align="center" rowspan="2"><?php if ($val["list"]!="mailman") { ?><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>" id="d_<?php echo $val["id"]; ?>" /><?php } ?></td>
 		   <td rowspan="2"><label for="d_<?php echo $val["id"]; ?>"><?php echo $val["list"]."@".$val["domain"] ?></label></td>
-			<td><div class="ina"><a href="http://<?php echo $L_FQDN; ?>/cgi-bin/mailman/listinfo/<?php echo $val["name"] ?>"><?php __("Public page"); ?></a></div></td>
+		   <td><?php if ($val["mailman_action"]!="OK") { ?>
+		     <?php echo $mman_status[$val["mailman_action"]]; ?>
+<?php } elseif ($val["mailman_result"]!="") { ?>
+	  <?php echo _($val["mailman_action"]); /* strings present for gettext in m_mailman */ ?>
+<?php } ?></td>
+<!-- 			<td><div class="ina"><a href="http://<?php echo $L_FQDN; ?>/cgi-bin/mailman/listinfo/<?php echo $val["name"] ?>"><?php __("Public page"); ?></a></div></td> -->
 			<td><div class="ina"><a href="http://<?php echo $L_FQDN; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a></div></td>
 			<td><div class="ina"><a href="http://<?php echo $L_FQDN; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a></div></td>
-                        <td></td>
+<!--		    <td>&nbsp;</td> -->
 </tr><tr class="lst<?php echo $col; ?>">
 			<td><div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div></td>
 			<td><div class="ina"><a href="mman_url.php?id=<?php echo $val["id"] ?>"><?php __("Change url"); ?></a></div></td>

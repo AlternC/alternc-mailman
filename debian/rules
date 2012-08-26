@@ -44,7 +44,7 @@ install: build
 #		src/mailman.sub src/mailman.unsub \
 #		src/mailman.seturl src/mailman.geturl src/mailman.sync \
 #		debian/alternc-mailman/usr/lib/alternc/
-	install -m 0755 update_mailman.sh \
+	install -m 0755 src/update_mailman.sh \
 		debian/alternc-mailman/usr/lib/alternc/
 	install -m 0644 mailman.sql \
 		debian/alternc-mailman/usr/share/alternc/install/
