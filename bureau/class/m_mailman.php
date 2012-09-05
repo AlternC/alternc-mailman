@@ -243,7 +243,6 @@ class m_mailman {
     // Check the quota
     if ($quota->cancreate("mailman")) {
       // List creation : 1. insert into the DB
-      $password=_md5cr($password);
       $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,mailman_action) VALUES ('$cuid','$login','$domain','$name','$password','$owner','CREATE');");
       if (!$this->add_wrapper($login,$dom_id,"post",$name) ||
 	  !$this->add_wrapper($login."-request",$dom_id,"request",$name) ||
