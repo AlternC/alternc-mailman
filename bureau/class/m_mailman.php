@@ -243,7 +243,8 @@ class m_mailman {
     // Check the quota
     if ($quota->cancreate("mailman")) {
       // List creation : 1. insert into the DB
-      $db->query("INSERT INTO mailman (uid,list,domain,name,mailman_action) VALUES ('$cuid','$login','$domain','$name','CREATE');");
+      $password=_md5cr($password);
+      $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,mailman_action) VALUES ('$cuid','$login','$domain','$name','$password','$owner','CREATE');");
       if (!$this->add_wrapper($login,$dom_id,"post",$name) ||
 	  !$this->add_wrapper($login."-request",$dom_id,"request",$name) ||
 	  !$this->add_wrapper($login."-owner",$dom_id,"owner",$name) ||
@@ -477,13 +478,15 @@ class m_mailman {
    * or FALSE if an error occured
    * @access private
    */ 
-  function hook_quota_get($name) {
+  function hook_quota_get() {
     global $err,$cuid,$db;
-    if ($name=="mailman") {
-      $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE uid='$cuid';");
-      $db->next_record();
-      return $db->f("cnt");
-    } else return false;
+    $err->log("mailman","getquota");
+    $q=Array("name"=>"mailman", "description"=>_("Mailing lists"), "used"=>0);
+    $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE uid='$cuid'");
+    if ($db->next_record()) {
+	$q['used']=$db->f("cnt");
+    }
+    return $q;
   }
   
 

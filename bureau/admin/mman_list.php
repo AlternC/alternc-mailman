@@ -30,6 +30,7 @@ $error="";
 $mman_status=array(
 		   "PASSWORD" => _("Password change pending"),
 		   "SETURL" => _("Url change pending"),
+		   "CREATE" => _("List creation pending"),
 		   );
 
 ?>
@@ -96,7 +97,7 @@ if ($quota->cancreate("mailman")) {
 		   <?php } else { ?>
 		   <td align="center" rowspan="2"><?php if ($val["list"]!="mailman") { ?><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>" id="d_<?php echo $val["id"]; ?>" /><?php } ?></td>
 		   <td rowspan="2"><label for="d_<?php echo $val["id"]; ?>"><?php echo $val["list"]."@".$val["domain"] ?></label></td>
-		   <td rowspan="2"><?php if ($val["mailman_action"] && $val["mailman_action"]!="OK") { ?>
+	   <td rowspan="2"><?php if (isset($val["mailman_action"]) && $val["mailman_action"]!="OK") { ?>
 		     <?php echo $mman_status[$val["mailman_action"]]; ?>
 <?php } elseif ($val["mailman_result"]!="") { ?>
 	  <?php echo _($val["mailman_action"]); /* strings present for gettext in m_mailman */ ?>
