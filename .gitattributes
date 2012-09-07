@@ -30,6 +30,7 @@ debian/po/fr.po -text
 debian/po/pt.po -text
 debian/po/templates.pot -text
 debian/templates -text
+/mailman.conf -text
 patches/mailman-true-virtual-2.1.1.patch -text
 patches/mailman-true-virtual-2.1.11.patch -text
 patches/mailman-true-virtual-2.1.13.d/2.1.13_usr-lib-mailman.patch -text

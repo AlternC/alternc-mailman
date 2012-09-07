@@ -36,8 +36,8 @@ install: build
 		debian/alternc-mailman/etc/alternc/templates/mailman/
 	install -m 0644 -o root -g root src/get_url_alternc.py src/set_url_alternc.py \
 		debian/alternc-mailman/var/lib/mailman/bin/
-	install -m 0644 alternc-mailman.conf debian/alternc-mailman/etc/apache/conf.d/
 	install -m 0644 alternc-mailman.conf debian/alternc-mailman/etc/apache-ssl/conf.d/
+	install -m 0644 mailman.conf debian/alternc-mailman/etc/alternc/apache-panel.d/
 	# Install the binaries : -rwxr-sr-x
 #	install -m 02755 -o root -g list \
 #		src/mailman.create src/mailman.delete src/mailman.list src/mailman.passwd \
