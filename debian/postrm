@@ -7,8 +7,7 @@ case "$1" in
   remove)
     alternc.install || true     # don't fail removal if alternc.install bails out
 
-    # FIXME : apache2 compliance ? 
-    rm -f /var/alternc/cgi-bin/mailman /etc/apache{,-ssl}/conf.d/alternc-mailman.conf
+    rm -f /var/alternc/cgi-bin/mailman /etc/apache-ssl/conf.d/alternc-mailman.conf /etc/alternc/apache-panel.d/mailman.conf
 
     if grep -qs "menu_mailman.php" $MENUFILE; then
 	rm -f $MENUFILE.alternc_mailman
@@ -17,10 +16,10 @@ case "$1" in
     fi
     ;;
   purge)
-    if [ -e "$CONFIGFILE" -a -x "/usr/bin/mysql" ]; then
-        mysql --defaults-file=${CONFIGFILE} -f -e "DROP TABLE IF EXISTS mailman"
-        mysql --defaults-file=${CONFIGFILE} -f -e "DELETE FROM variable WHERE name = 'mailman_url'"
-    fi
+    #if [ -e "$CONFIGFILE" -a -x "/usr/bin/mysql" ]; then
+    #    mysql --defaults-file=${CONFIGFILE} -f -e "DROP TABLE IF EXISTS mailman"
+    #    mysql --defaults-file=${CONFIGFILE} -f -e "DELETE FROM variable WHERE name = 'mailman_url'"
+    #fi
     ;;
 esac
 

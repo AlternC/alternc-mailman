@@ -131,6 +131,9 @@ case "$1" in
         ) | mysql --defaults-file=/etc/alternc/my.cnf -f || true
     fi
 
+    # Create default quota "mailman" with value 0
+    mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT INTO defquotas VALUES ('mailman', 0, 'default')" || true
+
     ln -sf /usr/lib/cgi-bin/mailman /var/alternc/cgi-bin/mailman
 
     echo "checking for upgrades"

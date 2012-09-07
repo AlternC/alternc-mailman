@@ -42,7 +42,7 @@ echo $$ > "$LOCK_FILE"
 mysql_query "SELECT id, list, domain, owner, password FROM mailman WHERE mailman_action='CREATE';"|while read id list domain owner password ; do
     if [ -d "/var/lib/mailman/lists/$list" ]
     then
-	mysql_query "UPDATE mailman SET mailman_result='This list already exist', mailman_action='OK' WHERE id='$id';"
+	mysql_query "UPDATE mailman SET password='', mailman_result='This list already exist', mailman_action='OK' WHERE id='$id';"
     else
 	# Create the list : 
 	su - list -c "/usr/lib/mailman/bin/newlist -q \"$list\" \"$owner\" \"$password\""
