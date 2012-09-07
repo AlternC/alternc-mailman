@@ -4,7 +4,6 @@
 
 CONFIGFILE="/etc/alternc/local.sh"
 MENUFILE="/etc/alternc/menulist.txt"
-MAILMAN_SCRIPT="/var/lib/mailman/mail/mailman"
 MAILMAN_CONFIG="/etc/mailman/mm_cfg.py"
 MAILMAN_CONFIG_TEMPLATE="/etc/alternc/templates/mailman/mm_cfg.py"
 MAILMAN_CONFIG_BACKUP="/var/backups/alternc/etc-mailman-mm_cfg.py"
@@ -119,16 +118,15 @@ case "$1" in
 
     # Create the "mailman" list if it does not exist yet
     if [ ! -d /var/lib/mailman/lists/mailman ]; then
-        ${MAILMAN_BIN}/newlist -q mailman "root@$FQDN" "${MAILMAN_PASS}"
-        ( echo "INSERT INTO mailman SET id=NULL, uid=2000, list='mailman', domain='${FQDN}', name='mailman';"
-          echo "INSERT INTO mail_domain SET mail='mailman@${FQDN}', alias='mailman_${FQDN}', uid=2000, pop=0, type=1;"
-          echo "INSERT INTO mail_alias SET mail='mailman_${FQDN}', alias='\"| $MAILMAN_SCRIPT post mailman\"';"
-          for kind in request owner admin bounces confirm join \
-                      leave subscribe unsubscribe; do
-              echo "INSERT INTO mail_domain SET mail='mailman-${kind}@${FQDN}', alias='mailman-${kind}_${FQDN}', uid=2000, pop=0, type=1;"
-              echo "INSERT INTO mail_alias SET mail='mailman-${kind}_${FQDN}', alias='\"| $MAILMAN_SCRIPT ${kind} mailman\"';" 
-          done
-        ) | mysql --defaults-file=/etc/alternc/my.cnf -f || true
+        # Create the list :
+	owner='admin@'${FQDN} 
+        su - list -c "/usr/lib/mailman/bin/newlist -q \"mailman\" \"$owner\" \"${MAILMAN_PASS}\""
+        if [ "$?" -eq "0" ]
+        then
+            mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT INTO mailman SET uid=2000, list='mailman', name='mailman', domain='${FQDN}', password='${MAILMAN_PASS}', mailman_result='', mailman_action='OK', owner='$owner';"
+        else
+	    mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT INTO mailman SET uid=2000, list='mailman', name='mailman', domain='${FQDN}', password='${MAILMAN_PASS}', mailman_result='A fatal error happened when creating the list', mailman_action='OK', owner='$owner';"
+        fi
     fi
 
     # Create default quota "mailman" with value 0
