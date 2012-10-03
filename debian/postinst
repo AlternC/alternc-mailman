@@ -21,6 +21,12 @@ case "$1" in
   configure)
     . "$CONFIGFILE"
 
+    # Then, configure the quota for "mailman"
+    db_get alternc-mailman/default_quota_value || true
+    /usr/lib/alternc/quota_init mailman $RET 
+
+    db_stop
+
     echo "Installing mysql table"
     mysql --defaults-file=/etc/alternc/my.cnf < /usr/share/alternc/install/mailman.sql
     
