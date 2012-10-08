@@ -150,9 +150,9 @@ class m_mailman {
    * @return boolean TRUE if the wrapper has been created, or FALSE if an error occured
    */
   private function add_wrapper($login,$dom_id,$function,$list) {
-    global $db;
-    // TODO: TEST THIS, I'M NOT SURE IT'S ENOUGH TO DEFINE IT THAT WAY !!
-    $db->query("INSERT INTO address SET type='mailman', delivery='mailman', address='".addslashes($login)."', domain_id=$dom_id;");
+    global $db,$mail,$err;
+    $err->log("mailman","add_wrapper",$login);
+    $mail->add_wrapper($dom_id,$login,"mailman");
     return true;    
   }
 
@@ -164,9 +164,17 @@ class m_mailman {
    * @return boolean TRUE if the wrapper has been deleted, or FALSE if an error occured
    */
   private function del_wrapper($login,$dom_id) {
-    global $db;
-    $db->query("DELETE FROM address WHERE type='mailman' AND address='".addslashes($login)."' AND domain_id=$dom_id;");
-    return true;
+    global $db,$mail,$err;
+    $err->log("mailman","del_wrapper",$login);
+    $db->query("SELECT id FROM address WHERE type='mailman' AND address='".addslashes($login)."' AND domain_id=$dom_id;");
+    $db->next_record();
+    if(!$db->f("id")){
+      $err->raise("mailman",_("The mailman address %s does not exists",$login));
+      return false;
+    }
+      $mail_id=$db->f("id");
+      $mail->del_wrapper($mail_id);
+      return true;
   }
 
 
@@ -278,7 +286,7 @@ class m_mailman {
    * @return boolean TRUE if the list has been deleted or FALSE if an error occured
    */
   function delete_lst($id) {
-    global $db,$err,$mail,$cuid;
+    global $db,$err,$dom,$mail,$cuid;
     $err->log("mailman","delete_lst",$id);
     // We delete lists only in the current member's account.
     $db->query("SELECT * FROM mailman WHERE id=$id and uid='$cuid';");
@@ -293,13 +301,17 @@ class m_mailman {
     }
     $login=$db->f("list");
     $domain=$db->f("domain");
+    if (!($dom_id=$dom->get_domain_byname($domain))) {
+      return false;
+    }
+
 
     $db->query("UPDATE mailman SET mailman_action='DELETE' WHERE id=$id");
-    $this->del_wrapper($login,$domain);	        $this->del_wrapper($login."-request",$domain);
-    $this->del_wrapper($login."-owner",$domain);	$this->del_wrapper($login."-admin",$domain);
-    $this->del_wrapper($login."-bounces",$domain);	$this->del_wrapper($login."-confirm",$domain);
-    $this->del_wrapper($login."-join",$domain);	$this->del_wrapper($login."-leave",$domain);
-    $this->del_wrapper($login."-subscribe",$domain);	$this->del_wrapper($login."-unsubscribe",$domain);
+    $this->del_wrapper($login,$dom_id);	        $this->del_wrapper($login."-request",$dom_id);
+    $this->del_wrapper($login."-owner",$dom_id);	$this->del_wrapper($login."-admin",$dom_id);
+    $this->del_wrapper($login."-bounces",$dom_id);	$this->del_wrapper($login."-confirm",$dom_id);
+    $this->del_wrapper($login."-join",$dom_id);	$this->del_wrapper($login."-leave",$dom_id);
+    $this->del_wrapper($login."-subscribe",$dom_id);	$this->del_wrapper($login."-unsubscribe",$dom_id);
     return $login."@".$domain;
   }
 
