@@ -39,13 +39,13 @@ ionice > /dev/null && ionice="ionice -c 3 "
 echo $$ > "$LOCK_FILE"
 
 # List the lists to CREATE
-mysql_query "SELECT id, list, domain, owner, password FROM mailman WHERE mailman_action='CREATE';"|while read id list domain owner password ; do
-    if [ -d "/var/lib/mailman/lists/$list" ]
+mysql_query "SELECT id, name, domain, owner, password FROM mailman WHERE mailman_action='CREATE';"|while read id name domain owner password ; do
+    if [ -d "/var/lib/mailman/lists/$name" ]
     then
 	mysql_query "UPDATE mailman SET password='', mailman_result='This list already exist', mailman_action='OK' WHERE id='$id';"
     else
 	# Create the list : 
-	su - list -c "/usr/lib/mailman/bin/newlist -q \"$list\" \"$owner\" \"$password\""
+	su - list -c "/usr/lib/mailman/bin/newlist -q \"$name\" \"$owner\" \"$password\""
 	if [ "$?" -eq "0" ]
 	then
 	    mysql_query "UPDATE mailman SET password='', mailman_result='', mailman_action='OK' WHERE id='$id';"

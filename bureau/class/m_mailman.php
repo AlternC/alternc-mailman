@@ -149,10 +149,10 @@ class m_mailman {
    * @param $list the mailman list name
    * @return boolean TRUE if the wrapper has been created, or FALSE if an error occured
    */
-  private function add_wrapper($login,$dom_id,$function,$list) {
+  private function add_wrapper($login,$dom_id,$function,$name) {
     global $db,$mail,$err;
     $err->log("mailman","add_wrapper",$login);
-    $mail->add_wrapper($dom_id,$login,"mailman");
+    $mail->add_wrapper($dom_id,$login,"mailman",$function,$name);
     return true;    
   }
 
@@ -252,7 +252,7 @@ class m_mailman {
     if ($quota->cancreate("mailman")) {
       // List creation : 1. insert into the DB
       $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,mailman_action) VALUES ('$cuid','$login','$domain','$name','$password','$owner','CREATE');");
-      if (!$this->add_wrapper($login,$dom_id,"post",$name) ||
+      if (!$this->add_wrapper($login,$dom_id,"",$name) ||
 	  !$this->add_wrapper($login."-request",$dom_id,"request",$name) ||
 	  !$this->add_wrapper($login."-owner",$dom_id,"owner",$name) ||
 	  !$this->add_wrapper($login."-admin",$dom_id,"admin",$name) ||
