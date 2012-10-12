@@ -63,6 +63,7 @@ DEFAULT_EMAIL_HOST = '%%fqdn%%'
 DEFAULT_URL_HOST   = '%%fqdn%%'
 add_virtualhost(DEFAULT_URL_HOST, DEFAULT_EMAIL_HOST)
 
+ACCEPTABLE_LISTNAME_CHARACTERS ='[-+_.= a-z0-9@]'
 DEFAULT_HOST_NAME = '%%fqdn%%'
 DEFAULT_URL_PATTERN = 'http://%s/cgi-bin/mailman/'
 IMAGE_LOGOS       = '/images/mailman/'
