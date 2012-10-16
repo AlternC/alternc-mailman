@@ -142,17 +142,14 @@ class m_mailman {
 
 
   function get_list_url_all() {
-    global $db, $err, $cuid;
+    global $db, $err, $cuid, $L_FQDN;
     $err->log("mailman","get_list_url", $cuid);
-    
-    $q = "SELECT * FROM sub_domaines where compte=".$cuid." and type='panel' and enable='ENABLED';";
+
+    $q = "SELECT if(length(sd.sub)>0,concat_ws('.',sd.sub,sd.domaine),sd.domaine) as url from sub_domaines sd where compte=2000 and type='panel' and enable='ENABLED';";
     $db->query($q);
-    $r =array();
-    $i=0;
+    $r=array($L_FQDN);
     while($db->next_record()){
-      $r[$i]['domain']=$db->f('domaine');
-      $r[$i]['sub']=$db->f('sub');      
-      $i=$i+1;
+      $r[]=$db->f('url');
     }
     return $r;
   }
@@ -429,15 +426,14 @@ class m_mailman {
   /** FIXME: this function has no equivalent in cron mode, remove this */
   function get_list_url($list) {
     global $db,$err,$cuid;
-    $q = "SELECT * FROM mailman WHERE uid = '" . $cuid . "' && id = '" . intval($list) . "'";
+    $q = "SELECT concat_ws('/',url,'cgi-bin/mailman/admin',name) as url FROM mailman WHERE uid = '" . $cuid . "' AND id = '" . intval($list) . "'";
     $db->query($q);
-    $db->next_record();
-    if (!$db->f("id")) {
+    if (!$db->next_record()) {
       $err->raise("mailman",_("This list does not exist"));
       return false;
     }
-    $url=$db->Record["url"];
-      return $url;
+    $url=$db->f("url");
+    return $url;
   }
 
 

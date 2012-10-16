@@ -67,19 +67,21 @@ __("This is the current url to access administration and public pages for this l
 <input type="hidden" name="id" value="<?php echo $id ?>" />
 <?php echo "<h3>".sprintf(_("Changing management url of list %s"),$me)."</h3>"; ?>
 <table class="tedit">
-<tr><th><?php __("Current list url"); ?></th><td>
-<?php echo $cururl; ?>
-	</td></tr>
-<tr><th><label for="pass"><?php __("New list management url"); ?> </label></th><td>
+  <tr>
+    <th><?php __("Current list url"); ?></th>
+    <td><a href="http://<?php echo $cururl;?>" target=_blank>http://<?php echo $cururl; ?></a></td>
+  </tr>
+  <tr>
+    <th><label for="pass"><?php __("New list management url"); ?> </label></th>
+    <td>
 	<select name="newurl" class="inl" id="newurl" >
   <?php
 foreach($urls as $url){
 ?>
-<option value='<?php echo $url['sub'].".".$url['domain']; ?>'> <?php echo "http://".$url['sub'].".".$url['domain']."/cgi-bin/mailman"; ?></option>
+<option value='<?php echo $url ?>'> <?php echo "http://$url/cgi-bin/mailman"; ?></option>
 <?php
 }
 ?>
-<option value='<?php echo $_SERVER['HTTP_HOST'] ?>' ><?php echo "http://".$_SERVER['HTTP_HOST']."/cgi-bin/mailman";   ?></option>
   </select>
 	</td></tr>
 <tr><td colspan="2">
