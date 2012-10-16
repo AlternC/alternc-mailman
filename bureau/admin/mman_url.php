@@ -41,6 +41,15 @@ if (!($me=$mailman->get_lst($id))) {
  include_once("foot.php");
  exit();
  }
+if (!($urls=$mailman->get_list_url_all())) {
+  $error=$err->errstr();
+  ?>
+          <h3><?php __("Mailing lists"); ?></h3>
+<?php
+ echo "<p class=\"error\">$error</p>";
+ include_once("foot.php");
+ exit();
+ }
 
 ?>
 <h3><?php __("Mailing lists"); ?></h3>
@@ -64,16 +73,13 @@ __("This is the current url to access administration and public pages for this l
 <tr><th><label for="pass"><?php __("New list management url"); ?> </label></th><td>
 	<select name="newurl" class="inl" id="newurl" >
   <?php
-  list($name,$ldom)=explode("@",$me);
-$alist=array(
-	     "http://".$_SERVER["HTTP_HOST"]."/cgi-bin/mailman/"=>"http://".$_SERVER["HTTP_HOST"]."/cgi-bin/mailman/",
-	     "https://".$_SERVER["HTTP_HOST"]."/cgi-bin/mailman/"=>"https://".$_SERVER["HTTP_HOST"]."/cgi-bin/mailman/",
-	     "http://".$ldom."/cgi-bin/mailman/"=>"http://".$ldom."/cgi-bin/mailman/",
-	     "https://".$ldom."/cgi-bin/mailman/"=>"https://".$ldom."/cgi-bin/mailman/",
-	     );
-eoption($alist,$cururl);
-
+foreach($urls as $url){
 ?>
+<option value='<?php echo $url['sub'].".".$url['domain']; ?>'> <?php echo "http://".$url['sub'].".".$url['domain']."/cgi-bin/mailman"; ?></option>
+<?php
+}
+?>
+<option value='<?php echo $_SERVER['HTTP_HOST'] ?>' ><?php echo "http://".$_SERVER['HTTP_HOST']."/cgi-bin/mailman";   ?></option>
   </select>
 	</td></tr>
 <tr><td colspan="2">
@@ -88,4 +94,5 @@ eoption($alist,$cururl);
       $('#newurl').focus();
 </script>
 
-<?php include_once("foot.php"); ?>
+<?php
+ include_once("foot.php"); ?>

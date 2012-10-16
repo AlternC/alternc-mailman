@@ -141,6 +141,21 @@ class m_mailman {
   }
 
 
+  function get_list_url_all() {
+    global $db, $err, $cuid;
+    $err->log("mailman","get_list_url", $cuid);
+    
+    $q = "SELECT * FROM sub_domaines where compte=".$cuid." and type='panel' and enable='ENABLED';";
+    $db->query($q);
+    $r =array();
+    $i=0;
+    while($db->next_record()){
+      $r[$i]['domain']=$db->f('domaine');
+      $r[$i]['sub']=$db->f('sub');      
+      $i=$i+1;
+    }
+    return $r;
+  }
   /* ----------------------------------------------------------------- */
   /** Add a mail in 'address' table for mailman delivery
    * @param $login string the left part of the @ for the list email 
@@ -421,15 +436,8 @@ class m_mailman {
       $err->raise("mailman",_("This list does not exist"));
       return false;
     }
-    $list=$db->Record["name"];
-    unset($out);
-    $exec="/usr/lib/alternc/mailman.geturl ".escapeshellarg($list);
-    exec($exec,$out,$ret);
-    if ($ret) return false;
-    if ($out[0]) 
-      return $out[0]; 
-    else 
-      return false;
+    $url=$db->Record["url"];
+      return $url;
   }
 
 
@@ -448,7 +456,7 @@ class m_mailman {
       $err->raise("mailman",_("This list does not exist"));
       return false;
     }
-    $list=$db->Record["name"];
+    $id=$db->Record["id"];
     unset($out);
     $db->query("UPDATE mailman SET mailman_action='SETURL', url='".addslashes($newurl)."' WHERE id=$id;");
     return true;
