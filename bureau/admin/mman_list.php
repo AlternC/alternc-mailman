@@ -33,15 +33,12 @@ $mman_status=array(
 		   "CREATE" => _("List creation pending"),
 		   );
 
-?>
 
-<h3><?php __("Mailing lists"); ?></h3>
-
-<?php
 // If there is no installed domain, let's failed definitely !
 if (count($dom->enum_domains())==0) {
   $error=_("No domain is installed on your account, you cannot create any mailing list!");
 ?>
+<h3><?php __("Mailing lists"); ?></h3>
 <hr id="topbar"/>
 <br />
 <?php echo "<p class=\"error\">$error</p>"; ?>
@@ -51,11 +48,6 @@ if (count($dom->enum_domains())==0) {
 
 if(!$r=$mailman->enum_ml()) {
   $error.=$err->errstr();
-?>
-<hr id="topbar"/>
-<br />
-<?php echo "<p class=\"error\">$error</p>"; ?>
-<?php
   if ($quota->cancreate("mailman")) {
     require_once("mman_add.php"); 
     exit();
