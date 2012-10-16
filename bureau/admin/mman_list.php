@@ -77,7 +77,6 @@ if ($quota->cancreate("mailman")) {
 </p>
 	<?php
 }
-printvar($r);
 ?>
 
 
