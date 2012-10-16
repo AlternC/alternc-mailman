@@ -77,6 +77,7 @@ if ($quota->cancreate("mailman")) {
 </p>
 	<?php
 }
+printvar($r);
 ?>
 
 
@@ -98,13 +99,14 @@ if ($quota->cancreate("mailman")) {
 		   <td align="center" rowspan="2"><?php if ($val["list"]!="mailman") { ?><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>" id="d_<?php echo $val["id"]; ?>" /><?php } ?></td>
 		   <td rowspan="2"><label for="d_<?php echo $val["id"]; ?>"><?php echo $val["list"]."@".$val["domain"] ?></label></td>
 	   <td rowspan="2"><?php if (isset($val["mailman_action"]) && $val["mailman_action"]!="OK") { ?>
-		     <?php echo $mman_status[$val["mailman_action"]]; ?>
-<?php } elseif ($val["mailman_result"]!="") { ?>
-	  <?php echo _($val["mailman_action"]); /* strings present for gettext in m_mailman */ ?>
-<?php } ?></td>
-<!-- 			<td><div class="ina"><a href="http://<?php echo $L_FQDN; ?>/cgi-bin/mailman/listinfo/<?php echo $val["name"] ?>"><?php __("Public page"); ?></a></div></td> -->
-			<td><div class="ina"><a href="http://<?php echo $L_FQDN; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a></div></td>
-			<td><div class="ina"><a href="http://<?php echo $L_FQDN; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a></div></td>
+		     <?php echo _($mman_status[$val["mailman_action"]]); ?>
+<?php } elseif (!empty($val["mailman_result"])) { ?>
+	  <?php echo $val["mailman_result"]; /* strings present for gettext in m_mailman */ ?>
+<?php } else { echo "OK";}
+      
+      ?></td>
+			<td><div class="ina"><a target=_blank href="http://<?php echo $L_FQDN; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a></div></td>
+			<td><div class="ina"><a target=_blank href="http://<?php echo $L_FQDN; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a></div></td>
 <!--		    <td>&nbsp;</td> -->
 </tr><tr class="lst<?php echo $col; ?>">
 			<td><div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div></td>
