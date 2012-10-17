@@ -139,6 +139,20 @@ class m_mailman {
     $domain = $db->f("domain");
     return $login . "@" . $domain;
   }
+  
+  /*------------------------------------------------------------------ */
+  /** Boolean function used to test whether the virtual list pach was applied or not
+   */
+
+  function vhost_applied(){
+    global $err;
+
+    if (file_exists("/usr/share/alternc-mailman/patches/mailman-true-virtual.applied")) {
+	return true;
+    }else{
+        return false;
+    }
+  }
 
 
   function get_list_url_all() {
@@ -212,7 +226,7 @@ class m_mailman {
       return false;
     }
 
-    if (file_exists("/usr/share/alternc-mailman/patches/mailman-true-virtual.applied")) {
+    if($this->vhost_applied()){
       $name = $login . '-' . $domain;
     } else {
       $name = $login;
