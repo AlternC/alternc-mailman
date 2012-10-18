@@ -25,6 +25,12 @@
 
 class m_mailman {
 
+  var $is_vhost_applied;
+
+  // Constructeur
+  function m_mailman() {
+    $this->is_vhost_applied=$this->vhost_applied();
+  }
 
   /* ----------------------------------------------------------------- */
   /** Dummy function for translation texts.
@@ -145,8 +151,6 @@ class m_mailman {
    */
 
   function vhost_applied(){
-    global $err;
-
     if (file_exists("/usr/share/alternc-mailman/patches/mailman-true-virtual.applied")) {
 	return true;
     }else{
@@ -176,9 +180,21 @@ class m_mailman {
    * @return boolean TRUE if the wrapper has been created, or FALSE if an error occured
    */
   private function add_wrapper($login,$dom_id,$function,$name) {
-    global $db,$mail,$err;
+    global $db,$mail,$err,$dom;
     $err->log("mailman","add_wrapper",$login);
-    $mail->add_wrapper($dom_id,$login,"mailman",$function,$name);
+
+    // Get the domain human name
+    if (!($domain=$dom->get_domain_byid($dom_id))) {
+      return false;
+    }
+
+    $recipient="$name$function";
+    $mail->add_wrapper($dom_id,$recipient,"mailman");
+
+    if($this->is_vhost_applied){
+      $mail->create_alias($dom_id,"$login","$recipient@$domain","");
+    }
+
     return true;    
   }
 
@@ -215,6 +231,13 @@ class m_mailman {
   function add_lst($domain,$login,$owner,$password,$password2) {
     global $db,$err,$quota,$mail,$cuid,$dom;
     $err->log("mailman","add_lst",$login."@".$domain." - ".$owner);
+
+    // Check the quota
+    if (!$quota->cancreate("mailman")) {
+      $err->raise("mailman",_("Your mailing-list quota is over, you cannot create more mailing-lists.")); // quota
+      return false;
+    }
+
     /* the list' internal name */
     $login = strtolower($login);
     if (!filter_var($login."@".$domain,FILTER_VALIDATE_EMAIL)) {
@@ -226,7 +249,7 @@ class m_mailman {
       return false;
     }
 
-    if($this->vhost_applied()){
+    if($this->is_vhost_applied){
       $name = $login . '-' . $domain;
     } else {
       $name = $login;
@@ -259,50 +282,46 @@ class m_mailman {
       $err->raise("mailman",_("A list with the same name already exist on the server. Please choose another name."));
         return false;
     }
+
+    // Name of needed mails
+    $lst_functions=array('','-request','-owner','-admin','-bounces','-confirm','-join','-leave','-subscribe','-unsubscribe');
+
     // Prefix OK, let's check that all emails wrapper we will create are unused
-    if (!$mail->available($login."@".$domain) ||
-	!$mail->available($login."-request@".$domain) ||
-	!$mail->available($login."-owner@".$domain) ||
-	!$mail->available($login."-admin@".$domain) ||
-	!$mail->available($login."-bounces@".$domain) ||
-	!$mail->available($login."-confirm@".$domain) ||
-	!$mail->available($login."-join@".$domain) ||
-	!$mail->available($login."-leave@".$domain) ||
-	!$mail->available($login."-subscribe@".$domain) ||
-	!$mail->available($login."-unsubscribe@".$domain)) {
+    $no_err=true;
+    foreach ($lst_functions as $ll) {
+      if (!$mail->available($login.$ll."@".$domain)) {
+        $no_err=false;
+      }
+    }
+    if (!$no_err) {
       // This is a mail account already !!!
       $err->raise("mailman",_("This email address (or one of the list-subscribe, list-unsubscribe etc.) are already used."));
       return false;
     }
-    // Check the quota
-    if ($quota->cancreate("mailman")) {
-      // List creation : 1. insert into the DB
-      $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,mailman_action) VALUES ('$cuid','$login','$domain','$name','$password','$owner','CREATE');");
-      if (!$this->add_wrapper($login,$dom_id,"",$name) ||
-	  !$this->add_wrapper($login."-request",$dom_id,"request",$name) ||
-	  !$this->add_wrapper($login."-owner",$dom_id,"owner",$name) ||
-	  !$this->add_wrapper($login."-admin",$dom_id,"admin",$name) ||
-	  !$this->add_wrapper($login."-bounces",$dom_id,"bounces",$name) ||
-	  !$this->add_wrapper($login."-confirm",$dom_id,"confirm",$name) ||
-	  !$this->add_wrapper($login."-join",$dom_id,"join",$name) ||
-	  !$this->add_wrapper($login."-leave",$dom_id,"leave",$name) ||
-	  !$this->add_wrapper($login."-subscribe",$dom_id,"subscribe",$name) ||
-	  !$this->add_wrapper($login."-unsubscribe",$dom_id,"unsubscribe",$name)
-	  ) {
-	// didn't work : rollback
-	$this->del_wrapper($login,$dom_id);	        $this->del_wrapper($login."-request",$dom_id);
-	$this->del_wrapper($login."-owner",$dom_id);	$this->del_wrapper($login."-admin",$dom_id);
-	$this->del_wrapper($login."-bounces",$dom_id);	$this->del_wrapper($login."-confirm",$dom_id);
-	$this->del_wrapper($login."-join",$dom_id);	$this->del_wrapper($login."-leave",$dom_id);
-	$this->del_wrapper($login."-subscribe",$dom_id);	$this->del_wrapper($login."-unsubscribe",$dom_id);
-	$db->query("DELETE FROM mailman WHERE name='$name';");
-	return false;
-      }
-      return true;
-    } else {
-      $err->raise("mailman",_("Your mailing-list quota is over, you cannot create more mailing-lists.")); // quota
+
+    if (!($dom_id=$dom->get_domain_byname($domain))) {
       return false;
     }
+
+    // List creation : 1. insert into the DB
+    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,mailman_action) VALUES ('$cuid','$login','$domain','$name','$password','$owner','CREATE');");
+
+    // Create requested alias
+    $no_err=true;
+    foreach ($lst_functions as $ll) {
+      if (!$this->add_wrapper($login.$ll,$dom_id,$ll,$name)) {
+        $no_err=false;
+      }
+    }
+    if (!$no_err){ // if there was an error during alias creation
+      foreach ($lst_functions as $ll) {
+        $this->del_wrapper($login.$ll,$dom_id);
+        //FIXME del alias
+      }
+      $db->query("DELETE FROM mailman WHERE name='$name';");
+      return false;
+    }
+    return true;
   }
 
 
