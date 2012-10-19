@@ -229,7 +229,7 @@ class m_mailman {
    * @return boolean TRUE if the list has been created, or FALSE if an error occured
    */
   function add_lst($domain,$login,$owner,$password,$password2) {
-    global $db,$err,$quota,$mail,$cuid,$dom;
+    global $db,$err,$quota,$mail,$cuid,$dom,$L_FQDN;
     $err->log("mailman","add_lst",$login."@".$domain." - ".$owner);
 
     // Check the quota
@@ -304,7 +304,8 @@ class m_mailman {
     }
 
     // List creation : 1. insert into the DB
-    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,mailman_action) VALUES ('$cuid','$login','$domain','$name','$password','$owner','CREATE');");
+    print_r("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action) VALUES ('$cuid','$login','$domain','$name','$password','$owner','$L_FQDN','CREATE');");
+    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action) VALUES ('$cuid','$login','$domain','$name','$password','$owner','$L_FQDN','CREATE');");
 
     // Create requested alias
     $no_err=true;
