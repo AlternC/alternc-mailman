@@ -52,6 +52,8 @@ mysql_query "SELECT id,list, name, domain, owner, password FROM mailman WHERE ma
 	else
 	    mysql_query "UPDATE mailman SET password='', mailman_result='A fatal error happened when creating the list', mailman_action='OK' WHERE id='$id';"
 	fi
+	# SetURL the list with the default fqdn to start: 
+	su - list -c "/usr/lib/mailman/bin/withlist -q -l -r set_url_alternc \"$name\" \"$FQDN\""
     fi
 done
 
