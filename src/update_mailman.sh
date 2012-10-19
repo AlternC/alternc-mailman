@@ -45,7 +45,7 @@ mysql_query "SELECT id,list, name, domain, owner, password FROM mailman WHERE ma
 	mysql_query "UPDATE mailman SET password='', mailman_result='This list already exist', mailman_action='OK' WHERE id='$id';"
     else
 	# Create the list : 
-	su - list -c "/usr/lib/mailman/bin/newlist -q \"$name\" \"$owner\" \"$password\""
+	su - list -c "/usr/lib/mailman/bin/newlist -q \"$list@$domain\" \"$owner\" \"$password\""
 	if [ "$?" -eq "0" ]
 	then
 	    mysql_query "UPDATE mailman SET password='', mailman_result='', mailman_action='OK' WHERE id='$id';"
