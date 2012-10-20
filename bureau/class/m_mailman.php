@@ -158,6 +158,9 @@ class m_mailman {
     }
   }
 
+  function hook_mail_get_details($detail) {
+    if ($detail['type']=='mailman') return _("Special mail address for Mailman mailing-lists. <a href='mman_list.php'>Click here to manage it.</a>");
+  }
 
   function get_list_url_all() {
     global $db, $err, $cuid, $L_FQDN;
