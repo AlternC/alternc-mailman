@@ -49,11 +49,15 @@ mysql_query "SELECT id,list, name, domain, owner, password FROM mailman WHERE ma
 	if [ "$?" -eq "0" ]
 	then
 	    mysql_query "UPDATE mailman SET password='', mailman_result='', mailman_action='OK' WHERE id='$id';"
+	    su - list -c "/usr/lib/mailman/bin/withlist -q -l -r set_url_alternc \"$name\" \"$FQDN\""
+      if [ "$?" -neq "0" ]
+      then
+          mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when changing the list url', mailman_action='OK' WHERE id='$id';"
+      fi
 	else
 	    mysql_query "UPDATE mailman SET password='', mailman_result='A fatal error happened when creating the list', mailman_action='OK' WHERE id='$id';"
 	fi
 	# SetURL the list with the default fqdn to start: 
-	su - list -c "/usr/lib/mailman/bin/withlist -q -l -r set_url_alternc \"$name\" \"$FQDN\""
     fi
 done
 
@@ -126,7 +130,7 @@ mysql_query "SELECT id, list, name, domain, url FROM mailman WHERE mailman_actio
 	then
 	    mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
 	else
-	    mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when changing the list password', mailman_action='OK' WHERE id='$id';"
+	    mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when changing the list url', mailman_action='OK' WHERE id='$id';"
 	fi
     fi
 done
