@@ -52,5 +52,5 @@ src/mailman.unsub -text
 src/set_url_alternc.py -text
 src/update_mailman.sh -text
 /upgrade_mailman_check.sh -text
-upgrades-mailman/2.2.php -text
+upgrades-mailman/2.2.1.php -text
 upgrades-mailman/2.2.sql -text
