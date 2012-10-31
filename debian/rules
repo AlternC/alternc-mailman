@@ -26,7 +26,7 @@ clean:
 install: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k
+	dh_prep
 	dh_installdirs
 	cp -r bureau debian/alternc-mailman/var/alternc/
 	chown root:www-data -R debian/alternc-mailman/var/alternc

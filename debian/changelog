@@ -2,14 +2,14 @@ alternc-mailman (3.0~rc1) stable; urgency=low
 
   * Bugfixes
 
- -- Alan Garcia (fufroma) <fufroma@mailfr.com> Wed, 31 Oct 2012 07:57:56 +0000
+ -- Alan Garcia (fufroma) <fufroma@mailfr.com>  Wed, 31 Oct 2012 07:57:56 +0000
 
 alternc-mailman (2.2+nmu1) stable; urgency=low
 
   * Mailman 2.2 working with AlternC 1.1
   * Mailman update from 1.0 working
 
- -- Lerider Steven <qsuidly@nnx.com>  Tue, 23 Oct 2012 17:49:51 +0200
+ -- Lerider Steven <squidly@nnx.com>  Tue, 23 Oct 2012 17:49:51 +0200
 
 alternc-mailman (2.2) stable; urgency=low
 
