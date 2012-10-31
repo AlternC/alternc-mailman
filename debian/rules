@@ -53,6 +53,7 @@ install: build
 	    debian/alternc-mailman/usr/share/lintian/overrides/alternc-mailman
 	# remove CVS / SVN entries : 
 	find debian/alternc-mailman/ -depth \( -name CVS -o -name .svn \) -type d -exec rm -rf {} \;
+	rm -f debian/alternc-mailman/var/alternc/bureau/locales/Makefile
 	cp -r patches debian/alternc-mailman/usr/share/alternc-mailman/patches
 	install -m 0755 upgrade_mailman_check.sh debian/alternc-mailman/usr/share/alternc/install/
 	install -m 0755 upgrades-mailman/* debian/alternc-mailman/usr/share/alternc/install/upgrades-mailman/
