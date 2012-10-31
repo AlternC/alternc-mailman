@@ -14,6 +14,8 @@ bureau/locales/en_US/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/es_ES/LC_MESSAGES/mailman.po -text
 bureau/locales/es_ES/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/fr_FR/LC_MESSAGES/mailman_manual.po -text
+bureau/locales/it_IT/LC_MESSAGES/mailman.po -text
+bureau/locales/it_IT/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/mailman.pot -text
 bureau/locales/mailman_manual.pot -text
 bureau/locales/pt_BR/LC_MESSAGES/mailman.po -text
