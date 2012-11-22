@@ -55,6 +55,7 @@ if (!($me=$mailman->get_lst($id))) {
 <table class="tedit">
 <tr><th><label for="pass"><?php __("New list password"); ?> </label></th><td>
 	<input type="password" class="int" id="pass" name="pass" value="" size="20" maxlength="64" />
+        <?php display_div_generate_password(); ?>
 	</td></tr>
 <tr><th><label for="pass2"><?php __("Password confirmation"); ?> </label></th><td>
 	<input type="password" class="int" id="pass2" name="pass2" value="" size="20" maxlength="64" />

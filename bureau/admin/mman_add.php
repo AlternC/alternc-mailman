@@ -51,6 +51,7 @@ if (!isset($domain)) $domain="";
 	</td></tr>
 <tr><th><label for="pass"><?php __("List password"); ?> </label></th><td>
 	<input type="password" class="int" id="pass" name="pass" value="<?php  if (isset($pass)) ehe($pass); ?>" size="20" maxlength="64" />
+        <?php display_div_generate_password(); ?>
 	</td></tr>
 <tr><th><label for="pass"><?php __("List password (confirm)"); ?> </label></th><td>
 	<input type="password" class="int" id="pass2" name="pass2" value="<?php  if (isset($pass2)) ehe($pass2); ?>" size="20" maxlength="64" />
