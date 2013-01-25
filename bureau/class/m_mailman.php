@@ -217,9 +217,11 @@ class m_mailman {
       $err->raise("mailman",_("The mailman address %s does not exists",$login));
       return false;
     }
-      $mail_id=$db->f("id");
-      $mail->del_wrapper($mail_id);
-      return true;
+
+    $mail_id=$db->f("id");
+
+    $mail->del_wrapper($mail_id);
+    return true;
   }
 
 
@@ -286,6 +288,23 @@ class m_mailman {
         return false;
     }
 
+    if(!$this->add_wrapper_all($login,$name,$domain)){
+      return false;
+    }
+    // List creation : 1. insert into the DB
+    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action) VALUES ('$cuid','$login','$domain','$name','$password','$owner','$L_FQDN','CREATE');");
+
+    return true;
+  }
+
+  function add_wrapper_all($login,$name,$domain){
+    global $db,$err,$dom,$mail,$cuid;
+    $err->log("mailman","add_wrapper_all",$id);
+
+    if (!($dom_id=$dom->get_domain_byname($domain))) {
+      return false;
+    }
+
     // Name of needed mails
     $lst_functions=array('','-request','-owner','-admin','-bounces','-confirm','-join','-leave','-subscribe','-unsubscribe');
 
@@ -302,13 +321,6 @@ class m_mailman {
       return false;
     }
 
-    if (!($dom_id=$dom->get_domain_byname($domain))) {
-      return false;
-    }
-
-    // List creation : 1. insert into the DB
-    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action) VALUES ('$cuid','$login','$domain','$name','$password','$owner','$L_FQDN','CREATE');");
-
     // Create requested alias
     $no_err=true;
     foreach ($lst_functions as $ll) {
@@ -317,10 +329,11 @@ class m_mailman {
       }
     }
     if (!$no_err){ // if there was an error during alias creation
-      foreach ($lst_functions as $ll) {
-        $this->del_wrapper($login.$ll,$dom_id);
-        //FIXME del alias
-      }
+#      foreach ($lst_functions as $ll) {
+#        $this->del_wrapper($login.$ll,$dom_id);
+#        //FIXME del alias
+#      }
+      $this->del_wrapper_all($login,$domain);
       $db->query("DELETE FROM mailman WHERE name='$name';");
       return false;
     }
@@ -347,7 +360,8 @@ class m_mailman {
       $err->raise("mailman",_("This list has pending action, you cannot delete it"));
       return false;
     }
-    $login=$db->f("list");
+    $login=$db->f("name");
+    $list=$db->f("list");
     $domain=$db->f("domain");
     if (!($dom_id=$dom->get_domain_byname($domain))) {
       return false;
@@ -355,14 +369,30 @@ class m_mailman {
 
 
     $db->query("UPDATE mailman SET mailman_action='DELETE' WHERE id=$id");
+    $this->del_wrapper_all($login,$domain);
+
+    #If login and list are different, it means we are dealing with a virtual list, hence we have to remove its aliases when deleting it.
+    if("$login" != "$list"){
+      $this->del_wrapper_all($list,$domain);
+    }
+    return $login."@".$domain;
+  }
+
+  function del_wrapper_all($login,$domain){
+    global $db,$err,$dom,$mail,$cuid;
+    $err->log("mailman","delete_wrapper_all",$id);
+
+    if (!($dom_id=$dom->get_domain_byname($domain))) {
+      return false;
+    }
+
     $this->del_wrapper($login,$dom_id);	        $this->del_wrapper($login."-request",$dom_id);
     $this->del_wrapper($login."-owner",$dom_id);	$this->del_wrapper($login."-admin",$dom_id);
     $this->del_wrapper($login."-bounces",$dom_id);	$this->del_wrapper($login."-confirm",$dom_id);
     $this->del_wrapper($login."-join",$dom_id);	$this->del_wrapper($login."-leave",$dom_id);
     $this->del_wrapper($login."-subscribe",$dom_id);	$this->del_wrapper($login."-unsubscribe",$dom_id);
-    return $login."@".$domain;
-  }
 
+  }
 
   /* ----------------------------------------------------------------- */
   /** Echoes the list's members as a text file, one subscriber per line.
