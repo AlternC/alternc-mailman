@@ -1,8 +1,12 @@
-alternc-mailman (3.0~rc1) stable; urgency=low
+alternc-mailman (3.0~rc1) unstable; urgency=low
 
+  [ Alan Garcia (fufroma) ]
   * Bugfixes
 
- -- Alan Garcia (fufroma) <fufroma@mailfr.com>  Wed, 31 Oct 2012 07:57:56 +0000
+  [ Benjamin Sonntag ]
+  * prepared for 3.0~rc1, in unstable as of now
+
+ -- Benjamin Sonntag <benjamin@sonntag.fr>  Wed, 31 Oct 2012 14:06:52 +0100
 
 alternc-mailman (2.2+nmu1) stable; urgency=low
 
