@@ -73,7 +73,7 @@ if ($quota->cancreate("mailman")) {
 ?>
 
 
-	<form method="post" action="mman_del.php">
+	<form method="post" action="mman_edit.php">
 	<table class="tlist">
 	<tr><th><?php __("Delete"); ?></th><th><?php __("List name"); ?></th><th><?php __("List Status"); ?><th colspan="3">&nbsp;</th></tr>
 	<?php
@@ -110,7 +110,12 @@ if ($quota->cancreate("mailman")) {
 	?>
 	</table>
 <br />
-<input type="submit" class="inb" name="submit" value="<?php __("Delete the checked lists"); ?>" />
+      <select name="action" id="action" class="inl">
+       <option value=""><?php __("-- Choose an action --"); ?></option>
+                   <?php $action=array("DELETE" => "DELETE","REGENERATE"=>"REGENERATE"); eoption($action,"1");
+        ?></select>
+
+<input type="submit" class="inb" name="submit" value="<?php __("Validate"); ?>" />
 </form>
 
 	<?php

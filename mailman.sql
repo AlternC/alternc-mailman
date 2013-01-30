@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `mailman` (
   `password` varchar(64) NOT NULL DEFAULT '',
   `owner` varchar(255) NOT NULL DEFAULT '',
   `url` varchar(255) NOT NULL DEFAULT '',
-  `mailman_action` enum('OK','CREATE','DELETE','PASSWORD','GETURL','SETURL','DELETING') NOT NULL DEFAULT 'OK',
+  `mailman_action` enum('OK','CREATE','DELETE','PASSWORD','GETURL','SETURL','DELETING', 'REGENERATE') NOT NULL DEFAULT 'OK',
   `mailman_result` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `mailman_action` (`mailman_action`)

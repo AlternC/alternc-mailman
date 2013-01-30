@@ -340,6 +340,50 @@ class m_mailman {
     return true;
   }
 
+  /* ----------------------------------------------------------------- */
+  /** cwRegenerateDelete a mailing-list
+   * @param $id integer the id number of the mailing list in alternc's database
+   * @return boolean TRUE if the list has been regenerated or FALSE if an error occured
+   */
+  function regenerate_lst($id) {
+    global $db,$err,$dom,$mail,$cuid;
+    $err->log("mailman","regenerate_lst",$id);
+    // We delete lists only in the current member's account.
+    $db->query("SELECT * FROM mailman WHERE id=$id and uid='$cuid';");
+    $db->next_record();
+    if (!$db->f("id")) {
+      $err->raise("mailman",_("This list does not exist"));
+      return false;
+    }
+    if ($db->f("mailman_action")!='OK') {
+      $err->raise("mailman",_("This list has pending action, you cannot delete it"));
+      return false;
+    }
+    $login=$db->f("name");
+    $list=$db->f("list");
+    $domain=$db->f("domain");
+    if (!($dom_id=$dom->get_domain_byname($domain))) {
+      return false;
+    }
+    $this->del_wrapper_all($list,$domain);
+
+    if($this->is_vhost_applied){
+      if("$login" == "$list"){
+        $login = $login . '-' . $domain;
+        $db->query("UPDATE mailman SET mailman_action='REGENERATE' WHERE id=$id");
+        $db->query("UPDATE mailman SET name='$login' WHERE id=$id");
+      }else{
+        #means we are already dealing with a virtual list
+        $this->del_wrapper_all($login,$domain);
+      }
+    }
+    exec("sudo /usr/lib/alternc/update_mails.sh ");
+    if(!$this->add_wrapper_all($list,$login,$domain)){
+      return false;
+    }
+    return $login."@".$domain;
+  }
+
 
   /* ----------------------------------------------------------------- */
   /** Delete a mailing-list

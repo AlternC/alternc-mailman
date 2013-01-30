@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -x
 # This script look in the database wich mailman list should be CREATED / DELETED / PASSWORDED
 
 # Source some configuration file
@@ -118,19 +118,27 @@ mysql_query "SELECT id, list, name, domain FROM mailman WHERE mailman_action='GE
 done
 
 
-# List the lists to SETURL
-mysql_query "SELECT id, list, name, domain, url FROM mailman WHERE mailman_action='SETURL';"|while read id list name domain url ; do
-  if [ ! -d "/var/lib/mailman/lists/$name" ]
+# List the lists to REGENERATE
+mysql_query "SELECT id, list, name, domain, url FROM mailman WHERE mailman_action='REGENERATE';"|while read id list name domain url ; do
+  if [ ! -d "/var/lib/mailman/lists/$list" ]
     then
     mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK' WHERE id='$id';"
   else
-# SetURL the list : 
-    su - list -c "/usr/lib/mailman/bin/withlist -q -l -r set_url_alternc \"$name\" \"$url\""
-    if [ "$?" -eq "0" ]
-      then
-      mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
+# move the list to match its new name : 
+    mv "/var/lib/mailman/lists/$list" "/var/lib/mailman/lists/$name"
+    mv "/var/lib/mailman/archives/private/$list" "/var/lib/mailman/archives/private/$name"
+    mv "/var/lib/mailman/archives/private/$list.mbox" "/var/lib/mailman/archives/private/$name.mbox"
+    mv "/var/lib/mailman/archives/private/$name.mbox/$list.mbox" "/var/lib/mailman/archives/private/$name.mbox/$name.mbox"
+    if [ -e "/var/lib/mailman/archives/private/$name.mbox/$name.mbox" ];then
+      /usr/lib/mailman/bin/arch --wipe $name
+      if [ "$?" -eq "0" ]
+        then
+        mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
+      else
+        mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when regenerating the list', mailman_action='OK' WHERE id='$id';"
+      fi
     else
-      mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when changing the list url', mailman_action='OK' WHERE id='$id';"
+      mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
     fi
   fi
 done
