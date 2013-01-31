@@ -63,4 +63,6 @@ if(!$mailman->is_vhost_applied){
     }
   }
 }
+#We regenerate the url to work with mpm-itk
+$db->query("UPDATE mailman set url='".$L_FQDN."';");
 ?>

@@ -21,5 +21,5 @@ ALTER TABLE `mailman`
 
 
 -- we will fill the url at the first cron run ;) 
-UPDATE mailman SET mailman_action='GETURL';
+UPDATE mailman SET mailman_action='SETURL';
 
