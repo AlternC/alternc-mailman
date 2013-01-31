@@ -424,7 +424,7 @@ class m_mailman {
 
   function del_wrapper_all($login,$domain){
     global $db,$err,$dom,$mail,$cuid;
-    $err->log("mailman","delete_wrapper_all",$id);
+    $err->log("mailman","delete_wrapper_all",$login);
 
     if (!($dom_id=$dom->get_domain_byname($domain))) {
       return false;

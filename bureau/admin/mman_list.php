@@ -25,7 +25,6 @@
 
 require_once("../class/config.php");
 include_once("head.php");
-$error="";
 
 $mman_status=array(
 		   "PASSWORD" => _("Password change pending"),
@@ -41,7 +40,7 @@ if (count($dom->enum_domains())==0) {
 <h3><?php __("Mailing lists"); ?></h3>
 <hr id="topbar"/>
 <br />
-<?php echo "<p class=\"error\">$error</p>"; ?>
+<?php if (!empty($error)) { echo "<p class=\"error\">$error</p>"; } ?>
 <?php include_once("foot.php");
   exit();
 }
@@ -66,7 +65,7 @@ if(!$r=$mailman->enum_ml()) {
 if ($quota->cancreate("mailman")) {
 ?>
 <p>
-<span class="inb"><a href="mman_add.php"><?php __("Create a list"); ?></a></span>
+<span class="ina"><a href="mman_add.php"><?php __("Create a list"); ?></a></span>
 </p>
 	<?php
 }

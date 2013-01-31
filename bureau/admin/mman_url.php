@@ -36,6 +36,7 @@ if (!($me=$mailman->get_lst($id))) {
   $error=$err->errstr();
   ?>
 	  <h3><?php __("Mailing lists"); ?></h3>
+	<hr/>
 <?php 
  echo "<p class=\"error\">$error</p>";
  include_once("foot.php");
@@ -45,6 +46,7 @@ if (!($urls=$mailman->get_list_url_all())) {
   $error=$err->errstr();
   ?>
           <h3><?php __("Mailing lists"); ?></h3>
+	<hr/>
 <?php
  echo "<p class=\"error\">$error</p>";
  include_once("foot.php");

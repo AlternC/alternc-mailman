@@ -36,8 +36,6 @@ getFields($fields);
 $error="";
 $stchange = (!$quota->cancreate("mailman"));
 
-printvar($confirm);
-
 if ($cancel) {
   include ("mman_list.php");
   exit();

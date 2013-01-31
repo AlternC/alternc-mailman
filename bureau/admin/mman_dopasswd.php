@@ -38,7 +38,7 @@ if (!$r) {
   include("mman_passwd.php");
   exit();
 } else {
-  $error=_("The mailing list password has been successfully changed.");
+  $error=_("The mailing list password will be changed in a few minutes.");
   include("mman_list.php");
   exit();
 }

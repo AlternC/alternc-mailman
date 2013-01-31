@@ -43,6 +43,7 @@ if (!($me=$mailman->get_lst($id))) {
 
 ?>
 <h3><?php __("Mailing lists"); ?></h3>
+<hr/>
 <?php
 	if ($error) {
 		echo "<p class=\"error\">$error</p>";
@@ -55,7 +56,7 @@ if (!($me=$mailman->get_lst($id))) {
 <table class="tedit">
 <tr><th><label for="pass"><?php __("New list password"); ?> </label></th><td>
 	<input type="password" class="int" id="pass" name="pass" value="" size="20" maxlength="64" />
-        <?php display_div_generate_password(); ?>
+        <?php display_div_generate_password(DEFAULT_PASS_SIZE,"#pass","#pass2"); ?>
 	</td></tr>
 <tr><th><label for="pass2"><?php __("Password confirmation"); ?> </label></th><td>
 	<input type="password" class="int" id="pass2" name="pass2" value="" size="20" maxlength="64" />
