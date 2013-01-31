@@ -143,6 +143,22 @@ mysql_query "SELECT id, list, name, domain, url FROM mailman WHERE mailman_actio
   fi
 done
 
+# List the lists to SETURL
+mysql_query "SELECT id, list, name, domain, url FROM mailman WHERE mailman_action='SETURL';"|while read id list name domain url ; do
+  if [ ! -d "/var/lib/mailman/lists/$name" ]
+    then
+    mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK' WHERE id='$id';"
+  else
+# SetURL the list : 
+    su - list -c "/usr/lib/mailman/bin/withlist -q -l -r set_url_alternc \"$name\" \"$url\""
+    if [ "$?" -eq "0" ]
+      then
+      mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
+    else
+      mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when changing the list url', mailman_action='OK' WHERE id='$id';"
+    fi
+  fi
+done
 
 # Delete the lock
 rm -f "$LOCK_FILE"
