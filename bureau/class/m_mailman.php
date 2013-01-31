@@ -299,7 +299,7 @@ class m_mailman {
 
   function add_wrapper_all($login,$name,$domain){
     global $db,$err,$dom,$mail,$cuid;
-    $err->log("mailman","add_wrapper_all",$id);
+    $err->log("mailman","add_wrapper_all",$login);
 
     if (!($dom_id=$dom->get_domain_byname($domain))) {
       return false;
