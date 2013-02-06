@@ -20,6 +20,8 @@ bureau/locales/it_IT/LC_MESSAGES/mailman.po -text
 bureau/locales/it_IT/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/mailman.pot -text
 bureau/locales/mailman_manual.pot -text
+bureau/locales/nl_NL/LC_MESSAGES/mailman.po -text
+bureau/locales/nl_NL/LC_MESSAGES/mailman_manual.po -text
 bureau/locales/pt_BR/LC_MESSAGES/mailman.po -text
 bureau/locales/pt_BR/LC_MESSAGES/mailman_manual.po -text
 debian/.svnignore -text
@@ -29,9 +31,11 @@ debian/config -text
 debian/cron.d -text
 debian/po/POTFILES.in -text
 debian/po/de.po -text
+debian/po/en.po -text
 debian/po/es.po -text
 debian/po/fr.po -text
 debian/po/it.po -text
+debian/po/nl.po -text
 debian/po/pt.po -text
 debian/po/templates.pot -text
 debian/templates -text
