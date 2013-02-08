@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mailman\n"
 "Report-Msgid-Bugs-To: i18n@alternc.org\n"
-"POT-Creation-Date: 2012-10-31 13:43+0100\n"
+"POT-Creation-Date: 2013-02-08 15:08+0100\n"
 "PO-Revision-Date: 2008-02-17 00:35-0400\n"
 "Last-Translator: Daniel Viñar Ulriksen <dani@belil.net>\n"
 "Language-Team: Spanish <i18n@alternc.org>\n"
@@ -246,7 +246,7 @@ msgstr ""
 
 #: ../class/m_mailman.php:217
 #, php-format
-msgid "The mailman address %s does not exists"
+msgid "The mailman address %s does not exist"
 msgstr ""
 
 #: ../class/m_mailman.php:240
