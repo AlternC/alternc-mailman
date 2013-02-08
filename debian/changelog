@@ -4,6 +4,8 @@ alternc-mailman (3.0) stable; urgency=low
   * see https://alternc.org/query?group=status&milestone=alternc-3.0 
     for a complete bugreport
 
+ -- Benjamin Sonntag <benjamin@sonntag.fr>  Fri,  8 Feb 2013 17:09:00 +0100
+
 alternc-mailman (3.0~rc1) unstable; urgency=low
 
   [ Alan Garcia (fufroma) ]
