@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 # This script look in the database wich mailman list should be CREATED / DELETED / PASSWORDED
 
 # Source some configuration file
