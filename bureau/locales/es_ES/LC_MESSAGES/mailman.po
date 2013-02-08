@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mailman\n"
 "Report-Msgid-Bugs-To: i18n@alternc.org\n"
-"POT-Creation-Date: 2013-02-08 15:08+0100\n"
+"POT-Creation-Date: 2013-02-08 15:51+0100\n"
 "PO-Revision-Date: 2008-02-17 00:35-0400\n"
 "Last-Translator: Daniel Viñar Ulriksen <dani@belil.net>\n"
 "Language-Team: Spanish <i18n@alternc.org>\n"
@@ -25,10 +25,10 @@ msgid "(with mailman)"
 msgstr "(con mailman)"
 
 #: ../admin/menu_mailman.php:32 ../admin/mman_add.php:34
-#: ../admin/mman_list.php:41 ../admin/mman_list.php:60
+#: ../admin/mman_list.php:40 ../admin/mman_list.php:59
 #: ../admin/mman_passwd.php:37 ../admin/mman_passwd.php:45
-#: ../admin/mman_url.php:38 ../admin/mman_url.php:47 ../admin/mman_url.php:55
-#: ../class/m_mailman.php:535
+#: ../admin/mman_url.php:38 ../admin/mman_url.php:48 ../admin/mman_url.php:57
+#: ../class/m_mailman.php:609
 msgid "Mailing lists"
 msgstr "Listas de correo"
 
@@ -46,16 +46,16 @@ msgstr ""
 msgid "List password"
 msgstr "Contraseña inicial de la lista"
 
-#: ../admin/mman_add.php:55
+#: ../admin/mman_add.php:56
 #, fuzzy
 msgid "List password (confirm)"
 msgstr "Contraseña inicial de la lista"
 
-#: ../admin/mman_add.php:59
+#: ../admin/mman_add.php:60
 msgid "Create the list."
 msgstr "Crear la lista"
 
-#: ../admin/mman_add.php:60 ../admin/mman_url.php:89
+#: ../admin/mman_add.php:61 ../admin/mman_url.php:91
 msgid "Cancel"
 msgstr ""
 
@@ -63,7 +63,7 @@ msgstr ""
 msgid "Deleting mailman lists"
 msgstr ""
 
-#: ../admin/mman_del.php:54
+#: ../admin/mman_del.php:54 ../admin/mman_edit.php:55
 msgid "Please confirm the deletion of the following mailman lists:"
 msgstr ""
 
@@ -72,11 +72,11 @@ msgstr ""
 msgid "Delete the selected mailman lists"
 msgstr "Borrar las listas marcadas"
 
-#: ../admin/mman_del.php:64
+#: ../admin/mman_del.php:64 ../admin/mman_edit.php:66
 msgid "Don't delete lists and go back to the mailman list"
 msgstr ""
 
-#: ../admin/mman_del.php:69
+#: ../admin/mman_del.php:69 ../admin/mman_edit.php:71
 msgid ""
 "Warning: Deleting a mailman list will destroy all the subscribed users, "
 "preferences and archives it contains! You will <b>NOT</b> be able to get "
@@ -87,14 +87,15 @@ msgstr ""
 msgid "The mailing list has been successfully created."
 msgstr "Se creó correctamente la lista de correo."
 
-#: ../admin/mman_dodel.php:55
+#: ../admin/mman_dodel.php:55 ../admin/mman_doedit.php:58
+#: ../admin/mman_doedit.php:68
 #, php-format
 msgid "The list %s has been successfully deleted."
 msgstr "Se borró correctamente la lista %s."
 
 #: ../admin/mman_dopasswd.php:41
 #, fuzzy
-msgid "The mailing list password has been successfully changed."
+msgid "The mailing list password will be changed in a few minutes."
 msgstr "Se creó correctamente la lista de correo."
 
 #: ../admin/mman_dourl.php:39
@@ -102,85 +103,93 @@ msgstr "Se creó correctamente la lista de correo."
 msgid "The mailing list management url has been successfully changed."
 msgstr "Se creó correctamente la lista de correo."
 
-#: ../admin/mman_list.php:31
+#: ../admin/mman_edit.php:52
+msgid "Editing mailman lists"
+msgstr ""
+
+#: ../admin/mman_list.php:30
 msgid "Password change pending"
 msgstr ""
 
-#: ../admin/mman_list.php:32
+#: ../admin/mman_list.php:31
 msgid "Url change pending"
 msgstr ""
 
-#: ../admin/mman_list.php:33
+#: ../admin/mman_list.php:32
 msgid "List creation pending"
 msgstr ""
 
-#: ../admin/mman_list.php:39
+#: ../admin/mman_list.php:38
 msgid ""
 "No domain is installed on your account, you cannot create any mailing list!"
 msgstr ""
 "No hay dominios instalados en tu cuenta, ¡no puedes crear una lista de "
 "correo!"
 
-#: ../admin/mman_list.php:69
+#: ../admin/mman_list.php:68
 msgid "Create a list"
 msgstr "Crear una lista"
 
-#: ../admin/mman_list.php:78
+#: ../admin/mman_list.php:77
 msgid "Delete"
 msgstr "Borrar"
 
-#: ../admin/mman_list.php:78
+#: ../admin/mman_list.php:77
 #, fuzzy
 msgid "List Status"
 msgstr "Nombre de la lista"
 
-#: ../admin/mman_list.php:78
+#: ../admin/mman_list.php:77
 msgid "List name"
 msgstr "Nombre de la lista"
 
-#: ../admin/mman_list.php:89
+#: ../admin/mman_list.php:88
 msgid "List is pending deletion, you can't do anything on it"
 msgstr ""
 
-#: ../admin/mman_list.php:100
+#: ../admin/mman_list.php:99
 msgid "List admin"
 msgstr "Administración de la lista"
 
-#: ../admin/mman_list.php:101
+#: ../admin/mman_list.php:100
 msgid "Pending messages"
 msgstr "Mensajes pendientes"
 
-#: ../admin/mman_list.php:104
+#: ../admin/mman_list.php:103
 msgid "Change password"
 msgstr ""
 
-#: ../admin/mman_list.php:105
+#: ../admin/mman_list.php:104
 msgid "Change url"
 msgstr ""
 
 #: ../admin/mman_list.php:113
-msgid "Delete the checked lists"
-msgstr "Borrar las listas marcadas"
+msgid "-- Choose an action --"
+msgstr ""
 
-#: ../admin/mman_passwd.php:54
+#: ../admin/mman_list.php:117
+msgid "Validate"
+msgstr ""
+
+#: ../admin/mman_passwd.php:55
 #, php-format
 msgid "Changing password of list %s"
 msgstr ""
 
-#: ../admin/mman_passwd.php:56
+#: ../admin/mman_passwd.php:57
 #, fuzzy
 msgid "New list password"
 msgstr "Contraseña inicial de la lista"
 
-#: ../admin/mman_passwd.php:59
+#: ../admin/mman_passwd.php:61
 msgid "Password confirmation"
 msgstr ""
 
-#: ../admin/mman_passwd.php:63
+#: ../admin/mman_passwd.php:65
 msgid "Change the password."
 msgstr ""
 
-#: ../admin/mman_url.php:63
+#: ../admin/mman_url.php:65
 msgid ""
 "This is the current url to access administration and public pages for this "
 "list. If you want to change it, select another url in the list and submit "
@@ -188,21 +197,21 @@ msgid ""
 "here."
 msgstr ""
 
-#: ../admin/mman_url.php:68
+#: ../admin/mman_url.php:70
 #, php-format
 msgid "Changing management url of list %s"
 msgstr ""
 
-#: ../admin/mman_url.php:71
+#: ../admin/mman_url.php:73
 #, fuzzy
 msgid "Current list url"
 msgstr "Crear una lista"
 
-#: ../admin/mman_url.php:75
+#: ../admin/mman_url.php:77
 msgid "New list management url"
 msgstr ""
 
-#: ../admin/mman_url.php:88
+#: ../admin/mman_url.php:90
 #, fuzzy
 msgid "Change the url."
 msgstr "Crear la lista"
@@ -212,8 +221,9 @@ msgid "This list already exist"
 msgstr ""
 
 #: ../class/m_mailman.php:43 ../class/m_mailman.php:141
-#: ../class/m_mailman.php:343 ../class/m_mailman.php:443
-#: ../class/m_mailman.php:468 ../class/m_mailman.php:488
+#: ../class/m_mailman.php:355 ../class/m_mailman.php:400
+#: ../class/m_mailman.php:517 ../class/m_mailman.php:542
+#: ../class/m_mailman.php:562
 msgid "This list does not exist"
 msgstr ""
 
@@ -233,8 +243,8 @@ msgstr ""
 msgid "A fatal error happened when getting the list url"
 msgstr ""
 
-#: ../class/m_mailman.php:68 ../class/m_mailman.php:388
-#: ../class/m_mailman.php:419
+#: ../class/m_mailman.php:68 ../class/m_mailman.php:462
+#: ../class/m_mailman.php:493
 msgid "No list defined yet"
 msgstr ""
 
@@ -249,57 +259,60 @@ msgstr ""
 msgid "The mailman address %s does not exist"
 msgstr ""
 
-#: ../class/m_mailman.php:240
+#: ../class/m_mailman.php:242
 #, fuzzy
 msgid "Your mailing-list quota is over, you cannot create more mailing-lists."
 msgstr ""
 "No hay dominios instalados en tu cuenta, ¡no puedes crear una lista de "
 "correo!"
 
-#: ../class/m_mailman.php:247
+#: ../class/m_mailman.php:249
 msgid "The email you entered is syntaxically incorrect"
 msgstr ""
 
-#: ../class/m_mailman.php:262
+#: ../class/m_mailman.php:264
 msgid "The login (left part of the @) is mandatory"
 msgstr ""
 
-#: ../class/m_mailman.php:266
+#: ../class/m_mailman.php:268
 msgid "The owner email and the password are mandatory"
 msgstr ""
 
-#: ../class/m_mailman.php:270
+#: ../class/m_mailman.php:272
 msgid "This email is incorrect"
 msgstr ""
 
-#: ../class/m_mailman.php:279
+#: ../class/m_mailman.php:281
 msgid "This domain does not exist."
 msgstr ""
 
-#: ../class/m_mailman.php:285
+#: ../class/m_mailman.php:287
 msgid ""
 "A list with the same name already exist on the server. Please choose another "
 "name."
 msgstr ""
 
-#: ../class/m_mailman.php:301
+#: ../class/m_mailman.php:320
 msgid ""
 "This email address (or one of the list-subscribe, list-unsubscribe etc.) are "
 "already used."
 msgstr ""
 
-#: ../class/m_mailman.php:347
+#: ../class/m_mailman.php:359 ../class/m_mailman.php:404
 msgid "This list has pending action, you cannot delete it"
 msgstr ""
 
-#: ../class/m_mailman.php:447
+#: ../class/m_mailman.php:521
 msgid "The passwords are differents, please try again"
 msgstr ""
 
-#: ../class/m_mailman.php:502
+#: ../class/m_mailman.php:576
 #, fuzzy
 msgid "Mailing lists (mailman)"
 msgstr "Listas de correo"
+
+#~ msgid "Delete the checked lists"
+#~ msgstr "Borrar las listas marcadas"
 
 #~ msgid "Public page"
 #~ msgstr "Página pública"
