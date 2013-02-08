@@ -59,7 +59,7 @@ if(!$r=$mailman->enum_ml()) {
 <h3><?php __("Mailing lists"); ?></h3>
 <hr id="topbar"/>
 <br />
- <?php if (!empty($error)) echo "<p class=\"error\">$error</p>"; ?>
+ <?php if (!empty($error)) echo "<p class=\"error\">$error</p>"; $error='';?>
 
 <?php
 if ($quota->cancreate("mailman")) {

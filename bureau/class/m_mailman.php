@@ -377,6 +377,8 @@ class m_mailman {
         $this->del_wrapper_all($login,$domain);
       }
     }
+    // FIXME need to be done before re_add them
+    // but shouldn't be launched by the Panel
     exec("sudo /usr/lib/alternc/update_mails.sh ");
     if(!$this->add_wrapper_all($list,$login,$domain)){
       return false;

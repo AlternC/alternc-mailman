@@ -29,7 +29,11 @@ $q = $quota->getquota("mailman");
 if (isset($q["t"]) && $q["t"] > 0) {  ?>
 <div class="menu-box">
   <a href="mman_list.php">
-    <div class="menu-title"><img src="images/mailman.png" alt="<?php __("Mailing lists"); ?>" />&nbsp;<?php __("Mailing lists"); ?> (<?= $q["u"]; ?>/<?= $q["t"]; ?>)<br /><small><?php __("(with mailman)"); ?></small></div>
+    <div class="menu-title">
+      <img src="images/mailman.png" alt="<?php __("Mailing lists"); ?>" />&nbsp;<?php __("Mailing lists"); ?> (<?= $q["u"]; ?>/<?= $q["t"]; ?>)
+			<img src="images/menu_right.png" alt="" style="float:right;" class="menu-right"/>
+      <br /><small><?php __("(with mailman)"); ?></small>
+    </div>
   </a>
 </div>
 <?php } ?>
