@@ -1,3 +1,9 @@
+alternc-mailman (3.0) stable; urgency=low
+
+  * Release of AlternC 3.0 and its plugins. 
+  * see https://alternc.org/query?group=status&milestone=alternc-3.0 
+    for a complete bugreport
+
 alternc-mailman (3.0~rc1) unstable; urgency=low
 
   [ Alan Garcia (fufroma) ]
