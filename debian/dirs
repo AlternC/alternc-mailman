@@ -7,10 +7,9 @@ usr/share/alternc/install/upgrades-mailman
 usr/share/doc/alternc-mailman
 usr/share/alternc-mailman
 usr/share/lintian/overrides
-var/alternc/bureau/admin
-var/alternc/bureau/class
-var/alternc/bureau/locales/en_US/LC_MESSAGES
-var/alternc/bureau/locales/fr_FR/LC_MESSAGES
-var/alternc/cgi-bin
+usr/share/alternc/panel/admin
+usr/share/alternc/panel/class
+usr/share/alternc/panel/locales/en_US/LC_MESSAGES
+usr/share/alternc/panel/locales/fr_FR/LC_MESSAGES
 var/backups/alternc
 usr/lib/mailman/bin

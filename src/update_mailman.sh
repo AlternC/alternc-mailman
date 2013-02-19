@@ -15,9 +15,6 @@ done
 
 LOCK_FILE="/var/run/alternc/update_mailman"
 
-#FIXME: this var should be define by local.sh
-ALTERNC_MAIL_LOC="/var/alternc/mail"
-
 # Somes check before start operations
 if [ `id -u` -ne 0 ]; then
   log_error "must be launched as root"

@@ -28,10 +28,8 @@ install: build
 	dh_testroot
 	dh_prep
 	dh_installdirs
-	cp -r bureau debian/alternc-mailman/var/alternc/
-	chown root:www-data -R debian/alternc-mailman/var/alternc
-	chmod -R 0640 debian/alternc-mailman/var/alternc
-	chmod -R a+X debian/alternc-mailman/var/alternc
+	cp -r bureau/* debian/alternc-mailman/usr/share/alternc/panel/
+	chown alterncpanel:alterncpanel -R debian/alternc-mailman/usr/share/alternc/panel/
 	install -m 0644 mm_cfg.py \
 		debian/alternc-mailman/etc/alternc/templates/mailman/
 	install -m 0644 -o root -g root src/get_url_alternc.py src/set_url_alternc.py \
@@ -53,7 +51,7 @@ install: build
 	    debian/alternc-mailman/usr/share/lintian/overrides/alternc-mailman
 	# remove CVS / SVN entries : 
 	find debian/alternc-mailman/ -depth \( -name CVS -o -name .svn \) -type d -exec rm -rf {} \;
-	rm -f debian/alternc-mailman/var/alternc/bureau/locales/Makefile
+	rm -f debian/alternc-mailman/usr/share/alternc/panel/locales/Makefile
 	cp -r patches debian/alternc-mailman/usr/share/alternc-mailman/patches
 	install -m 0755 upgrade_mailman_check.sh debian/alternc-mailman/usr/share/alternc/install/
 	install -m 0755 upgrades-mailman/* debian/alternc-mailman/usr/share/alternc/install/upgrades-mailman/

@@ -75,6 +75,17 @@ class m_mailman {
     return $mls;
   }
   
+  function hook_menu() {
+    $obj = array(
+      'title'       => _("Mailing lists"),
+      'ico'         => 'images/mailman.png',
+      'link'        => 'mman_list.php',
+      'pos'         => 70,
+     ) ;
+
+     return $obj;
+  }
+
 
   /* ----------------------------------------------------------------- */
   /** Count mailing list for a user

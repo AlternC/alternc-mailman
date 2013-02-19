@@ -3,7 +3,6 @@
 . /usr/share/debconf/confmodule
 
 CONFIGFILE="/etc/alternc/local.sh"
-MENUFILE="/etc/alternc/menulist.txt"
 MAILMAN_CONFIG="/etc/mailman/mm_cfg.py"
 MAILMAN_CONFIG_TEMPLATE="/etc/alternc/templates/mailman/mm_cfg.py"
 MAILMAN_CONFIG_BACKUP="/var/backups/alternc/etc-mailman-mm_cfg.py"
@@ -135,18 +134,8 @@ case "$1" in
     # Create default quota "mailman" with value 0
     mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT INTO defquotas VALUES ('mailman', 0, 'default')" || true
 
-    ln -sf /usr/lib/cgi-bin/mailman /var/alternc/cgi-bin/mailman
-
     echo "checking for upgrades"
     /usr/share/alternc/install/upgrade_mailman_check.sh $2
-
-    # ADD Mailman menu item : 
-    if ! grep -q "^menu_mailman.php$" "$MENUFILE"; then
-        rm -f $MENUFILE.alternc_mailman
-        sed -e "s/menu_ftp.php/&\\
-menu_mailman.php/" <$MENUFILE >$MENUFILE.alternc_mailman
-        mv -f $MENUFILE.alternc_mailman $MENUFILE
-    fi
 
     echo "**********************************************"
     echo "*            ALTERNC-MAILMAN                 *"
