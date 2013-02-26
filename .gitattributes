@@ -58,6 +58,7 @@ src/mailman.seturl -text
 src/mailman.sub -text
 src/mailman.sync -text
 src/mailman.unsub -text
+src/regenerate_lst.php -text
 src/set_url_alternc.py -text
 src/update_mailman.sh -text
 /upgrade_mailman_check.sh -text

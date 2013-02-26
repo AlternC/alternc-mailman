@@ -385,15 +385,16 @@ class m_mailman {
         $db->query("UPDATE mailman SET name='$login' WHERE id=$id");
       }else{
         #means we are already dealing with a virtual list
+        $db->query("UPDATE mailman SET mailman_action='REGENERATE' WHERE id=$id");
         $this->del_wrapper_all($login,$domain);
       }
     }
     // FIXME need to be done before re_add them
     // but shouldn't be launched by the Panel
-    exec("sudo /usr/lib/alternc/update_mails.sh ");
-    if(!$this->add_wrapper_all($list,$login,$domain)){
-      return false;
-    }
+   # exec("sudo /usr/lib/alternc/update_mails.sh ");
+   # if(!$this->add_wrapper_all($list,$login,$domain)){
+   #   return false;
+   # }
     return $login."@".$domain;
   }
 

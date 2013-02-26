@@ -1,5 +1,6 @@
 #!/bin/bash
 # This script look in the database wich mailman list should be CREATED / DELETED / PASSWORDED
+set -x
 
 # Source some configuration file
 for CONFIG_FILE in \
@@ -117,7 +118,7 @@ done
 # List the lists to REGENERATE
 mysql_query "SELECT id, list, name, domain, url FROM mailman WHERE mailman_action='REGENERATE';"|while read id list name domain url ; do
 #non virtual lists
-if [ "$list" = "$name" ]; then
+if [ "$list" == "$name" ]; then
   if [ ! -d "/var/lib/mailman/lists/$list" ]
     then
     mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK' WHERE id='$id';"
@@ -136,7 +137,7 @@ else
   if [ ! -d "/var/lib/mailman/lists/$name" ];then
   #virtual list just just virtualised ( /var/lib/mailman/lists/$list exists )
     url=`hostname -f`
-   	su - list -c "/usr/lib/mailman/bin/withlist -q -l -r set_url_alternc \"$name\" \"$url\""
+    su - list -c "/usr/lib/mailman/bin/withlist -q -l -r set_url_alternc \"$name\" \"$url\""
     if [ "$?" -eq "0" ]
       then
       mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
@@ -152,13 +153,13 @@ else
       /usr/lib/mailman/bin/arch --wipe $name
       if [ "$?" -eq "0" ]
         then
-        mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
+        mysql_query "UPDATE mailman SET mailman_result='', mailman_action='REGENERATE-2' WHERE id='$id';"
       else
         mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when regenerating the list', mailman_action='OK' WHERE id='$id';"
       fi
-    else
-      mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
     fi
+  else
+    mysql_query "UPDATE mailman SET mailman_result='', mailman_action='REGENERATE-2' WHERE id='$id';"
   fi
 fi
 done
