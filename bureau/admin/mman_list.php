@@ -74,7 +74,7 @@ if ($quota->cancreate("mailman")) {
 
 	<form method="post" action="mman_edit.php">
 	<table class="tlist">
-	<tr><th><?php __("Delete"); ?></th><th><?php __("List name"); ?></th><th><?php __("List Status"); ?><th colspan="3">&nbsp;</th></tr>
+	<tr><th><?php __("Select"); ?></th><th><?php __("List name"); ?></th><th><?php __("List Status"); ?><th colspan="3">&nbsp;</th></tr>
 	<?php
 	reset($r);
 	$col=1;
