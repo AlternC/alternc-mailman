@@ -52,7 +52,7 @@ include("head.php");
   <h3><?php __("Editing mailman lists"); ?></h3>
 <hr id="topbar"/>
 <br />
-<p><?php __("Please confirm the deletion of the following mailman lists:"); ?></p>
+<p><?php __("Please confirm you want to $action the following mailman lists:"); ?></p>
 <form action="mman_doedit.php" method="post">
 <?php
 
@@ -63,14 +63,14 @@ foreach ($d as $id) {
 
   echo "<input type=\"hidden\" name=\"action\" value=\"" . $action . "\" />";
 ?>
-<p><input type="submit" class="inb" name="confirm" value="<?php __("$action the selected mailman lists"); ?>" /> - <input type="submit" name="cancel" id="cancel" class="inb" value="<?php __("Don't delete lists and go back to the mailman list"); ?>" />
+<p><input type="submit" class="inb" name="confirm" value="<?php __("$action the selected mailman lists"); ?>" /> - <input type="submit" name="cancel" id="cancel" class="inb" value="<?php __("Don't $action lists and go back to the mailman list"); ?>" />
 </p>
 </form>
-
+<?php if($action=="DELETE"){ ?>
 <p>
 <?php __("Warning: Deleting a mailman list will destroy all the subscribed users, preferences and archives it contains! You will <b>NOT</b> be able to get your data back!"); ?>
 </p>
-
+<?php } ?>
 
 </body>
 </html>
