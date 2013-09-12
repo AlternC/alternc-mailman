@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: i18n@alternc.org\n"
-"POT-Creation-Date: 2013-02-08 15:51+0100\n"
+"POT-Creation-Date: 2013-07-22 17:35+0200\n"
 "PO-Revision-Date: 2009-06-14 10:30 CEST\n"
 "Last-Translator: Team AlternC <i18n@alternc.org>\n"
 "Language-Team: Team AlternC <i18n@alternc.org>\n"
@@ -17,16 +17,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "$id$\n"
 
-#: ../admin/menu_mailman.php:32
-msgid "(with mailman)"
-msgstr ""
-
-#: ../admin/menu_mailman.php:32 ../admin/mman_add.php:34
+#: ../admin/menu_mailman.php:33 ../admin/mman_add.php:34
 #: ../admin/mman_list.php:40 ../admin/mman_list.php:59
 #: ../admin/mman_passwd.php:37 ../admin/mman_passwd.php:45
 #: ../admin/mman_url.php:38 ../admin/mman_url.php:48 ../admin/mman_url.php:57
-#: ../class/m_mailman.php:609
+#: ../class/m_mailman.php:80 ../class/m_mailman.php:623
 msgid "Mailing lists"
+msgstr ""
+
+#: ../admin/menu_mailman.php:35
+msgid "(with mailman)"
 msgstr ""
 
 #: ../admin/mman_add.php:46
@@ -57,7 +57,7 @@ msgstr ""
 msgid "Deleting mailman lists"
 msgstr ""
 
-#: ../admin/mman_del.php:54 ../admin/mman_edit.php:55
+#: ../admin/mman_del.php:54
 msgid "Please confirm the deletion of the following mailman lists:"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Delete the selected mailman lists"
 msgstr ""
 
-#: ../admin/mman_del.php:64 ../admin/mman_edit.php:66
+#: ../admin/mman_del.php:64
 msgid "Don't delete lists and go back to the mailman list"
 msgstr ""
 
@@ -120,15 +120,15 @@ msgid "Create a list"
 msgstr ""
 
 #: ../admin/mman_list.php:77
-msgid "Delete"
-msgstr ""
-
-#: ../admin/mman_list.php:77
 msgid "List Status"
 msgstr ""
 
 #: ../admin/mman_list.php:77
 msgid "List name"
+msgstr ""
+
+#: ../admin/mman_list.php:77
+msgid "Select"
 msgstr ""
 
 #: ../admin/mman_list.php:88
@@ -205,10 +205,10 @@ msgstr ""
 msgid "This list already exist"
 msgstr ""
 
-#: ../class/m_mailman.php:43 ../class/m_mailman.php:141
-#: ../class/m_mailman.php:355 ../class/m_mailman.php:400
-#: ../class/m_mailman.php:517 ../class/m_mailman.php:542
-#: ../class/m_mailman.php:562
+#: ../class/m_mailman.php:43 ../class/m_mailman.php:152
+#: ../class/m_mailman.php:366 ../class/m_mailman.php:414
+#: ../class/m_mailman.php:531 ../class/m_mailman.php:556
+#: ../class/m_mailman.php:576
 msgid "This list does not exist"
 msgstr ""
 
@@ -228,66 +228,66 @@ msgstr ""
 msgid "A fatal error happened when getting the list url"
 msgstr ""
 
-#: ../class/m_mailman.php:68 ../class/m_mailman.php:462
-#: ../class/m_mailman.php:493
+#: ../class/m_mailman.php:68 ../class/m_mailman.php:476
+#: ../class/m_mailman.php:507
 msgid "No list defined yet"
 msgstr ""
 
-#: ../class/m_mailman.php:162
+#: ../class/m_mailman.php:173
 msgid ""
 "Special mail address for Mailman mailing-lists. <a href='mman_list."
 "php'>Click here to manage it.</a>"
 msgstr ""
 
-#: ../class/m_mailman.php:217
+#: ../class/m_mailman.php:228
 #, php-format
 msgid "The mailman address %s does not exist"
 msgstr ""
 
-#: ../class/m_mailman.php:242
+#: ../class/m_mailman.php:253
 msgid "Your mailing-list quota is over, you cannot create more mailing-lists."
 msgstr ""
 
-#: ../class/m_mailman.php:249
+#: ../class/m_mailman.php:260
 msgid "The email you entered is syntaxically incorrect"
 msgstr ""
 
-#: ../class/m_mailman.php:264
+#: ../class/m_mailman.php:275
 msgid "The login (left part of the @) is mandatory"
 msgstr ""
 
-#: ../class/m_mailman.php:268
+#: ../class/m_mailman.php:279
 msgid "The owner email and the password are mandatory"
 msgstr ""
 
-#: ../class/m_mailman.php:272
+#: ../class/m_mailman.php:283
 msgid "This email is incorrect"
 msgstr ""
 
-#: ../class/m_mailman.php:281
+#: ../class/m_mailman.php:292
 msgid "This domain does not exist."
 msgstr ""
 
-#: ../class/m_mailman.php:287
+#: ../class/m_mailman.php:298
 msgid ""
 "A list with the same name already exist on the server. Please choose another "
 "name."
 msgstr ""
 
-#: ../class/m_mailman.php:320
+#: ../class/m_mailman.php:331
 msgid ""
 "This email address (or one of the list-subscribe, list-unsubscribe etc.) are "
 "already used."
 msgstr ""
 
-#: ../class/m_mailman.php:359 ../class/m_mailman.php:404
+#: ../class/m_mailman.php:370 ../class/m_mailman.php:418
 msgid "This list has pending action, you cannot delete it"
 msgstr ""
 
-#: ../class/m_mailman.php:521
+#: ../class/m_mailman.php:535
 msgid "The passwords are differents, please try again"
 msgstr ""
 
-#: ../class/m_mailman.php:576
+#: ../class/m_mailman.php:590
 msgid "Mailing lists (mailman)"
 msgstr ""
