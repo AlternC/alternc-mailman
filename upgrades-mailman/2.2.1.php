@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 
    // We check that mysql php module is loaded 

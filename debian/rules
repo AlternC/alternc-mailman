@@ -1,85 +1,24 @@
 #!/usr/bin/make -f
+# Sample debian/rules that uses debhelper.
+# This file is public domain software, originally written by Joey Hess.
+#
+# This version is for a multibinary package. It also allows you to build any
+# of the binary packages independantly, via binary-<package> targets.
 
 # Uncomment this to turn on verbose mode. 
-#export DH_VERBOSE=1
-
-# This has to be exported to make some magic below work.
-export DH_OPTIONS
-
+export DH_VERBOSE=1
 MAJOR=$(shell sed -ne 's/^[^(]*(\([^)]*\)).*/\1/;1p' debian/changelog)
-REV=$(shell LANG=C svn info --non-interactive | awk '/^Revision:/ { print $$2 }')
+REV=$(shell env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $$2 }')
 VERSION="${MAJOR}~svn${REV}"
 export VERSION
 
-build: build-stamp
-build-stamp:
-	dh_testdir
-	touch build-stamp
+override_dh_install:
+#dh install
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/alternc-mailman
 
-clean:
-	dh_testdir
-	dh_testroot
-	debconf-updatepo
-	rm -f build-stamp
-	dh_clean
+%:
+	dh $@
 
-install: build
-	dh_testdir
-	dh_testroot
-	dh_prep
-	dh_installdirs
-	cp -r bureau/* debian/alternc-mailman/usr/share/alternc/panel/
-	chown alterncpanel:alterncpanel -R debian/alternc-mailman/usr/share/alternc/panel/
-	install -m 0644 mm_cfg.py \
-		debian/alternc-mailman/etc/alternc/templates/mailman/
-	install -m 0644 -o root -g root src/get_url_alternc.py src/set_url_alternc.py \
-		debian/alternc-mailman/usr/lib/mailman/bin/
-	install -m 0644 alternc-mailman.conf debian/alternc-mailman/etc/apache-ssl/conf.d/
-	install -m 0644 mailman.conf debian/alternc-mailman/etc/alternc/apache-panel.d/
-	# Install the binaries : -rwxr-sr-x
-#	install -m 02755 -o root -g list \
-#		src/mailman.create src/mailman.delete src/mailman.list src/mailman.passwd \
-#		src/mailman.sub src/mailman.unsub \
-#		src/mailman.seturl src/mailman.geturl src/mailman.sync \
-#		debian/alternc-mailman/usr/lib/alternc/
-	install -m 0755 src/update_mailman.sh \
-		debian/alternc-mailman/usr/lib/alternc/
-	install -m 0644 mailman.sql \
-		debian/alternc-mailman/usr/share/alternc/install/
-	# Install lintian overrides
-	install -m 0644 debian/lintian-override \
-	    debian/alternc-mailman/usr/share/lintian/overrides/alternc-mailman
-	# remove CVS / SVN entries : 
-	find debian/alternc-mailman/ -depth \( -name CVS -o -name .svn \) -type d -exec rm -rf {} \;
-	rm -f debian/alternc-mailman/usr/share/alternc/panel/locales/Makefile
-	cp -r patches debian/alternc-mailman/usr/share/alternc-mailman/patches
-	install -m 0755 upgrade_mailman_check.sh debian/alternc-mailman/usr/share/alternc/install/
-	install -m 0755 upgrades-mailman/* debian/alternc-mailman/usr/share/alternc/install/upgrades-mailman/
-
-binary-common: build install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs
-	dh_installdocs
-	dh_strip
-	dh_installdebconf
-	dh_link
-	dh_compress
-	dh_fixperms
-	dh_installcron
-	dh_installdeb
-	dh_perl
-	dh_gencontrol -- -cdebian/control
-	dh_md5sums
-	dh_builddeb
-
-binary-indep: build install binary-common
-
-binary-arch: build install binary-common
-
-binary: binary-common
-
-.PHONY: build clean binary binary-common binary-arch binary-indep install 
 
 build-snapshot:
 	@echo "building a package based on the current snapshot (${VERSION})"

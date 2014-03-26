@@ -37,6 +37,7 @@ case "$1" in
         fi
     fi
     sed -e "s/%%fqdn%%/$FQDN/" < "$MAILMAN_CONFIG_TEMPLATE" > "$MAILMAN_CONFIG"
+    mkdir -p "`dirname "$MAILMAN_CONFIG_BACKUP"`"
     cp -a -f "$MAILMAN_CONFIG" "$MAILMAN_CONFIG_BACKUP"
 
     MAILMAN_VERSION=`dpkg -l mailman | grep ^ii | awk '{print $3}' | sed -e s/-.*// -e 's/[^:]*://'`
@@ -133,6 +134,19 @@ case "$1" in
 
     # Create default quota "mailman" with value 0
     mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT INTO defquotas VALUES ('mailman', 0, 'default')" || true
+
+    echo "installing required apache modules" 
+    a2enmod rewrite
+    a2enmod proxy
+    a2enmod proxy_http
+
+    # make the mailman.localdomain goes to local apache2 ;) 
+    if ! grep -q "127.0.0.1.*mailman.localdomain" /etc/hosts
+    then 
+	echo "adding mailman.localdomain to /etc/hosts"
+	echo "" >>/etc/hosts
+	echo "127.0.0.1  mailman.localdomain" >>/etc/hosts
+    fi
 
     echo "checking for upgrades"
     /usr/share/alternc/install/upgrade_mailman_check.sh $2
