@@ -6,3 +6,10 @@ debian/alternc-mailman.substvars
 debian/files
 debian/postinst
 debian/postrm
+bureau/locales/de_DE/LC_MESSAGES/mailman.po~
+bureau/locales/en_US/LC_MESSAGES/mailman.po~
+bureau/locales/es_ES/LC_MESSAGES/mailman.po~
+bureau/locales/fr_FR/LC_MESSAGES/mailman.po~
+bureau/locales/it_IT/LC_MESSAGES/mailman.po~
+bureau/locales/nl_NL/LC_MESSAGES/mailman.po~
+bureau/locales/pt_BR/LC_MESSAGES/mailman.po~
