@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
 "Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
 "POT-Creation-Date: 2013-10-18 11:47+0200\n"
-"PO-Revision-Date: 2014-03-27 15:42+0000\n"
+"PO-Revision-Date: 2014-03-27 15:51+0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/alternc/"
 "language/es_ES/)\n"
@@ -43,21 +43,9 @@ msgstr "Listas de correo"
 msgid "(with mailman)"
 msgstr "(con mailman)"
 
-#: ../admin/mman_add.php:45
-msgid "List's email address"
-msgstr ""
-
 #: ../admin/mman_add.php:48
 msgid "Email of the list's administrator"
 msgstr "Correo electronico del administrador de la lista"
-
-#: ../admin/mman_add.php:51
-msgid "List password"
-msgstr ""
-
-#: ../admin/mman_add.php:55
-msgid "List password (confirm)"
-msgstr ""
 
 #: ../admin/mman_add.php:59
 msgid "Create the list."
@@ -91,14 +79,6 @@ msgstr "Se creó correctamente la lista de correo."
 msgid "The list %s has been successfully deleted."
 msgstr "Se borró correctamente la lista %s."
 
-#: ../admin/mman_dopasswd.php:41
-msgid "The mailing list password will be changed in a few minutes."
-msgstr ""
-
-#: ../admin/mman_dourl.php:39
-msgid "The mailing list management url has been successfully changed."
-msgstr ""
-
 #: ../admin/mman_list.php:38
 msgid ""
 "No domain is installed on your account, you cannot create any mailing list!"
@@ -109,10 +89,6 @@ msgstr ""
 #: ../admin/mman_list.php:68
 msgid "Create a list"
 msgstr "Crear una lista"
-
-#: ../admin/mman_list.php:77
-msgid "List Status"
-msgstr ""
 
 #: ../admin/mman_list.php:77
 msgid "List name"
@@ -142,14 +118,6 @@ msgstr "Confirmar contraseña"
 #: ../admin/mman_passwd.php:65
 msgid "Change the password."
 msgstr "Cambiar contraseña"
-
-#: ../admin/mman_url.php:73
-msgid "Current list url"
-msgstr ""
-
-#: ../admin/mman_url.php:90
-msgid "Change the url."
-msgstr ""
 
 #: ../class/m_mailman.php:43 ../class/m_mailman.php:152
 #: ../class/m_mailman.php:366 ../class/m_mailman.php:414

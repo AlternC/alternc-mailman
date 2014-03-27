@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
 "Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
 "POT-Creation-Date: 2013-10-18 11:47+0200\n"
-"PO-Revision-Date: 2014-03-27 15:42+0000\n"
+"PO-Revision-Date: 2014-03-27 15:51+0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
 "alternc/language/pt_BR/)\n"
@@ -31,25 +31,9 @@ msgstr "Enviando listas "
 msgid "(with mailman)"
 msgstr "(com mailman)"
 
-#: ../admin/mman_add.php:45
-msgid "List's email address"
-msgstr ""
-
-#: ../admin/mman_add.php:51
-msgid "List password"
-msgstr ""
-
-#: ../admin/mman_add.php:55
-msgid "List password (confirm)"
-msgstr ""
-
 #: ../admin/mman_add.php:59
 msgid "Create the list."
 msgstr "Criar a lista."
-
-#: ../admin/mman_del.php:64
-msgid "Delete the selected mailman lists"
-msgstr ""
 
 #: ../admin/mman_doadd.php:43
 msgid "The mailing list has been successfully created."
@@ -61,21 +45,9 @@ msgstr "A lista de envios foi criada com sucesso."
 msgid "The list %s has been successfully deleted."
 msgstr "A lista %s foi removida com sucesso."
 
-#: ../admin/mman_dopasswd.php:41
-msgid "The mailing list password will be changed in a few minutes."
-msgstr ""
-
-#: ../admin/mman_dourl.php:39
-msgid "The mailing list management url has been successfully changed."
-msgstr ""
-
 #: ../admin/mman_list.php:68
 msgid "Create a list"
 msgstr "Criar a lista"
-
-#: ../admin/mman_list.php:77
-msgid "List Status"
-msgstr ""
 
 #: ../admin/mman_list.php:77
 msgid "List name"
@@ -92,14 +64,6 @@ msgstr "Mensagens faltando Ã¡ enviar"
 #: ../admin/mman_passwd.php:57
 msgid "New list password"
 msgstr "Senha da lista"
-
-#: ../admin/mman_url.php:73
-msgid "Current list url"
-msgstr ""
-
-#: ../admin/mman_url.php:90
-msgid "Change the url."
-msgstr ""
 
 #: ../class/m_mailman.php:43 ../class/m_mailman.php:152
 #: ../class/m_mailman.php:366 ../class/m_mailman.php:414
