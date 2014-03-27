@@ -1,24 +1,35 @@
-# translation of mailman.po to Spanish
-# AlternC's Translation
-# Copyright (C) 2006 AlternC's translation team <i18n@alternc.org>
-# This file is distributed under the same license as the AlternC's package.
-# AlternC's translation team <i18n@alternc.org>
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
-# Daniel Viñar Ulriksen <dani@belil.net>, 2008.
+# Translators:
+# Benjamin Sonntag <benjamin@sonntag.fr>, 2012
+# Bruno Marmier <bruno@marmier.net>, 2003, 2004
+# Daniel Viñar Ulriksen <dani@belil.net>, 2008
+# estacada <michel.lecomte.ml@gmail.com>, 2013
+# remi.alternc <remi+tech@b6.be>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: mailman\n"
-"Report-Msgid-Bugs-To: i18n@alternc.org\n"
-"POT-Creation-Date: 2014-03-27 16:28+0100\n"
-"PO-Revision-Date: 2008-02-17 00:35-0400\n"
-"Last-Translator: Daniel Viñar Ulriksen <dani@belil.net>\n"
-"Language-Team: Spanish <i18n@alternc.org>\n"
-"Language: es\n"
+"Project-Id-Version: AlternC, hosting control panel\n"
+"Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
+"POT-Creation-Date: 2013-10-18 11:47+0200\n"
+"PO-Revision-Date: 2014-03-27 15:42+0000\n"
+"Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
+"Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/alternc/"
+"language/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"$id$\n"
-"X-Generator: KBabel 1.11.4\n"
+"Language: es_ES\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../admin/aws_add.php:95 ../admin/aws_pass.php:77 ../admin/aws_users.php:58
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: ../admin/aws_users.php:86
+msgid "Change password"
+msgstr "Cambiar contraseña"
 
 #: ../admin/menu_mailman.php:33 ../admin/mman_add.php:34
 #: ../admin/mman_list.php:40 ../admin/mman_list.php:59
@@ -33,48 +44,32 @@ msgid "(with mailman)"
 msgstr "(con mailman)"
 
 #: ../admin/mman_add.php:45
-#, fuzzy
 msgid "List's email address"
-msgstr "dirección email"
+msgstr ""
 
 #: ../admin/mman_add.php:48
 msgid "Email of the list's administrator"
-msgstr ""
+msgstr "Correo electronico del administrador de la lista"
 
 #: ../admin/mman_add.php:51
-#, fuzzy
 msgid "List password"
-msgstr "Contraseña inicial de la lista"
+msgstr ""
 
 #: ../admin/mman_add.php:55
-#, fuzzy
 msgid "List password (confirm)"
-msgstr "Contraseña inicial de la lista"
+msgstr ""
 
 #: ../admin/mman_add.php:59
 msgid "Create the list."
 msgstr "Crear la lista"
 
-#: ../admin/mman_add.php:60 ../admin/mman_url.php:91
-msgid "Cancel"
-msgstr ""
-
 #: ../admin/mman_del.php:51
 msgid "Deleting mailman lists"
-msgstr ""
+msgstr "Borrando listas de mailman"
 
 #: ../admin/mman_del.php:54
 msgid "Please confirm the deletion of the following mailman lists:"
-msgstr ""
-
-#: ../admin/mman_del.php:64
-#, fuzzy
-msgid "Delete the selected mailman lists"
-msgstr "Borrar las listas marcadas"
-
-#: ../admin/mman_del.php:64
-msgid "Don't delete lists and go back to the mailman list"
-msgstr ""
+msgstr "Por favor, confirme la elimicación de las siguientes listas mailman:"
 
 #: ../admin/mman_del.php:69 ../admin/mman_edit.php:71
 msgid ""
@@ -82,6 +77,9 @@ msgid ""
 "preferences and archives it contains! You will <b>NOT</b> be able to get "
 "your data back!"
 msgstr ""
+"Advertencia: Borrando una lista mailman eliminará por completo todos los "
+"datos que contiene y los usuarios suscritos a ella! <b>NO</b> podrá "
+"recuperar sus datos!"
 
 #: ../admin/mman_doadd.php:43
 msgid "The mailing list has been successfully created."
@@ -94,29 +92,11 @@ msgid "The list %s has been successfully deleted."
 msgstr "Se borró correctamente la lista %s."
 
 #: ../admin/mman_dopasswd.php:41
-#, fuzzy
 msgid "The mailing list password will be changed in a few minutes."
-msgstr "Se creó correctamente la lista de correo."
+msgstr ""
 
 #: ../admin/mman_dourl.php:39
-#, fuzzy
 msgid "The mailing list management url has been successfully changed."
-msgstr "Se creó correctamente la lista de correo."
-
-#: ../admin/mman_edit.php:52
-msgid "Editing mailman lists"
-msgstr ""
-
-#: ../admin/mman_list.php:30
-msgid "Password change pending"
-msgstr ""
-
-#: ../admin/mman_list.php:31
-msgid "Url change pending"
-msgstr ""
-
-#: ../admin/mman_list.php:32
-msgid "List creation pending"
 msgstr ""
 
 #: ../admin/mman_list.php:38
@@ -131,9 +111,8 @@ msgid "Create a list"
 msgstr "Crear una lista"
 
 #: ../admin/mman_list.php:77
-#, fuzzy
 msgid "List Status"
-msgstr "Nombre de la lista"
+msgstr ""
 
 #: ../admin/mman_list.php:77
 msgid "List name"
@@ -141,11 +120,7 @@ msgstr "Nombre de la lista"
 
 #: ../admin/mman_list.php:77
 msgid "Select"
-msgstr ""
-
-#: ../admin/mman_list.php:88
-msgid "List is pending deletion, you can't do anything on it"
-msgstr ""
+msgstr "Seleccionar"
 
 #: ../admin/mman_list.php:99
 msgid "List admin"
@@ -155,69 +130,25 @@ msgstr "Administración de la lista"
 msgid "Pending messages"
 msgstr "Mensajes pendientes"
 
-#: ../admin/mman_list.php:103
-msgid "Change password"
-msgstr ""
-
-#: ../admin/mman_list.php:104
-msgid "Change url"
-msgstr ""
-
-#: ../admin/mman_list.php:113
-msgid "-- Choose an action --"
-msgstr ""
-
-#: ../admin/mman_list.php:117
-msgid "Validate"
-msgstr ""
-
 #: ../admin/mman_passwd.php:55
 #, php-format
 msgid "Changing password of list %s"
-msgstr ""
-
-#: ../admin/mman_passwd.php:57
-#, fuzzy
-msgid "New list password"
-msgstr "Contraseña inicial de la lista"
+msgstr "Cambiando contraseña de la lista %s"
 
 #: ../admin/mman_passwd.php:61
 msgid "Password confirmation"
-msgstr ""
+msgstr "Confirmar contraseña"
 
 #: ../admin/mman_passwd.php:65
 msgid "Change the password."
-msgstr ""
-
-#: ../admin/mman_url.php:65
-msgid ""
-"This is the current url to access administration and public pages for this "
-"list. If you want to change it, select another url in the list and submit "
-"this form. <br />If you don't know what you are doing, don't change anything "
-"here."
-msgstr ""
-
-#: ../admin/mman_url.php:70
-#, php-format
-msgid "Changing management url of list %s"
-msgstr ""
+msgstr "Cambiar contraseña"
 
 #: ../admin/mman_url.php:73
-#, fuzzy
 msgid "Current list url"
-msgstr "Crear una lista"
-
-#: ../admin/mman_url.php:77
-msgid "New list management url"
 msgstr ""
 
 #: ../admin/mman_url.php:90
-#, fuzzy
 msgid "Change the url."
-msgstr "Crear la lista"
-
-#: ../class/m_mailman.php:42
-msgid "This list already exist"
 msgstr ""
 
 #: ../class/m_mailman.php:43 ../class/m_mailman.php:152
@@ -225,113 +156,73 @@ msgstr ""
 #: ../class/m_mailman.php:531 ../class/m_mailman.php:556
 #: ../class/m_mailman.php:576
 msgid "This list does not exist"
-msgstr ""
-
-#: ../class/m_mailman.php:44
-msgid "A fatal error happened when creating the list"
-msgstr ""
-
-#: ../class/m_mailman.php:45
-msgid "A fatal error happened when deleting the list"
-msgstr ""
-
-#: ../class/m_mailman.php:46
-msgid "A fatal error happened when changing the list password"
-msgstr ""
-
-#: ../class/m_mailman.php:47
-msgid "A fatal error happened when getting the list url"
-msgstr ""
+msgstr "La lista especificada no existe."
 
 #: ../class/m_mailman.php:68 ../class/m_mailman.php:476
 #: ../class/m_mailman.php:507
 msgid "No list defined yet"
 msgstr ""
-
-#: ../class/m_mailman.php:173
-msgid ""
-"Special mail address for Mailman mailing-lists. <a href='mman_list."
-"php'>Click here to manage it.</a>"
-msgstr ""
-
-#: ../class/m_mailman.php:228
-#, php-format
-msgid "The mailman address %s does not exist"
-msgstr ""
-
-#: ../class/m_mailman.php:253
-#, fuzzy
-msgid "Your mailing-list quota is over, you cannot create more mailing-lists."
-msgstr ""
-"No hay dominios instalados en tu cuenta, ¡no puedes crear una lista de "
-"correo!"
-
-#: ../class/m_mailman.php:260
-msgid "The email you entered is syntaxically incorrect"
-msgstr ""
+"<ul> <li>Mailman es un manejador de listas de discusión/difusión muy "
+"potente. Dispone de una interfaz web de gestión de lista completa, accesible "
+"a través de los diferentes enlaces aquí arrba.</li><li>Mailman permite "
+"moderar una lista: para moderar los futuros suscriptores ir a \"Opciones de "
+"confidencialidad\"->\"Filtros remitente\" y luego elegir  \"Sí\" en \"¿Los "
+"envíos de nuevos suscriptores deben ser moderados por omisión?\". De hecho, "
+"mailman puede moderar CADA suscriptor de una lista.</li><li>Para moderar los "
+"NO-suscriptores de una lsita, ir a \"Opciones de confidencialidad\"->"
+"\"Filtros remitente\" y luego elegir entre  \"Aceptar En espera Rechazar "
+"Ignorar\" para \"Acción para los envíos de los no-suscriptores\"</"
+"li><li>Varias otras opciones pueden ser modificadas en mailman. Para "
+"cualquier información, presiona en el enlace \"Détalles de ...\" abajo de "
+"cada elemento configurable, o contacta el hospedaje.</li></ul>"
 
 #: ../class/m_mailman.php:275
 msgid "The login (left part of the @) is mandatory"
-msgstr ""
+msgstr "El login (parte izquierda del @) es obligatoria."
 
 #: ../class/m_mailman.php:279
 msgid "The owner email and the password are mandatory"
 msgstr ""
+"La dirección de correo del dueño y la contraseña de la lista son obligaorios."
 
 #: ../class/m_mailman.php:283
 msgid "This email is incorrect"
-msgstr ""
+msgstr "Esta dirección de correo no es correcta."
 
 #: ../class/m_mailman.php:292
 msgid "This domain does not exist."
-msgstr ""
+msgstr "Este dominio no existe."
 
 #: ../class/m_mailman.php:298
 msgid ""
 "A list with the same name already exist on the server. Please choose another "
 "name."
-msgstr ""
+msgstr "Una lista con el mismo nombre ya existe. Elije otro nombre."
 
 #: ../class/m_mailman.php:331
 msgid ""
 "This email address (or one of the list-subscribe, list-unsubscribe etc.) are "
 "already used."
 msgstr ""
-
-#: ../class/m_mailman.php:370 ../class/m_mailman.php:418
-msgid "This list has pending action, you cannot delete it"
-msgstr ""
+"Esta dirección de correo (o una de las direcciones de servicio lista-"
+"subscribe, lista-unsubscribe, etc.) ya está en uso."
 
 #: ../class/m_mailman.php:535
 msgid "The passwords are differents, please try again"
-msgstr ""
+msgstr "Contraseñas introducidas distintas, por favor vuelva a intentarlo"
 
-#: ../class/m_mailman.php:590
-#, fuzzy
-msgid "Mailing lists (mailman)"
-msgstr "Listas de correo"
+#: ../admin/adm_add.php:91 ../admin/adm_edit.php:108
+msgid "Email address"
+msgstr "Dirección de correo electrónico"
 
-#~ msgid "Delete"
-#~ msgstr "Borrar"
-
-#~ msgid "Delete the checked lists"
-#~ msgstr "Borrar las listas marcadas"
-
-#~ msgid "Public page"
-#~ msgstr "Página pública"
-
-#~ msgid "List Members"
-#~ msgstr "Lista de miembros"
-
-#, fuzzy
-#~ msgid "Sync Members"
-#~ msgstr "Lista de miembros"
-
-#~ msgid "Email address"
-#~ msgstr "dirección email"
-
-#~ msgid "Owner"
-#~ msgstr "Dueño"
-
-#~ msgid "Initial list password"
-#~ msgstr "Contraseña inicial de la lista"
+#: ../admin/adm_authip_whitelist.php:85 ../admin/adm_doms_def_type.php:60
+#: ../admin/adm_mxaccount.php:83 ../admin/adm_slavedns.php:101
+#: ../admin/adm_slavedns.php:145 ../admin/adm_var_edit.php:181
+#: ../admin/bro_main.php:284 ../admin/cron.php:54 ../admin/dom_edit.php:127
+#: ../admin/dom_edit.php:168 ../admin/ftp_del.php:82
+#: ../admin/hta_dodeluser.php:64 ../admin/ip_main.php:79
+#: ../admin/ip_main.php:167 ../admin/piwik_site_dodel.php:70
+#: ../admin/piwik_sitelist.php:128 ../admin/piwik_user_dodel.php:68
+#: ../admin/piwik_userlist.php:87
+msgid "Delete"
+msgstr "Borrar"

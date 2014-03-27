@@ -1,19 +1,43 @@
-# French AlternC Translation
-# Copyright (C)  2002 the AlternC Development Team
-# <tech@alternc.org>
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
+# Balise <hubert_bertrand@yahoo.fr>, 2012
+# Benjamin Sonntag <benjamin@alternc.org>, 2004
+# Benjamin Sonntag <benjamin@sonntag.fr>, 2004,2012-2013
+# Benjamin Sonntag <benjamin@sonntag.fr>, 2013
+# boukman <linkfan@hotmail.fr>, 2013
+# Daniel Viñar Ulriksen <dani@belil.net>, 2008
+# boukman <linkfan@hotmail.fr>, 2013
+# fufroma <fufroma@nnx.com>, 2012-2013
+# fufroma <fufroma@nnx.com>, 2013-2014
+# fufroma <fufroma@nnx.com>, 2012
+# supra63200 <guillaume63200@hotmail.fr>, 2013
+# Balise <hubert_bertrand@yahoo.fr>, 2012
+# supra63200 <guillaume63200@hotmail.fr>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: $Id$\n"
-"Report-Msgid-Bugs-To: i18n@alternc.org\n"
-"POT-Creation-Date: 2014-03-27 16:28+0100\n"
-"PO-Revision-Date: 2009-05-24 08:16 +0000\n"
-"Last-Translator: Benjamin Sonntag <benjamin@octopuce.com>\n"
-"Language-Team: French <tech@alternc.org>\n"
-"Language: fr\n"
+"Project-Id-Version: AlternC, hosting control panel\n"
+"Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
+"POT-Creation-Date: 2013-10-18 11:47+0200\n"
+"PO-Revision-Date: 2014-03-27 15:42+0000\n"
+"Last-Translator: fufroma <fufroma@nnx.com>\n"
+"Language-Team: French (France) (http://www.transifex.com/projects/p/alternc/"
+"language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../admin/aws_add.php:95 ../admin/aws_pass.php:77 ../admin/aws_users.php:58
+msgid "Cancel"
+msgstr "Annuler"
+
+#: ../admin/aws_users.php:86
+msgid "Change password"
+msgstr "Changer le mot de passe"
 
 #: ../admin/menu_mailman.php:33 ../admin/mman_add.php:34
 #: ../admin/mman_list.php:40 ../admin/mman_list.php:59
@@ -46,10 +70,6 @@ msgstr "Mot de passe de la liste (confirmation)"
 #: ../admin/mman_add.php:59
 msgid "Create the list."
 msgstr "Créer cette liste."
-
-#: ../admin/mman_add.php:60 ../admin/mman_url.php:91
-msgid "Cancel"
-msgstr ""
 
 #: ../admin/mman_del.php:51
 msgid "Deleting mailman lists"
@@ -146,10 +166,6 @@ msgstr "Administration"
 #: ../admin/mman_list.php:100
 msgid "Pending messages"
 msgstr "Messages en attente"
-
-#: ../admin/mman_list.php:103
-msgid "Change password"
-msgstr "Modifier le mot de passe"
 
 #: ../admin/mman_list.php:104
 msgid "Change url"
@@ -310,29 +326,14 @@ msgstr "Les mots de passes sont différents, merci de réessayer"
 msgid "Mailing lists (mailman)"
 msgstr "Listes de discussion"
 
-#~ msgid "Delete"
-#~ msgstr "Effacer"
-
-#~ msgid "Delete the checked lists"
-#~ msgstr "Effacer les listes cochées"
-
-#~ msgid "Public page"
-#~ msgstr "Page d'info"
-
-#~ msgid "List Members"
-#~ msgstr "Abonnés"
-
-#, fuzzy
-#~ msgid "Sync Members"
-#~ msgstr "Abonnés"
-
-#, fuzzy
-#~ msgid "Email address"
-#~ msgstr "Adresse email de la liste"
-
-#, fuzzy
-#~ msgid "Initial list password"
-#~ msgstr "Nouveau mot de passe de la liste"
-
-#~ msgid "quota_mailman"
-#~ msgstr "Listes de discussions (mailman)"
+#: ../admin/adm_authip_whitelist.php:85 ../admin/adm_doms_def_type.php:60
+#: ../admin/adm_mxaccount.php:83 ../admin/adm_slavedns.php:101
+#: ../admin/adm_slavedns.php:145 ../admin/adm_var_edit.php:181
+#: ../admin/bro_main.php:284 ../admin/cron.php:54 ../admin/dom_edit.php:127
+#: ../admin/dom_edit.php:168 ../admin/ftp_del.php:82
+#: ../admin/hta_dodeluser.php:64 ../admin/ip_main.php:79
+#: ../admin/ip_main.php:167 ../admin/piwik_site_dodel.php:70
+#: ../admin/piwik_sitelist.php:128 ../admin/piwik_user_dodel.php:68
+#: ../admin/piwik_userlist.php:87
+msgid "Delete"
+msgstr "Effacer"
