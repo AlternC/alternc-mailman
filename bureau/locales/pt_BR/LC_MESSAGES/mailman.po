@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: $Id: mailman.po,v 1.3 2003/06/15 18:58:03 root Exp $\n"
 "Report-Msgid-Bugs-To: i18n@alternc.org\n"
-"POT-Creation-Date: 2013-10-17 18:55+0200\n"
+"POT-Creation-Date: 2014-03-27 16:28+0100\n"
 "PO-Revision-Date: 2003-02-03 08:16 +0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@octopuce.com>\n"
 "Language-Team: English <dev@alternc.org>\n"
@@ -27,30 +27,30 @@ msgstr "Enviando listas "
 msgid "(with mailman)"
 msgstr "(com mailman)"
 
-#: ../admin/mman_add.php:46
+#: ../admin/mman_add.php:45
 #, fuzzy
 msgid "List's email address"
 msgstr "Endereço de Email"
 
-#: ../admin/mman_add.php:49
+#: ../admin/mman_add.php:48
 msgid "Email of the list's administrator"
 msgstr ""
 
-#: ../admin/mman_add.php:52
+#: ../admin/mman_add.php:51
 #, fuzzy
 msgid "List password"
 msgstr "Senha da lista"
 
-#: ../admin/mman_add.php:56
+#: ../admin/mman_add.php:55
 #, fuzzy
 msgid "List password (confirm)"
 msgstr "Senha da lista"
 
-#: ../admin/mman_add.php:60
+#: ../admin/mman_add.php:59
 msgid "Create the list."
 msgstr "Criar a lista."
 
-#: ../admin/mman_add.php:61 ../admin/mman_url.php:91
+#: ../admin/mman_add.php:60 ../admin/mman_url.php:91
 msgid "Cancel"
 msgstr ""
 

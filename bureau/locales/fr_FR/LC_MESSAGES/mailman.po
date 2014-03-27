@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
 "Report-Msgid-Bugs-To: i18n@alternc.org\n"
-"POT-Creation-Date: 2013-10-17 18:55+0200\n"
+"POT-Creation-Date: 2014-03-27 16:28+0100\n"
 "PO-Revision-Date: 2009-05-24 08:16 +0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@octopuce.com>\n"
 "Language-Team: French <tech@alternc.org>\n"
@@ -27,27 +27,27 @@ msgstr "Listes de discussion"
 msgid "(with mailman)"
 msgstr "(avec mailman)"
 
-#: ../admin/mman_add.php:46
+#: ../admin/mman_add.php:45
 msgid "List's email address"
 msgstr "Adresse email de la liste"
 
-#: ../admin/mman_add.php:49
+#: ../admin/mman_add.php:48
 msgid "Email of the list's administrator"
 msgstr "Adresse email de l'administrateur de la liste"
 
-#: ../admin/mman_add.php:52
+#: ../admin/mman_add.php:51
 msgid "List password"
 msgstr "Mot de passe de la liste"
 
-#: ../admin/mman_add.php:56
+#: ../admin/mman_add.php:55
 msgid "List password (confirm)"
 msgstr "Mot de passe de la liste (confirmation)"
 
-#: ../admin/mman_add.php:60
+#: ../admin/mman_add.php:59
 msgid "Create the list."
 msgstr "Créer cette liste."
 
-#: ../admin/mman_add.php:61 ../admin/mman_url.php:91
+#: ../admin/mman_add.php:60 ../admin/mman_url.php:91
 msgid "Cancel"
 msgstr ""
 
@@ -136,7 +136,8 @@ msgstr "Choisir"
 
 #: ../admin/mman_list.php:88
 msgid "List is pending deletion, you can't do anything on it"
-msgstr "La liste est en attente de suppression, vous ne pouvez plus rien faire avec"
+msgstr ""
+"La liste est en attente de suppression, vous ne pouvez plus rien faire avec"
 
 #: ../admin/mman_list.php:99
 msgid "List admin"
@@ -229,11 +230,13 @@ msgstr "Une erreur fatale est survenue lors de la suppression de la liste"
 
 #: ../class/m_mailman.php:46
 msgid "A fatal error happened when changing the list password"
-msgstr "Une erreur fatale est survenue lors du changement de mot de passe de la liste"
+msgstr ""
+"Une erreur fatale est survenue lors du changement de mot de passe de la liste"
 
 #: ../class/m_mailman.php:47
 msgid "A fatal error happened when getting the list url"
-msgstr "Une erreur fatale est survenue lors de l'obtention de l'URL de la liste"
+msgstr ""
+"Une erreur fatale est survenue lors de l'obtention de l'URL de la liste"
 
 #: ../class/m_mailman.php:68 ../class/m_mailman.php:476
 #: ../class/m_mailman.php:507
@@ -244,7 +247,9 @@ msgstr "Aucune liste de définie pour l'instant"
 msgid ""
 "Special mail address for Mailman mailing-lists. <a href='mman_list."
 "php'>Click here to manage it.</a>"
-msgstr "Adresse email spéciale pour les listes Mailman <a href='mman_list.php'>Cliquez ici pour les gérer.</a>"
+msgstr ""
+"Adresse email spéciale pour les listes Mailman <a href='mman_list."
+"php'>Cliquez ici pour les gérer.</a>"
 
 #: ../class/m_mailman.php:228
 #, php-format
@@ -254,7 +259,8 @@ msgstr "L'adresse mailman %s n'existe pas"
 #: ../class/m_mailman.php:253
 msgid "Your mailing-list quota is over, you cannot create more mailing-lists."
 msgstr ""
-"Votre quota de listes de discussion est atteint, vous ne pouvez pas en créer d'avantage."
+"Votre quota de listes de discussion est atteint, vous ne pouvez pas en créer "
+"d'avantage."
 
 #: ../class/m_mailman.php:260
 msgid "The email you entered is syntaxically incorrect"
@@ -280,13 +286,17 @@ msgstr "Ce domaine n'existe pas."
 msgid ""
 "A list with the same name already exist on the server. Please choose another "
 "name."
-msgstr "Une liste avec ce nom existe déjà dans le serveur. Merci de choisir un autre nom"
+msgstr ""
+"Une liste avec ce nom existe déjà dans le serveur. Merci de choisir un autre "
+"nom"
 
 #: ../class/m_mailman.php:331
 msgid ""
 "This email address (or one of the list-subscribe, list-unsubscribe etc.) are "
 "already used."
-msgstr "Cette adresse email (ou une des liste-subscribe, liste-unsubscribe etc.) existe déjà sur ce domaine"
+msgstr ""
+"Cette adresse email (ou une des liste-subscribe, liste-unsubscribe etc.) "
+"existe déjà sur ce domaine"
 
 #: ../class/m_mailman.php:370 ../class/m_mailman.php:418
 msgid "This list has pending action, you cannot delete it"
