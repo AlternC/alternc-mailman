@@ -5,7 +5,7 @@
 CONFIGFILE="/etc/alternc/local.sh"
 MAILMAN_CONFIG="/etc/mailman/mm_cfg.py"
 MAILMAN_CONFIG_TEMPLATE="/etc/alternc/templates/mailman/mm_cfg.py"
-MAILMAN_CONFIG_BACKUP="/var/backups/alternc/etc-mailman-mm_cfg.py"
+MAILMAN_CONFIG_BACKUP="/var/lib/alternc/backups/etc-mailman-mm_cfg.py"
 MAILMAN_PASS="`perl -e 'print map{("a".."z","A".."Z",0..9)[int(rand(62))]}(1..10)' `" # copy-pasted from alternc/debian/config
 
 # new packages put binaries in /usr/lib/mailman/bin
@@ -37,7 +37,6 @@ case "$1" in
         fi
     fi
     sed -e "s/%%fqdn%%/$FQDN/" < "$MAILMAN_CONFIG_TEMPLATE" > "$MAILMAN_CONFIG"
-    mkdir -p "`dirname "$MAILMAN_CONFIG_BACKUP"`"
     cp -a -f "$MAILMAN_CONFIG" "$MAILMAN_CONFIG_BACKUP"
 
     MAILMAN_VERSION=`dpkg -l mailman | grep ^ii | awk '{print $3}' | sed -e s/-.*// -e 's/[^:]*://'`
