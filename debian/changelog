@@ -1,10 +1,12 @@
-alternc-mailman (3.1) oldstable; urgency=low
+alternc-mailman (3.1.1) oldstable; urgency=low
 
   * fix of alternc-mailman for AlternC 3.1 (squeeze) & 3.2 (wheezy)
   * adding virtualhost and apache proxy to manage the uid/gid issue
     when using Apache-mpm-itk (Fixes #1565)
+  * adding patch for mailman 2.1.15 on wheezy.
+  * migrating the upgrade system from postinstall to alternc_status table
 
- -- Benjamin Sonntag <benjamin@sonntag.fr>  Wed, 26 Mar 2014 14:04:11 +0100
+ -- Benjamin Sonntag <benjamin@sonntag.fr>  Wed, 28 Mar 2014 10:04:11 +0100
 
 alternc-mailman (3.0) stable; urgency=low
 

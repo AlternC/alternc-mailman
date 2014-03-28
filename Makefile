@@ -43,6 +43,7 @@ install:
 		$(DESTDIR)/usr/lib/alternc/
 	install -m 0644 mailman.sql \
 		$(DESTDIR)/usr/share/alternc/install/
+	install -m 750 alternc-mailman-install $(DESTDIR)/usr/lib/alternc/install.d/
 	touch $(DESTDIR)/usr/share/alternc-mailman/www/index.html
 
 	rm -f $(DESTDIR)/usr/share/alternc/panel/locales/Makefile

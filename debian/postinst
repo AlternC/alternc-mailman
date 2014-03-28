@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 . /usr/share/debconf/confmodule
 
@@ -147,14 +147,17 @@ case "$1" in
 	echo "127.0.0.1  mailman.localdomain" >>/etc/hosts
     fi
 
-    echo "checking for upgrades"
-    /usr/share/alternc/install/upgrade_mailman_check.sh $2
+    echo "$2" >/var/lib/alternc/backups/alternc-mailman-lastversion
 
-    echo "**********************************************"
-    echo "*            ALTERNC-MAILMAN                 *"
+    echo -e "\033[31m**********************************************"
+    echo "*                                            *"
+    echo "*   ALTERNC-MAILMAN  ACTION REQUESTED        *"
+    echo "*                                            *"
     echo "* Please run alternc.install to fully deploy *"
     echo "* Then change your quota to activate Mailman *"
+    echo "*                                            *"
     echo "**********************************************"
+    echo -e "\033[0m"
     ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)
