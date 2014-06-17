@@ -9,15 +9,6 @@
          urlhost = urlhost or domain
          emailhost = emailhost or mm_cfg.VIRTUAL_HOSTS.get(domain, domain)
  
-@@ -172,7 +172,7 @@
-     host_name = emailhost or \
-                 mm_cfg.VIRTUAL_HOSTS.get(urlhost, mm_cfg.DEFAULT_EMAIL_HOST)
-     web_page_url = mm_cfg.DEFAULT_URL_PATTERN % urlhost
--
-+    print "ALTERNC DEBUG %s %s" % (urlhost, host_name)
-     if Utils.list_exists(listname):
-         usage(1, _('List already exists: %(listname)s'))
- 
 --- /usr/lib/mailman/bin/rmlist.orig	2012-06-16 20:02:08.000000000 +0200
 +++ /usr/lib/mailman/bin/rmlist	2014-03-27 18:19:55.025846684 +0100
 @@ -93,6 +93,11 @@
@@ -75,16 +66,7 @@
  
      # For backwards compatibility
      def GetBouncesEmail(self):
-@@ -476,8 +481,6 @@
-     def Create(self, name, admin, crypted_password,
-                langs=None, emailhost=None, urlhost=None):
-         assert name == name.lower(), 'List name must be all lower case.'
--        if Utils.list_exists(name):
--            raise Errors.MMListAlreadyExistsError, name
-         # Problems and potential attacks can occur if the list name in the
-         # pipe to the wrapper in an MTA alias or other delivery process
-         # contains shell special characters so allow only defined characters
-@@ -491,26 +494,40 @@
+@@ -488,11 +494,20 @@
          # the admin's email address, so transform the exception.
          if emailhost is None:
              emailhost = mm_cfg.DEFAULT_EMAIL_HOST
@@ -98,18 +80,15 @@
 +        # but we keep a sensible posting address
 +        postingaddr = '%s@%s' % (firstname, emailhost)
          try:
-+	    print "ALTERNC DEBUG BEFORE"
              Utils.ValidateEmail(postingaddr)
-+	    print "ALTERNC DEBUG AFTER"
          except Errors.EmailAddressError:
              raise Errors.BadListNameError, postingaddr
-         # Validate the admin's email address
-         Utils.ValidateEmail(admin)
 +        if Utils.list_exists(name):
 +            raise Errors.MMListAlreadyExistsError, name
+         # Validate the admin's email address
+         Utils.ValidateEmail(admin)
          self._internal_name = name
-         self._full_path = Site.get_listpath(name, create=1)
-         # Don't use Lock() since that tries to load the non-existant config.pck
+@@ -501,6 +516,10 @@
          self.__lock.lock()
          self.InitVars(name, admin, crypted_password, urlhost=urlhost)
          self.CheckValues()
@@ -120,14 +99,7 @@
          if langs is None:
              self.available_languages = [self.preferred_language]
          else:
-             self.available_languages = langs
- 
- 
--
-     #
-     # Database and filesystem I/O
-     #
-@@ -1365,7 +1382,7 @@
+@@ -1341,7 +1360,7 @@
          addresses in the recipient headers.
          """
          # This is the list's full address.
