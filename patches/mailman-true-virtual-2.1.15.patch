@@ -117,3 +117,23 @@
                      # exact match against the complete list address
                      addr == listfullname):
                  return True
+--- /usr/lib/mailman/bin/postfix-to-mailman.py.orig	2014-06-15 17:09:24.508569821 -0400
++++ /usr/lib/mailman/bin/postfix-to-mailman.py	2014-06-17 17:37:23.723739126 -0400
+@@ -119,7 +119,7 @@
+         sys.exit(0)
+ 
+     # Assume normal posting to a mailing list
+-    mlist, func = local, 'post'
++    mlist, func = '%s-%s' % (local, domain), 'post'
+ 
+     # Let Mailman decide if a list exists.
+     from Mailman.Utils import list_exists
+@@ -141,7 +141,7 @@
+                 '-unsubscribe',
+                 ):
+         if local.endswith(ext):
+-            mlist = local[:-len(ext)]
++            mlist = '%s-%s' % (local[:-len(ext)], domain)
+             func  = ext[1:]
+             break
+ 
