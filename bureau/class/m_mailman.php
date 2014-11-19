@@ -225,7 +225,7 @@ class m_mailman {
     $db->query("SELECT id FROM address WHERE type='mailman' AND address='".addslashes($login)."' AND domain_id=$dom_id;");
     $db->next_record();
     if(!$db->f("id")){
-      $err->raise("mailman",_("The mailman address %s does not exist",$login));
+      $err->raise("mailman",_("The mailman address %s does not exist"),$login);
       return false;
     }
 
