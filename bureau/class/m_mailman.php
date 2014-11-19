@@ -331,7 +331,7 @@ class m_mailman {
     // Create requested alias
     $no_err=true;
     foreach ($lst_functions as $ll) {
-      if (!$this->add_wrapper($login.$ll,$dom_id,$ll,$name)) {
+      if (!$this->add_wrapper($login,$dom_id,$ll,$name)) {
         $no_err=false;
       }
     }
