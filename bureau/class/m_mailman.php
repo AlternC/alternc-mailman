@@ -202,12 +202,8 @@ class m_mailman {
       return false;
     }
 
-    $recipient="$name$function";
+    $recipient="$login$function";
     $mail->add_wrapper($dom_id,$recipient,"mailman");
-
-    if($this->is_vhost_applied){
-      $mail->create_alias($dom_id,"$login","$recipient@$domain","mailman");
-    }
 
     return true;    
   }
