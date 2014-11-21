@@ -9,7 +9,7 @@ if(!function_exists('mysql_connect'))  {
 // we don't check our AlternC session
 if(!chdir("/var/alternc/bureau"))
   exit(1);
-require("/var/alternc/bureau/class/config_nochk.php");
+require("/usr/share/alternc/panel/class/config_nochk.php");
 
 $dbb= new DB_system();
 $dbb2= new DB_system();
