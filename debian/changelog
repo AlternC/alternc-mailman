@@ -1,3 +1,9 @@
+alternc-mailman (3.1.2) oldstable; urgency=low
+
+  * fix using our own binaries for /usr/lib/cgi-bin/mailman (ugly but working)
+
+ -- Benjamin Sonntag <benjamin@sonntag.fr>  Wed, 18 Feb 2015 11:36:11 +0100
+
 alternc-mailman (3.1.1) oldstable; urgency=low
 
   * fix of alternc-mailman for AlternC 3.1 (squeeze) & 3.2 (wheezy)

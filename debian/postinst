@@ -125,9 +125,9 @@ case "$1" in
         su - list -c "/usr/lib/mailman/bin/newlist -q \"mailman\" \"$owner\" \"${MAILMAN_PASS}\""
         if [ "$?" -eq "0" ]
         then
-            mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT INTO mailman SET uid=2000, list='mailman', name='mailman', domain='${FQDN}', password='${MAILMAN_PASS}', mailman_result='', mailman_action='OK', owner='$owner';"
+            mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT IGNORE INTO mailman SET uid=2000, list='mailman', name='mailman', domain='${FQDN}', password='${MAILMAN_PASS}', mailman_result='', mailman_action='OK', owner='$owner';"
         else
-	    mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT INTO mailman SET uid=2000, list='mailman', name='mailman', domain='${FQDN}', password='${MAILMAN_PASS}', mailman_result='A fatal error happened when creating the list', mailman_action='OK', owner='$owner';"
+	    mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT IGNORE INTO mailman SET uid=2000, list='mailman', name='mailman', domain='${FQDN}', password='${MAILMAN_PASS}', mailman_result='A fatal error happened when creating the list', mailman_action='OK', owner='$owner';"
         fi
     fi
 
