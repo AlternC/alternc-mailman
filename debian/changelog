@@ -1,3 +1,9 @@
+alternc-mailman (3.1.3) oldstable; urgency=low
+
+  * fix the rights on /var/lib/mailman/archives/private for apache-mpm-itk
+
+ -- Benjamin Sonntag <benjamin@sonntag.fr>  Sun, 13 Mar 2016 17:32:33 +0100
+
 alternc-mailman (3.1.2) oldstable; urgency=low
 
   * fix using our own binaries for /usr/lib/cgi-bin/mailman (ugly but working)
