@@ -15,6 +15,11 @@ done
 
 LOCK_FILE="/var/run/alternc/update_mailman"
 
+MAILMAN_URL=$(get_variable_from_db mailman_url)
+if [ -z "$MAILMAN_URL" ]; then
+	MAILMAN_URL=$FQDN
+fi
+
 # Somes check before start operations
 if [ `id -u` -ne 0 ]; then
   log_error "must be launched as root"
@@ -41,11 +46,11 @@ mysql_query "SELECT id,list, name, domain, owner, password FROM mailman WHERE ma
     mysql_query "UPDATE mailman SET password='', mailman_result='This list already exist', mailman_action='OK' WHERE id='$id';"
     else
       # Create the list : 
-      su - list -c "/usr/lib/mailman/bin/newlist -q \"$list@$domain\" \"$owner\" \"$password\""
+      sudo -u list /usr/lib/mailman/bin/newlist -q "$list@$domain" "$owner" "$password"
       if [ "$?" -eq "0" ]
       then
         mysql_query "UPDATE mailman SET password='', mailman_result='', mailman_action='OK' WHERE id='$id';"
-        su - list -c "/usr/lib/mailman/bin/withlist -q -l -r set_url_alternc \"$name\" \"$FQDN\""
+        sudo -u list /usr/lib/mailman/bin/withlist -q -l -r set_url_alternc "$name" "$MAILMAN_URL"
       if [ "$?" -ne "0" ]
         # SetURL the list with the default fqdn to start: 
       then
@@ -65,11 +70,11 @@ mysql_query "SELECT id, list, name, domain FROM mailman WHERE mailman_action='DE
     else
 # Delete the list : 
     mysql_query "UPDATE mailman SET mailman_action='DELETING' WHERE id='$id';"
-    su - list -c "/usr/lib/mailman/bin/rmlist \"$name\""
+    sudo -u list /usr/lib/mailman/bin/rmlist "$name"
     if [ "$?" -eq "0" ]
       then
       # Now delete the archives too ...
-      su - list -c "/usr/lib/mailman/bin/rmlist -a \"$name\""
+      sudo -u list /usr/lib/mailman/bin/rmlist -a "$name"
       mysql_query "DELETE FROM mailman WHERE id='$id';"
     else
       mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when deleting the list', mailman_action='OK' WHERE id='$id';"
@@ -85,7 +90,7 @@ mysql_query "SELECT id, list, name, domain, password FROM mailman WHERE mailman_
     mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK', password='' WHERE id='$id';"
     else
 # Password the list : 
-    su - list -c "/usr/lib/mailman/bin/change_pw -l \"$name\" -p \"$password\""
+    sudo -u list /usr/lib/mailman/bin/change_pw -l "$name" -p "$password"
     if [ "$?" -eq "0" ]
       then
       mysql_query "UPDATE mailman SET password='', mailman_result='', mailman_action='OK' WHERE id='$id';"
@@ -103,7 +108,7 @@ mysql_query "SELECT id, list, name, domain FROM mailman WHERE mailman_action='GE
     mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK' WHERE id='$id';"
   else
 # Get the list's URL : 
-    URL=`su -p - list -c "/usr/lib/mailman/bin/withlist -q -l -r get_url_alternc \"$name\" " 2>/dev/null `
+    URL=`sudo -u list /usr/lib/mailman/bin/withlist -q -l -r get_url_alternc "$name"  2>/dev/null `
     if [ "$?" -eq "0" ]
       then
       mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK', url='$URL' WHERE id='$id';"
@@ -122,8 +127,7 @@ if [ "$list" == "$name" ]; then
     then
     mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK' WHERE id='$id';"
   else
-    url=`hostname -f`
-   	su - list -c "/usr/lib/mailman/bin/withlist -q -l -r set_url_alternc \"$name\" \"$url\""
+   	sudo -u list /usr/lib/mailman/bin/withlist -q -l -r set_url_alternc "$name" "$MAILMAN_URL"
     if [ "$?" -eq "0" ]
       then
       mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
@@ -135,8 +139,7 @@ else
 #virtual lists
   if [ ! -d "/var/lib/mailman/lists/$name" ];then
   #virtual list just just virtualised ( /var/lib/mailman/lists/$list exists )
-    url=`hostname -f`
-    su - list -c "/usr/lib/mailman/bin/withlist -q -l -r set_url_alternc \"$name\" \"$url\""
+    sudo -u list /usr/lib/mailman/bin/withlist -q -l -r set_url_alternc "$name" "$MAILMAN_URL"
     if [ "$?" -eq "0" ]
       then
       mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
@@ -170,7 +173,7 @@ mysql_query "SELECT id, list, name, domain, url FROM mailman WHERE mailman_actio
     mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK' WHERE id='$id';"
   else
 # SetURL the list : 
-    	su - list -c "/usr/lib/mailman/bin/withlist -q -l -r set_url_alternc \"$name\" \"$url\""
+    	sudo -u list /usr/lib/mailman/bin/withlist -q -l -r set_url_alternc "$name" "$MAILMAN_URL"
     if [ "$?" -eq "0" ]
       then
       mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
