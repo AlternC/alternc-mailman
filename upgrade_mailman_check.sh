@@ -29,9 +29,7 @@ then
     then
 	oldvers="`cat /var/lib/alternc/backups/alternc-mailman-lastversion`"
     else
-	echo "##############################################"
-	echo "# NO VERSION FOUND TO UPGRADE FROM, ABORTING #"
-	echo "##############################################"
+	echo "found no version to upgrade from... it may be a fresh install..."
 	exit 1
     fi
 fi
