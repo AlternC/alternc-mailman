@@ -66,6 +66,7 @@ __("This is the current url to access administration and public pages for this l
 
 ?>
 <form method="post" action="mman_dourl.php" name="main" id="main">
+<?php csrf_get(); ?>
 <input type="hidden" name="id" value="<?php echo $id ?>" />
 <?php echo "<h3>".sprintf(_("Changing management url of list %s"),$me)."</h3>"; ?>
 <table class="tedit">

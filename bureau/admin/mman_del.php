@@ -53,6 +53,7 @@ include("head.php");
 <br />
 <p><?php __("Please confirm the deletion of the following mailman lists:"); ?></p>
 <form action="mman_dodel.php" method="post">
+<?php csrf_get(); ?>
 <?php
 
 foreach ($d as $id) {

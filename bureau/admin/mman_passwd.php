@@ -51,6 +51,7 @@ if (!($me=$mailman->get_lst($id))) {
 
 ?>
 <form method="post" action="mman_dopasswd.php" name="main" id="main">
+<?php csrf_get(); ?>
 <input type="hidden" name="id" value="<?php echo $id ?>" />
 <?php echo "<h3>".sprintf(_("Changing password of list %s"),$me)."</h3>"; ?>
 <table class="tedit">

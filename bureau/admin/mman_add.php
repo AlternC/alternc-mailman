@@ -41,6 +41,7 @@ if (!$quota->cancreate("mailman")) {
 if (!isset($domain)) $domain="";
 ?>
 <form method="post" action="mman_doadd.php" name="main" id="main" >
+<?php csrf_get(); ?>
 <table class="tedit">
 <tr><th><label for="login"><?php __("List's email address"); ?></label></th><td>
 	<input type="text" class="int" id="login" name="login" value="<?php if (isset($login)) ehe($login); ?>" size="20" maxlength="64" /><b>&nbsp;@&nbsp;</b><select class="inl" name="domain"><?php $mailman->select_prefix_list($domain); ?></select>

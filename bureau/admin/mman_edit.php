@@ -54,6 +54,7 @@ include("head.php");
 <br />
 <p><?php __("Please confirm you want to $action the following mailman lists:"); ?></p>
 <form action="mman_doedit.php" method="post">
+<?php csrf_get(); ?>
 <?php
 
 foreach ($d as $id) {
