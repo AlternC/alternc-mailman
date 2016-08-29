@@ -127,7 +127,7 @@ case "$1" in
     if [ ! -d /var/lib/mailman/lists/mailman ]; then
         # Create the list :
 	owner='admin@'${FQDN} 
-        su - list -c "/usr/lib/mailman/bin/newlist -q \"mailman\" \"$owner\" \"${MAILMAN_PASS}\""
+        su -s "/bin/bash" - list -c "/usr/lib/mailman/bin/newlist -q \"mailman\" \"$owner\" \"${MAILMAN_PASS}\""
         if [ "$?" -eq "0" ]
         then
             mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT IGNORE INTO mailman SET uid=2000, list='mailman', name='mailman', domain='${FQDN}', password='${MAILMAN_PASS}', mailman_result='', mailman_action='OK', owner='$owner';"
