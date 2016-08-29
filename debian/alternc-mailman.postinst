@@ -141,8 +141,8 @@ case "$1" in
 
     echo "installing required apache modules" 
     a2enmod rewrite
-    a2enmod proxy
-    a2enmod proxy_http
+    # only necessary on Jessie: 
+    a2enmod cgi || true 
 
     # make the mailman.localdomain goes to local apache2 ;) 
     if ! grep -q "127.0.0.1.*mailman.localdomain" /etc/hosts
