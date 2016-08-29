@@ -77,7 +77,8 @@ if ($quota->cancreate("mailman")) {
 	<table class="tlist">
 	<tr><th><?php __("Select"); ?></th><th><?php __("List name"); ?></th><th><?php __("List Status"); ?><th colspan="3">&nbsp;</th></tr>
 	<?php
-	$list_base_url = variable_get('mailman_url',      $L_FQDN,'URL used to build the list URL, must match DEFAULT_URL_HOST in mm_cfg.py');
+//	$list_base_url = variable_get('mailman_url',      $L_FQDN,'URL used to build the list URL, must match DEFAULT_URL_HOST in mm_cfg.py');
+// now using "url" in the mailman table
 	reset($r);
 	$col=1;
 	while (list($key,$val)=each($r)) {
@@ -98,8 +99,8 @@ if ($quota->cancreate("mailman")) {
 <?php } else { echo "OK";}
       
       ?></td>
-			<td><div class="ina"><a target=_blank href="//<?php echo $list_base_url; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a></div></td>
-			<td><div class="ina"><a target=_blank href="//<?php echo $list_base_url; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a></div></td>
+			<td><div class="ina"><a target=_blank href="http://<?php echo $val["url"]; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a></div></td>
+			<td><div class="ina"><a target=_blank href="http://<?php echo $val["url"]; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a></div></td>
 <!--		    <td>&nbsp;</td> -->
 </tr><tr class="lst<?php echo $col; ?>">
 			<td><div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div></td>
