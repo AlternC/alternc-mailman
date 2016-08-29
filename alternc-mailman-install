@@ -19,7 +19,7 @@
 #
 # To read the license please visit http://www.gnu.org/copyleft/gpl.html
 # ----------------------------------------------------------------------
-# Purpose of file: Install roundcube conf files.
+# Purpose of file: Install mailman conf files.
 # ----------------------------------------------------------------------
 
 if [ "$1" = "upgrade" ]
@@ -43,6 +43,17 @@ then
 	    echo "****************************************************************************"
 	fi
     fi
+    echo "ensuring apache2 symlink is setup in /etc/apache2/conf.d/"
+    # compatibility with both Apache 2.2 and 2.4 makes it Wheezy AND Jessie-compliant : 
+    if [ -d "/etc/apache2/conf.d" ]
+	then
+	ln -sf /etc/mailman/apache.conf /etc/apache2/conf.d/mailman.conf 
+    fi
+    if [ -d "/etc/apache2/conf-enabled" ]
+	then
+	ln -sf /etc/mailman/apache.conf /etc/apache2/conf-enabled/mailman.conf 
+    fi
+
 fi  
 
 

@@ -35,10 +35,6 @@ install:
 		$(DESTDIR)/etc/alternc/templates/mailman/
 	install -m 0644 -o root -g root src/get_url_alternc.py src/set_url_alternc.py \
 		$(DESTDIR)/usr/lib/mailman/bin/
-	install -m 0644 src/alternc-mailman.conf \
-		$(DESTDIR)/etc/apache2/conf.d/
-	install -m 0644 mailman.conf \
-		$(DESTDIR)/etc/alternc/apache-panel.d/
 	install -m 0755 src/update_mailman.sh \
 		$(DESTDIR)/usr/lib/alternc/
 	install -m 0644 mailman.sql \
