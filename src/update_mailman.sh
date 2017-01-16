@@ -40,17 +40,29 @@ ionice > /dev/null && ionice="ionice -c 3 "
 echo $$ > "$LOCK_FILE"
 
 # List the lists to CREATE
-mysql_query "SELECT id,list, name, domain, owner, password FROM mailman WHERE mailman_action='CREATE';"|while read id list name domain owner password ; do
+mysql_query "SELECT id,list, name, domain, owner FROM mailman WHERE mailman_action='CREATE';"|while read id list name domain owner; do
+   # We replace ' by \' - thms command injection vulnerability 
+   tmpfile=$(tempfile)
+   mysql_query "SELECT password FROM mailman WHERE id='$id';" > "$tmpfile"
+   # We replace $ with \$  - command injection
+   sed -r 's/[$]/\\$/g' "$tmpfile" > "${tmpfile}1"
+   # We replace backtick by \` command injection
+   sed -r 's/[`]/\\`/g' "${tmpfile}1" > "${tmpfile}2"
+   # We repalce " by \"
+   sed -r 's/["]/\\"/g' "${tmpfile}2" > "${tmpfile}3"
+   # cleaning up
+   rm -f "${tmpfile}1" "${tmpfile}2" "${tmpfile}3"
+
   if [ -d "/var/lib/mailman/lists/$name" ]
     then
     mysql_query "UPDATE mailman SET password='', mailman_result='This list already exist', mailman_action='OK' WHERE id='$id';"
     else
       # Create the list : 
-      sudo -u list /usr/lib/mailman/bin/newlist -q "$list@$domain" "$owner" "$password"
+      su - list -c "/usr/lib/mailman/bin/newlist -q \"$list@$domain\" \"$owner\" \"$password\""
       if [ "$?" -eq "0" ]
       then
         mysql_query "UPDATE mailman SET password='', mailman_result='', mailman_action='OK' WHERE id='$id';"
-        sudo -u list /usr/lib/mailman/bin/withlist -q -l -r set_url_alternc "$name" "$MAILMAN_URL"
+        su - list -c "/usr/lib/mailman/bin/withlist -q -l -r set_url_alternc \"$name\" \"$FQDN\""
       if [ "$?" -ne "0" ]
         # SetURL the list with the default fqdn to start: 
       then
