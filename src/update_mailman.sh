@@ -58,11 +58,11 @@ mysql_query "SELECT id,list, name, domain, owner FROM mailman WHERE mailman_acti
     mysql_query "UPDATE mailman SET password='', mailman_result='This list already exist', mailman_action='OK' WHERE id='$id';"
     else
       # Create the list : 
-      su - list -c "/usr/lib/mailman/bin/newlist -q \"$list@$domain\" \"$owner\" \"$password\""
+        sudo -u list /usr/lib/mailman/bin/newlist -q "$list@$domain" "$owner" "$password"
       if [ "$?" -eq "0" ]
       then
         mysql_query "UPDATE mailman SET password='', mailman_result='', mailman_action='OK' WHERE id='$id';"
-        su - list -c "/usr/lib/mailman/bin/withlist -q -l -r set_url_alternc \"$name\" \"$FQDN\""
+        sudo -u list /usr/lib/mailman/bin/withlist -q -l -r set_url_alternc "$name" "$MAILMAN_URL"
       if [ "$?" -ne "0" ]
         # SetURL the list with the default fqdn to start: 
       then
