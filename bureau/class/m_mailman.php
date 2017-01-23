@@ -299,7 +299,7 @@ class m_mailman {
       return false;
     }
     // List creation : 1. insert into the DB
-    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action) VALUES ('$cuid','$login','$domain','$name','$password','$owner','$L_FQDN','CREATE');");
+    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action) VALUES ('$cuid','$login','$domain','".addslashes($name)."','".addslashes($password)."','$owner','$L_FQDN','CREATE');");
 
     return true;
   }
