@@ -41,17 +41,13 @@ echo $$ > "$LOCK_FILE"
 
 # List the lists to CREATE
 mysql_query "SELECT id,list, name, domain, owner FROM mailman WHERE mailman_action='CREATE';"|while read id list name domain owner; do
-   # We replace ' by \' - thms command injection vulnerability 
    tmpfile=$(tempfile)
    mysql_query "SELECT password FROM mailman WHERE id='$id';" > "$tmpfile"
-   # We replace $ with \$  - command injection
-   sed -r 's/[$]/\\$/g' "$tmpfile" > "${tmpfile}1"
-   # We replace backtick by \` command injection
-   sed -r 's/[`]/\\`/g' "${tmpfile}1" > "${tmpfile}2"
-   # We repalce " by \"
-   sed -r 's/["]/\\"/g' "${tmpfile}2" > "${tmpfile}3"
-   # cleaning up
-   rm -f "${tmpfile}1" "${tmpfile}2" "${tmpfile}3"
+   # Bash command injection vuln could be triggered by $, ` or " 
+   sed -r -e 's/[$]/\\$/g' -e 's/[`]/\\`/g' -e 's/["]/\\"/g' "$tmpfile" > "${tmpfile}1"
+   # store password for later use and remove those two files
+   password=$(cat ${tmpfile}1) 
+   rm -f "${tmpfile}" "${tmpfile}1"
 
   if [ -d "/var/lib/mailman/lists/$name" ]
     then
