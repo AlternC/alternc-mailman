@@ -5,25 +5,28 @@
 # Translators:
 # Balise <hubert_bertrand@yahoo.fr>, 2012
 # Benjamin Sonntag <benjamin@alternc.org>, 2004
-# Benjamin Sonntag <benjamin@sonntag.fr>, 2004,2012-2013
+# Benjamin Sonntag <benjamin@sonntag.fr>, 2004,2012-2013,2017
 # Benjamin Sonntag <benjamin@sonntag.fr>, 2013
-# boukman <linkfan@hotmail.fr>, 2013
+# Eloi DUCLERQ <linkfan@hotmail.fr>, 2013
+# Daniel Vinar <dani@rezo.net>, 2015
 # Daniel Viñar Ulriksen <dani@belil.net>, 2008
-# boukman <linkfan@hotmail.fr>, 2013
-# fufroma <fufroma@nnx.com>, 2012-2013
-# fufroma <fufroma@nnx.com>, 2013-2014
-# fufroma <fufroma@nnx.com>, 2012
-# supra63200 <guillaume63200@hotmail.fr>, 2013
+# eloib <eloi@nnx.com>, 2015
+# Eloi DUCLERQ <linkfan@hotmail.fr>, 2013
+# Fufroma <fufroma@nnx.com>, 2012-2013
+# Fufroma <fufroma@nnx.com>, 2013-2014
+# Fufroma <fufroma@nnx.com>, 2012
+# guillaume robert <guillaume63200@hotmail.fr>, 2013
 # Balise <hubert_bertrand@yahoo.fr>, 2012
-# supra63200 <guillaume63200@hotmail.fr>, 2013
+# jacobmartin03 <jacobmartin03@yahoo.fr>, 2015
+# guillaume robert <guillaume63200@hotmail.fr>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
 "Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
 "POT-Creation-Date: 2013-10-18 11:47+0200\n"
-"PO-Revision-Date: 2014-03-27 15:51+0000\n"
-"Last-Translator: fufroma <fufroma@nnx.com>\n"
-"Language-Team: French (France) (http://www.transifex.com/projects/p/alternc/"
+"PO-Revision-Date: 2017-06-20 10:07+0000\n"
+"Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
+"Language-Team: French (France) (http://www.transifex.com/octopuce/alternc/"
 "language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,11 +34,11 @@ msgstr ""
 "Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../admin/aws_add.php:95 ../admin/aws_pass.php:77 ../admin/aws_users.php:58
+#: ../admin/aws_add.php:96 ../admin/aws_pass.php:78 ../admin/aws_users.php:59
 msgid "Cancel"
 msgstr "Annuler"
 
-#: ../admin/aws_users.php:86
+#: ../admin/aws_users.php:88
 msgid "Change password"
 msgstr "Changer le mot de passe"
 
@@ -43,7 +46,7 @@ msgstr "Changer le mot de passe"
 #: ../admin/mman_list.php:40 ../admin/mman_list.php:59
 #: ../admin/mman_passwd.php:37 ../admin/mman_passwd.php:45
 #: ../admin/mman_url.php:38 ../admin/mman_url.php:48 ../admin/mman_url.php:57
-#: ../class/m_mailman.php:80 ../class/m_mailman.php:623
+#: ../class/m_mailman.php:80 ../class/m_mailman.php:619
 msgid "Mailing lists"
 msgstr "Listes de discussion"
 
@@ -51,23 +54,23 @@ msgstr "Listes de discussion"
 msgid "(with mailman)"
 msgstr "(avec mailman)"
 
-#: ../admin/mman_add.php:45
+#: ../admin/mman_add.php:46
 msgid "List's email address"
 msgstr "Adresse email de la liste"
 
-#: ../admin/mman_add.php:48
+#: ../admin/mman_add.php:49
 msgid "Email of the list's administrator"
 msgstr "Adresse email de l'administrateur de la liste"
 
-#: ../admin/mman_add.php:51
+#: ../admin/mman_add.php:52
 msgid "List password"
 msgstr "Mot de passe de la liste"
 
-#: ../admin/mman_add.php:55
+#: ../admin/mman_add.php:56
 msgid "List password (confirm)"
 msgstr "Mot de passe de la liste (confirmation)"
 
-#: ../admin/mman_add.php:59
+#: ../admin/mman_add.php:60
 msgid "Create the list."
 msgstr "Créer cette liste."
 
@@ -79,15 +82,15 @@ msgstr "Effacement de listes mailman"
 msgid "Please confirm the deletion of the following mailman lists:"
 msgstr "Merci de confirmer l'effacement des listes mailman suivantes :"
 
-#: ../admin/mman_del.php:64
+#: ../admin/mman_del.php:65
 msgid "Delete the selected mailman lists"
 msgstr "Effacer les listes mailman cochées"
 
-#: ../admin/mman_del.php:64
+#: ../admin/mman_del.php:65
 msgid "Don't delete lists and go back to the mailman list"
 msgstr "Ne pas effacer les listes, retourner aux listes mailman"
 
-#: ../admin/mman_del.php:69 ../admin/mman_edit.php:71
+#: ../admin/mman_del.php:70 ../admin/mman_edit.php:72
 msgid ""
 "Warning: Deleting a mailman list will destroy all the subscribed users, "
 "preferences and archives it contains! You will <b>NOT</b> be able to get "
@@ -142,57 +145,57 @@ msgstr ""
 msgid "Create a list"
 msgstr "Créer une nouvelle liste"
 
-#: ../admin/mman_list.php:77
+#: ../admin/mman_list.php:78
 msgid "List Status"
 msgstr "État de la liste"
 
-#: ../admin/mman_list.php:77
+#: ../admin/mman_list.php:78
 msgid "List name"
 msgstr "Nom de la liste"
 
-#: ../admin/mman_list.php:77
+#: ../admin/mman_list.php:78
 msgid "Select"
 msgstr "Choisir"
 
-#: ../admin/mman_list.php:88
+#: ../admin/mman_list.php:91
 msgid "List is pending deletion, you can't do anything on it"
 msgstr ""
 "La liste est en attente de suppression, vous ne pouvez plus rien faire avec"
 
-#: ../admin/mman_list.php:99
+#: ../admin/mman_list.php:102
 msgid "List admin"
 msgstr "Administration"
 
-#: ../admin/mman_list.php:100
+#: ../admin/mman_list.php:103
 msgid "Pending messages"
 msgstr "Messages en attente"
 
-#: ../admin/mman_list.php:104
+#: ../admin/mman_list.php:107
 msgid "Change url"
 msgstr "Changer l'adresse"
 
-#: ../admin/mman_list.php:113
+#: ../admin/mman_list.php:116
 msgid "-- Choose an action --"
 msgstr "-- Choisissez une action --"
 
-#: ../admin/mman_list.php:117
+#: ../admin/mman_list.php:120
 msgid "Validate"
 msgstr "Valider"
 
-#: ../admin/mman_passwd.php:55
+#: ../admin/mman_passwd.php:56
 #, php-format
 msgid "Changing password of list %s"
 msgstr "Modification du mot de passe de la liste %s"
 
-#: ../admin/mman_passwd.php:57
+#: ../admin/mman_passwd.php:58
 msgid "New list password"
 msgstr "Nouveau mot de passe de la liste"
 
-#: ../admin/mman_passwd.php:61
+#: ../admin/mman_passwd.php:62
 msgid "Password confirmation"
 msgstr "Confirmation du mot de passe"
 
-#: ../admin/mman_passwd.php:65
+#: ../admin/mman_passwd.php:66
 msgid "Change the password."
 msgstr "Modifier le mot de passe."
 
@@ -208,20 +211,20 @@ msgstr ""
 "la liste ci-dessous et validez. <br />Si vous ne savez pas de quoi il "
 "s'agit, ne touchez à rien."
 
-#: ../admin/mman_url.php:70
+#: ../admin/mman_url.php:71
 #, php-format
 msgid "Changing management url of list %s"
 msgstr "Modification de l'adresse de gestion de la liste %s"
 
-#: ../admin/mman_url.php:73
+#: ../admin/mman_url.php:74
 msgid "Current list url"
 msgstr "Adresse actuelle"
 
-#: ../admin/mman_url.php:77
+#: ../admin/mman_url.php:78
 msgid "New list management url"
 msgstr "Nouvelle adresse de la liste"
 
-#: ../admin/mman_url.php:90
+#: ../admin/mman_url.php:91
 msgid "Change the url."
 msgstr "Modifier l'adresse."
 
@@ -230,9 +233,9 @@ msgid "This list already exist"
 msgstr "Cette liste existe déjà"
 
 #: ../class/m_mailman.php:43 ../class/m_mailman.php:152
-#: ../class/m_mailman.php:366 ../class/m_mailman.php:414
-#: ../class/m_mailman.php:531 ../class/m_mailman.php:556
-#: ../class/m_mailman.php:576
+#: ../class/m_mailman.php:362 ../class/m_mailman.php:410
+#: ../class/m_mailman.php:527 ../class/m_mailman.php:552
+#: ../class/m_mailman.php:572
 msgid "This list does not exist"
 msgstr "Cette liste n'existe pas"
 
@@ -254,8 +257,8 @@ msgid "A fatal error happened when getting the list url"
 msgstr ""
 "Une erreur fatale est survenue lors de l'obtention de l'URL de la liste"
 
-#: ../class/m_mailman.php:68 ../class/m_mailman.php:476
-#: ../class/m_mailman.php:507
+#: ../class/m_mailman.php:68 ../class/m_mailman.php:472
+#: ../class/m_mailman.php:503
 msgid "No list defined yet"
 msgstr "Aucune liste de définie pour l'instant"
 
@@ -267,38 +270,38 @@ msgstr ""
 "Adresse email spéciale pour les listes Mailman <a href='mman_list."
 "php'>Cliquez ici pour les gérer.</a>"
 
-#: ../class/m_mailman.php:228
+#: ../class/m_mailman.php:224
 #, php-format
 msgid "The mailman address %s does not exist"
 msgstr "L'adresse mailman %s n'existe pas"
 
-#: ../class/m_mailman.php:253
+#: ../class/m_mailman.php:249
 msgid "Your mailing-list quota is over, you cannot create more mailing-lists."
 msgstr ""
 "Votre quota de listes de discussion est atteint, vous ne pouvez pas en créer "
 "d'avantage."
 
-#: ../class/m_mailman.php:260
+#: ../class/m_mailman.php:256
 msgid "The email you entered is syntaxically incorrect"
 msgstr "L'adresse email que vous avez entrée est syntaxiquement incorrecte"
 
-#: ../class/m_mailman.php:275
+#: ../class/m_mailman.php:271
 msgid "The login (left part of the @) is mandatory"
 msgstr "Le nom d'utilisateur (la partie gauche du @) est obligatoire"
 
-#: ../class/m_mailman.php:279
+#: ../class/m_mailman.php:275
 msgid "The owner email and the password are mandatory"
 msgstr "Le mail du propriétaire et le mot de passe sont obligatoires"
 
-#: ../class/m_mailman.php:283
+#: ../class/m_mailman.php:279
 msgid "This email is incorrect"
 msgstr "L'adresse email est incorrecte"
 
-#: ../class/m_mailman.php:292
+#: ../class/m_mailman.php:288
 msgid "This domain does not exist."
 msgstr "Ce domaine n'existe pas."
 
-#: ../class/m_mailman.php:298
+#: ../class/m_mailman.php:294
 msgid ""
 "A list with the same name already exist on the server. Please choose another "
 "name."
@@ -306,7 +309,7 @@ msgstr ""
 "Une liste avec ce nom existe déjà dans le serveur. Merci de choisir un autre "
 "nom"
 
-#: ../class/m_mailman.php:331
+#: ../class/m_mailman.php:327
 msgid ""
 "This email address (or one of the list-subscribe, list-unsubscribe etc.) are "
 "already used."
@@ -314,26 +317,25 @@ msgstr ""
 "Cette adresse email (ou une des liste-subscribe, liste-unsubscribe etc.) "
 "existe déjà sur ce domaine"
 
-#: ../class/m_mailman.php:370 ../class/m_mailman.php:418
+#: ../class/m_mailman.php:366 ../class/m_mailman.php:414
 msgid "This list has pending action, you cannot delete it"
 msgstr "Cette liste a des actions en cours, vous ne pouvez pas l'effacer"
 
-#: ../class/m_mailman.php:535
+#: ../class/m_mailman.php:531
 msgid "The passwords are differents, please try again"
 msgstr "Les mots de passes sont différents, merci de réessayer"
 
-#: ../class/m_mailman.php:590
+#: ../class/m_mailman.php:586
 msgid "Mailing lists (mailman)"
 msgstr "Listes de discussion"
 
-#: ../admin/adm_authip_whitelist.php:85 ../admin/adm_doms_def_type.php:60
+#: ../admin/adm_authip_whitelist.php:86 ../admin/adm_doms_def_type.php:58
 #: ../admin/adm_mxaccount.php:83 ../admin/adm_slavedns.php:101
-#: ../admin/adm_slavedns.php:145 ../admin/adm_var_edit.php:181
-#: ../admin/bro_main.php:284 ../admin/cron.php:54 ../admin/dom_edit.php:127
-#: ../admin/dom_edit.php:168 ../admin/ftp_del.php:82
-#: ../admin/hta_dodeluser.php:64 ../admin/ip_main.php:79
-#: ../admin/ip_main.php:167 ../admin/piwik_site_dodel.php:70
-#: ../admin/piwik_sitelist.php:128 ../admin/piwik_user_dodel.php:68
-#: ../admin/piwik_userlist.php:87
+#: ../admin/adm_slavedns.php:146 ../admin/bro_main.php:296
+#: ../admin/cron.php:54 ../admin/dom_edit.php:128 ../admin/dom_edit.php:182
+#: ../admin/ftp_del.php:83 ../admin/hta_dodeluser.php:65
+#: ../admin/ip_main.php:79 ../admin/ip_main.php:168
+#: ../admin/piwik_site_dodel.php:71 ../admin/piwik_sitelist.php:129
+#: ../admin/piwik_user_dodel.php:69 ../admin/piwik_userlist.php:89
 msgid "Delete"
 msgstr "Effacer"
