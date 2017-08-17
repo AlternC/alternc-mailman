@@ -36,11 +36,10 @@ getFields($fields);
 
 $r=$mailman->add_lst($domain,$login,$owner,$pass,$pass2);
 if (!$r) {
-	$error=$err->errstr();
 	include("mman_add.php");
 	exit();
 } else {
-	$error=_("The mailing list has been successfully created.");
+	$msg->raise("Ok", "mailman", _("The mailing list has been successfully created."));
 	include("mman_list.php");
 	exit();
 }

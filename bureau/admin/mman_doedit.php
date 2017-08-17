@@ -33,7 +33,6 @@ $fields = array (
 );
 getFields($fields);
 
-$error="";
 $stchange = (!$quota->cancreate("mailman"));
 
 if ($cancel) {
@@ -52,20 +51,16 @@ if ($confirm) {
   case "DELETE":
     foreach ($d as $id) {
       $r = $mailman->delete_lst($id);
-      if (!$r) {
-        $error .= $err->errstr() . "<br />";
-      } else {
-        $error .= sprintf(_("The list %s has been successfully deleted."), $r) . "<br />";
+      if ($r) {
+       $msg->raise('Ok', "mailman", _("The list %s has been successfully deleted."), $r);
       }
     }
     break;
   case "REGENERATE":
     foreach ($d as $id) {
       $r = $mailman->regenerate_lst($id);
-      if (!$r) {
-        $error .= $err->errstr() . "<br />";
-      } else {
-        $error .= sprintf(_("The list %s has been successfully deleted."), $r) . "<br />";
+      if ($r) {
+        $msg->raise('Ok', "mailman", _("The list %s has been successfully regenerated."), $r); // à traduire
       }
     }
     break;

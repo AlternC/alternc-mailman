@@ -32,11 +32,10 @@ getFields($fields);
 
 $r=$mailman->set_list_url($id,$newurl);
 if (!$r) {
-  $error=$err->errstr();
   include("mman_url.php");
   exit();
 } else {
-  $error=_("The mailing list management url has been successfully changed.");
+  $msg->raise("Ok", "mailman", _("The mailing list management url has been successfully changed."));
   include("mman_list.php");
   exit();
 }

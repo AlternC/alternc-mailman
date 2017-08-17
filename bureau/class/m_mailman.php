@@ -55,9 +55,9 @@ class m_mailman {
    * @param $order_by array how do we sort the lists (default is domain then listname)
    * @return array an ordered array of associative arrays with all the members lists
    */
-  function enum_ml($domain = null, $order_by = array('domain', 'list')) {
-    global $err,$db,$cuid;
-    $err->log("mailman","enum_ml");
+  function enum_ml($domain = null, $order_by = array('domain', 'list'), $show_msg = true) {
+    global $msg,$db,$cuid;
+    $msg->log("mailman","enum_ml");
     $order_by = array_map("addslashes", $order_by);
     $order = 'ORDER BY `' . join('`,`', $order_by) . '`';
     $query = "SELECT * FROM mailman WHERE uid=$cuid".
@@ -65,7 +65,8 @@ class m_mailman {
       " $order;";
     $db->query($query);
     if (!$db->num_rows()) {
-      $err->raise("mailman",_("No list defined yet"));
+      if ($show_msg)
+        $msg->raise('Info', "mailman",_("No list defined yet"));
       return array();
     }
     $mls=array();
@@ -86,13 +87,19 @@ class m_mailman {
      return $obj;
   }
 
+  /** Password policy kind used in this class (hook for admin class)
+   * @return array an array of policykey => "policy name (for humans)"
+   */
+  function alternc_password_policy() {
+    return array("mman" => _("List account password"));  // A traduire
+  }
 
   /* ----------------------------------------------------------------- */
   /** Count mailing list for a user
    * @param $uid integer The uid of the user we want info about
    */
   function count_ml_user($uid) {
-    global $db,$err,$cuid;
+    global $db,$msg,$cuid;
     $db->query("SELECT COUNT(*) AS count FROM mailman WHERE uid='{$uid}';");
     if ($db->next_record()) {
       return $db->f('count');
@@ -107,7 +114,7 @@ class m_mailman {
    * @return array an array of domain names 
    */
   function prefix_list() {
-    global $db,$err,$cuid;
+    global $db,$msg,$cuid;
     $r=array();
     $db->query("SELECT domaine FROM domaines WHERE compte='$cuid' AND gesmx = 1 ORDER BY domaine;");
     while ($db->next_record()) {
@@ -124,7 +131,7 @@ class m_mailman {
    * @return array an array of domain names 
    */
   function select_prefix_list($current) {
-    global $db,$err;
+    global $db,$msg;
     $r=$this->prefix_list();
     reset($r);
     while (list($key,$val)=each($r)) {
@@ -142,14 +149,14 @@ class m_mailman {
    * or false if an error occured.
    */
   function get_lst($id) {
-    global $db, $err, $cuid;
-    $err->log("mailman","get_list", $cuid);
+    global $db, $msg, $cuid;
+    $msg->log("mailman","get_list", $cuid);
     
     $q = "SELECT * FROM mailman WHERE uid = '" . $cuid . "' && id = '" . $id . "'";
     $db->query($q);
     $db->next_record();
     if (!$db->f("id")) {
-      $err->raise("mailman",_("This list does not exist"));
+      $msg->raise('Error', "mailman",_("This list does not exist"));
       return false;
     }
     $login = $db->f("list");
@@ -174,8 +181,8 @@ class m_mailman {
   }
 
   function get_list_url_all() {
-    global $db, $err, $cuid, $L_FQDN;
-    $err->log("mailman","get_list_url", $cuid);
+    global $db, $msg, $cuid, $L_FQDN;
+    $msg->log("mailman","get_list_url", $cuid);
 
     $q = "SELECT if(length(sd.sub)>0,concat_ws('.',sd.sub,sd.domaine),sd.domaine) as url from sub_domaines sd where compte=2000 and type='panel' and enable='ENABLED';";
     $db->query($q);
@@ -194,8 +201,8 @@ class m_mailman {
    * @return boolean TRUE if the wrapper has been created, or FALSE if an error occured
    */
   private function add_wrapper($login,$dom_id,$function,$name) {
-    global $db,$mail,$err,$dom;
-    $err->log("mailman","add_wrapper",$login);
+    global $db,$mail,$msg,$dom;
+    $msg->log("mailman","add_wrapper",$login);
 
     // Get the domain human name
     if (!($domain=$dom->get_domain_byid($dom_id))) {
@@ -216,12 +223,12 @@ class m_mailman {
    * @return boolean TRUE if the wrapper has been deleted, or FALSE if an error occured
    */
   private function del_wrapper($login,$dom_id) {
-    global $db,$mail,$err;
-    $err->log("mailman","del_wrapper",$login);
+    global $db,$mail,$msg;
+    $msg->log("mailman","del_wrapper",$login);
     $db->query("SELECT id FROM address WHERE type='mailman' AND address='".addslashes($login)."' AND domain_id=$dom_id;");
     $db->next_record();
     if(!$db->f("id")){
-      $err->raise("mailman",_("The mailman address %s does not exist"),$login);
+      $msg->raise('Error', "mailman",_("The mailman address %s does not exist"),$login);
       return false;
     }
 
@@ -241,19 +248,24 @@ class m_mailman {
    * @return boolean TRUE if the list has been created, or FALSE if an error occured
    */
   function add_lst($domain,$login,$owner,$password,$password2) {
-    global $db,$err,$quota,$mail,$cuid,$dom,$L_FQDN;
-    $err->log("mailman","add_lst",$login."@".$domain." - ".$owner);
+    global $db,$msg,$quota,$mail,$cuid,$dom,$admin,$L_FQDN;
+    $msg->log("mailman","add_lst",$login."@".$domain." - ".$owner);
 
     // Check the quota
     if (!$quota->cancreate("mailman")) {
-      $err->raise("mailman",_("Your mailing-list quota is over, you cannot create more mailing-lists.")); // quota
+      $msg->raise('Error', "mailman",_("Your mailing-list quota is over, you cannot create more mailing-lists.")); // quota
       return false;
     }
 
     /* the list' internal name */
     $login = strtolower($login);
+    if ($login=="") {
+      $msg->raise('Error', "mailman",_("The login (left part of the @) is mandatory"));
+      return false;
+    }
+
     if (!filter_var($login."@".$domain,FILTER_VALIDATE_EMAIL)) {
-      $err->raise("mailman",_("The email you entered is syntaxically incorrect"));
+      $msg->raise('Error', "mailman",_("The email you entered is syntaxically incorrect"));
       return false;
     }
 
@@ -267,31 +279,33 @@ class m_mailman {
       $name = $login;
     }
 
-    if ($login=="") {
-      $err->raise("mailman",_("The login (left part of the @) is mandatory"));
-      return false;
-    }
     if (!$owner || !$password) {
-      $err->raise("mailman",_("The owner email and the password are mandatory"));
+      $msg->raise('Error', "mailman",_("The owner email and the password are mandatory"));
       return false;
     }
     if (checkmail($owner)) {
-      $err->raise("mailman",_("This email is incorrect"));
+      $msg->raise('Error', "mailman",_("This email is incorrect"));
       return false;
     }
     if ($password!=$password2) {
-      $err->raise("mailman",12);
+      $msg->raise('Error', "mailman",_("The passwords do not match"));
       return false;
     }
     $r=$this->prefix_list();
     if (!in_array($domain,$r) || $domain=="") {
-      $err->raise("mailman",_("This domain does not exist."));
+      $msg->raise('Error', "mailman",_("This domain does not exist."));
       return false;
+    }
+    // Check this password against the password policy using common API :
+    if (is_callable(array($admin, "checkPolicy"))) {
+	if (!$admin->checkPolicy("mman", $login, $password)) {
+	    return false; // The error has been raised by checkPolicy()
+	}
     }
     $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE name='$name';");
     $db->next_record();
     if ($db->f("cnt")) {
-      $err->raise("mailman",_("A list with the same name already exist on the server. Please choose another name."));
+      $msg->raise('Error', "mailman",_("A list with the same name already exist on the server. Please choose another name."));
         return false;
     }
 
@@ -305,8 +319,8 @@ class m_mailman {
   }
 
   function add_wrapper_all($login,$name,$domain){
-    global $db,$err,$dom,$mail,$cuid;
-    $err->log("mailman","add_wrapper_all",$login);
+    global $db,$msg,$dom,$mail,$cuid;
+    $msg->log("mailman","add_wrapper_all",$login);
 
     if (!($dom_id=$dom->get_domain_byname($domain))) {
       return false;
@@ -324,7 +338,7 @@ class m_mailman {
     }
     if (!$no_err) {
       // This is a mail account already !!!
-      $err->raise("mailman",_("This email address (or one of the list-subscribe, list-unsubscribe etc.) are already used."));
+      $msg->raise('Error', "mailman",_("This email address (or one of the list-subscribe, list-unsubscribe etc.) are already used."));
       return false;
     }
 
@@ -353,17 +367,17 @@ class m_mailman {
    * @return boolean TRUE if the list has been regenerated or FALSE if an error occured
    */
   function regenerate_lst($id) {
-    global $db,$err,$dom,$mail,$cuid;
-    $err->log("mailman","regenerate_lst",$id);
+    global $db,$msg,$dom,$mail,$cuid;
+    $msg->log("mailman","regenerate_lst",$id);
     // We delete lists only in the current member's account.
     $db->query("SELECT * FROM mailman WHERE id=$id and uid='$cuid';");
     $db->next_record();
     if (!$db->f("id")) {
-      $err->raise("mailman",_("This list does not exist"));
+      $msg->raise('Error', "mailman",_("This list does not exist"));
       return false;
     }
     if ($db->f("mailman_action")!='OK') {
-      $err->raise("mailman",_("This list has pending action, you cannot delete it"));
+      $msg->raise('Error', "mailman",_("This list has pending action, you cannot delete it"));
       return false;
     }
     $login=$db->f("name");
@@ -401,17 +415,17 @@ class m_mailman {
    * @return boolean TRUE if the list has been deleted or FALSE if an error occured
    */
   function delete_lst($id) {
-    global $db,$err,$dom,$mail,$cuid;
-    $err->log("mailman","delete_lst",$id);
+    global $db,$msg,$dom,$mail,$cuid;
+    $msg->log("mailman","delete_lst",$id);
     // We delete lists only in the current member's account.
     $db->query("SELECT * FROM mailman WHERE id=$id and uid='$cuid';");
     $db->next_record();
     if (!$db->f("id")) {
-      $err->raise("mailman",_("This list does not exist"));
+      $msg->raise('Error', "mailman",_("This list does not exist"));
       return false;
     }
     if ($db->f("mailman_action")!='OK') {
-      $err->raise("mailman",_("This list has pending action, you cannot delete it"));
+      $msg->raise('Error', "mailman",_("This list has pending action, you cannot delete it"));
       return false;
     }
     $login=$db->f("name");
@@ -433,8 +447,8 @@ class m_mailman {
   }
 
   function del_wrapper_all($login,$domain){
-    global $db,$err,$dom,$mail,$cuid;
-    $err->log("mailman","delete_wrapper_all",$login);
+    global $db,$msg,$dom,$mail,$cuid;
+    $msg->log("mailman","delete_wrapper_all",$login);
 
     if (!($dom_id=$dom->get_domain_byname($domain))) {
       return false;
@@ -460,8 +474,8 @@ class m_mailman {
    */
   /** FIXME: this function has no equivalent in cron mode, remove this */
   function members($id) {
-    global $err,$db,$cuid;
-    $err->log("mailman","members");
+    global $msg,$db,$cuid;
+    $msg->log("mailman","members");
     $db->query("SELECT CONCAT(list, '-', domain) as list FROM mailman WHERE uid='$cuid' AND id='$id';");
                           
     if (!$db->num_rows()) {
@@ -469,7 +483,7 @@ class m_mailman {
       $db->query("SELECT list FROM mailman WHERE uid='$cuid' AND id='$id';");
 
       if (!$db->num_rows()) {
-        $err->raise("mailman",_("No list defined yet"));
+        $msg->raise('Error', "mailman",_("No list defined yet"));
         return false;
       }
     }
@@ -491,8 +505,8 @@ class m_mailman {
    */
   /** FIXME: this function has no equivalent in cron mode, remove this */
   function syncmembers($id,$members) {
-    global $err,$db,$cuid;
-    $err->log("mailman","members");
+    global $msg,$db,$cuid;
+    $msg->log("mailman","members");
     $db->query("SELECT CONCAT(list, '-', domain) as list FROM mailman WHERE uid='$cuid' AND id='$id';");
                           
     if (!$db->num_rows()) {
@@ -500,7 +514,7 @@ class m_mailman {
       $db->query("SELECT list FROM mailman WHERE uid='$cuid' AND id='$id';");
 
       if (!$db->num_rows()) {
-        $err->raise("mailman",_("No list defined yet"));
+        $msg->raise('Error', "mailman",_("No list defined yet"));
         return false;
       }
     }
@@ -518,21 +532,27 @@ class m_mailman {
    * @return boolean TRUE if the password has been changed or FALSE if an error occured.
    */
  function passwd($id,$pass,$pass2) {
-   global $db,$err,$mail,$cuid;
-    $err->log("mailman","passwd",$id);
+   global $db,$msg,$mail,$cuid,$admin;
+    $msg->log("mailman","passwd",$id);
 
     $db->query("SELECT * FROM mailman WHERE id=$id and uid='$cuid';");
     $db->next_record();
     if (!$db->f("id")) {
-      $err->raise("mailman",_("This list does not exist"));
+      $msg->raise('Error', "mailman",_("This list does not exist"));
       return false;
     }
     if ($pass!=$pass2) {
-      $err->raise("mailman",_("The passwords are differents, please try again"));
+      $msg->raise('Error', "mailman",_("The passwords are differents, please try again"));
       return false;
     }
     $login=$db->f("list");
     $domain=$db->f("domain");
+    // Check this password against the password policy using common API :
+    if (is_callable(array($admin, "checkPolicy"))) {
+	if (!$admin->checkPolicy("mman", $login, $pass)) {
+	    return false; // The error has been raised by checkPolicy()
+	}
+    }
     $db->query("UPDATE mailman SET mailman_action='PASSWORD', password='".addslashes($pass)."' WHERE id=$id;");
     return true;
   }
@@ -545,11 +565,11 @@ class m_mailman {
    */
   /** FIXME: this function has no equivalent in cron mode, remove this */
   function get_list_url($list) {
-    global $db,$err,$cuid;
+    global $db,$msg,$cuid;
     $q = "SELECT concat_ws('/',url,'cgi-bin/mailman/admin',name) as url FROM mailman WHERE uid = '" . $cuid . "' AND id = '" . intval($list) . "'";
     $db->query($q);
     if (!$db->next_record()) {
-      $err->raise("mailman",_("This list does not exist"));
+      $msg->raise('Error', "mailman",_("This list does not exist"));
       return false;
     }
     $url=$db->f("url");
@@ -564,12 +584,12 @@ class m_mailman {
    * @return boolean TRUE if the url has been changes
    */
   function set_list_url($list,$newurl) {
-    global $db,$err,$cuid;
+    global $db,$msg,$cuid;
     $q = "SELECT * FROM mailman WHERE uid = '" . $cuid . "' && id = '" . intval($list) . "'";
     $db->query($q);
     $db->next_record();
     if (!$db->f("id")) {
-      $err->raise("mailman",_("This list does not exist"));
+      $msg->raise('Error', "mailman",_("This list does not exist"));
       return false;
     }
     $id=$db->Record["id"];
@@ -595,10 +615,10 @@ class m_mailman {
    * @access private
    */
   function hook_dom_del_mx_domain($dom_id) {
-    global $err,$dom;
-    $err->log("mailman","del_dom",$dom_id);
+    global $msg,$dom;
+    $msg->log("mailman","del_dom",$dom_id);
     $domain=$dom->get_domain_byid($dom_id);
-    $listes=$this->enum_ml($domain);
+    $listes=$this->enum_ml($domain, array('domain', 'list'), false);
     while (list($key,$val)=each($listes)) {
       $this->delete_lst($val["id"]);
     }
@@ -614,8 +634,8 @@ class m_mailman {
    * @access private
    */ 
   function hook_quota_get() {
-    global $err,$cuid,$db;
-    $err->log("mailman","getquota");
+    global $msg,$cuid,$db;
+    $msg->log("mailman","getquota");
     $q=Array("name"=>"mailman", "description"=>_("Mailing lists"), "used"=>0);
     $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE uid='$cuid'");
     if ($db->next_record()) {

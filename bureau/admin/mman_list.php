@@ -35,33 +35,33 @@ $mman_status=array(
 
 // If there is no installed domain, let's failed definitely !
 if (count($dom->enum_domains())==0) {
-  $error=_("No domain is installed on your account, you cannot create any mailing list!");
+  $msg->raise("alert", "mailman", _("No domain is installed on your account, you cannot create any mailing list!"));
 ?>
 <h3><?php __("Mailing lists"); ?></h3>
 <hr id="topbar"/>
 <br />
-<?php if (!empty($error)) { echo "<p class=\"error\">$error</p>"; } ?>
-<?php include_once("foot.php");
+<?php 
+  echo $msg->msg_html_all();
+  include_once("foot.php");
   exit();
 }
 
 if(!$r=$mailman->enum_ml()) {
-  $error.=$err->errstr();
   if ($quota->cancreate("mailman")) {
     require_once("mman_add.php"); 
-    exit();
   } else {
     require_once("main.php");
-    exit();
   }
+  exit();
 } else {
 	?>
 <h3><?php __("Mailing lists"); ?></h3>
 <hr id="topbar"/>
 <br />
- <?php if (!empty($error)) echo "<p class=\"error\">$error</p>"; $error='';?>
 
 <?php
+echo $msg->msg_html_all();
+
 if ($quota->cancreate("mailman")) {
 ?>
 <p>
@@ -73,12 +73,11 @@ if ($quota->cancreate("mailman")) {
 
 
 	<form method="post" action="mman_edit.php">
-<?php csrf_get(); ?>
+	<?php csrf_get(); ?>
 	<table class="tlist">
 	<tr><th><?php __("Select"); ?></th><th><?php __("List name"); ?></th><th><?php __("List Status"); ?><th colspan="3">&nbsp;</th></tr>
 	<?php
-//	$list_base_url = variable_get('mailman_url',      $L_FQDN,'URL used to build the list URL, must match DEFAULT_URL_HOST in mm_cfg.py');
-// now using "url" in the mailman table
+	$list_base_url = variable_get('mailman_url',      $L_FQDN,'URL used to build the list URL, must match DEFAULT_URL_HOST in mm_cfg.py');
 	reset($r);
 	$col=1;
 	while (list($key,$val)=each($r)) {
@@ -99,8 +98,8 @@ if ($quota->cancreate("mailman")) {
 <?php } else { echo "OK";}
       
       ?></td>
-			<td><div class="ina"><a target=_blank href="http://<?php echo $val["url"]; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a></div></td>
-			<td><div class="ina"><a target=_blank href="http://<?php echo $val["url"]; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a></div></td>
+			<td><div class="ina"><a target=_blank href="//<?php echo $list_base_url; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a></div></td>
+			<td><div class="ina"><a target=_blank href="//<?php echo $list_base_url; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a></div></td>
 <!--		    <td>&nbsp;</td> -->
 </tr><tr class="lst<?php echo $col; ?>">
 			<td><div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div></td>
@@ -111,6 +110,7 @@ if ($quota->cancreate("mailman")) {
 		}
 	?>
 	</table>
+<!-- REGENERATE needs to be fixed
 <br />
       <select name="action" id="action" class="inl">
        <option value=""><?php __("-- Choose an action --"); ?></option>
@@ -118,6 +118,9 @@ if ($quota->cancreate("mailman")) {
         ?></select>
 
 <input type="submit" class="inb" name="submit" value="<?php __("Validate"); ?>" />
+-->
+<input type="hidden" name="action" value="DELETE" />
+<p><input type="submit" class="inb delete" name="submit" value="<?php __("Delete the checked lists"); ?>" /></p>  <!-- à traduire -->
 </form>
 
 	<?php

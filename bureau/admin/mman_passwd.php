@@ -29,25 +29,22 @@ $fields = array (
 		 "id"     => array ("request", "integer", ""),
 		 );
 getFields($fields);
-
-$error="";
-if (!($me=$mailman->get_lst($id))) {
-  $error=$err->errstr();
-  ?>
-	  <h3><?php __("Mailing lists"); ?></h3>
-<?php 
- echo "<p class=\"error\">$error</p>";
- include_once("foot.php");
- exit();
-}
-
 ?>
+
 <h3><?php __("Mailing lists"); ?></h3>
 <hr/>
+
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-	}
+if (!($me=$mailman->get_lst($id))) {
+  echo $msg->msg_html_all();
+  include_once("foot.php");
+  exit();
+}
+
+echo $msg->msg_html_all();
+
+$c=$admin->listPasswordPolicies();
+$passwd_classcount = $c['mman']['classcount'];
 
 ?>
 <form method="post" action="mman_dopasswd.php" name="main" id="main">
@@ -57,7 +54,7 @@ if (!($me=$mailman->get_lst($id))) {
 <table class="tedit">
 <tr><th><label for="pass"><?php __("New list password"); ?> </label></th><td>
 	<input type="password" class="int" id="pass" name="pass" value="" size="20" maxlength="64" />
-        <?php display_div_generate_password(DEFAULT_PASS_SIZE,"#pass","#pass2"); ?>
+        <?php display_div_generate_password(DEFAULT_PASS_SIZE,"#pass","#pass2",$passwd_classcount); ?>
 	</td></tr>
 <tr><th><label for="pass2"><?php __("Password confirmation"); ?> </label></th><td>
 	<input type="password" class="int" id="pass2" name="pass2" value="" size="20" maxlength="64" />

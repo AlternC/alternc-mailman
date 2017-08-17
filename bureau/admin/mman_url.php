@@ -31,34 +31,24 @@ $fields = array (
 		 );
 getFields($fields);
 
-$error="";
-if (!($me=$mailman->get_lst($id))) {
-  $error=$err->errstr();
-  ?>
-	  <h3><?php __("Mailing lists"); ?></h3>
-	<hr/>
-<?php 
- echo "<p class=\"error\">$error</p>";
- include_once("foot.php");
- exit();
- }
-if (!($urls=$mailman->get_list_url_all())) {
-  $error=$err->errstr();
-  ?>
-          <h3><?php __("Mailing lists"); ?></h3>
-	<hr/>
-<?php
- echo "<p class=\"error\">$error</p>";
- include_once("foot.php");
- exit();
- }
-
 ?>
 <h3><?php __("Mailing lists"); ?></h3>
+<hr/>
 <?php
-if ($error) {
-  echo "<p class=\"error\">$error</p>";
+
+if (!($me=$mailman->get_lst($id))) {
+  echo $msg->msg_html_all();
+  include_once("foot.php");
+  exit();
 }
+
+if (!($urls=$mailman->get_list_url_all())) {
+  echo $msg->msg_html_all();
+  include_once("foot.php");
+  exit();
+}
+
+echo $msg->msg_html_all();
 
 $cururl=$mailman->get_list_url($id);
 

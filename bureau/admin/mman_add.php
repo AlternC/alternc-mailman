@@ -27,17 +27,19 @@ require_once("../class/config.php");
 include_once("head.php");
 
 if (!$quota->cancreate("mailman")) {
-	$error=$err->errstr();
+	$msg->raise('Alert', "mailman",_("Your mailing-list quota is over, you cannot create more mailing-lists."));
 }
+
+$c=$admin->listPasswordPolicies();
+$passwd_classcount = $c['mman']['classcount'];
 
 ?>
 <h3><?php __("Mailing lists"); ?></h3>
 <hr id="topbar"/>
 <br />
 <?php
-  if (isset($error) && $error) {
-    echo "<p class=\"error\">$error</p>";
-  }
+echo $msg->msg_html_all();
+
 if (!isset($domain)) $domain="";
 ?>
 <form method="post" action="mman_doadd.php" name="main" id="main" >
@@ -51,7 +53,7 @@ if (!isset($domain)) $domain="";
 	</td></tr>
 <tr><th><label for="pass"><?php __("List password"); ?> </label></th><td>
 	<input type="password" class="int" id="pass" name="pass" value="<?php  if (isset($pass)) ehe($pass); ?>" size="20" maxlength="64" />
-        <?php display_div_generate_password(DEFAULT_PASS_SIZE,"#pass","#pass2"); ?>
+        <?php display_div_generate_password(DEFAULT_PASS_SIZE,"#pass","#pass2",$passwd_classcount); ?>
 	</td></tr>
 <tr><th><label for="pass2"><?php __("List password (confirm)"); ?> </label></th><td>
 	<input type="password" class="int" id="pass2" name="pass2" value="<?php  if (isset($pass2)) ehe($pass2); ?>" size="20" maxlength="64" />
