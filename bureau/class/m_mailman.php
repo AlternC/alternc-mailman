@@ -81,7 +81,7 @@ class m_mailman {
       'title'       => _("Mailing lists"),
       'ico'         => 'images/mailman.png',
       'link'        => 'mman_list.php',
-      'pos'         => 70,
+      'pos'         => 40,
      ) ;
 
      return $obj;
@@ -634,12 +634,13 @@ class m_mailman {
    * @access private
    */ 
   function hook_quota_get() {
-    global $msg,$cuid,$db;
+    global $msg,$cuid,$db,$quota;
     $msg->log("mailman","getquota");
     $q=Array("name"=>"mailman", "description"=>_("Mailing lists"), "used"=>0);
     $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE uid='$cuid'");
     if ($db->next_record()) {
 	$q['used']=$db->f("cnt");
+	$q['sizeondisk']=$quota->get_size_mailman_sum_user($cuid);
     }
     return $q;
   }
