@@ -60,7 +60,7 @@ if ($confirm) {
     foreach ($d as $id) {
       $r = $mailman->regenerate_lst($id);
       if ($r) {
-        $msg->raise('Ok', "mailman", _("The list %s has been successfully regenerated."), $r); // à traduire
+        $msg->raise('Ok', "mailman", _("The list %s has been successfully regenerated."), $r);
       }
     }
     break;

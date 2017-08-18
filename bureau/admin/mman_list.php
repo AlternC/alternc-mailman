@@ -77,7 +77,7 @@ if ($quota->cancreate("mailman")) {
 	<table class="tlist">
 	<tr><th><?php __("Select"); ?></th><th><?php __("List name"); ?></th><th><?php __("List Status"); ?><th colspan="3">&nbsp;</th></tr>
 	<?php
-/	$list_base_url = variable_get('mailman_url',      $L_FQDN,'URL used to build the list URL, must match DEFAULT_URL_HOST in mm_cfg.py');
+	$list_base_url = variable_get('mailman_url',      $L_FQDN,'URL used to build the list URL, must match DEFAULT_URL_HOST in mm_cfg.py');
 	reset($r);
 	$col=1;
 	while (list($key,$val)=each($r)) {
@@ -120,7 +120,7 @@ if ($quota->cancreate("mailman")) {
 <input type="submit" class="inb" name="submit" value="<?php __("Validate"); ?>" />
 -->
 <input type="hidden" name="action" value="DELETE" />
-<p><input type="submit" class="inb delete" name="submit" value="<?php __("Delete the checked lists"); ?>" /></p>  <!-- à traduire -->
+<p><input type="submit" class="inb delete" name="submit" value="<?php __("Delete the checked lists"); ?>" /></p>
 </form>
 
 	<?php

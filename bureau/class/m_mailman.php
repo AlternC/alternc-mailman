@@ -91,7 +91,7 @@ class m_mailman {
    * @return array an array of policykey => "policy name (for humans)"
    */
   function alternc_password_policy() {
-    return array("mman" => _("List account password"));  // A traduire
+    return array("mman" => _("List account password"));
   }
 
   /* ----------------------------------------------------------------- */
