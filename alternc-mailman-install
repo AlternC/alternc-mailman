@@ -26,23 +26,7 @@ if [ "$1" = "upgrade" ]
 then
     echo "Upgrading AlternC-mailman"
     /usr/share/alternc/install/upgrade_mailman_check.sh
-    echo "Overwriting mailman binaries"
-    ARCH=$(dpkg --print-architecture)
-    if [ "$ARCH" = "amd64" ]
-    then
-	install -o root -g list -m 2755  /usr/share/alternc/alternc-mailman/amd64/* /usr/lib/cgi-bin/mailman/
-    else
-        if [ "$ARCH" = "i386" ]
-	then
-	    install -o root -g list -m 2755  /usr/share/alternc/alternc-mailman/i386/* /usr/lib/cgi-bin/mailman/
-	else
-	    echo "****************************************************************************"
-	    echo "WARNING: ARCH is $ARCH, which is neither amd64 nor i386, please read"
-	    echo "mailman-itk-fix/README.txt in alternc-mailman source to build your binaries"
-	    echo "mailman will likely NOT WORK in apache-mpm-itk in the meantime ..."
-	    echo "****************************************************************************"
-	fi
-    fi
+
     echo "ensuring apache2 symlink is setup in /etc/apache2/conf.d/"
     # compatibility with both Apache 2.2 and 2.4 makes it Wheezy AND Jessie-compliant : 
     if [ -d "/etc/apache2/conf.d" ]
