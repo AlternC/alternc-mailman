@@ -42,11 +42,7 @@ install:
 	install -m 750 alternc-mailman-install $(DESTDIR)/usr/lib/alternc/install.d/
 	touch $(DESTDIR)/usr/share/alternc-mailman/www/index.html
 
-	install -m 750 -o root -g root  mailman-itk-fix/amd64/* $(DESTDIR)/usr/share/alternc/alternc-mailman/amd64/
-	install -m 750 -o root -g root  mailman-itk-fix/i386/* $(DESTDIR)/usr/share/alternc/alternc-mailman/i386/
-
 	rm -f $(DESTDIR)/usr/share/alternc/panel/locales/Makefile
-	cp -r patches/* $(DESTDIR)/usr/share/alternc-mailman/patches
 	install -m 0755 upgrade_mailman_check.sh $(DESTDIR)/usr/share/alternc/install/
 	install -m 0644 upgrades-mailman/* $(DESTDIR)/usr/share/alternc/install/upgrades-mailman/
 # Install lintian overrides
