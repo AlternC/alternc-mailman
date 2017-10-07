@@ -7,7 +7,7 @@
 # Bmt91 <benoit.maherault@laposte.net>, 2012
 # Bruno Marmier <bruno@marmier.net>, 2004
 # DeepSurfer, 2013-2014
-# Ettore Atalan <atalanttore@googlemail.com>, 2014
+# Ettore Atalan <atalanttore@googlemail.com>, 2014,2017
 # poupoule2004 <poupoule2004@hotmail.com>, 2012
 # Stéphane Tréboux <stephane.treboux@gmail.com>, 2012
 msgid ""
@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
 "Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
 "POT-Creation-Date: 2013-10-18 11:47+0200\n"
-"PO-Revision-Date: 2017-06-20 09:44+0000\n"
+"PO-Revision-Date: 2017-10-07 17:08+0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/octopuce/alternc/"
 "language/de_DE/)\n"
@@ -25,11 +25,11 @@ msgstr ""
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../admin/aws_add.php:96 ../admin/aws_pass.php:78 ../admin/aws_users.php:59
+#: ../admin/aws_add.php:94 ../admin/aws_pass.php:78 ../admin/aws_users.php:58
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../admin/aws_users.php:88
+#: ../admin/aws_users.php:81
 msgid "Change password"
 msgstr "Passwort ändern"
 
@@ -187,11 +187,6 @@ msgstr ""
 "eine neue Adresse in der Liste aussuchen und bestätigen. <br/> Falls Sie "
 "diese Einstellung nicht verstehen, sollten Sie nicht ändern."
 
-#: ../admin/mman_url.php:71
-#, php-format
-msgid "Changing management url of list %s"
-msgstr ""
-
 #: ../admin/mman_url.php:78
 msgid "New list management url"
 msgstr "Neue Verwaltungadresse für die Liste"
@@ -214,14 +209,6 @@ msgstr "Ein grosser Fehler ist eingetreten beim erstellen der Liste"
 #: ../class/m_mailman.php:45
 msgid "A fatal error happened when deleting the list"
 msgstr "Ein grosser Fehler ist eingetreten beim Löschen der Liste."
-
-#: ../class/m_mailman.php:46
-msgid "A fatal error happened when changing the list password"
-msgstr ""
-
-#: ../class/m_mailman.php:47
-msgid "A fatal error happened when getting the list url"
-msgstr ""
 
 #: ../class/m_mailman.php:68 ../class/m_mailman.php:472
 #: ../class/m_mailman.php:503

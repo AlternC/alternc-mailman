@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
 "Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
 "POT-Creation-Date: 2013-10-18 11:47+0200\n"
-"PO-Revision-Date: 2017-06-20 09:44+0000\n"
+"PO-Revision-Date: 2017-10-07 17:08+0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/octopuce/"
 "alternc/language/nl_NL/)\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../admin/aws_add.php:96 ../admin/aws_pass.php:78 ../admin/aws_users.php:59
+#: ../admin/aws_add.php:94 ../admin/aws_pass.php:78 ../admin/aws_users.php:58
 msgid "Cancel"
 msgstr "Annuleer"
 
-#: ../admin/aws_users.php:88
+#: ../admin/aws_users.php:81
 msgid "Change password"
 msgstr "Verander wachtwoord"
 
@@ -42,14 +42,6 @@ msgstr "(met mailman)"
 #: ../admin/mman_add.php:49
 msgid "Email of the list's administrator"
 msgstr "Email van de beheerder van de lijst"
-
-#: ../admin/mman_add.php:52
-msgid "List password"
-msgstr ""
-
-#: ../admin/mman_add.php:56
-msgid "List password (confirm)"
-msgstr ""
 
 #: ../admin/mman_add.php:60
 msgid "Create the list."
@@ -91,14 +83,6 @@ msgstr "De verzendlijst is succesvol aangemaakt."
 msgid "The list %s has been successfully deleted."
 msgstr "De lijst %s is succesvol verwijderd."
 
-#: ../admin/mman_dourl.php:39
-msgid "The mailing list management url has been successfully changed."
-msgstr ""
-
-#: ../admin/mman_edit.php:52
-msgid "Editing mailman lists"
-msgstr ""
-
 #: ../admin/mman_list.php:30
 msgid "Password change pending"
 msgstr "Verandering wachtwoord is in behandeling"
@@ -122,10 +106,6 @@ msgid "Create a list"
 msgstr "Huidige url van de lijst"
 
 #: ../admin/mman_list.php:78
-msgid "List Status"
-msgstr ""
-
-#: ../admin/mman_list.php:78
 msgid "List name"
 msgstr "Naam van de lijst"
 
@@ -145,10 +125,6 @@ msgstr "Beheerder van de lijst"
 #: ../admin/mman_list.php:103
 msgid "Pending messages"
 msgstr "Boodschappen in behandeling"
-
-#: ../admin/mman_list.php:107
-msgid "Change url"
-msgstr ""
 
 #: ../admin/mman_list.php:120
 msgid "Validate"
@@ -183,22 +159,9 @@ msgstr ""
 "dit formulier. <br />Als u niet weet wat u aan het doen bent, verander hier "
 "niets"
 
-#: ../admin/mman_url.php:71
-#, php-format
-msgid "Changing management url of list %s"
-msgstr ""
-
-#: ../admin/mman_url.php:74
-msgid "Current list url"
-msgstr ""
-
 #: ../admin/mman_url.php:78
 msgid "New list management url"
 msgstr "Nieuwe beheers url van de lijst"
-
-#: ../admin/mman_url.php:91
-msgid "Change the url."
-msgstr ""
 
 #: ../class/m_mailman.php:42
 msgid "This list already exist"
@@ -239,15 +202,6 @@ msgid ""
 msgstr ""
 "Bijzonder email adres voor Mailman verzendlijsten. <ahref='mman_list."
 "php'>Klik hier om het te beheren.</a>"
-
-#: ../class/m_mailman.php:224
-#, php-format
-msgid "The mailman address %s does not exist"
-msgstr ""
-
-#: ../class/m_mailman.php:249
-msgid "Your mailing-list quota is over, you cannot create more mailing-lists."
-msgstr ""
 
 #: ../class/m_mailman.php:256
 msgid "The email you entered is syntaxically incorrect"
@@ -293,7 +247,3 @@ msgstr ""
 #: ../class/m_mailman.php:531
 msgid "The passwords are differents, please try again"
 msgstr "De wachtwoorden zijn verschillend, probeer het opnieuw aub"
-
-#: ../class/m_mailman.php:586
-msgid "Mailing lists (mailman)"
-msgstr ""

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
 "Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
 "POT-Creation-Date: 2013-10-18 11:47+0200\n"
-"PO-Revision-Date: 2017-06-20 09:44+0000\n"
+"PO-Revision-Date: 2017-10-07 17:08+0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/octopuce/"
 "alternc/language/pt_BR/)\n"
@@ -18,10 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#: ../admin/aws_users.php:88
-msgid "Change password"
-msgstr ""
 
 #: ../admin/menu_mailman.php:33 ../admin/mman_add.php:34
 #: ../admin/mman_list.php:40 ../admin/mman_list.php:59
@@ -34,18 +30,6 @@ msgstr "Enviando listas "
 #: ../admin/menu_mailman.php:35
 msgid "(with mailman)"
 msgstr "(com mailman)"
-
-#: ../admin/mman_add.php:46
-msgid "List's email address"
-msgstr ""
-
-#: ../admin/mman_add.php:52
-msgid "List password"
-msgstr ""
-
-#: ../admin/mman_add.php:56
-msgid "List password (confirm)"
-msgstr ""
 
 #: ../admin/mman_add.php:60
 msgid "Create the list."
@@ -61,22 +45,9 @@ msgstr "A lista de envios foi criada com sucesso."
 msgid "The list %s has been successfully deleted."
 msgstr "A lista %s foi removida com sucesso."
 
-#: ../admin/mman_dourl.php:39
-msgid "The mailing list management url has been successfully changed."
-msgstr ""
-
-#: ../admin/mman_list.php:38
-msgid ""
-"No domain is installed on your account, you cannot create any mailing list!"
-msgstr ""
-
 #: ../admin/mman_list.php:68
 msgid "Create a list"
 msgstr "Criar a lista"
-
-#: ../admin/mman_list.php:78
-msgid "List Status"
-msgstr ""
 
 #: ../admin/mman_list.php:78
 msgid "List name"
@@ -94,22 +65,6 @@ msgstr "Mensagens faltando Ã¡ enviar"
 msgid "New list password"
 msgstr "Senha da lista"
 
-#: ../admin/mman_passwd.php:66
-msgid "Change the password."
-msgstr ""
-
-#: ../admin/mman_url.php:74
-msgid "Current list url"
-msgstr ""
-
-#: ../admin/mman_url.php:91
-msgid "Change the url."
-msgstr ""
-
-#: ../class/m_mailman.php:42
-msgid "This list already exist"
-msgstr ""
-
 #: ../class/m_mailman.php:43 ../class/m_mailman.php:152
 #: ../class/m_mailman.php:362 ../class/m_mailman.php:410
 #: ../class/m_mailman.php:527 ../class/m_mailman.php:552
@@ -122,18 +77,9 @@ msgstr "Esta lista nãoo existe"
 msgid "No list defined yet"
 msgstr "A lista não definida ainda"
 
-#: ../class/m_mailman.php:224
-#, php-format
-msgid "The mailman address %s does not exist"
-msgstr ""
-
 #: ../class/m_mailman.php:249
 msgid "Your mailing-list quota is over, you cannot create more mailing-lists."
 msgstr "Sua cota de listas de envio acabou, você não pode criar mais listas."
-
-#: ../class/m_mailman.php:256
-msgid "The email you entered is syntaxically incorrect"
-msgstr ""
 
 #: ../class/m_mailman.php:271
 msgid "The login (left part of the @) is mandatory"
@@ -167,13 +113,13 @@ msgstr ""
 "Este endereço de email (ou um da lista assinadas, lista não assinadas etc.) "
 "já  foi usado."
 
-#: ../admin/adm_authip_whitelist.php:86 ../admin/adm_doms_def_type.php:58
-#: ../admin/adm_mxaccount.php:83 ../admin/adm_slavedns.php:101
-#: ../admin/adm_slavedns.php:146 ../admin/bro_main.php:296
-#: ../admin/cron.php:54 ../admin/dom_edit.php:128 ../admin/dom_edit.php:182
-#: ../admin/ftp_del.php:83 ../admin/hta_dodeluser.php:65
+#: ../admin/adm_authip_whitelist.php:85 ../admin/adm_doms_def_type.php:55
+#: ../admin/adm_mxaccount.php:86 ../admin/adm_slavedns.php:103
+#: ../admin/adm_slavedns.php:148 ../admin/bro_main.php:315
+#: ../admin/cron.php:52 ../admin/dom_edit.php:127 ../admin/dom_edit.php:181
+#: ../admin/ftp_del.php:80 ../admin/hta_dodeluser.php:68
 #: ../admin/ip_main.php:79 ../admin/ip_main.php:168
-#: ../admin/piwik_site_dodel.php:71 ../admin/piwik_sitelist.php:129
-#: ../admin/piwik_user_dodel.php:69 ../admin/piwik_userlist.php:89
+#: ../admin/piwik_site_dodel.php:68 ../admin/piwik_sitelist.php:156
+#: ../admin/piwik_user_dodel.php:69 ../admin/piwik_userlist.php:104
 msgid "Delete"
 msgstr "Remover"
