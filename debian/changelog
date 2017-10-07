@@ -1,8 +1,10 @@
-alternc-mailman (3.2) oldstable; urgency=low
+alternc-mailman (3.3) oldstable; urgency=low
 
   * remove apache-mpm-itk patch, replace it with a dependency on our OWN mailman
   * remove virtual list patch (unmaintained)
   * The panel web pages are now using csrf functions as of AlternC 3.x.11
+  * skipping major version => 3.2 existed somehow in AlternC's history
+  * removing the debconf system for VirtualListPatch
 
  -- Benjamin Sonntag <benjamin@sonntag.fr>  Sat,  7 Oct 2017 12:32:33 +0200
 
