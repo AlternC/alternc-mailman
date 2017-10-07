@@ -65,7 +65,7 @@ class m_mailman {
       " $order;";
     $db->query($query);
     if (!$db->num_rows()) {
-      $msg->raise("mailman",_("No list defined yet"));
+        $msg->raise("INFO","mailman",_("No list defined yet"));
       return array();
     }
     $mls=array();
@@ -149,7 +149,7 @@ class m_mailman {
     $db->query($q);
     $db->next_record();
     if (!$db->f("id")) {
-      $msg->raise("mailman",_("This list does not exist"));
+        $msg->raise("ERROR","mailman",_("This list does not exist"));
       return false;
     }
     $login = $db->f("list");
@@ -221,7 +221,7 @@ class m_mailman {
     $db->query("SELECT id FROM address WHERE type='mailman' AND address='".addslashes($login)."' AND domain_id=$dom_id;");
     $db->next_record();
     if(!$db->f("id")){
-      $msg->raise("mailman",_("The mailman address %s does not exist"),$login);
+      $msg->raise("ERROR","mailman",_("The mailman address %s does not exist"),$login);
       return false;
     }
 
@@ -246,14 +246,14 @@ class m_mailman {
 
     // Check the quota
     if (!$quota->cancreate("mailman")) {
-      $msg->raise("mailman",_("Your mailing-list quota is over, you cannot create more mailing-lists.")); // quota
+      $msg->raise("ERROR","mailman",_("Your mailing-list quota is over, you cannot create more mailing-lists.")); // quota
       return false;
     }
 
     /* the list' internal name */
     $login = strtolower($login);
     if (!filter_var($login."@".$domain,FILTER_VALIDATE_EMAIL)) {
-      $msg->raise("mailman",_("The email you entered is syntaxically incorrect"));
+      $msg->raise("ERROR","mailman",_("The email you entered is syntaxically incorrect"));
       return false;
     }
 
@@ -268,30 +268,30 @@ class m_mailman {
     }
 
     if ($login=="") {
-      $msg->raise("mailman",_("The login (left part of the @) is mandatory"));
+      $msg->raise("ERROR","mailman",_("The login (left part of the @) is mandatory"));
       return false;
     }
     if (!$owner || !$password) {
-      $msg->raise("mailman",_("The owner email and the password are mandatory"));
+      $msg->raise("ERROR","mailman",_("The owner email and the password are mandatory"));
       return false;
     }
     if (checkmail($owner)) {
-      $msg->raise("mailman",_("This email is incorrect"));
+      $msg->raise("ERROR","mailman",_("This email is incorrect"));
       return false;
     }
     if ($password!=$password2) {
-      $msg->raise("mailman",12);
+        $msg->raise("ERROR","mailman",_("The passwords are differents, please try again"));
       return false;
     }
     $r=$this->prefix_list();
     if (!in_array($domain,$r) || $domain=="") {
-      $msg->raise("mailman",_("This domain does not exist."));
+      $msg->raise("ERROR","mailman",_("This domain does not exist."));
       return false;
     }
     $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE name='$name';");
     $db->next_record();
     if ($db->f("cnt")) {
-      $msg->raise("mailman",_("A list with the same name already exist on the server. Please choose another name."));
+      $msg->raise("ERROR","mailman",_("A list with the same name already exist on the server. Please choose another name."));
         return false;
     }
 
@@ -324,7 +324,7 @@ class m_mailman {
     }
     if (!$no_err) {
       // This is a mail account already !!!
-      $msg->raise("mailman",_("This email address (or one of the list-subscribe, list-unsubscribe etc.) are already used."));
+      $msg->raise("ERROR","mailman",_("This email address (or one of the list-subscribe, list-unsubscribe etc.) are already used."));
       return false;
     }
 
@@ -359,11 +359,11 @@ class m_mailman {
     $db->query("SELECT * FROM mailman WHERE id=$id and uid='$cuid';");
     $db->next_record();
     if (!$db->f("id")) {
-      $msg->raise("mailman",_("This list does not exist"));
+      $msg->raise("ERROR","mailman",_("This list does not exist"));
       return false;
     }
     if ($db->f("mailman_action")!='OK') {
-      $msg->raise("mailman",_("This list has pending action, you cannot delete it"));
+      $msg->raise("ERROR","mailman",_("This list has pending action, you cannot delete it"));
       return false;
     }
     $login=$db->f("name");
@@ -407,11 +407,11 @@ class m_mailman {
     $db->query("SELECT * FROM mailman WHERE id=$id and uid='$cuid';");
     $db->next_record();
     if (!$db->f("id")) {
-      $msg->raise("mailman",_("This list does not exist"));
+      $msg->raise("ERROR","mailman",_("This list does not exist"));
       return false;
     }
     if ($db->f("mailman_action")!='OK') {
-      $msg->raise("mailman",_("This list has pending action, you cannot delete it"));
+      $msg->raise("ERROR","mailman",_("This list has pending action, you cannot delete it"));
       return false;
     }
     $login=$db->f("name");
@@ -469,7 +469,7 @@ class m_mailman {
       $db->query("SELECT list FROM mailman WHERE uid='$cuid' AND id='$id';");
 
       if (!$db->num_rows()) {
-        $msg->raise("mailman",_("No list defined yet"));
+          $msg->raise("INFO","mailman",_("No list defined yet"));
         return false;
       }
     }
@@ -500,7 +500,7 @@ class m_mailman {
       $db->query("SELECT list FROM mailman WHERE uid='$cuid' AND id='$id';");
 
       if (!$db->num_rows()) {
-        $msg->raise("mailman",_("No list defined yet"));
+          $msg->raise("INFO","mailman",_("No list defined yet"));
         return false;
       }
     }
@@ -524,11 +524,11 @@ class m_mailman {
     $db->query("SELECT * FROM mailman WHERE id=$id and uid='$cuid';");
     $db->next_record();
     if (!$db->f("id")) {
-      $msg->raise("mailman",_("This list does not exist"));
+      $msg->raise("ERROR","mailman",_("This list does not exist"));
       return false;
     }
     if ($pass!=$pass2) {
-      $msg->raise("mailman",_("The passwords are differents, please try again"));
+      $msg->raise("ERROR","mailman",_("The passwords are differents, please try again"));
       return false;
     }
     $login=$db->f("list");
@@ -549,7 +549,7 @@ class m_mailman {
     $q = "SELECT concat_ws('/',url,'cgi-bin/mailman/admin',name) as url FROM mailman WHERE uid = '" . $cuid . "' AND id = '" . intval($list) . "'";
     $db->query($q);
     if (!$db->next_record()) {
-      $msg->raise("mailman",_("This list does not exist"));
+        $msg->raise("ERROR","mailman",_("This list does not exist"));
       return false;
     }
     $url=$db->f("url");
@@ -569,7 +569,7 @@ class m_mailman {
     $db->query($q);
     $db->next_record();
     if (!$db->f("id")) {
-      $msg->raise("mailman",_("This list does not exist"));
+      $msg->raise("ERROR","mailman",_("This list does not exist"));
       return false;
     }
     $id=$db->Record["id"];
