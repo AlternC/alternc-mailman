@@ -7,10 +7,6 @@
 
 # Uncomment this to turn on verbose mode. 
 export DH_VERBOSE=1
-MAJOR=$(shell sed -ne 's/^[^(]*(\([^)]*\)).*/\1/;1p' debian/changelog)
-REV=$(shell env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $$2 }')
-VERSION="${MAJOR}~svn${REV}"
-export VERSION
 
 override_dh_install:
 #dh install
@@ -18,10 +14,3 @@ override_dh_install:
 
 %:
 	dh $@
-
-
-build-snapshot:
-	@echo "building a package based on the current snapshot (${VERSION})"
-	svn update || true
-	svn export . ../alternc-mailman-${VERSION}
-	cd ../alternc-mailman-${VERSION} && sed -i -e '0,/UNRELEASED/s/)/~svn${REV})/' debian/changelog && debuild

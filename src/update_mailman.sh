@@ -16,7 +16,7 @@ done
 LOCK_FILE="/var/run/alternc/update_mailman"
 
 MAILMAN_URL=$(get_variable_from_db mailman_url)
-if [ -z "$MAILMAN_URL" ]; then
+if [ -z "$MAILMAN_URL" -o "$MAILMAN_URL" = "0" ]; then
 	MAILMAN_URL=$FQDN
 fi
 

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
 "Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
 "POT-Creation-Date: 2013-10-18 11:47+0200\n"
-"PO-Revision-Date: 2017-06-20 09:44+0000\n"
+"PO-Revision-Date: 2017-10-07 17:08+0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/octopuce/alternc/"
 "language/it_IT/)\n"
@@ -21,11 +21,11 @@ msgstr ""
 "Language: it_IT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../admin/aws_add.php:96 ../admin/aws_pass.php:78 ../admin/aws_users.php:59
+#: ../admin/aws_add.php:94 ../admin/aws_pass.php:78 ../admin/aws_users.php:58
 msgid "Cancel"
 msgstr "Cancellare"
 
-#: ../admin/aws_users.php:88
+#: ../admin/aws_users.php:81
 msgid "Change password"
 msgstr "Cambiare la password"
 

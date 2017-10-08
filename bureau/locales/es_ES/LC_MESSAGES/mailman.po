@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
 "Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
 "POT-Creation-Date: 2013-10-18 11:47+0200\n"
-"PO-Revision-Date: 2017-06-20 10:11+0000\n"
+"PO-Revision-Date: 2017-10-07 17:08+0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/octopuce/alternc/"
 "language/es_ES/)\n"
@@ -26,11 +26,11 @@ msgstr ""
 "Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../admin/aws_add.php:96 ../admin/aws_pass.php:78 ../admin/aws_users.php:59
+#: ../admin/aws_add.php:94 ../admin/aws_pass.php:78 ../admin/aws_users.php:58
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../admin/aws_users.php:88
+#: ../admin/aws_users.php:81
 msgid "Change password"
 msgstr "Cambiar contraseña"
 
@@ -257,13 +257,13 @@ msgstr "Esta lista tiene acciones pendientes, no puedes borrarla"
 msgid "The passwords are differents, please try again"
 msgstr "Contraseñas introducidas distintas, por favor vuelva a intentarlo"
 
-#: ../admin/adm_authip_whitelist.php:86 ../admin/adm_doms_def_type.php:58
-#: ../admin/adm_mxaccount.php:83 ../admin/adm_slavedns.php:101
-#: ../admin/adm_slavedns.php:146 ../admin/bro_main.php:296
-#: ../admin/cron.php:54 ../admin/dom_edit.php:128 ../admin/dom_edit.php:182
-#: ../admin/ftp_del.php:83 ../admin/hta_dodeluser.php:65
+#: ../admin/adm_authip_whitelist.php:85 ../admin/adm_doms_def_type.php:55
+#: ../admin/adm_mxaccount.php:86 ../admin/adm_slavedns.php:103
+#: ../admin/adm_slavedns.php:148 ../admin/bro_main.php:315
+#: ../admin/cron.php:52 ../admin/dom_edit.php:127 ../admin/dom_edit.php:181
+#: ../admin/ftp_del.php:80 ../admin/hta_dodeluser.php:68
 #: ../admin/ip_main.php:79 ../admin/ip_main.php:168
-#: ../admin/piwik_site_dodel.php:71 ../admin/piwik_sitelist.php:129
-#: ../admin/piwik_user_dodel.php:69 ../admin/piwik_userlist.php:89
+#: ../admin/piwik_site_dodel.php:68 ../admin/piwik_sitelist.php:156
+#: ../admin/piwik_user_dodel.php:69 ../admin/piwik_userlist.php:104
 msgid "Delete"
 msgstr "Borrar"

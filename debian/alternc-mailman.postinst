@@ -44,85 +44,6 @@ case "$1" in
     sed -e "s/%%fqdn%%/$FQDN/" < "$MAILMAN_CONFIG_TEMPLATE" > "$MAILMAN_CONFIG"
     cp -a -f "$MAILMAN_CONFIG" "$MAILMAN_CONFIG_BACKUP"
 
-    MAILMAN_VERSION=`dpkg -l mailman | grep ^ii | awk '{print $3}' | sed -e s/-.*// -e 's/[^:]*://'`
-    echo "detected mailman version $MAILMAN_VERSION"
-    if [ -d "/usr/share/alternc-mailman/patches/mailman-true-virtual-$MAILMAN_VERSION.d" ] ; then
-      PATCHDIR="/usr/share/alternc-mailman/patches/mailman-true-virtual-$MAILMAN_VERSION.d"
-    else
-      PATCHDIR=""
-      PATCHFILE="/usr/share/alternc-mailman/patches/mailman-true-virtual-$MAILMAN_VERSION.patch"
-    fi
-    PATCH_MARKER="/usr/share/alternc-mailman/patches/mailman-true-virtual.applied"
-    if [ -h $PATCH_MARKER ]; then
-        PATCH_VERSION=`readlink $PATCH_MARKER | sed -e 's/^.*-//;s/\.patch$//;s/\.d$//'`
-        echo "mailman patch detected, version $PATCH_VERSION"
-        if [ "$PATCH_VERSION" = "$MAILMAN_VERSION" ]; then
-            echo "mailman already patched, will not patch again"
-        else
-            echo "wrong version of the patch, we assume that mailman was upgraded"
-            rm -f $PATCH_MARKER
-        fi
-    fi
-    if [ "$PATCHDIR" = "" ] ; then
-        if [ ! -r $PATCHFILE ]; then
-            echo "no patchfile for mailman $MAILMAN_VERSION"
-        fi
-    fi
-    if [ -r "$PATCHFILE" -o  "$PATCHDIR" != "" ] ; then if [ ! -h $PATCH_MARKER ]; then
-        db_get alternc-mailman/patch-mailman || true
-        if [ "$RET" = "true" ]; then
-            if [ "$PATCHDIR" != "" ] ; then # we have multiple files
-            {
-                cd /        # patches should be relative to root, now
-                patch_ok="yes"
-                for pfile in $PATCHDIR/* ; do
-                    if patch --dry-run -p0 < $pfile; then
-                        echo "applying patch $pfile :"
-                        if patch -p0 < $pfile; then
-                            echo "patch applied sucessfully"
-                        else
-                            patch_ok="no"
-                            echo "cannot apply patch, your mailman is probably broken now, aborting"
-                            false
-                        fi
-                    else
-                        echo "patch will not apply cleanly, aborting"
-                        patch_ok="no"
-                    fi
-                    if [ "$patch_ok" = "yes" ] ; then
-                        # this will tell alternc-mailman the patch was applied successfully
-                        ln -fs $PATCHDIR $PATCH_MARKER
-                        invoke-rc.d mailman restart || true
-                    fi
-                done
-            }
-            else # old fashion unique patch file
-            {
-                cd /var/lib
-                echo "testing the patch"
-                if patch --dry-run -p0 < $PATCHFILE; then
-                    echo "applying patch"
-                    if patch -p0 < $PATCHFILE; then
-                        echo "patch applied sucessfully"
-                        # this will tell alternc-mailman the patch was applied successfully
-                        ln -fs $PATCHFILE $PATCH_MARKER
-                        invoke-rc.d mailman restart || true
-                    else
-                        echo "cannot apply patch, your mailman is probably broken now, aborting"
-                        false
-                    fi
-                else
-                    echo "patch will not apply cleanly, aborting"
-                fi
-            }
-            fi ; fi
-        else
-            echo "not applying virtual mailman patch"
-        fi
-    fi
-    # tell debconf to go away, otherwise alternc.install will freeze
-    db_stop
-
     # Create the "mailman" list if it does not exist yet
     if [ ! -d /var/lib/mailman/lists/mailman ]; then
         # Create the list :
@@ -145,11 +66,10 @@ case "$1" in
     a2enmod cgi || true 
 
     # make the mailman.localdomain goes to local apache2 ;) 
-    if ! grep -q "127.0.0.1.*mailman.localdomain" /etc/hosts
+    if grep -q "127.0.0.1.*mailman.localdomain" /etc/hosts
     then 
-	echo "adding mailman.localdomain to /etc/hosts"
-	echo "" >>/etc/hosts
-	echo "127.0.0.1  mailman.localdomain" >>/etc/hosts
+	echo "removing a former mailman.localdomain from /etc/hosts"
+	sed '/127.0.0.1.*mailman.localdomain/d' /etc/hosts
     fi
 
     echo "$2" >/var/lib/alternc/backups/alternc-mailman-lastversion
