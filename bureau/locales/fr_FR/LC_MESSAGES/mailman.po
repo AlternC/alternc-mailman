@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
 "Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
-"POT-Creation-Date: 2013-10-18 11:47+0200\n"
-"PO-Revision-Date: 2017-10-07 17:17+0000\n"
+"POT-Creation-Date: 2017-10-08 14:47+0200\n"
+"PO-Revision-Date: 2017-10-08 12:51+0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/octopuce/alternc/"
 "language/fr_FR/)\n"
@@ -297,6 +297,10 @@ msgstr "Le mail du propriétaire et le mot de passe sont obligatoires"
 msgid "This email is incorrect"
 msgstr "L'adresse email est incorrecte"
 
+#: ../class/m_mailman.php:283 ../class/m_mailman.php:531
+msgid "The passwords are differents, please try again"
+msgstr "Les mots de passes sont différents, merci de réessayer"
+
 #: ../class/m_mailman.php:288
 msgid "This domain does not exist."
 msgstr "Ce domaine n'existe pas."
@@ -320,10 +324,6 @@ msgstr ""
 #: ../class/m_mailman.php:366 ../class/m_mailman.php:414
 msgid "This list has pending action, you cannot delete it"
 msgstr "Cette liste a des actions en cours, vous ne pouvez pas l'effacer"
-
-#: ../class/m_mailman.php:531
-msgid "The passwords are differents, please try again"
-msgstr "Les mots de passes sont différents, merci de réessayer"
 
 #: ../class/m_mailman.php:586
 msgid "Mailing lists (mailman)"

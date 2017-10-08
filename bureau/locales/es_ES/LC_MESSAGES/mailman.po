@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
 "Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
-"POT-Creation-Date: 2013-10-18 11:47+0200\n"
-"PO-Revision-Date: 2017-10-07 17:08+0000\n"
+"POT-Creation-Date: 2017-10-08 14:47+0200\n"
+"PO-Revision-Date: 2017-10-08 12:49+0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/octopuce/alternc/"
 "language/es_ES/)\n"
@@ -45,6 +45,10 @@ msgstr "Listas de correo"
 #: ../admin/menu_mailman.php:35
 msgid "(with mailman)"
 msgstr "(con mailman)"
+
+#: ../admin/mman_add.php:46
+msgid "List's email address"
+msgstr "Dirección de correo de la lista"
 
 #: ../admin/mman_add.php:49
 msgid "Email of the list's administrator"
@@ -231,6 +235,10 @@ msgstr ""
 msgid "This email is incorrect"
 msgstr "Esta dirección de correo no es correcta."
 
+#: ../class/m_mailman.php:283 ../class/m_mailman.php:531
+msgid "The passwords are differents, please try again"
+msgstr "Contraseñas introducidas distintas, por favor vuelva a intentarlo"
+
 #: ../class/m_mailman.php:288
 msgid "This domain does not exist."
 msgstr "Este dominio no existe."
@@ -252,10 +260,6 @@ msgstr ""
 #: ../class/m_mailman.php:366 ../class/m_mailman.php:414
 msgid "This list has pending action, you cannot delete it"
 msgstr "Esta lista tiene acciones pendientes, no puedes borrarla"
-
-#: ../class/m_mailman.php:531
-msgid "The passwords are differents, please try again"
-msgstr "Contraseñas introducidas distintas, por favor vuelva a intentarlo"
 
 #: ../admin/adm_authip_whitelist.php:85 ../admin/adm_doms_def_type.php:55
 #: ../admin/adm_mxaccount.php:86 ../admin/adm_slavedns.php:103

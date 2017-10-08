@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
 "Report-Msgid-Bugs-To: i18n@alternc.org\n"
-"POT-Creation-Date: 2017-06-20 11:44+0200\n"
+"POT-Creation-Date: 2017-10-08 14:49+0200\n"
 "PO-Revision-Date: 2003-02-03 08:16 +0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@octopuce.com>\n"
 "Language-Team: English <dev@alternc.org>\n"
@@ -262,6 +262,10 @@ msgstr ""
 msgid "This email is incorrect"
 msgstr ""
 
+#: ../class/m_mailman.php:283 ../class/m_mailman.php:531
+msgid "The passwords are differents, please try again"
+msgstr ""
+
 #: ../class/m_mailman.php:288
 msgid "This domain does not exist."
 msgstr ""
@@ -280,10 +284,6 @@ msgstr ""
 
 #: ../class/m_mailman.php:366 ../class/m_mailman.php:414
 msgid "This list has pending action, you cannot delete it"
-msgstr ""
-
-#: ../class/m_mailman.php:531
-msgid "The passwords are differents, please try again"
 msgstr ""
 
 #: ../class/m_mailman.php:586

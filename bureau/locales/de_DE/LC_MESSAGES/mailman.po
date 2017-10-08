@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
 "Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
-"POT-Creation-Date: 2013-10-18 11:47+0200\n"
-"PO-Revision-Date: 2017-10-07 17:08+0000\n"
+"POT-Creation-Date: 2017-10-08 14:47+0200\n"
+"PO-Revision-Date: 2017-10-08 12:49+0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/octopuce/alternc/"
 "language/de_DE/)\n"
@@ -47,7 +47,7 @@ msgstr "(mit mailman)"
 
 #: ../admin/mman_add.php:46
 msgid "List's email address"
-msgstr "Liste der eMail Adressen"
+msgstr "Liste der E-Mail-Adressen"
 
 #: ../admin/mman_add.php:49
 msgid "Email of the list's administrator"
@@ -55,7 +55,7 @@ msgstr "E-Mail-Adresse des Administrators dieser Liste"
 
 #: ../admin/mman_add.php:60
 msgid "Create the list."
-msgstr "Liste anlegen"
+msgstr "Liste erstellen."
 
 #: ../admin/mman_del.php:51
 msgid "Deleting mailman lists"
@@ -123,7 +123,7 @@ msgstr ""
 
 #: ../admin/mman_list.php:68
 msgid "Create a list"
-msgstr "Liste anlegen"
+msgstr "Liste erstellen"
 
 #: ../admin/mman_list.php:78
 msgid "List name"
@@ -144,11 +144,11 @@ msgstr "Listenadministrator"
 
 #: ../admin/mman_list.php:103
 msgid "Pending messages"
-msgstr "Neue Nachrichten"
+msgstr "Ausstehende Nachrichten"
 
 #: ../admin/mman_list.php:116
 msgid "-- Choose an action --"
-msgstr "-- Wähle eine Aktion --"
+msgstr "-- Aktion auswählen --"
 
 #: ../admin/mman_list.php:120
 msgid "Validate"
@@ -165,15 +165,15 @@ msgstr "Passwort der Liste %s wird geändert"
 
 #: ../admin/mman_passwd.php:58
 msgid "New list password"
-msgstr "Neues Passwort für die Liste"
+msgstr "Neues Listenpasswort"
 
 #: ../admin/mman_passwd.php:62
 msgid "Password confirmation"
-msgstr "Passwort wiederholen"
+msgstr "Passwortbestätigung"
 
 #: ../admin/mman_passwd.php:66
 msgid "Change the password."
-msgstr "Passwort ändern"
+msgstr "Passwort ändern."
 
 #: ../admin/mman_url.php:65
 msgid ""
@@ -186,6 +186,11 @@ msgstr ""
 "dieser Liste zu erreichen. Falls Sie diese Adresse ändern wollen, können Sie "
 "eine neue Adresse in der Liste aussuchen und bestätigen. <br/> Falls Sie "
 "diese Einstellung nicht verstehen, sollten Sie nicht ändern."
+
+#: ../admin/mman_url.php:71
+#, php-format
+msgid "Changing management url of list %s"
+msgstr ""
 
 #: ../admin/mman_url.php:78
 msgid "New list management url"
@@ -209,6 +214,14 @@ msgstr "Ein grosser Fehler ist eingetreten beim erstellen der Liste"
 #: ../class/m_mailman.php:45
 msgid "A fatal error happened when deleting the list"
 msgstr "Ein grosser Fehler ist eingetreten beim Löschen der Liste."
+
+#: ../class/m_mailman.php:46
+msgid "A fatal error happened when changing the list password"
+msgstr ""
+
+#: ../class/m_mailman.php:47
+msgid "A fatal error happened when getting the list url"
+msgstr ""
 
 #: ../class/m_mailman.php:68 ../class/m_mailman.php:472
 #: ../class/m_mailman.php:503
@@ -242,6 +255,10 @@ msgstr "Die Benutzer eMail und das Passwort sind zwingend notwendig"
 msgid "This email is incorrect"
 msgstr "Diese eMail ist nicht rivhtig"
 
+#: ../class/m_mailman.php:283 ../class/m_mailman.php:531
+msgid "The passwords are differents, please try again"
+msgstr "Die Passwörter sind unterschiedlich, bitte erneut versuchen."
+
 #: ../class/m_mailman.php:288
 msgid "This domain does not exist."
 msgstr "Diese DOMAIN ist nicht vorhanden."
@@ -257,10 +274,6 @@ msgstr ""
 #: ../class/m_mailman.php:366 ../class/m_mailman.php:414
 msgid "This list has pending action, you cannot delete it"
 msgstr "Die Liste ist in der Prozessschlange. Kein löschen möglich."
-
-#: ../class/m_mailman.php:531
-msgid "The passwords are differents, please try again"
-msgstr "Die Passwörter sind unterschiedlich, bitte erneut versuchen."
 
 #: ../class/m_mailman.php:586
 msgid "Mailing lists (mailman)"

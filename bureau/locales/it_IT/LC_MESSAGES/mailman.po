@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
 "Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
-"POT-Creation-Date: 2013-10-18 11:47+0200\n"
-"PO-Revision-Date: 2017-10-07 17:08+0000\n"
+"POT-Creation-Date: 2017-10-08 14:47+0200\n"
+"PO-Revision-Date: 2017-10-08 12:49+0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/octopuce/alternc/"
 "language/it_IT/)\n"
@@ -127,6 +127,10 @@ msgstr "Nome della lista"
 #: ../admin/mman_list.php:78
 msgid "Select"
 msgstr "Selezionare"
+
+#: ../admin/mman_list.php:91
+msgid "List is pending deletion, you can't do anything on it"
+msgstr ""
 
 #: ../admin/mman_list.php:102
 msgid "List admin"
@@ -245,6 +249,10 @@ msgstr "L'indirizzo email e la password del proprietario sono obbligatori"
 msgid "This email is incorrect"
 msgstr "Questo indirizzo email non è corretto"
 
+#: ../class/m_mailman.php:283 ../class/m_mailman.php:531
+msgid "The passwords are differents, please try again"
+msgstr "Le password non corrispondono, ritenta"
+
 #: ../class/m_mailman.php:288
 msgid "This domain does not exist."
 msgstr "Questo dominio non esiste."
@@ -267,7 +275,3 @@ msgstr ""
 #: ../class/m_mailman.php:366 ../class/m_mailman.php:414
 msgid "This list has pending action, you cannot delete it"
 msgstr "Questa lista ha un'azione in sospeso, non può essere cancellata"
-
-#: ../class/m_mailman.php:531
-msgid "The passwords are differents, please try again"
-msgstr "Le password non corrispondono, ritenta"
