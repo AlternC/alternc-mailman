@@ -34,12 +34,11 @@ getFields($fields);
 
 $r=$mailman->passwd($id,$pass,$pass2);
 if (!$r) {
-  $error=$err->errstr();
   include("mman_passwd.php");
   exit();
 } else {
-  $error=_("The mailing list password will be changed in a few minutes.");
-  include("mman_list.php");
-  exit();
+    $msg->raise("INFO","mailman",_("The mailing list password will be changed in a few minutes."));
+    include("mman_list.php");
+    exit();
 }
 ?>

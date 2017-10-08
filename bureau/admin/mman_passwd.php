@@ -30,13 +30,11 @@ $fields = array (
 		 );
 getFields($fields);
 
-$error="";
 if (!($me=$mailman->get_lst($id))) {
-  $error=$err->errstr();
   ?>
 	  <h3><?php __("Mailing lists"); ?></h3>
 <?php 
- echo "<p class=\"error\">$error</p>";
+    echo $msg->msg_html_all();
  include_once("foot.php");
  exit();
 }
@@ -45,9 +43,7 @@ if (!($me=$mailman->get_lst($id))) {
 <h3><?php __("Mailing lists"); ?></h3>
 <hr/>
 <?php
-	if ($error) {
-		echo "<p class=\"error\">$error</p>";
-	}
+echo $msg->msg_html_all();
 
 ?>
 <form method="post" action="mman_dopasswd.php" name="main" id="main">

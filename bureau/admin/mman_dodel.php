@@ -32,7 +32,6 @@ $fields = array (
 );
 getFields($fields);
 
-$error="";
 $stchange = (!$quota->cancreate("mailman"));
 
 if ($cancel) {
@@ -49,10 +48,8 @@ reset($d);
 if ($confirm) {
   foreach ($d as $id) {
     $r = $mailman->delete_lst($id);
-    if (!$r) {
-      $error .= $err->errstr() . "<br />";
-    } else {
-      $error .= sprintf(_("The list %s has been successfully deleted."), $r) . "<br />";
+    if ($r) {
+        $msg->raise("INFO","mailman",_("The list %s has been successfully deleted."), $r);
     }
   }
 }

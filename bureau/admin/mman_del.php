@@ -36,8 +36,6 @@ reset($d);
 
 $stchange=(!$quota->cancreate("mailman"));
 
-$error="";
-
 if (empty($d)) {
   include ("mman_list.php");
   exit();

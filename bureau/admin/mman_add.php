@@ -27,7 +27,8 @@ require_once("../class/config.php");
 include_once("head.php");
 
 if (!$quota->cancreate("mailman")) {
-	$error=$err->errstr();
+    require_once("mman_list.php");
+    exit();
 }
 
 ?>
@@ -35,9 +36,8 @@ if (!$quota->cancreate("mailman")) {
 <hr id="topbar"/>
 <br />
 <?php
-  if (isset($error) && $error) {
-    echo "<p class=\"error\">$error</p>";
-  }
+    echo $msg->msg_html_all();
+
 if (!isset($domain)) $domain="";
 ?>
 <form method="post" action="mman_doadd.php" name="main" id="main" >
