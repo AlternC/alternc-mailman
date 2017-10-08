@@ -34,7 +34,7 @@ $mman_status=array(
 
 
 // If there is no installed domain, let's failed definitely !
-if (count($dom->enum_domains())==0) {
+if (count($mailman->prefix_list())==0) {
     $msg->raise("ALERT","mailman",_("No domain is installed on your account, you cannot create any mailing list!"));
 ?>
 <h3><?php __("Mailing lists"); ?></h3>
