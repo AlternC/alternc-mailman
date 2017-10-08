@@ -25,12 +25,6 @@
 
 class m_mailman {
 
-  var $is_vhost_applied;
-
-  // Constructeur
-  function m_mailman() {
-    $this->is_vhost_applied=$this->vhost_applied();
-  }
 
   /* ----------------------------------------------------------------- */
   /** Dummy function for translation texts.
@@ -157,17 +151,6 @@ class m_mailman {
     return $login . "@" . $domain;
   }
   
-  /*------------------------------------------------------------------ */
-  /** Boolean function used to test whether the virtual list pach was applied or not
-   */
-
-  function vhost_applied(){
-    if (file_exists("/usr/share/alternc-mailman/patches/mailman-true-virtual.applied")) {
-	return true;
-    }else{
-        return false;
-    }
-  }
 
   function hook_mail_get_details($detail) {
     if ($detail['type']=='mailman') return _("Special mail address for Mailman mailing-lists. <a href='mman_list.php'>Click here to manage it.</a>");
@@ -261,12 +244,8 @@ class m_mailman {
       return false;
     }
 
-    if($this->is_vhost_applied){
-      $name = $login . '-' . $domain;
-    } else {
-      $name = $login;
-    }
-
+    $name = $login;
+      
     if ($login=="") {
       $msg->raise("ERROR","mailman",_("The login (left part of the @) is mandatory"));
       return false;
@@ -374,17 +353,9 @@ class m_mailman {
     }
     $this->del_wrapper_all($list,$domain);
 
-    if($this->is_vhost_applied){
-      if("$login" == "$list"){
-        $login = $login . '-' . $domain;
-        $db->query("UPDATE mailman SET mailman_action='REGENERATE' WHERE id=$id");
-        $db->query("UPDATE mailman SET name='$login' WHERE id=$id");
-      }else{
-        #means we are already dealing with a virtual list
-        $db->query("UPDATE mailman SET mailman_action='REGENERATE' WHERE id=$id");
-        $this->del_wrapper_all($login,$domain);
-      }
-    }
+    $db->query("UPDATE mailman SET mailman_action='REGENERATE' WHERE id=$id");
+    $this->del_wrapper_all($login,$domain);
+
     // FIXME need to be done before re_add them
     // but shouldn't be launched by the Panel
    # exec("sudo /usr/lib/alternc/update_mails.sh ");
