@@ -37,7 +37,12 @@ then
 	then
 	ln -sf /etc/mailman/apache.conf /etc/apache2/conf-enabled/mailman.conf 
     fi
-
 fi  
 
+if [ "$1" = "before-reload" ]
+then
+    # since we may have created the "mailman" system list, mailman may not be running, let's restart it:
+    invoke-rc.d mailman stop
+    invoke-rc.d mailman start
+fi
 
