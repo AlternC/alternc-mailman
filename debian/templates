@@ -1,0 +1,22 @@
+Template: alternc-mailman/patch-mailman
+Type: boolean
+Default: false
+_Description: Do you want to patch mailman for virtual support?
+ The AlternC mailman plugin can optionally patch mailman to make it
+ support same-name lists on different domains (ie. allow
+ test@example.com and test@example.org to coexist). Mailman 2.x, by
+ default, doesn't support that functionality but Koumbit.org has
+ developped patches to make it.
+ .
+ The plugin only supports patching, no way to unpatch right
+ now. Please understand that this process will modify core Mailman
+ code and might break some functionality. It is running in production
+ on Koumbit.org.
+ .
+ Also, note that everytime the mailman package is upgraded or
+ reinstalled, the patches will need to be reapplied manually. This can
+ be done by reconfiguring the alternc-mailman package.  .
+ .
+ The patches are in /usr/share/alternc-mailman/patches. More
+ information about the patch at
+ http://wiki.koumbit.net/VirtualMailman.
