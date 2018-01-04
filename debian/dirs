@@ -5,6 +5,7 @@ usr/lib/alternc/install.d
 usr/share/alternc/install
 usr/share/alternc/install/upgrades-mailman
 usr/share/doc/alternc-mailman
+usr/share/alternc-mailman/patches
 usr/share/alternc-mailman/www
 usr/share/lintian/overrides
 usr/share/alternc/panel/admin
@@ -14,3 +15,5 @@ usr/share/alternc/panel/locales/fr_FR/LC_MESSAGES
 usr/lib/mailman/bin
 etc/apache2/conf.d
 var/lib/alternc/backups
+usr/share/alternc/alternc-mailman/amd64
+usr/share/alternc/alternc-mailman/i386
