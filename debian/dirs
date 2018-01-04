@@ -1,5 +1,4 @@
 etc/alternc/templates/mailman
-etc/apache-ssl/conf.d
 etc/alternc/apache-panel.d/
 usr/lib/alternc/install.d
 usr/share/alternc/install
@@ -15,5 +14,3 @@ usr/share/alternc/panel/locales/fr_FR/LC_MESSAGES
 usr/lib/mailman/bin
 etc/apache2/conf.d
 var/lib/alternc/backups
-usr/share/alternc/alternc-mailman/amd64
-usr/share/alternc/alternc-mailman/i386
