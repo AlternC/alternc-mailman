@@ -1,0 +1,133 @@
+--- mailman/bin/newlist.orig	2007-02-28 16:35:57.000000000 -0500
++++ mailman/bin/newlist	2007-10-04 04:44:01.000000000 -0400
+@@ -164,7 +164,7 @@
+ 
+     if '@' in listname:
+         # note that --urlhost and --emailhost have precedence
+-        listname, domain = listname.split('@', 1)
++        firstname, domain = listname.split('@', 1)
+         urlhost = urlhost or domain
+         emailhost = emailhost or mm_cfg.VIRTUAL_HOSTS.get(domain, domain)
+ 
+
+--- mailman/Mailman/Gui/General.py.orig	2007-02-28 16:35:58.000000000 -0500
++++ mailman/Mailman/Gui/General.py	2007-10-04 02:42:44.000000000 -0400
+@@ -420,7 +420,7 @@
+ 
+     def _setValue(self, mlist, property, val, doc):
+         if property == 'real_name' and \
+-               val.lower() <> mlist.internal_name().lower():
++               val.lower() <> mlist.real_name.lower():
+             # These values can't differ by other than case
+             doc.addError(_("""<b>real_name</b> attribute not
+             changed!  It must differ from the list's name by case
+
+--- mailman/Mailman/Handlers/CookHeaders.py.orig	2007-02-28 16:35:58.000000000 -0500
++++ mailman/Mailman/Handlers/CookHeaders.py	2007-10-04 02:46:39.000000000 -0400
+@@ -180,7 +180,9 @@
+     if msgdata.get('_nolist') or not mlist.include_rfc2369_headers:
+         return
+     # This will act like an email address for purposes of formataddr()
+-    listid = '%s.%s' % (mlist.internal_name(), mlist.host_name)
++    #listid = '%s.%s' % (mlist.internal_name(), mlist.host_name)
++    # internal_name already contains the hostname with the vhost patch
++    listid = mlist.internal_name()
+     cset = Utils.GetCharSet(mlist.preferred_language)
+     if mlist.description:
+         # Don't wrap the header since here we just want to get it properly RFC
+
+--- mailman/Mailman/MailList.py.orig	2007-02-28 16:35:58.000000000 -0500
++++ mailman/Mailman/MailList.py	2007-10-04 04:29:08.000000000 -0400
+@@ -185,9 +185,14 @@
+         return self._full_path
+ 
+     def getListAddress(self, extra=None):
++        posting_addr = self.internal_name()
++        try:
++            posting_addr = self.real_name.lower()
++        except:
++            pass
+         if extra is None:
+-            return '%s@%s' % (self.internal_name(), self.host_name)
+-        return '%s-%s@%s' % (self.internal_name(), extra, self.host_name)
++            return '%s@%s' % (posting_addr, self.host_name)
++        return '%s-%s@%s' % (posting_addr, extra, self.host_name)
+ 
+     # For backwards compatibility
+     def GetBouncesEmail(self):
+@@ -470,8 +475,6 @@
+     #
+     def Create(self, name, admin, crypted_password,
+                langs=None, emailhost=None):
+-        if Utils.list_exists(name):
+-            raise Errors.MMListAlreadyExistsError, name
+         # Validate what will be the list's posting address.  If that's
+         # invalid, we don't want to create the mailing list.  The hostname
+         # part doesn't really matter, since that better already be valid.
+@@ -479,19 +482,32 @@
+         # the admin's email address, so transform the exception.
+         if emailhost is None:
+             emailhost = mm_cfg.DEFAULT_EMAIL_HOST
+-        postingaddr = '%s@%s' % (name, emailhost)
++        # default, for when no domain is given
++        firstname = name
++        # we set a special name for virtual hosted lists
++        if '@' in name:
++            firstname, emailhost = name.split('@', 1)
++            name = "%s-%s" % (firstname, emailhost)
++        # but we keep a sensible posting address
++        postingaddr = '%s@%s' % (firstname, emailhost)
+         try:
+             Utils.ValidateEmail(postingaddr)
+         except Errors.MMBadEmailError:
+             raise Errors.BadListNameError, postingaddr
+         # Validate the admin's email address
+         Utils.ValidateEmail(admin)
++        if Utils.list_exists(name):
++            raise Errors.MMListAlreadyExistsError, name
+         self._internal_name = name
+         self._full_path = Site.get_listpath(name, create=1)
+         # Don't use Lock() since that tries to load the non-existant config.pck
+         self.__lock.lock()
+         self.InitVars(name, admin, crypted_password)
+         self.CheckValues()
++        # this is for getListAddress
++        self.list_address = postingaddr
++        self.real_name = firstname
++        self.subject_prefix = mm_cfg.DEFAULT_SUBJECT_PREFIX % self.__dict__
+         if langs is None:
+             self.available_languages = [self.preferred_language]
+         else:
+@@ -1322,7 +1338,7 @@
+         addresses in the recipient headers.
+         """
+         # This is the list's full address.
+-        listfullname = '%s@%s' % (self.internal_name(), self.host_name)
++        listfullname = self.getListAddress()
+         recips = []
+         # Check all recipient addresses against the list's explicit addresses,
+         # specifically To: Cc: and Resent-to:
+@@ -1337,7 +1353,7 @@
+             addr = addr.lower()
+             localpart = addr.split('@')[0]
+             if (# TBD: backwards compatibility: deprecated
+-                    localpart == self.internal_name() or
++                    localpart == self.real_name.lower() or
+                     # exact match against the complete list address
+                     addr == listfullname):
+                 return True
+
+--- mailman/bin/rmlist.orig 2007-12-20 00:33:30.000000000 -0500
++++ mailman/bin/rmlist      2007-12-20 00:33:37.000000000 -0500
+@@ -92,6 +92,11 @@
+         usage(1)
+     listname = args[0].lower().strip()
+ 
++    if '@' in listname:
++        # note that --urlhost and --emailhost have precedence
++        firstname, domain = listname.split('@', 1)
++        listname = '%s-%s' % ( firstname, domain )
++
+     removeArchives = False
+     for opt, arg in opts:
+         if opt in ('-a', '--archives'):
