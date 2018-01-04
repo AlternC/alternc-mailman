@@ -44,6 +44,9 @@ case "$1" in
     sed -e "s/%%fqdn%%/$FQDN/" < "$MAILMAN_CONFIG_TEMPLATE" > "$MAILMAN_CONFIG"
     cp -a -f "$MAILMAN_CONFIG" "$MAILMAN_CONFIG_BACKUP"
 
+    # tell debconf to go away, otherwise alternc.install will freeze
+    db_stop
+
     # Create the "mailman" list if it does not exist yet
     if [ ! -d /var/lib/mailman/lists/mailman ]; then
         # Create the list :

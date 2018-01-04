@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.3.1\n"
+"Report-Msgid-Bugs-To: alternc-mailman@packages.debian.org\n"
+"POT-Creation-Date: 2008-04-24 17:46-0400\n"
+"PO-Revision-Date: 2005-05-15 18:24+0200\n"
+"Last-Translator: Benjamin Sonntag <benjamin@altercn.org>\n"
+"Language-Team: english <dev@alternc.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid "Do you want to patch mailman for virtual support?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"The AlternC mailman plugin can optionally patch mailman to make it support "
+"same-name lists on different domains (ie. allow test@example.com and "
+"test@example.org to coexist). Mailman 2.x, by default, doesn't support that "
+"functionality but Koumbit.org has developped patches to make it."
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"The plugin only supports patching, no way to unpatch right now. Please "
+"understand that this process will modify core Mailman code and might break "
+"some functionality. It is running in production on Koumbit.org."
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"Also, note that everytime the mailman package is upgraded or reinstalled, "
+"the patches will need to be reapplied manually. This can be done by "
+"reconfiguring the alternc-mailman package.  ."
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:1001
+msgid ""
+"The patches are in /usr/share/alternc-mailman/patches. More information "
+"about the patch at http://wiki.koumbit.net/VirtualMailman."
+msgstr ""
