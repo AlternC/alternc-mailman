@@ -73,12 +73,11 @@ case "$1" in
         if [ "$RET" = "true" ]; then
             if [ "$PATCHDIR" != "" ] ; then # we have multiple files
             {
-                cd /        # patches should be relative to root, now
                 patch_ok="yes"
                 for pfile in $PATCHDIR/* ; do
-                    if patch --dry-run -p0 < $pfile; then
+                    if patch --dry-run -d/ -p0 < $pfile; then
                         echo "applying patch $pfile :"
-                        if patch -p0 < $pfile; then
+                        if patch -d/ -p0 < $pfile; then
                             echo "patch applied sucessfully"
                         else
                             patch_ok="no"
@@ -98,11 +97,10 @@ case "$1" in
             }
             else # old fashion unique patch file
             {
-                cd /var/lib
                 echo "testing the patch"
-                if patch --dry-run -p0 < $PATCHFILE; then
+                if patch --dry-run -d/ -p0 < $PATCHFILE; then
                     echo "applying patch"
-                    if patch -p0 < $PATCHFILE; then
+                    if patch -d/ -p0 < $PATCHFILE; then
                         echo "patch applied sucessfully"
                         # this will tell alternc-mailman the patch was applied successfully
                         ln -fs $PATCHFILE $PATCH_MARKER
