@@ -40,7 +40,15 @@ ionice > /dev/null && ionice="ionice -c 3 "
 echo $$ > "$LOCK_FILE"
 
 # List the lists to CREATE
-mysql_query "SELECT id,list, name, domain, owner, password FROM mailman WHERE mailman_action='CREATE';"|while read id list name domain owner password ; do
+mysql_query "SELECT id,list, name, domain, owner FROM mailman WHERE mailman_action='CREATE';"|while read id list name domain owner; do
+   tmpfile=$(tempfile)
+   mysql_query "SELECT password FROM mailman WHERE id='$id';" > "$tmpfile"
+   # Bash command injection vuln could be triggered by $, ` or " 
+   sed -r -e 's/[$]/\\$/g' -e 's/[`]/\\`/g' -e 's/["]/\\"/g' "$tmpfile" > "${tmpfile}1"
+   # store password for later use and remove those two files
+   password=$(cat ${tmpfile}1) 
+   rm -f "${tmpfile}" "${tmpfile}1"
+
   if [ -d "/var/lib/mailman/lists/$name" ]
     then
     mysql_query "UPDATE mailman SET password='', mailman_result='This list already exist', mailman_action='OK' WHERE id='$id';"
