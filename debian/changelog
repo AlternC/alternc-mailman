@@ -1,3 +1,9 @@
+alternc-mailman (3.3.1+nmu1) oldstable; urgency=low
+
+  * readding VirtualListPatch
+
+ -- Sébastien Grenier <sebas@koumbit.org>  Thu,  4 Jan 2018 15:31:07 +0300
+
 alternc-mailman (3.3) oldstable; urgency=low
 
   * remove apache-mpm-itk patch, replace it with a dependency on our OWN mailman

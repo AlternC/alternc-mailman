@@ -82,4 +82,7 @@ DEFAULT_SERVER_LANGUAGE = 'fr'
 # Note - if you're looking for something that is imported from mm_cfg, but you
 # didn't find it above, it's probably in Defaults.py.
 
+# So we don't generate unnecessary mails saying we've to create aliases
+# Alternc-mailman does the job of creating aliases for us.
+MTA = None # So that mailman skips aliases generation
 

@@ -1,0 +1,89 @@
+--- ./bin/newlist.orig	Thu Apr 22 00:38:17 2004
++++ ./bin/newlist	Thu Apr 22 00:38:18 2004
+@@ -133,7 +133,7 @@
+     host_name = None
+     web_page_url = None
+     if '@' in listname:
+-        listname, domain = listname.split('@', 1)
++        firstname, domain = listname.split('@', 1)
+         host_name = mm_cfg.VIRTUAL_HOSTS.get(domain, domain)
+         web_page_url = mm_cfg.DEFAULT_URL_PATTERN % domain
+ 
+--- ./Mailman/MailList.py.orig	Wed Apr 21 23:38:35 2004
++++ ./Mailman/MailList.py	Fri Apr 23 01:42:22 2004
+@@ -169,9 +169,14 @@
+         return self._full_path
+ 
+     def getListAddress(self, extra=None):
++        posting_addr = self.internal_name()
++        try:
++            posting_addr = self.real_name
++        except:
++            pass
+         if extra is None:
+-            return '%s@%s' % (self.internal_name(), self.host_name)
+-        return '%s-%s@%s' % (self.internal_name(), extra, self.host_name)
++            return '%s@%s' % (posting_addr, self.host_name)
++        return '%s-%s@%s' % (posting_addr, extra, self.host_name)
+ 
+     # For backwards compatibility
+     def GetBouncesEmail(self):
+@@ -419,25 +424,35 @@
+     # List creation
+     #
+     def Create(self, name, admin, crypted_password, langs=None):
+-        if Utils.list_exists(name):
+-            raise Errors.MMListAlreadyExistsError, name
+         # Validate what will be the list's posting address.  If that's
+         # invalid, we don't want to create the mailing list.  The hostname
+         # part doesn't really matter, since that better already be valid.
+         # However, most scripts already catch MMBadEmailError as exceptions on
+         # the admin's email address, so transform the exception.
+-        postingaddr = '%s@%s' % (name, mm_cfg.DEFAULT_EMAIL_HOST)
++	domain = mm_cfg.DEFAULT_EMAIL_HOST
++	# we set a special name for virtual hosted lists
++	if '@' in name:
++	    firstname, domain = name.split('@', 1)
++            name = "%s-%s" % (firstname, domain)
++	# but we keep a sensible posting address
++        postingaddr = '%s@%s' % (firstname, domain)
+         try:
+             Utils.ValidateEmail(postingaddr)
+         except Errors.MMBadEmailError:
+             raise Errors.BadListNameError, postingaddr
+         # Validate the admin's email address
+         Utils.ValidateEmail(admin)
++        if Utils.list_exists(name):
++            raise Errors.MMListAlreadyExistsError, name
+         self._internal_name = name
+         self._full_path = Site.get_listpath(name, create=1)
+         # Don't use Lock() since that tries to load the non-existant config.pck
+         self.__lock.lock()
+         self.InitVars(name, admin, crypted_password)
++	# this is for getListAddress
++        self.list_address = postingaddr
++        self.real_name = firstname
++        self.subject_prefix = mm_cfg.DEFAULT_SUBJECT_PREFIX % self.__dict__
+         self.CheckValues()
+         if langs is None:
+             self.available_languages = [self.preferred_language]
+@@ -1178,7 +1193,7 @@
+         to or cc addrs."""
+         # BAW: fall back to Utils.ParseAddr if the first test fails.
+         # this is the list's full address
+-        listfullname = '%s@%s' % (self.internal_name(), self.host_name)
++        listfullname = self.getListAddress()
+         recips = []
+         # check all recipient addresses against the list's explicit addresses,
+         # specifically To: Cc: and Resent-to:
+--- Mailman/Handlers/CookHeaders.py.orig	Sat Oct 30 15:01:09 2004
++++ Mailman/Handlers/CookHeaders.py	Sat Oct 30 15:09:32 2004
+@@ -165,7 +165,7 @@
+     if msgdata.get('_nolist') or not mlist.include_rfc2369_headers:
+         return
+     # Pre-calculate
+-    listid = '<%s.%s>' % (mlist.internal_name(), mlist.host_name)
++    listid = '<%s>' % (mlist.internal_name())
+     if mlist.description:
+         # Make sure description is properly i18n'd
+         listid_h = uheader(mlist, mlist.description, 'List-Id')

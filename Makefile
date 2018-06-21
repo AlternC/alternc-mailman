@@ -43,6 +43,7 @@ install:
 	touch $(DESTDIR)/usr/share/alternc-mailman/www/index.html
 
 	rm -f $(DESTDIR)/usr/share/alternc/panel/locales/Makefile
+	cp -r patches/* $(DESTDIR)/usr/share/alternc-mailman/patches
 	install -m 0755 upgrade_mailman_check.sh $(DESTDIR)/usr/share/alternc/install/
 	install -m 0644 upgrades-mailman/* $(DESTDIR)/usr/share/alternc/install/upgrades-mailman/
 # Install lintian overrides
