@@ -1,6 +1,9 @@
-alternc-mailman (3.3.1+nmu1) oldstable; urgency=low
+alternc-mailman (3.5.0) stable; urgency=low
 
-  * readding VirtualListPatch
+  * Virtual List functionality should work again (@sebas891)
+  * Login should be quoted (@fser)
+  * MySLQ queries should use PDO
+  * All errors should use the msg->raise facility
 
  -- Sébastien Grenier <sebas@koumbit.org>  Thu,  4 Jan 2018 15:31:07 +0300
 
