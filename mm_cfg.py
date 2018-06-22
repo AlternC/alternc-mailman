@@ -86,3 +86,4 @@ DEFAULT_SERVER_LANGUAGE = 'fr'
 # Alternc-mailman does the job of creating aliases for us.
 MTA = None # So that mailman skips aliases generation
 
+SUBSCRIBE_FORM_SECRET = '%%mailman_form_secret%%'
