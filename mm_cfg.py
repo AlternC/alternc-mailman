@@ -86,4 +86,8 @@ DEFAULT_SERVER_LANGUAGE = 'fr'
 # Alternc-mailman does the job of creating aliases for us.
 MTA = None # So that mailman skips aliases generation
 
+# Once set to a random string, will make Mailman embed a CSRF token into the
+# subscription form and also enforce that the form must be submitted at least
+# five seconds after it was generated. It's a countermeasure in case of
+# subcribtion attack.
 SUBSCRIBE_FORM_SECRET = '%%mailman_form_secret%%'
