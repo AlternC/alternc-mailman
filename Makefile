@@ -33,6 +33,7 @@ install:
 	chown 1999:1999 -R $(DESTDIR)/usr/share/alternc/panel/
 	install -m 0644 mm_cfg.py \
 		$(DESTDIR)/etc/alternc/templates/mailman/
+	install -m 0644 alternc-mailman.conf $(DESTDIR)/etc/alternc/alternc-mailman.conf
 	install -m 0644 -o root -g root src/get_url_alternc.py src/set_url_alternc.py \
 		$(DESTDIR)/usr/lib/mailman/bin/
 	install -m 0755 src/update_mailman.sh \

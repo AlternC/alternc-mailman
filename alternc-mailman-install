@@ -30,14 +30,15 @@ then
     echo "ensuring apache2 symlink is setup in /etc/apache2/conf.d/"
     # compatibility with both Apache 2.2 and 2.4 makes it Wheezy AND Jessie-compliant : 
     if [ -d "/etc/apache2/conf.d" ]
-	then
-	ln -sf /etc/mailman/apache.conf /etc/apache2/conf.d/mailman.conf 
+    then
+        ln -sf /etc/alternc/alternc-mailman.conf /etc/apache2/conf.d/mailman.conf
     fi
-    if [ -d "/etc/apache2/conf-enabled" ]
-	then
-	ln -sf /etc/mailman/apache.conf /etc/apache2/conf-enabled/mailman.conf 
+    if [ -d "/etc/apache2/conf-available" ]
+    then
+        ln -sf /etc/alternc/alternc-mailman.conf /etc/apache2/conf-enabled/mailman.conf
+        a2enconf mailman.conf
     fi
-fi  
+fi
 
 if [ "$1" = "before-reload" ]
 then
