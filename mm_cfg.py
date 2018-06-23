@@ -48,6 +48,12 @@ list-instance-object's dictionary - see the distributed value of
 DEFAULT_MSG_FOOTER for an example."""
 
 
+# This is some trickery to reverse proxies to work with list creation
+# and when restarting mailman.
+import os
+if os.environ.get('REQUEST_URI') is not None:
+    os.environ["REQUEST_URI"] = os.environ["REQUEST_URI"].replace("/cgi/", "/cgi-bin/")
+
 #######################################################
 #    Here's where we get the distributed defaults.    #
 
@@ -65,7 +71,7 @@ add_virtualhost(DEFAULT_URL_HOST, DEFAULT_EMAIL_HOST)
 
 ACCEPTABLE_LISTNAME_CHARACTERS ='[-+_.= a-z0-9@]'
 DEFAULT_HOST_NAME = '%%fqdn%%'
-DEFAULT_URL_PATTERN = 'http://%s/cgi-bin/mailman/'
+DEFAULT_URL_PATTERN = 'https://%s/cgi-bin/mailman/'
 IMAGE_LOGOS       = '/images/mailman/'
 USE_ENVELOPE_SENDER = 0
 DEFAULT_SEND_REMINDERS = 0
@@ -86,3 +92,6 @@ DEFAULT_SERVER_LANGUAGE = 'fr'
 # Alternc-mailman does the job of creating aliases for us.
 MTA = None # So that mailman skips aliases generation
 
+# When set to No, all advertised (i.e. public) lists are included in the
+# overview.
+VIRTUAL_HOST_OVERVIEW = No

@@ -27,17 +27,18 @@ then
     echo "Upgrading AlternC-mailman"
     /usr/share/alternc/install/upgrade_mailman_check.sh
 
-    echo "ensuring apache2 symlink is setup in /etc/apache2/conf.d/"
-    # compatibility with both Apache 2.2 and 2.4 makes it Wheezy AND Jessie-compliant : 
+    echo "Activating configuration in Apache2"
+    # trying to be compliant with Apache2.2 and 2.4 in Wheeze/Jessie/Stretch
     if [ -d "/etc/apache2/conf.d" ]
-	then
-	ln -sf /etc/mailman/apache.conf /etc/apache2/conf.d/mailman.conf 
+    then
+        ln -sf /etc/alternc/alternc-mailman.conf /etc/apache2/conf.d/mailman.conf
     fi
-    if [ -d "/etc/apache2/conf-enabled" ]
-	then
-	ln -sf /etc/mailman/apache.conf /etc/apache2/conf-enabled/mailman.conf 
+    if [ -d "/etc/apache2/conf-available" ]
+    then
+        ln -sf /etc/alternc/alternc-mailman.conf /etc/apache2/conf-available/mailman.conf
+        a2enconf mailman.conf
     fi
-fi  
+fi
 
 if [ "$1" = "before-reload" ]
 then
