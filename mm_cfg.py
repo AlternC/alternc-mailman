@@ -71,7 +71,7 @@ add_virtualhost(DEFAULT_URL_HOST, DEFAULT_EMAIL_HOST)
 
 ACCEPTABLE_LISTNAME_CHARACTERS ='[-+_.= a-z0-9@]'
 DEFAULT_HOST_NAME = '%%fqdn%%'
-DEFAULT_URL_PATTERN = 'http://%s/cgi-bin/mailman/'
+DEFAULT_URL_PATTERN = 'https://%s/cgi-bin/mailman/'
 IMAGE_LOGOS       = '/images/mailman/'
 USE_ENVELOPE_SENDER = 0
 DEFAULT_SEND_REMINDERS = 0
@@ -92,4 +92,6 @@ DEFAULT_SERVER_LANGUAGE = 'fr'
 # Alternc-mailman does the job of creating aliases for us.
 MTA = None # So that mailman skips aliases generation
 
-VIRTUAL_HOST_OVERVIEW = False
+# When set to No, all advertised (i.e. public) lists are included in the
+# overview.
+VIRTUAL_HOST_OVERVIEW = No
