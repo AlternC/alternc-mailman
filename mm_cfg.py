@@ -99,5 +99,5 @@ VIRTUAL_HOST_OVERVIEW = No
 # Once set to a random string, will make Mailman embed a CSRF token into the
 # subscription form and also enforce that the form must be submitted at least
 # five seconds after it was generated. It's a countermeasure in case of
-# subcription attack.
+# subscription attack.
 SUBSCRIBE_FORM_SECRET = '%%mailman_form_secret%%'
