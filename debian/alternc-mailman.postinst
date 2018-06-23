@@ -19,7 +19,7 @@ fi
 case "$1" in
   configure)
     . "$CONFIGFILE"
-
+    . /usr/lib/alternc/functions.sh
     # Then, configure the quota for "mailman"
     /usr/lib/alternc/quota_init mailman 0 
 
@@ -41,7 +41,8 @@ case "$1" in
             exit 1
         fi
     fi
-    sed -e "s/%%fqdn%%/$FQDN/" < "$MAILMAN_CONFIG_TEMPLATE" > "$MAILMAN_CONFIG"
+    SECRET=$(generate_string 32 | sed -e "s/['|&]/\\&/g")
+    sed -e "s/%%fqdn%%/$FQDN/;s|%%mailman_form_secret%%|$SECRET|" < "$MAILMAN_CONFIG_TEMPLATE" > "$MAILMAN_CONFIG"
     cp -a -f "$MAILMAN_CONFIG" "$MAILMAN_CONFIG_BACKUP"
 
     MAILMAN_VERSION=`dpkg -l mailman | grep ^ii | awk '{print $3}' | sed -e s/-.*// -e 's/[^:]*://'`
@@ -135,7 +136,7 @@ case "$1" in
     fi
 
     # Create default quota "mailman" with value 0
-    mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT INTO defquotas VALUES ('mailman', 0, 'default')" || true
+    mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT IGNORE INTO defquotas VALUES ('mailman', 0, 'default')" || true
 
     echo "installing required apache modules" 
     a2enmod rewrite

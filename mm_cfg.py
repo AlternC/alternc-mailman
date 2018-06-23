@@ -93,5 +93,11 @@ DEFAULT_SERVER_LANGUAGE = 'fr'
 MTA = None # So that mailman skips aliases generation
 
 # When set to No, all advertised (i.e. public) lists are included in the
-# overview.
+# overview regardless of their domain.
 VIRTUAL_HOST_OVERVIEW = No
+
+# Once set to a random string, will make Mailman embed a CSRF token into the
+# subscription form and also enforce that the form must be submitted at least
+# five seconds after it was generated. It's a countermeasure in case of
+# subcription attack.
+SUBSCRIBE_FORM_SECRET = '%%mailman_form_secret%%'
