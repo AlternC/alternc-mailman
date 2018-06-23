@@ -135,7 +135,7 @@ case "$1" in
     fi
 
     # Create default quota "mailman" with value 0
-    mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT INTO defquotas VALUES ('mailman', 0, 'default')" || true
+    mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT IGNORE INTO defquotas VALUES ('mailman', 0, 'default')" || true
 
     echo "installing required apache modules" 
     a2enmod rewrite
