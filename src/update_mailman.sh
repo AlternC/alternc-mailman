@@ -56,7 +56,7 @@ mysql_query "SELECT id,list, name, domain, owner, password FROM mailman WHERE ma
       then
         mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when changing the list url', mailman_action='OK' WHERE id='$id';"
       else
-        mysql_query "UPDATE mailman SET mailman_action='OK' WHERE id='$id';"
+        mysql_query "UPDATE mailman SET mailman_action='SETURL' WHERE id='$id';"
       fi
     fi
   fi
@@ -172,8 +172,9 @@ mysql_query "SELECT id, list, name, domain, url FROM mailman WHERE mailman_actio
     then
     mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK' WHERE id='$id';"
   else
-# SetURL the list : 
-    	sudo -u list /usr/lib/mailman/bin/withlist -q -l -r set_url_alternc "$name" "$MAILMAN_URL"
+    # SetURL the list :
+    mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK', url='$MAILMAN_URL' WHERE id='$id';"
+    sudo -u list /usr/lib/mailman/bin/withlist -q -l -r set_url_alternc "$name" "$MAILMAN_URL"
     if [ "$?" -eq "0" ]
       then
       mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK' WHERE id='$id';"
