@@ -48,6 +48,12 @@ list-instance-object's dictionary - see the distributed value of
 DEFAULT_MSG_FOOTER for an example."""
 
 
+# This is some trickery to reverse proxies to work with list creation
+# and when restarting mailman.
+import os
+if os.environ.get('REQUEST_URI') is not None:
+    os.environ["REQUEST_URI"] = os.environ["REQUEST_URI"].replace("/cgi/", "/cgi-bin/")
+
 #######################################################
 #    Here's where we get the distributed defaults.    #
 
@@ -86,8 +92,12 @@ DEFAULT_SERVER_LANGUAGE = 'fr'
 # Alternc-mailman does the job of creating aliases for us.
 MTA = None # So that mailman skips aliases generation
 
+# When set to No, all advertised (i.e. public) lists are included in the
+# overview regardless of their domain.
+VIRTUAL_HOST_OVERVIEW = No
+
 # Once set to a random string, will make Mailman embed a CSRF token into the
 # subscription form and also enforce that the form must be submitted at least
 # five seconds after it was generated. It's a countermeasure in case of
-# subcribtion attack.
+# subscription attack.
 SUBSCRIBE_FORM_SECRET = '%%mailman_form_secret%%'

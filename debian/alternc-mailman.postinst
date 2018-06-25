@@ -140,6 +140,7 @@ case "$1" in
 
     echo "installing required apache modules" 
     a2enmod rewrite
+    a2enmod proxy
     # only necessary on Jessie: 
     a2enmod cgi || true 
 
