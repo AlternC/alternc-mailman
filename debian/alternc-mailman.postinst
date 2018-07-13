@@ -45,7 +45,7 @@ case "$1" in
     sed -e "s/%%fqdn%%/$FQDN/;s|%%mailman_form_secret%%|$SECRET|" < "$MAILMAN_CONFIG_TEMPLATE" > "$MAILMAN_CONFIG"
     cp -a -f "$MAILMAN_CONFIG" "$MAILMAN_CONFIG_BACKUP"
 
-    MAILMAN_VERSION=`dpkg -l mailman | grep ^ii | awk '{print $3}' | sed -e s/-.*// -e 's/[^:]*://'`
+    MAILMAN_VERSION=`dpkg -l mailman | grep '^[h|i]i' | awk '{print $3}' | sed -e s/-.*// -e 's/[^:]*://'`
     echo "detected mailman version $MAILMAN_VERSION"
     if [ -d "/usr/share/alternc-mailman/patches/mailman-true-virtual-$MAILMAN_VERSION.d" ] ; then
       PATCHDIR="/usr/share/alternc-mailman/patches/mailman-true-virtual-$MAILMAN_VERSION.d"
