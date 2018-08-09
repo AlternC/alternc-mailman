@@ -307,7 +307,11 @@ class m_mailman {
       return false;
     }
     // List creation : 1. insert into the DB
-    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action) VALUES ( ? , ? , ? , ? , ? , ? , ? , 'CREATE');",array($cuid,$login,$domain,$name,$password,$owner,$L_FQDN));
+    $mailman_url = variable_get('mailman_url');
+    if (!$mailman_url) {
+        $mailman_url = $L_FQDN;
+    }
+    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action) VALUES ( ? , ? , ? , ? , ? , ? , ? , 'CREATE');",array($cuid,$login,$domain,$name,$password,$owner,$mailman_url));
 
     return true;
   }
