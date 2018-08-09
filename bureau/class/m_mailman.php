@@ -181,14 +181,17 @@ class m_mailman {
   function get_list_url_all() {
     global $db, $msg, $cuid, $L_FQDN;
     $msg->log("mailman","get_list_url", $cuid);
-
+    $mailman_url = variable_get('mailman_url');
     $q = "SELECT if(length(sd.sub)>0,concat_ws('.',sd.sub,sd.domaine),sd.domaine) as url from sub_domaines sd where compte = 2000 and type ='panel' and enable ='ENABLED';";
     $db->query($q);
     $r = array($L_FQDN);
+    if ($mailman_url) {
+        array_unshift($r, $mailman_url);
+    }
     while($db->next_record()){
       $r[] = $db->f('url');
     }
-    return $r;
+    return array_unique($r);
   }
   /* ----------------------------------------------------------------- */
   /** Add a mail in 'address' table for mailman delivery
