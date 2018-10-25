@@ -9,7 +9,7 @@ Package: alternc-mailman
 Priority: optional
 Section: admin
 Architecture: all
-Depends: mailman (>= 2.1), mysql-client | mariadb-client, debconf, patch, alternc (>> 3.2.10), php5-cli | php-cli | php7.0-cli, ${misc:Depends}
+Depends: mailman-alternc (=2.1.23-1~alternc.3) | mailman (>= 2.1), mysql-client | mariadb-client, debconf, patch, alternc (>> 3.2.10), php5-cli | php-cli | php7.0-cli, ${misc:Depends}
 Description: Mailman module for AlternC
  AlternC is a mutualized hosting software manager for Linux.
  It allows you to manage your websites, domains, ftp, emails, aliases,

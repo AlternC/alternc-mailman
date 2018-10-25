@@ -1,4 +1,4 @@
-alternc-mailman (3.5.0) stable; urgency=low
+alternc-mailman (3.3.12-1) stable; urgency=low
 
   * Virtual List functionality should work again (@sebas891)
   * Login should be quoted (@fser)
