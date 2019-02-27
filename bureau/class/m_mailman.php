@@ -426,13 +426,13 @@ class m_mailman {
       return false;
     }
 
-
     $db->query("UPDATE mailman SET mailman_action ='DELETE' WHERE id = ?", array( $id ));
-    $this->del_wrapper_all($login,$domain);
 
     #If login and list are different, it means we are dealing with a virtual list, hence we have to remove its aliases when deleting it.
     if("$login" != "$list"){
-      $this->del_wrapper_all($list,$domain);
+      $this->del_wrapper_all($list, $domain);
+    } else {
+      $this->del_wrapper_all($login,$domain);
     }
     return $login."@".$domain;
   }
@@ -444,12 +444,12 @@ class m_mailman {
     if (!($dom_id = $dom->get_domain_byname($domain))) {
       return false;
     }
-
-    $this->del_wrapper($login,$dom_id);	        $this->del_wrapper($login."-request",$dom_id);
-    $this->del_wrapper($login."-owner",$dom_id);	$this->del_wrapper($login."-admin",$dom_id);
-    $this->del_wrapper($login."-bounces",$dom_id);	$this->del_wrapper($login."-confirm",$dom_id);
-    $this->del_wrapper($login."-join",$dom_id);	$this->del_wrapper($login."-leave",$dom_id);
-    $this->del_wrapper($login."-subscribe",$dom_id);	$this->del_wrapper($login."-unsubscribe",$dom_id);
+    $this->del_wrapper($login, $dom_id);
+    foreach ( ['request', 'owner', 'admin', 'bounces', 'confirm',
+               'join', 'leave', 'subscribe', 'unsubscribe'] as
+              $wrapper) {
+      $this->del_wrapper($login . '-' . $wrapper, $dom_id);
+    }
 
   }
 
