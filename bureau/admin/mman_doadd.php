@@ -34,7 +34,11 @@ $fields = array (
 );
 getFields($fields);
 
-if (preg_match('/^\w+$/', $login) === 0) {
+# Use a fake domain to check the validity of the login portion of the
+# list address.
+# @Note checkmail has a bit of weird return value. FALSE is returned if the
+# e-mail is okay.
+if (checkmail("{$login}@example.com") !== FALSE) {
     $msg->raise("ERROR","mailman",_('Invalid list name (only letters, digits and underscore).'));
 	include("mman_add.php");
 	exit();
