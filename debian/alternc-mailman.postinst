@@ -3,17 +3,29 @@
 . /usr/share/debconf/confmodule
 
 CONFIGFILE="/etc/alternc/local.sh"
-MAILMAN_CONFIG="/etc/mailman/mm_cfg.py"
-MAILMAN_CONFIG_TEMPLATE="/etc/alternc/templates/mailman/mm_cfg.py"
-MAILMAN_CONFIG_BACKUP="/var/lib/alternc/backups/etc-mailman-mm_cfg.py"
+
+#mailman core
+MAILMAN_CONFIG="/etc/mailman3/mailman.cfg"
+MAILMAN_CONFIG_TEMPLATE="/etc/alternc/templates/mailman/mailman.cfg"
+MAILMAN_CONFIG_BACKUP="/var/lib/alternc/backups/etc-mailman-mailman.cfg"
+
+#hyperkitty
+MAILMAN_HYPERKITTY_CONFIG="/etc/mailman3/mailman-hyperkitty.cfg"
+MAILMAN_HYPERKITTY_PWD=$(rgrep "api_key" $MAILMAN_HYPERKITTY_CONFIG | awk '{print $2}')
+
+#Mailman web (django)
+MAILMAN_WEB_CONFIG="/etc/mailman3/mailman-web.py"
+MAILMAN_WEB_CONFIG_TEMPLATE="/etc/alternc/templates/mailman/mailman-web.py"
+MAILMAN_CONFIG_BACKUP="/var/lib/alternc/backups/etc-mailman-mailman-web.py"
+
 MAILMAN_PASS="`perl -e 'print map{("a".."z","A".."Z",0..9)[int(rand(62))]}(1..10)' `" # copy-pasted from alternc/debian/config
 
-# new packages put binaries in /usr/lib/mailman/bin
-if [ -d /usr/lib/mailman/bin ]
+# new packages put binaries in /usr/lib/mailman3/bin
+if [ -d /usr/lib/mailman3/bin ]
 then
-    MAILMAN_BIN="/usr/lib/mailman/bin"
+    MAILMAN_BIN="/usr/lib/mailman3/bin"
 else
-    MAILMAN_BIN="/var/lib/mailman/bin"
+    MAILMAN_BIN="/usr/lib/mailman3/bin" #useless
 fi
 
 case "$1" in
@@ -23,14 +35,17 @@ case "$1" in
     # Then, configure the quota for "mailman"
     /usr/lib/alternc/quota_init mailman 0 
 
-    echo "fixing private archive rights for mailman"
-    dpkg-statoverride --list /var/lib/mailman/archives/private >/dev/null || 
-    dpkg-statoverride --add root list 2775 /var/lib/mailman/archives/private
-    chmod 2775 /var/lib/mailman/archives/private
+# hyperkitty manage archives
+#--------------------------------------------------------------------------------------ARCHIVES I think is not need START
+#    echo "fixing private archive rights for mailman" 
+#    dpkg-statoverride --list /var/lib/mailman/archives/private >/dev/null || 
+#    dpkg-statoverride --add root list 2775 /var/lib/mailman/archives/private
+#    chmod 2775 /var/lib/mailman/archives/private
+#--------------------------------------------------------------------------------------ARCHIVES I think is not need END
     
     echo "Installing mysql table"
     mysql --defaults-file=/etc/alternc/my.cnf < /usr/share/alternc/install/mailman.sql
-    
+
     # Install generated mailman configuration if it has not been modified since
     # last package configuration
     if [ -f "$MAILMAN_CONFIG_BACKUP" ]; then
@@ -41,11 +56,42 @@ case "$1" in
             exit 1
         fi
     fi
-    SECRET=$(generate_string 32 | sed -e "s/['|&]/\\&/g")
-    sed -e "s/%%fqdn%%/$FQDN/;s|%%mailman_form_secret%%|$SECRET|" < "$MAILMAN_CONFIG_TEMPLATE" > "$MAILMAN_CONFIG"
+    if [ -f "$MAILMAN_WEB_CONFIG_BACKUP" ]; then
+        if ! diff -q "$MAILMAN_WEB_CONFIG" "$MAILMAN_WEB_CONFIG_BACKUP"; then
+            echo "$MAILMAN_WEB_CONFIG has been modified since last alternc-mailman"
+            echo "configuration.  You should merge your changes to"
+            echo "$MAILMAN_WEB_CONFIG_TEMPLATE and delete $MAILMAN_WEB_CONFIG_BACKUP"
+            exit 1
+        fi
+    fi
+    
+    SECRET_KEY=$(rgrep "^SECRET_KEY" $MAILMAN_WEB_CONFIG | awk '{print $3}' | cut -d "'" -f "2")
+    REST_KEY=$(rgrep "^MAILMAN_REST_API_PASS" $MAILMAN_WEB_CONFIG | awk '{print $3}' | cut -d "'" -f "2")
+    ARCHIVER_KEY=$(rgrep "^MAILMAN_ARCHIVER_KEY" $MAILMAN_WEB_CONFIG | awk '{print $3}' | cut -d "'" -f "2")
+    dbmailman3webpass=$(rgrep "^url:" $MAILMAN_CONFIG | cut -d ":" -f "4" | cut -d "@" -f "1")
+    
+    #generate_string from => /usr/lib/alternc/functions.sh
+    if [ $SECRET_KEY == "" ];then
+        SECRET_KEY=$(generate_string 32 | sed -e "s/['|&]/\\&/g")
+    fi
+    if [ $REST_KEY == "" ];then
+        REST_KEY=$(generate_string 32 | sed -e "s/['|&]/\\&/g")
+    fi
+    if [ $ARCHIVER_KEY == "" ];then
+        ARCHIVER_KEY=$(generate_string 32 | sed -e "s/['|&]/\\&/g")
+    fi
+    if [ $dbmailman3webpass == "" ];then
+        dbmailman3webpass=$(generate_string 32 | sed -e "s/['|&]/\\&/g")
+    fi
+
+    sed -e "s/%%fqdn%%/$FQDN/;s|%%restkey%%|$REST_KEY|;s|%%archiverkey%%|$ARCHIVER_KEY|;s|%%dbmailman3webpass%%|$dbmailman3webpass|;s|%%secretkey%%|$SECRET_KEY|" < "$MAILMAN_CONFIG_TEMPLATE" > "$MAILMAN_CONFIG"
     cp -a -f "$MAILMAN_CONFIG" "$MAILMAN_CONFIG_BACKUP"
 
-    MAILMAN_VERSION=`dpkg -l mailman | grep ^ii | awk '{print $3}' | sed -e s/-.*// -e 's/[^:]*://'`
+    sed -e "s/%%fqdn%%/$FQDN/;s|%%restkey%%|$REST_KEY|;s|%%archiverkey%%|$ARCHIVER_KEY|;s|%%dbmailman3webpass%%|$dbmailman3webpass|;s|%%secretkey%%|$SECRET_KEY|" < "$MAILMAN_WEB_CONFIG_TEMPLATE" > "$MAILMAN_WEB_CONFIG"
+    cp -a -f "$MAILMAN_WEB_CONFIG" "$MAILMAN_WEB_CONFIG_BACKUP"
+
+
+    MAILMAN_VERSION=`dpkg -l mailman3-full | grep ^ii | awk '{print $3}' | sed -e s/-.*// -e 's/[^:]*://'`
     echo "detected mailman version $MAILMAN_VERSION"
     if [ -d "/usr/share/alternc-mailman/patches/mailman-true-virtual-$MAILMAN_VERSION.d" ] ; then
       PATCHDIR="/usr/share/alternc-mailman/patches/mailman-true-virtual-$MAILMAN_VERSION.d"
@@ -53,6 +99,7 @@ case "$1" in
       PATCHDIR=""
       PATCHFILE="/usr/share/alternc-mailman/patches/mailman-true-virtual-$MAILMAN_VERSION.patch"
     fi
+
     PATCH_MARKER="/usr/share/alternc-mailman/patches/mailman-true-virtual.applied"
     if [ -h $PATCH_MARKER ]; then
         PATCH_VERSION=`readlink $PATCH_MARKER | sed -e 's/^.*-//;s/\.patch$//;s/\.d$//'`
@@ -64,11 +111,13 @@ case "$1" in
             rm -f $PATCH_MARKER
         fi
     fi
+
     if [ "$PATCHDIR" = "" ] ; then
         if [ ! -r $PATCHFILE ]; then
             echo "no patchfile for mailman $MAILMAN_VERSION"
         fi
     fi
+
     if [ -r "$PATCHFILE" -o  "$PATCHDIR" != "" ] ; then if [ ! -h $PATCH_MARKER ]; then
         db_get alternc-mailman/patch-mailman || true
         if [ "$RET" = "true" ]; then
@@ -119,21 +168,9 @@ case "$1" in
             echo "not applying virtual mailman patch"
         fi
     fi
+
     # tell debconf to go away, otherwise alternc.install will freeze
     db_stop
-
-    # Create the "mailman" list if it does not exist yet
-    if [ ! -d /var/lib/mailman/lists/mailman ]; then
-        # Create the list :
-	owner='admin@'${FQDN} 
-        su -s "/bin/bash" - list -c "/usr/lib/mailman/bin/newlist -q \"mailman\" \"$owner\" \"${MAILMAN_PASS}\""
-        if [ "$?" -eq "0" ]
-        then
-            mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT IGNORE INTO mailman SET uid=2000, list='mailman', name='mailman', domain='${FQDN}', password='${MAILMAN_PASS}', mailman_result='', mailman_action='OK', owner='$owner';"
-        else
-	    mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT IGNORE INTO mailman SET uid=2000, list='mailman', name='mailman', domain='${FQDN}', password='${MAILMAN_PASS}', mailman_result='A fatal error happened when creating the list', mailman_action='OK', owner='$owner';"
-        fi
-    fi
 
     # Create default quota "mailman" with value 0
     mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT IGNORE INTO defquotas VALUES ('mailman', 0, 'default')" || true
@@ -152,8 +189,9 @@ case "$1" in
     fi
 
     echo "$2" >/var/lib/alternc/backups/alternc-mailman-lastversion
-
-    echo -e "\033[31m**********************************************"
+    
+    echo -e "\033[31m"
+    echo "**********************************************"
     echo "*                                            *"
     echo "*   ALTERNC-MAILMAN  ACTION REQUESTED        *"
     echo "*                                            *"

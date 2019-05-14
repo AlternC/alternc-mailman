@@ -128,6 +128,7 @@ class m_mailman {
    */
   function select_prefix_list($current) {
     global $db,$msg;
+
     $r = $this->prefix_list();
     reset($r);
     while (list($key,$val) = each($r)) {
@@ -181,14 +182,17 @@ class m_mailman {
   function get_list_url_all() {
     global $db, $msg, $cuid, $L_FQDN;
     $msg->log("mailman","get_list_url", $cuid);
-
+    $mailman_url = variable_get('mailman_url');
     $q = "SELECT if(length(sd.sub)>0,concat_ws('.',sd.sub,sd.domaine),sd.domaine) as url from sub_domaines sd where compte = 2000 and type ='panel' and enable ='ENABLED';";
     $db->query($q);
     $r = array($L_FQDN);
+    if ($mailman_url) {
+        array_unshift($r, $mailman_url);
+    }
     while($db->next_record()){
       $r[] = $db->f('url');
     }
-    return $r;
+    return array_unique($r);
   }
   /* ----------------------------------------------------------------- */
   /** Add a mail in 'address' table for mailman delivery
@@ -245,7 +249,7 @@ class m_mailman {
    * @param $password the initial list password (required)
    * @return boolean TRUE if the list has been created, or FALSE if an error occured
    */
-  function add_lst($domain,$login,$owner,$password,$password2) {
+  function add_lst($domain,$login,$owner) {
     global $db,$msg,$quota,$mail,$cuid,$dom,$L_FQDN;
     $msg->log("mailman","add_lst",$login."@".$domain." - ".$owner);
 
@@ -276,7 +280,7 @@ class m_mailman {
       $msg->raise("ERROR","mailman",_("The login (left part of the @) is mandatory"));
       return false;
     }
-    if (!$owner || !$password) {
+    if (!$owner){//|| !$password) {
       $msg->raise("ERROR","mailman",_("The owner email and the password are mandatory"));
       return false;
     }
@@ -284,16 +288,16 @@ class m_mailman {
       $msg->raise("ERROR","mailman",_("This email is incorrect"));
       return false;
     }
-    if ($password != $password2) {
+    /*if ($password != $password2) {
         $msg->raise("ERROR","mailman",_("The passwords are differents, please try again"));
       return false;
-    }
+    }*/
     $r = $this->prefix_list();
     if (!in_array($domain,$r) || $domain == "") {
       $msg->raise("ERROR","mailman",_("This domain does not exist."));
       return false;
     }
-    $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE name = ? ;", array($name));
+    $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE name = ? and domain = ?;", array($name, $domain));
     $db->next_record();
     if ($db->f("cnt")) {
       $msg->raise("ERROR","mailman",_("A list with the same name already exist on the server. Please choose another name."));
@@ -304,7 +308,11 @@ class m_mailman {
       return false;
     }
     // List creation : 1. insert into the DB
-    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action) VALUES ( ? , ? , ? , ? , ? , ? , ? , 'CREATE');",array($cuid,$login,$domain,$name,$password,$owner,$L_FQDN));
+    $mailman_url = variable_get('mailman_url');
+    if (!$mailman_url) {
+        $mailman_url = $L_FQDN;
+    }
+    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action) VALUES ( ? , ? , ? , ? , ? , ? , ? , 'CREATE');",array($cuid,$login,$domain,$name,"",$owner,$mailman_url));
 
     return true;
   }
@@ -426,13 +434,13 @@ class m_mailman {
       return false;
     }
 
+
     $db->query("UPDATE mailman SET mailman_action ='DELETE' WHERE id = ?", array( $id ));
+    $this->del_wrapper_all($login,$domain);
 
     #If login and list are different, it means we are dealing with a virtual list, hence we have to remove its aliases when deleting it.
     if("$login" != "$list"){
-      $this->del_wrapper_all($list, $domain);
-    } else {
-      $this->del_wrapper_all($login,$domain);
+      $this->del_wrapper_all($list,$domain);
     }
     return $login."@".$domain;
   }
@@ -444,12 +452,12 @@ class m_mailman {
     if (!($dom_id = $dom->get_domain_byname($domain))) {
       return false;
     }
-    $this->del_wrapper($login, $dom_id);
-    foreach ( ['request', 'owner', 'admin', 'bounces', 'confirm',
-               'join', 'leave', 'subscribe', 'unsubscribe'] as
-              $wrapper) {
-      $this->del_wrapper($login . '-' . $wrapper, $dom_id);
-    }
+
+    $this->del_wrapper($login,$dom_id);	        	$this->del_wrapper($login."-request",$dom_id);
+    $this->del_wrapper($login."-owner",$dom_id);	$this->del_wrapper($login."-admin",$dom_id);
+    $this->del_wrapper($login."-bounces",$dom_id);	$this->del_wrapper($login."-confirm",$dom_id);
+    $this->del_wrapper($login."-join",$dom_id);		$this->del_wrapper($login."-leave",$dom_id);
+    $this->del_wrapper($login."-subscribe",$dom_id);	$this->del_wrapper($login."-unsubscribe",$dom_id);
 
   }
 
@@ -551,7 +559,7 @@ class m_mailman {
   /** FIXME: this function has no equivalent in cron mode, remove this */
   function get_list_url($list) {
     global $db,$msg,$cuid;
-    $q = "SELECT concat_ws('/',url,'cgi-bin/mailman/admin',name) as url FROM mailman WHERE uid = ?  AND id = ?";
+    $q = "SELECT concat_ws('/',url,'mailman3/postorius/lists',name) as url FROM mailman WHERE uid = ?  AND id = ?";
     $db->query($q, array( $cuid, intval($list)));
     if (!$db->next_record()) {
         $msg->raise("ERROR","mailman",_("This list does not exist"));
@@ -620,16 +628,188 @@ class m_mailman {
    */ 
   function hook_quota_get() {
     global $msg,$cuid,$db;
+
     $msg->log("mailman","getquota");
-    $q = Array("name" => "mailman", "description" => _("Mailing lists"), "used" => 0);
+    $q = array("name" => "mailman", "description" => _("Mailing lists"), "used" => 0);
     $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE uid = ?", array($cuid));
     if ($db->next_record()) {
       $q['used'] = $db->f("cnt");
     }
     return $q;
   }
-  
+  /* ----------------------------------------------------------------------- */  
+  /* Check existant user */
+  function is_user_exist($email){
+	global $db;
+	$ret = $db->query("SELECT count(*) cnt FROM mailman_account WHERE email = ?;", array($email) );	
+	$db->next_Record();
+	$ret = $db->f('cnt');
+	return $ret > 0;
 
+  }
+  function is_user_exist_login($login){
+	global $db;
+	$ret = $db->query("SELECT count(*) cnt FROM mailman_account WHERE username = ?;", array($login) );	
+	$db->next_Record();
+	$ret = $db->f('cnt');
+	return $ret > 0;
+  }
+  function is_username_use($username){
+	global $db,$cuid;
+	$db->query("SELECT count(*) cnt FROM mailman_account WHERE username = ? and uid = ?;", array($username,intval($cuid)) );
+	$db->next_Record();
+	$ret = $db->f('cnt');
+	return $ret > 0;
+  }
+  function is_email_use($email){
+	global $db,$cuid;
+	$db->query("SELECT count(*) cnt FROM mailman_account WHERE email = ? and uid = ?;", array($email,intval($cuid)) );
+	$db->next_Record();
+	$ret = $db->f('cnt');
+	return $ret > 0;
+  }
+
+  function find_user_django($email,$login){
+	global $msg;
+	//login access
+	$file = "/etc/alternc/my.cnf";
+	if (!$settings = parse_ini_file($file)){ 
+		throw new exception('Unable to open ' . $file . '.');
+	}
+	//pdo connexion
+	$dbname = 'mailman3web';
+	$db = new pdo("mysql:host=".$settings['host'].";dbname=$dbname",$settings['user'],$settings['password']);
+
+	//query
+	$query = $db->prepare("SELECT username, email FROM auth_user WHERE email = ? OR username = ?;");
+	$ok = $query->execute( array($email,$login) );
+	
+	//check
+	if ( $ok ){
+
+		$tmp = $query->fetchAll();
+		if( count($tmp) > 1){
+			return false;
+		}elseif(count($tmp) < 1){
+			return 0;
+		}else{
+			$user['username'] = $tmp[0]['username'];
+			$user['email'] = $tmp[0]['email'];
+			return $user;
+		}
+	}
+  }
+  /* ----------------------------------------------------------------------- */
+  /* CREATE USER DJANGO / Mailman3 */
+  function create_user( $email, $pwd, $login){
+	global $msg,$db,$cuid;
+
+  	$MIN_STRLENG = 8;
+
+	if( $this->is_user_exist($email) ){
+		if( $this->is_username_use($login)  || $this->is_email_use($email) ){
+			$msg->raise("ERROR","mailman",_("The username or email are use yet"));
+			return false;
+		}else{
+			$db->query("INSERT INTO mailman_account(uid, username, email, mailman_action) VALUE (?,?,?,'OK');", array(intval($cuid),$login,$email));
+			return true;
+		}
+	}else{
+		if( $this->is_user_exist_login($login) ){
+			$msg->raise("ERROR","mailman",_("The username are use yet"));
+			return false;
+		}else{
+			$user = $this->find_user_django($email,$login); //ret { 0 , $user[ [username], [email] ] , false }
+
+			if( $user !== false && $user !== 0){//find exactly 1
+				$db->query("INSERT INTO mailman_account(uid, username, email, mailman_action) VALUE (?,?,?,'OK');", 
+				array(intval($cuid),$user['username'],$user['email']));
+				return true;	
+			}elseif($user === false){//find more than 1
+				$msg->raise("ERROR","mailman",_("The username or email are use yet"));
+				return false;
+			}//else find 0
+		}
+	}
+													
+  	if( !preg_match ("/^[0-9A-z]+$/m",$login) ){//juste check if username isn't empty or with space & tab only	
+		$msg->raise("ERROR","mailman",_("The username is empty or undifined"));
+		return false;
+  	}
+
+  	if(strlen($pwd) < $MIN_STRLENG){
+		$msg->raise("ERROR","mailman",_("The password length is too short"));
+		return false;
+  	}
+
+  	if (!filter_var($email,FILTER_VALIDATE_EMAIL)) {
+  		$msg->raise("ERROR","mailman",_("The email you entered is syntaxically incorrect"));
+  		return false;
+  	}
+
+	$ret = $db->query("INSERT INTO mailman_account(uid, username, password, email, mailman_action) VALUE (?,?,?,?,'CREATE');", array(intval($cuid),$login, $pwd,$email));
+
+  	return true;
+  }
+  /* ----------------------------------------------------------------------- */
+  /* REMOVE USER DJANGO */
+	function remove_account($mail){
+		global $db, $cuid;	
+		if( $this->is_email_use($mail) ){
+			$db->query("UPDATE mailman_account SET mailman_action='DELETE' WHERE email= ? and uid= ?;", array( $mail,intval($cuid) ) );
+		}
+	}
+  /* ----------------------------------------------------------------------- */
+  /* USER LIST */
+
+	function get_mailman_accounts(){
+		global $msg,$db,$cuid;
+		
+		$mailman_account = [];
+		$db->query("SELECT username, email FROM mailman_account where uid = ? and mailman_action !='DELETE';", array($cuid) );
+		while($db->next_record()){
+			$user  = $db->f("username");
+			$email = $db->f("email");
+			$mailman_account[ $user ] = $email;	
+		}
+		return $mailman_account;
+	}
+  /* ----------------------------------------------------------------------- */
+  /* Add a domain */
+	
+	function hook_dom_add_domain($id){
+		global $db;
+
+		$mailman_db1	= "mailman3web";
+		$mailman_db2	= "mailman";
+
+		$db->query("select db_servers.* from db_servers join membres on membres.db_server_id=db_servers.id where membres.uid= ?;", array($cuid));
+        	if (!$db->next_record()) {
+            		$msg->raise("ERROR", 'db_user', _("There are no databases in db_servers for this user. Please contact your administrator."));
+            		die();
+        	}
+		
+		$mailman_host	= $db->f('host');
+		$mailman_user	= $db->f('login');
+		$mailman_pwd	= $db->f('password');
+		
+		$db->query("SELECT domaine FROM domaines WHERE id = ?;", array($id) );
+		$db->next_record();
+		$domain = $db->f('domaine');
+
+		$db_mailman = new DB_Sql($mailman_db1,$mailman_host,$mailman_user,$mailman_pwd);
+		$db_mailman->query("INSERT INTO django_mailman3_maildomain (mail_domain,site_id) VALUE(?,1);", array($domain) );
+
+		$db_mailman = new DB_Sql($mailman_db2,$mailman_host,$mailman_user,$mailman_pwd);
+		$db_mailman->query("INSERT INTO domain (mail_host,description,alias_domain) VALUE(?,'','');", array($domain) );
+	}
+  /* ----------------------------------------------------------------------- */
+  /* remove domain */
+	function hook_updatedomains_dns_del($domain){		
+		global $db;
+		exec("/usr/lib/alternc/remove_dom_mailman.php ".$domain['domaine']);
+		$db->query("DELETE FROM mailman WHERE domain = ?", array($domain) );
+	}
 
 } /* Class m_mailman */
 

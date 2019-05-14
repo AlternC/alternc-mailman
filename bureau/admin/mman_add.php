@@ -22,7 +22,6 @@
  Purpose of file: ask for the required values to create a mailing-list
  ----------------------------------------------------------------------
 */
-
 require_once("../class/config.php");
 include_once("head.php");
 
@@ -32,36 +31,77 @@ if (!$quota->cancreate("mailman")) {
 }
 
 ?>
+
 <h3><?php __("Mailing lists"); ?></h3>
 <hr id="topbar"/>
 <br />
+
 <?php
     echo $msg->msg_html_all();
 
 if (!isset($domain)) $domain="";
 ?>
+
 <form method="post" action="mman_doadd.php" name="main" id="main" >
 <?php csrf_get(); ?>
+
 <table class="tedit">
-<tr><th><label for="login"><?php __("List's email address"); ?></label></th><td>
-	<input type="text" class="int" id="login" name="login" value="<?php if (isset($login)) ehe($login); ?>" size="20" maxlength="64" /><b>&nbsp;@&nbsp;</b><select class="inl" name="domain"><?php $mailman->select_prefix_list($domain); ?></select>
-</td></tr>
-	<tr><th><label for="owner"><?php __("Email of the list's administrator"); ?> </label></th><td>
-	<input type="text" class="int" id="owner" name="owner" value="<?php  if (isset($owner)) ehe($owner); ?>" size="20" maxlength="64" />
-	</td></tr>
-<tr><th><label for="pass"><?php __("List password"); ?> </label></th><td>
-	<input type="password" class="int" id="pass" name="pass" value="<?php  if (isset($pass)) ehe($pass); ?>" size="20" maxlength="64" />
-        <?php display_div_generate_password(DEFAULT_PASS_SIZE,"#pass","#pass2"); ?>
-	</td></tr>
-<tr><th><label for="pass2"><?php __("List password (confirm)"); ?> </label></th><td>
-	<input type="password" class="int" id="pass2" name="pass2" value="<?php  if (isset($pass2)) ehe($pass2); ?>" size="20" maxlength="64" />
-	</td></tr>
-<tr class="trbtn"><td colspan="2">
-  <input type="submit" class="inb" name="submit" value="<?php __("Create the list."); ?>"/>
-  <input type="button" class="inb" name="cancel" value="<?php __("Cancel"); ?>" onclick="document.location='mman_list.php'"/>
-</td></tr>
+<tr>
+	<th>
+		<label for="login"><?php __("List's email address"); ?></label>
+	</th>
+	<td>
+		<input type="text" class="int" id="login" name="login" value="<?php if (isset($login)) ehe($login);?>" size="20" maxlength="64"/>		<b>&nbsp;@&nbsp;</b>
+		<select class="inl" name="domain"><?php $mailman->select_prefix_list($domain); ?></select>
+	</td>
+</tr>
+<tr>
+	<th>
+		<label for="owner"><?php __("Email of the list's administrator"); ?> </label>
+	</th>
+	<td>
+		<?php $list = $mailman->get_mailman_accounts();
+			if( !empty($list) ) {
+		?>
+		<select class="inl" id="owner" name="owner">
+			<?php	foreach($list as $name => $email){ ?>
+				<option value="<?php echo $email ?>"><?php echo "$name | $email" ; ?></option>
+			<?php } ?>
+		</select>
+		<?php }else{ ?>	
+		<!--<input type="text" class="int" id="owner" name="owner" value="<?php  if (isset($owner)) ehe($owner); ?>" size="20" maxlength="64" />-->
+		<?php echo __("CREATE AN MAILMAN ACCOUNT");?>
+		<?php } ?>
+		<a class="ina" href="/mman_create_user.php">+</a>
+	</td>
+</tr>
+<tr style="display :none">
+	<th>
+		<label for="pass"><?php __("List password"); ?> </label>
+	</th>
+	<td>
+		<input type="password" class="int" id="pass" name="pass" value="<?php  if (isset($pass)) ehe($pass); ?>aaaa" size="20" maxlength="64" />
+        	<?php display_div_generate_password(DEFAULT_PASS_SIZE,"#pass","#pass2"); ?>
+	</td>
+</tr>
+<tr style="display :none">
+	<th>
+		<label for="pass2"><?php __("List password (confirm)"); ?> </label>
+	</th>
+	<td>
+		<input type="password" class="int" id="pass2" name="pass2" value="<?php  if (isset($pass2)) ehe($pass2); ?>aaaa" size="20" maxlength="64" />
+	</td>
+</tr>
+<tr class="trbtn">
+	<td colspan="2">
+  		<input type="submit" class="inb" name="submit" value="<?php __("Create the list."); ?>"/>
+  		<input type="button" class="inb" name="cancel" value="<?php __("Cancel"); ?>" onclick="document.location='mman_list.php'"/>
+	</td>
+</tr>
 </table>
 </form>
+
+<?php $mailman->get_mailman_accounts(); ?>
 
 <script type="text/javascript">
   $(document).ready(function() {

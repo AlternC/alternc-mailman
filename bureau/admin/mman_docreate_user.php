@@ -22,28 +22,21 @@
  Purpose of file: Create a new mailing-list and ask for the values.
  ----------------------------------------------------------------------
 */
-
 require_once("../class/config.php");
 
 $fields = array (
-	"domain"     => array ("request", "string", ""),
-	"login"     => array ("request", "string", ""),
-	"owner"     => array ("request", "string", ""),
+	"login"		=> array ("request", "string", ""),
+	"mail"		=> array ("request", "string", ""),
+	"pass"		=> array ("request", "string", ""),
 );
 getFields($fields);
 
-if (preg_match('/^\w+$/', $login) === 0) {
-    $msg->raise("ERROR","mailman",_('Invalid list name (only letters, digits and underscore).'));
-	include("mman_add.php");
-	exit();
-}
-
-$r=$mailman->add_lst($domain,$login,$owner);
+$r=$mailman->create_user($mail,$pass,$login);//email password username
 if (!$r) {
-	include("mman_add.php");
+	include("mman_create_user.php");
 	exit();
 } else {
-	$msg->raise("INFO","mailman",_("The mailing list has been successfully created."));
+	$msg->raise("INFO","mailman",_("The mailman user has been successfully created."));
 	include("mman_list.php");
 	exit();
 }

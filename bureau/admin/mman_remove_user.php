@@ -19,32 +19,23 @@
 
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ----------------------------------------------------------------------
- Purpose of file: Create a new mailing-list and ask for the values.
+ Purpose of file: Show the Mailing-Lists owned by the current user
  ----------------------------------------------------------------------
 */
 
 require_once("../class/config.php");
+include_once("head.php");
 
 $fields = array (
-	"domain"     => array ("request", "string", ""),
-	"login"     => array ("request", "string", ""),
-	"owner"     => array ("request", "string", ""),
+	"mail"	=> array ("request", "string", ""),
 );
+
 getFields($fields);
 
-if (preg_match('/^\w+$/', $login) === 0) {
-    $msg->raise("ERROR","mailman",_('Invalid list name (only letters, digits and underscore).'));
-	include("mman_add.php");
-	exit();
-}
+exec("python /usr/lib/alternc/django_remove_user.py -e $mail",$array,$ret);//exec("/usr/share/mailman3-web/django_remove_user.py -e $mail",$array,$ret);
+var_dump($array);
+var_dump($ret);
 
-$r=$mailman->add_lst($domain,$login,$owner);
-if (!$r) {
-	include("mman_add.php");
-	exit();
-} else {
-	$msg->raise("INFO","mailman",_("The mailing list has been successfully created."));
-	include("mman_list.php");
-	exit();
-}
-?>
+include('mman_list.php');
+//header("Location:/mman_list.php");
+

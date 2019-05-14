@@ -34,7 +34,7 @@ $mman_status=array(
 
 
 // If there is no installed domain, let's failed definitely !
-if (count($mailman->prefix_list())==0) {
+if ( count($mailman->prefix_list()) == 0 ) {
     $msg->raise("ALERT","mailman",_("No domain is installed on your account, you cannot create any mailing list!"));
 ?>
 <h3><?php __("Mailing lists"); ?></h3>
@@ -46,6 +46,11 @@ if (count($mailman->prefix_list())==0) {
   exit();
 }
 
+if(count($mailman->get_mailman_accounts()) == 0){
+	require_once("mman_create_user.php");
+	exit();
+}
+
 if(!$r=$mailman->enum_ml()) {
   if ($quota->cancreate("mailman")) {
     require_once("mman_add.php"); 
@@ -55,7 +60,9 @@ if(!$r=$mailman->enum_ml()) {
     exit();
   }
 } else {
-	?>
+
+?>
+
 <h3><?php __("Mailing lists"); ?></h3>
 <hr id="topbar"/>
 <br />
@@ -65,65 +72,108 @@ if(!$r=$mailman->enum_ml()) {
 if ($quota->cancreate("mailman")) {
 ?>
 <p>
-<span class="ina"><a href="mman_add.php"><?php __("Create a list"); ?></a></span>
+	<!-- HREF(- /mailman3/accounts/signup/?next=/mailman3/hyperkitty/ -) -->
+	<span class="ina"><a href="mman_create_user.php"><?php __("Create a Mailman account"); ?></a></span>
+	<span class="ina"><a href="/mailman3/accounts/password/change/">
+	
+	<?php __("Change Mailman password account"); ?></a></span>
 </p>
-	<?php
-}
-?>
+
+<p>
+	<?php $list = $mailman->get_mailman_accounts();?>
+	<form method="post" action="mman_remove_user.php">
+	<?php csrf_get(); ?>	
+		<select name="mail" id="mail" class="inl">
+			<?php foreach($list as $name => $email){ ?>
+				<option value="<?php echo $email ?>"><?php echo "$name | $email" ; ?></option>
+			<?php } ?>
+		</select> 	
+		<input class="inb delete" type="submit" value="remove"/>
+	</form>
+</p>
+
+<p>
+	<span class="ina"><a href="mman_add.php"><?php __("Create a list"); ?></a></span>
+</p>
+<?php } ?>
 
 
-	<form method="post" action="mman_edit.php">
+<form method="post" action="mman_edit.php">
 <?php csrf_get(); ?>
-	<table class="tlist">
-	<tr><th><?php __("Select"); ?></th><th><?php __("List name"); ?></th><th><?php __("List Status"); ?><th colspan="3">&nbsp;</th></tr>
-	<?php
-//	$list_base_url = variable_get('mailman_url',      $L_FQDN,'URL used to build the list URL, must match DEFAULT_URL_HOST in mm_cfg.py');
+<table class="tlist">
+<tr>
+	<th><?php __("Select"); ?></th>
+	<th><?php __("List name"); ?></th>
+	<th><?php __("List owner"); ?></th>
+	<th><?php __("List Status"); ?><th colspan="3">&nbsp;</th>
+</tr>
+
+<?php
+//	$list_base_url = variable_get('mailman_url', $L_FQDN,'URL used to build the list URL, must match DEFAULT_URL_HOST in mm_cfg.py');
 // now using "url" in the mailman table
-	reset($r);
-	$col=1;
-	while (list($key,$val)=each($r)) {
-		$col=3-$col;
-		?>
-		<tr class="lst<?php echo $col; ?>">
-		   <?php if ($val["mailman_action"]=="DELETE" || $val["mailman_action"]=="DELETING")  { ?>
-		   <td></td>
-	    <td><?php echo $val["list"]."@".$val["domain"] ?></td>
-	    <td colspan="4"><?php __("List is pending deletion, you can't do anything on it"); ?></td>
-		   <?php } else { ?>
-		   <td align="center" rowspan="2"><?php if ($val["list"]!="mailman") { ?><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>" id="d_<?php echo $val["id"]; ?>" /><?php } ?></td>
-		   <td rowspan="2"><label for="d_<?php echo $val["id"]; ?>"><?php echo $val["list"]."@".$val["domain"] ?></label></td>
-	   <td rowspan="2"><?php if (isset($val["mailman_action"]) && $val["mailman_action"]!="OK") { ?>
-		     <?php echo _($mman_status[$val["mailman_action"]]); ?>
-<?php } elseif (!empty($val["mailman_result"])) { ?>
-	  <?php echo $val["mailman_result"]; /* strings present for gettext in m_mailman */ ?>
-<?php } else { echo "OK";}
-      
-      ?></td>
-			<td><div class="ina"><a target=_blank href="http://<?php echo $val["url"]; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a></div></td>
-			<td><div class="ina"><a target=_blank href="http://<?php echo $val["url"]; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a></div></td>
-<!--		    <td>&nbsp;</td> -->
-</tr><tr class="lst<?php echo $col; ?>">
-			<td><div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div></td>
+reset($r);
+$col=1;
+while (list($key,$val)=each($r)) {
+	$col=3-$col;
+?>
+<tr class="lst<?php echo $col; ?>">
+	 <?php if ($val["mailman_action"]=="DELETE" || $val["mailman_action"]=="DELETING")  { ?> <td></td>
+	<td><?php echo $val["list"]."@".$val["domain"] ?></td>
+	<td colspan="4"><?php __("List is pending deletion, you can't do anything on it"); ?></td>
+	 <?php } else { ?>
+	<td align="center" rowspan="2"><?php if ($val["list"]!="mailman") { ?>
+		<input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>" id="d_<?php echo $val["id"]; ?>" />
+	 <?php } ?>
+	</td>
+	<td rowspan="2">
+		<label for="d_<?php echo $val["id"]; ?>"><?php echo $val["list"]."@".$val["domain"] ?></label>
+	</td>
+	<td rowspan="2">
+		<?php echo $val['owner'] ?>
+	</td>
+	<td rowspan="2"><?php if (isset($val["mailman_action"]) && $val["mailman_action"]!="OK") { ?>
+		<?php echo _($mman_status[$val["mailman_action"]]); ?>
+		<?php } elseif (!empty($val["mailman_result"])) { ?>
+	  	<?php echo $val["mailman_result"]; /* strings present for gettext in m_mailman */ ?>
+		<?php } else { echo "OK";}?>
+	</td>
+	<td>
+		<div class="ina">
+			<a target=_blank href="http://<?php echo $val["url"]; ?>
+				<?php echo "/mailman3/postorius/lists/". $val["name"].".".$val["domain"]."/\">" ?>
+				<?php __("List admin"); ?>
+			</a>
+		</div>
+	</td>
+	<td>
+		<div class="ina">
+			<a target=_blank href="http://<?php echo $val["url"]; ?>
+				<?php echo "/mailman3/postorius/lists/". $val["name"].".".$val["domain"]."/held_messages\">" ?>
+				<?php __("Pending messages"); ?>
+			</a>
+		</div>
+	</td>
+<!-- <td>&nbsp;</td> -->
+</tr>
+<tr class="lst<?php echo $col; ?>">
+	<td>
+		<!-- <div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div></td>
 			<td><div class="ina"><a href="mman_url.php?id=<?php echo $val["id"] ?>"><?php __("Change url"); ?></a></div></td>
 	      <?php } ?>
-		</tr>
-		<?php
-		}
-	?>
-	</table>
-<br />
-      <select name="action" id="action" class="inl">
-       <option value=""><?php __("-- Choose an action --"); ?></option>
-                   <?php $action=array("DELETE" => "DELETE","REGENERATE"=>"REGENERATE"); eoption($action,"1");
-        ?></select>
+		-->
+</tr>
+		<?php } ?>
+</table>
+<br/>
+
+<select name="action" id="action" class="inl">
+	<option value=""><?php __("-- Choose an action --"); ?></option>
+        <?php $action=array("DELETE" => "DELETE","REGENERATE"=>"REGENERATE"); eoption($action,"1");?>
+</select>
 
 <input type="submit" class="inb" name="submit" value="<?php __("Validate"); ?>" />
 </form>
 
-	<?php
-	    }
-
-?>
-
+<?php } ?>
 
 <?php include_once("foot.php"); ?>

@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        Mailman 3 suite - HackMD
+    </title>
+    <link rel="icon" type="image/png" href="https://hackmd.io/favicon.png">
+    <link rel="apple-touch-icon" href="https://hackmd.io/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" integrity="sha256-QiWfLIsCT02Sdwkogf6YMiQlj4NE84MKkzEMkZnMGdg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i|Source+Code+Pro:300,400,500|Source+Sans+Pro:300,300i,400,400i,600,600i|Source+Serif+Pro&subset=latin-ext);.hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}.hljs-comment,.hljs-meta{color:#969896}.hljs-emphasis,.hljs-quote,.hljs-string,.hljs-strong,.hljs-template-variable,.hljs-variable{color:#df5000}.hljs-keyword,.hljs-selector-tag,.hljs-type{color:#a71d5d}.hljs-attribute,.hljs-bullet,.hljs-literal,.hljs-number,.hljs-symbol{color:#0086b3}.hljs-built_in,.hljs-builtin-name{color:#005cc5}.hljs-name,.hljs-section{color:#63a35c}.hljs-tag{color:#333}.hljs-attr,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-selector-pseudo,.hljs-title{color:#795da3}.hljs-addition{color:#55a532;background-color:#eaffea}.hljs-deletion{color:#bd2c00;background-color:#ffecec}.hljs-link{text-decoration:underline}.markdown-body{font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{font-size:16px;padding:0 1em;color:#777;border-left:.25em solid #ddd}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#000;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\00a0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.markdown-body kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid #ccc;border-bottom-color:#bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0 none}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif;padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important}.markdown-body .emoji{vertical-align:top}.markdown-body pre{border:inherit!important}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.markdown-body code[data-gist-id]{background:none;padding:0}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram{text-align:center;background-color:inherit;border-radius:0;white-space:inherit}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg{max-width:100%;height:100%}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p,.markdown-body .alert>ul{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body .mark,.markdown-body mark{background-color:#fff1a7}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.MJX_Assistive_MathML{display:none}.ui-infobar{position:relative;z-index:2;max-width:760px;margin:25px auto -25px;padding:0 15px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:998}.ui-toc-label{opacity:.3;background-color:#ccc;border:none;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#fff;transition:opacity .2s}.ui-toc-label:focus{opacity:.3;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;transition:opacity .2s}.ui-toc-dropdown{margin-top:23px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child > ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}.ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}.markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}.ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}.markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}.ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:#999}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:3px;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:cover}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}.ui-infobar>small>span{line-height:22px}.ui-infobar>small .dropdown{display:inline-block}.ui-infobar>small .dropdown a:focus,.ui-infobar>small .dropdown a:hover{text-decoration:none}.unselectable{-webkit-user-select:none;-o-user-select:none;user-select:none}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;font-family:Source Sans Pro,Helvetica,Arial,sans-serif;letter-spacing:.025em}.focus,:focus{outline:none!important}::-moz-focus-inner{border:0!important}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid comment-enabled"><h1 id="Mailman-3-suite" style=""><a class="anchor hidden-xs" href="#Mailman-3-suite" title="Mailman-3-suite"><span class="octicon octicon-link"></span></a>Mailman 3 suite</h1><h2 id="Table-des-matières" style=""><a class="anchor hidden-xs" href="#Table-des-matières" title="Table-des-matières"><span class="octicon octicon-link"></span></a>Table des matières</h2><ol>
+<li><a href="#Environnement">Environnement</a></li>
+<li><a href="#Architecture">Architecture</a></li>
+<li><a href="#Les-bases-de-don%C3%A9es">Les bases de donées</a>
+<ul>
+<li><a href="#mailman3-webdb">mailman3-web.db</a></li>
+<li><a href="#mailman3db">mailman3.db</a></li>
+</ul>
+</li>
+<li><a href="#AlternC">AlternC</a></li>
+<li><a href="#Postfix">Postfix</a></li>
+<li><a href="#Probl%C3%A8me">Problème</a></li>
+</ol><h2 id="Environnement" style=""><a class="anchor hidden-xs" href="#Environnement" title="Environnement"><span class="octicon octicon-link"></span></a>Environnement</h2><ul>
+<li>Distribution: Debian</li>
+<li>package-version: buster (testing)</li>
+</ul><h2 id="Architecture" style=""><a class="anchor hidden-xs" href="#Architecture" title="Architecture"><span class="octicon octicon-link"></span></a>Architecture</h2><pre class="mermaid" data-processed="true"><svg id="mermaid-1557822987987" width="100%" xmlns="http://www.w3.org/2000/svg" style="max-width: 761.2999725341797px;" viewBox="0 0 761.2999725341797 236.39999389648438"><style>#mermaid-1557822987987 .label{font-family:trebuchet ms,verdana,arial;color:#333}#mermaid-1557822987987 .node circle,#mermaid-1557822987987 .node ellipse,#mermaid-1557822987987 .node polygon,#mermaid-1557822987987 .node rect{fill:#ececff;stroke:#9370db;stroke-width:1px}#mermaid-1557822987987 .node.clickable{cursor:pointer}#mermaid-1557822987987 .arrowheadPath{fill:#333}#mermaid-1557822987987 .edgePath .path{stroke:#333;stroke-width:1.5px}#mermaid-1557822987987 .edgeLabel{background-color:#e8e8e8}#mermaid-1557822987987 .cluster rect{fill:#ffffde!important;stroke:#aa3!important;stroke-width:1px!important}#mermaid-1557822987987 .cluster text{fill:#333}#mermaid-1557822987987 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:trebuchet ms,verdana,arial;font-size:12px;background:#ffffde;border:1px solid #aa3;border-radius:2px;pointer-events:none;z-index:100}#mermaid-1557822987987 .actor{stroke:#ccf;fill:#ececff}#mermaid-1557822987987 text.actor{fill:#000;stroke:none}#mermaid-1557822987987 .actor-line{stroke:grey}#mermaid-1557822987987 .messageLine0{marker-end:"url(#arrowhead)"}#mermaid-1557822987987 .messageLine0,#mermaid-1557822987987 .messageLine1{stroke-width:1.5;stroke-dasharray:"2 2";stroke:#333}#mermaid-1557822987987 #arrowhead{fill:#333}#mermaid-1557822987987 #crosshead path{fill:#333!important;stroke:#333!important}#mermaid-1557822987987 .messageText{fill:#333;stroke:none}#mermaid-1557822987987 .labelBox{stroke:#ccf;fill:#ececff}#mermaid-1557822987987 .labelText,#mermaid-1557822987987 .loopText{fill:#000;stroke:none}#mermaid-1557822987987 .loopLine{stroke-width:2;stroke-dasharray:"2 2";marker-end:"url(#arrowhead)";stroke:#ccf}#mermaid-1557822987987 .note{stroke:#aa3;fill:#fff5ad}#mermaid-1557822987987 .noteText{fill:#000;stroke:none;font-family:trebuchet ms,verdana,arial;font-size:14px}#mermaid-1557822987987 .section{stroke:none;opacity:.2}#mermaid-1557822987987 .section0{fill:rgba(102,102,255,.49)}#mermaid-1557822987987 .section2{fill:#fff400}#mermaid-1557822987987 .section1,#mermaid-1557822987987 .section3{fill:#fff;opacity:.2}#mermaid-1557822987987 .sectionTitle0,#mermaid-1557822987987 .sectionTitle1,#mermaid-1557822987987 .sectionTitle2,#mermaid-1557822987987 .sectionTitle3{fill:#333}#mermaid-1557822987987 .sectionTitle{text-anchor:start;font-size:11px;text-height:14px}#mermaid-1557822987987 .grid .tick{stroke:#d3d3d3;opacity:.3;shape-rendering:crispEdges}#mermaid-1557822987987 .grid path{stroke-width:0}#mermaid-1557822987987 .today{fill:none;stroke:red;stroke-width:2px}#mermaid-1557822987987 .task{stroke-width:2}#mermaid-1557822987987 .taskText{text-anchor:middle;font-size:11px}#mermaid-1557822987987 .taskTextOutsideRight{fill:#000;text-anchor:start;font-size:11px}#mermaid-1557822987987 .taskTextOutsideLeft{fill:#000;text-anchor:end;font-size:11px}#mermaid-1557822987987 .taskText0,#mermaid-1557822987987 .taskText1,#mermaid-1557822987987 .taskText2,#mermaid-1557822987987 .taskText3{fill:#fff}#mermaid-1557822987987 .task0,#mermaid-1557822987987 .task1,#mermaid-1557822987987 .task2,#mermaid-1557822987987 .task3{fill:#8a90dd;stroke:#534fbc}#mermaid-1557822987987 .taskTextOutside0,#mermaid-1557822987987 .taskTextOutside1,#mermaid-1557822987987 .taskTextOutside2,#mermaid-1557822987987 .taskTextOutside3{fill:#000}#mermaid-1557822987987 .active0,#mermaid-1557822987987 .active1,#mermaid-1557822987987 .active2,#mermaid-1557822987987 .active3{fill:#bfc7ff;stroke:#534fbc}#mermaid-1557822987987 .activeText0,#mermaid-1557822987987 .activeText1,#mermaid-1557822987987 .activeText2,#mermaid-1557822987987 .activeText3{fill:#000!important}#mermaid-1557822987987 .done0,#mermaid-1557822987987 .done1,#mermaid-1557822987987 .done2,#mermaid-1557822987987 .done3{stroke:grey;fill:#d3d3d3;stroke-width:2}#mermaid-1557822987987 .doneText0,#mermaid-1557822987987 .doneText1,#mermaid-1557822987987 .doneText2,#mermaid-1557822987987 .doneText3{fill:#000!important}#mermaid-1557822987987 .crit0,#mermaid-1557822987987 .crit1,#mermaid-1557822987987 .crit2,#mermaid-1557822987987 .crit3{stroke:#f88;fill:red;stroke-width:2}#mermaid-1557822987987 .activeCrit0,#mermaid-1557822987987 .activeCrit1,#mermaid-1557822987987 .activeCrit2,#mermaid-1557822987987 .activeCrit3{stroke:#f88;fill:#bfc7ff;stroke-width:2}#mermaid-1557822987987 .doneCrit0,#mermaid-1557822987987 .doneCrit1,#mermaid-1557822987987 .doneCrit2,#mermaid-1557822987987 .doneCrit3{stroke:#f88;fill:#d3d3d3;stroke-width:2;cursor:pointer;shape-rendering:crispEdges}#mermaid-1557822987987 .activeCritText0,#mermaid-1557822987987 .activeCritText1,#mermaid-1557822987987 .activeCritText2,#mermaid-1557822987987 .activeCritText3,#mermaid-1557822987987 .doneCritText0,#mermaid-1557822987987 .doneCritText1,#mermaid-1557822987987 .doneCritText2,#mermaid-1557822987987 .doneCritText3{fill:#000!important}#mermaid-1557822987987 .titleText{text-anchor:middle;font-size:18px;fill:#000}#mermaid-1557822987987 g.classGroup text{fill:#9370db;stroke:none;font-family:trebuchet ms,verdana,arial;font-size:10px}#mermaid-1557822987987 g.classGroup rect{fill:#ececff;stroke:#9370db}#mermaid-1557822987987 g.classGroup line{stroke:#9370db;stroke-width:1}#mermaid-1557822987987 .classLabel .box{stroke:none;stroke-width:0;fill:#ececff;opacity:.5}#mermaid-1557822987987 .classLabel .label{fill:#9370db;font-size:10px}#mermaid-1557822987987 .relation{stroke:#9370db;stroke-width:1;fill:none}#mermaid-1557822987987 #compositionEnd,#mermaid-1557822987987 #compositionStart{fill:#9370db;stroke:#9370db;stroke-width:1}#mermaid-1557822987987 #aggregationEnd,#mermaid-1557822987987 #aggregationStart{fill:#ececff;stroke:#9370db;stroke-width:1}#mermaid-1557822987987 #dependencyEnd,#mermaid-1557822987987 #dependencyStart,#mermaid-1557822987987 #extensionEnd,#mermaid-1557822987987 #extensionStart{fill:#9370db;stroke:#9370db;stroke-width:1}#mermaid-1557822987987 .branch-label,#mermaid-1557822987987 .commit-id,#mermaid-1557822987987 .commit-msg{fill:#d3d3d3;color:#d3d3d3}</style><style>#mermaid-1557822987987 {
+    color: rgb(51, 51, 51);
+    font: ;
+  }</style><g transform="translate(-12, -12)"><g class="output"><g class="clusters"><g class="cluster" id="subGraph2" style="opacity: 1;" transform="translate(653.3499755859375,130.1999969482422)"><rect width="223.89999389648438" height="100.19999694824219" x="-111.94999694824219" y="-50.099998474121094"></rect><g class="label"><g transform="translate(0,0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"></div></foreignObject></g></g><text x="0" y="-36.099998474121094" fill="black" stroke="none" id="mermaid-1557822987987Text" style="text-anchor: middle;">mailman3</text></g><g class="cluster" id="subGraph1" style="opacity: 1;" transform="translate(185.6999969482422,130.1999969482422)"><rect width="331.3999938964844" height="220.39999389648438" x="-165.6999969482422" y="-110.19999694824219"></rect><g class="label"><g transform="translate(0,0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"></div></foreignObject></g></g><text x="0" y="-96.19999694824219" fill="black" stroke="none" id="mermaid-1557822987987Text" style="text-anchor: middle;">mailman3-web</text></g><g class="cluster" id="subGraph0" style="opacity: 1;" transform="translate(264.6499938964844,130.1999969482422)"><rect width="123.5" height="180.39999389648438" x="-61.75" y="-90.19999694824219"></rect><g class="label"><g transform="translate(0,0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"></div></foreignObject></g></g><text x="0" y="-76.19999694824219" fill="black" stroke="none" id="mermaid-1557822987987Text" style="text-anchor: middle;">django</text></g></g><g class="edgePaths"><g class="edgePath" style="opacity: 1;"><path class="path" d="M128.67929567177416,115.0999984741211L177.89999389648438,90.0999984741211L202.89999389648438,90.0999984741211L229.5749969482422,90.0999984741211" marker-end="url(#arrowhead79)" style="fill:none"></path><defs><marker id="arrowhead79" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 0 0 L 0 0 z" style="fill: #333"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M128.67929567177416,145.29999542236328L177.89999389648438,170.29999542236328L202.89999389648438,170.29999542236328L227.89999389648438,170.29999542236328" marker-end="url(#arrowhead80)" style="fill:none"></path><defs><marker id="arrowhead80" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 0 0 L 0 0 z" style="fill: #333"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M299.72499084472656,90.0999984741211L326.3999938964844,90.0999984741211L351.3999938964844,90.0999984741211L376.3999938964844,90.0999984741211L418.289638118593,114.31035348907287" marker-end="url(#arrowhead81)" style="fill:none"></path><defs><marker id="arrowhead81" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M301.3999938964844,170.29999542236328L326.3999938964844,170.29999542236328L351.3999938964844,170.29999542236328L376.3999938964844,170.29999542236328L418.28963714846134,147.08964096315842" marker-end="url(#arrowhead82)" style="fill:none"></path><defs><marker id="arrowhead82" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M609.7999725341797,130.1999969482422L634.7999725341797,130.1999969482422L659.7999725341797,130.1999969482422" marker-end="url(#arrowhead83)" style="fill:none"></path><defs><marker id="arrowhead83" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 0 0 L 0 0 z" style="fill: #333"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M491.8999794006348,130.6999969482422L516.3999786376953,130.1999969482422L541.3999786376953,130.1999969482422L566.3999786376953,130.1999969482422" marker-end="url(#arrowhead84)" style="fill:none"></path><defs><marker id="arrowhead84" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker></defs></g></g><g class="edgeLabels"><g class="edgeLabel" style="opacity: 1;" transform=""><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" style="opacity: 1;" transform=""><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" style="opacity: 1;" transform=""><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" style="opacity: 1;" transform=""><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" style="opacity: 1;" transform=""><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel" style="opacity: 1;" transform=""><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node" style="opacity: 1;" id="D" transform="translate(588.0999755859375,130.1999969482422)"><rect rx="0" ry="0" x="-21.699996948242188" y="-15.099998474121094" width="43.399993896484375" height="30.199996948242188"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-11.699996948242188,-5.099998474121094)"><foreignObject width="23.399993896484375" height="10.199996948242188"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">core</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="E" transform="translate(700.0499725341797,130.1999969482422)"><rect rx="5" ry="5" x="-40.25" y="-15.099998474121094" width="80.5" height="30.199996948242188"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-30.25,-5.099998474121094)"><foreignObject width="60.5" height="10.199996948242188"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">mailman.db</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="F" transform="translate(98.94999694824219,130.1999969482422)"><rect rx="5" ry="5" x="-53.94999694824219" y="-15.099998474121094" width="107.89999389648438" height="30.199996948242188"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-43.94999694824219,-5.099998474121094)"><foreignObject width="87.89999389648438" height="10.199996948242188"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">mailman3web.db</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="A" transform="translate(264.6499938964844,90.0999984741211)"><rect rx="0" ry="0" x="-35.07499694824219" y="-15.099998474121094" width="70.14999389648438" height="30.199996948242188"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-25.074996948242188,-5.099998474121094)"><foreignObject width="50.149993896484375" height="10.199996948242188"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Postorius</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="B" transform="translate(264.6499938964844,170.29999542236328)"><rect rx="0" ry="0" x="-36.75" y="-15.099998474121094" width="73.5" height="30.199996948242188"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-26.75,-5.099998474121094)"><foreignObject width="53.5" height="10.199996948242188"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">Hyperkitty</div></foreignObject></g></g></g><g class="node" style="opacity: 1;" id="C" transform="translate(446.39998626708984,130.1999969482422)"><polygon points="44.999993133544926,0 89.99998626708985,-44.999993133544926 44.999993133544926,-89.99998626708985 0,-44.999993133544926" rx="5" ry="5" transform="translate(-44.999993133544926,44.999993133544926)"></polygon><g class="label" transform="translate(0,0)"><g transform="translate(-24.899993896484375,-5.099998474121094)"><foreignObject width="49.79998779296875" height="10.199996948242188"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">REST API</div></foreignObject></g></g></g></g></g></g></svg></pre><p><a href="https://mailmanclient.readthedocs.io/en/latest/src/mailmanclient/docs/apiref.html" target="_blank" rel="noopener">API</a></p><h2 id="Les-bases-de-donées" style=""><a class="anchor hidden-xs" href="#Les-bases-de-donées" title="Les-bases-de-donées"><span class="octicon octicon-link"></span></a>Les bases de donées</h2><p><a href="#Table-des-mati%C3%A8res">[retour en haut]</a></p><h3 id="mailman3-webdb" style=""><a class="anchor hidden-xs" href="#mailman3-webdb" title="mailman3-webdb"><span class="octicon octicon-link"></span></a>mailman3-web.db</h3><p>voici à quoi recemeble la base de donnée web.</p><h4 id="Les-tables"><a class="anchor hidden-xs" href="#Les-tables" title="Les-tables"><span class="octicon octicon-link"></span></a>Les tables:</h4><ul>
+<li><a href="#django_migrations">django_migrations</a></li>
+<li><a href="#auth_group">auth_group</a></li>
+<li><a href="#auth_group_permissions">auth_group_permissions</a></li>
+<li><a href="#auth_user_groups">auth_user_groups</a></li>
+<li><a href="#auth_user_user_permissions">auth_user_user_permissions</a></li>
+<li><a href="#account_emailconfirmation">account_emailconfirmation</a></li>
+<li><a href="#account_emailaddress">account_emailaddress</a></li>
+<li><a href="#django_admin_log">django_admin_log</a></li>
+<li><a href="#django_content_type">django_content_type</a></li>
+<li><a href="#auth_permission">auth_permission</a></li>
+<li><a href="#auth_user">auth_user</a></li>
+<li><a href="#django_mailman3_profile">django_mailman3_profile</a></li>
+<li><a href="#django_mailman3_maildomain">django_mailman3_maildomain</a></li>
+<li><a href="#django_q_task">django_q_task</a></li>
+<li><a href="#django_q_ormq">django_q_ormq</a></li>
+<li><a href="#django_q_schedule">django_q_schedule</a></li>
+<li><a href="#socialaccount_socialapp_sites">socialaccount_socialapp_sites</a></li>
+<li><a href="#socialaccount_socialtoken">socialaccount_socialtoken</a></li>
+<li><a href="#socialaccount_socialapp">socialaccount_socialapp</a></li>
+<li><a href="#socialaccount_socialaccount">socialaccount_socialaccount</a></li>
+<li><a href="#hyperkitty_vote">hyperkitty_vote</a></li>
+<li><a href="#hyperkitty_tagging">hyperkitty_tagging</a></li>
+<li><a href="#hyperkitty_tag">hyperkitty_tag</a></li>
+<li><a href="#hyperkitty_lastview">hyperkitty_lastview</a></li>
+<li><a href="#hyperkitty_favorite">hyperkitty_favorite</a></li>
+<li><a href="#hyperkitty_profile">hyperkitty_profile</a></li>
+<li><a href="#hyperkitty_sender">hyperkitty_sender</a></li>
+<li><a href="#hyperkitty_thread">hyperkitty_thread</a></li>
+<li><a href="#hyperkitty_email">hyperkitty_email</a></li>
+<li><a href="#hyperkitty_attachment">hyperkitty_attachment</a></li>
+<li><a href="#hyperkitty_threadcategory">hyperkitty_threadcategory</a></li>
+<li><a href="#hyperkitty_mailinglist">hyperkitty_mailinglist</a></li>
+<li><a href="#postorius_emailtemplate">postorius_emailtemplate</a></li>
+<li><a href="#django_session">django_session</a></li>
+<li><a href="#django_site">django_site</a></li>
+<li><a href="#socialaccount_openidnonce">socialaccount_openidnonce</a></li>
+<li><a href="#socialaccount_openidstore">socialaccount_openidstore</a></li>
+</ul><h4 id="Les-donées"><a class="anchor hidden-xs" href="#Les-donées" title="Les-donées"><span class="octicon octicon-link"></span></a>Les donées</h4><h5 id="django_migrations"><a class="anchor hidden-xs" href="#django_migrations" title="django_migrations"><span class="octicon octicon-link"></span></a>django_migrations</h5><pre><code> id = 1
+app = contenttypes
+</code></pre><p>name = 0001_initial<br>
+applied = 2019-03-27 15:32:17.426709</p><pre><code> id = 2
+app = auth
+</code></pre><p>name = 0001_initial<br>
+applied = 2019-03-27 15:32:17.518742</p><pre><code> id = 3
+app = account
+</code></pre><p>name = 0001_initial<br>
+applied = 2019-03-27 15:32:17.595567</p><pre><code> id = 4
+app = account
+</code></pre><p>name = 0002_email_max_length<br>
+applied = 2019-03-27 15:32:17.622060</p><pre><code> id = 5
+app = admin
+</code></pre><p>name = 0001_initial<br>
+applied = 2019-03-27 15:32:17.651332</p><pre><code> id = 6
+app = admin
+</code></pre><p>name = 0002_logentry_remove_auto_add<br>
+applied = 2019-03-27 15:32:17.680371</p><pre><code> id = 7
+app = contenttypes
+</code></pre><p>name = 0002_remove_content_type_name<br>
+applied = 2019-03-27 15:32:17.720190</p><pre><code> id = 8
+app = auth
+</code></pre><p>name = 0002_alter_permission_name_max_length<br>
+applied = 2019-03-27 15:32:17.741911</p><pre><code> id = 9
+app = auth
+</code></pre><p>name = 0003_alter_user_email_max_length<br>
+applied = 2019-03-27 15:32:17.773872</p><pre><code> id = 10
+app = auth
+</code></pre><p>name = 0004_alter_user_username_opts<br>
+applied = 2019-03-27 15:32:17.803078</p><pre><code> id = 11
+app = auth
+</code></pre><p>name = 0005_alter_user_last_login_null<br>
+applied = 2019-03-27 15:32:17.835134</p><pre><code> id = 12
+app = auth
+</code></pre><p>name = 0006_require_contenttypes_0002<br>
+applied = 2019-03-27 15:32:17.843602</p><pre><code> id = 13
+app = auth
+</code></pre><p>name = 0007_alter_validators_add_error_messages<br>
+applied = 2019-03-27 15:32:17.874738</p><pre><code> id = 14
+app = auth
+</code></pre><p>name = 0008_alter_user_username_max_length<br>
+applied = 2019-03-27 15:32:17.899557</p><pre><code> id = 15
+app = sites
+</code></pre><p>name = 0001_initial<br>
+applied = 2019-03-27 15:32:17.918160</p><pre><code> id = 16
+app = django_mailman3
+</code></pre><p>name = 0001_initial<br>
+applied = 2019-03-27 15:32:17.943396</p><pre><code> id = 17
+app = django_mailman3
+</code></pre><p>name = 0002_maildomain<br>
+applied = 2019-03-27 15:32:17.962019</p><pre><code> id = 18
+app = django_q
+</code></pre><p>name = 0001_initial<br>
+applied = 2019-03-27 15:32:17.992503</p><pre><code> id = 19
+app = django_q
+</code></pre><p>name = 0002_auto_20150630_1624<br>
+applied = 2019-03-27 15:32:18.015730</p><pre><code> id = 20
+app = django_q
+</code></pre><p>name = 0003_auto_20150708_1326<br>
+applied = 2019-03-27 15:32:18.039941</p><pre><code> id = 21
+app = django_q
+</code></pre><p>name = 0004_auto_20150710_1043<br>
+applied = 2019-03-27 15:32:18.053497</p><pre><code> id = 22
+app = django_q
+</code></pre><p>name = 0005_auto_20150718_1506<br>
+applied = 2019-03-27 15:32:18.111961</p><pre><code> id = 23
+app = django_q
+</code></pre><p>name = 0006_auto_20150805_1817<br>
+applied = 2019-03-27 15:32:18.154853</p><pre><code> id = 24
+app = django_q
+</code></pre><p>name = 0007_ormq<br>
+applied = 2019-03-27 15:32:18.168932</p><pre><code> id = 25
+app = django_q
+</code></pre><p>name = 0008_auto_20160224_1026<br>
+applied = 2019-03-27 15:32:18.191508</p><pre><code> id = 26
+app = django_q
+</code></pre><p>name = 0009_auto_20171009_0915<br>
+applied = 2019-03-27 15:32:18.221928</p><pre><code> id = 27
+app = socialaccount
+</code></pre><p>name = 0001_initial<br>
+applied = 2019-03-27 15:32:18.343268</p><pre><code> id = 28
+app = socialaccount
+</code></pre><p>name = 0002_token_max_lengths<br>
+applied = 2019-03-27 15:32:18.398283</p><pre><code> id = 29
+app = socialaccount
+</code></pre><p>name = 0003_extra_data_default_dict<br>
+applied = 2019-03-27 15:32:18.427214</p><pre><code> id = 30
+app = hyperkitty
+</code></pre><p>name = 0001_initial<br>
+applied = 2019-03-27 15:32:18.961755</p><pre><code> id = 31
+app = hyperkitty
+</code></pre><p>name = 0002_auto_20150311_0913<br>
+applied = 2019-03-27 15:32:19.001556</p><pre><code> id = 32
+app = hyperkitty
+</code></pre><p>name = 0003_thread_starting_email<br>
+applied = 2019-03-27 15:32:19.090866</p><pre><code> id = 33
+app = hyperkitty
+</code></pre><p>name = 0004_archived_date_and_subject<br>
+applied = 2019-03-27 15:32:19.146714</p><pre><code> id = 34
+app = hyperkitty
+</code></pre><p>name = 0005_MailingList_list_id<br>
+applied = 2019-03-27 15:32:19.209029</p><pre><code> id = 35
+app = hyperkitty
+</code></pre><p>name = 0006_thread_on_delete<br>
+applied = 2019-03-27 15:32:19.256820</p><pre><code> id = 36
+app = hyperkitty
+</code></pre><p>name = 0007_allauth_20160808_1604<br>
+applied = 2019-03-27 15:32:19.341729</p><pre><code> id = 37
+app = hyperkitty
+</code></pre><p>name = 0008_django_mailman3_profile<br>
+applied = 2019-03-27 15:32:19.422666</p><pre><code> id = 38
+app = hyperkitty
+</code></pre><p>name = 0009_duplicate_persona_users<br>
+applied = 2019-03-27 15:32:19.460441</p><pre><code> id = 39
+app = hyperkitty
+</code></pre><p>name = 0010_email_sender_name<br>
+applied = 2019-03-27 15:32:19.546980</p><pre><code> id = 40
+app = hyperkitty
+</code></pre><p>name = 0011_email_parent<br>
+applied = 2019-03-27 15:32:19.599029</p><pre><code> id = 41
+app = hyperkitty
+</code></pre><p>name = 0012_thread_order_null<br>
+applied = 2019-03-27 15:32:19.689392</p><pre><code> id = 42
+app = hyperkitty
+</code></pre><p>name = 0013_mailinglist_id_1<br>
+applied = 2019-03-27 15:32:19.753185</p><pre><code> id = 43
+app = hyperkitty
+</code></pre><p>name = 0014_mailinglist_id_2<br>
+applied = 2019-03-27 15:32:19.806310</p><pre><code> id = 44
+app = hyperkitty
+</code></pre><p>name = 0015_mailinglist_id_3<br>
+applied = 2019-03-27 15:32:19.930835</p><pre><code> id = 45
+app = hyperkitty
+</code></pre><p>name = 0016_auto_20180309_0056<br>
+applied = 2019-03-27 15:32:19.959561</p><pre><code> id = 46
+app = hyperkitty
+</code></pre><p>name = 0017_file_attachments<br>
+applied = 2019-03-27 15:32:20.005588</p><pre><code> id = 47
+app = hyperkitty
+</code></pre><p>name = 0018_threadcategory_color<br>
+applied = 2019-03-27 15:32:20.029304</p><pre><code> id = 48
+app = hyperkitty
+</code></pre><p>name = 0019_auto_20190127_null_description<br>
+applied = 2019-03-27 15:32:20.060523</p><pre><code> id = 49
+app = postorius
+</code></pre><p>name = 0001_initial<br>
+applied = 2019-03-27 15:32:20.207321</p><pre><code> id = 50
+app = postorius
+</code></pre><p>name = 0002_auto_20160210_0721<br>
+applied = 2019-03-27 15:32:20.290594</p><pre><code> id = 51
+app = postorius
+</code></pre><p>name = 0003_drop_addressconfirmationprofile<br>
+applied = 2019-03-27 15:32:20.336450</p><pre><code> id = 52
+app = postorius
+</code></pre><p>name = 0004_create_email_template<br>
+applied = 2019-03-27 15:32:20.357395</p><pre><code> id = 53
+app = postorius
+</code></pre><p>name = 0005_auto_20180707_1107<br>
+applied = 2019-03-27 15:32:20.385004</p><pre><code> id = 54
+app = postorius
+</code></pre><p>name = 0006_auto_20180711_1359<br>
+applied = 2019-03-27 15:32:20.403981</p><pre><code> id = 55
+app = postorius
+</code></pre><p>name = 0007_auto_20180712_0536<br>
+applied = 2019-03-27 15:32:20.428513</p><pre><code> id = 56
+app = sessions
+</code></pre><p>name = 0001_initial<br>
+applied = 2019-03-27 15:32:20.447563</p><pre><code> id = 57
+app = sites
+</code></pre><p>name = 0002_alter_domain_unique<br>
+applied = 2019-03-27 15:32:20.470960</p><pre><code> id = 58
+app = socialaccount
+</code></pre><p>name = 0004_openidnonce_openidstore<br>
+applied = 2019-03-27 15:32:20.492687</p><hr><h5 id="auth_group"><a class="anchor hidden-xs" href="#auth_group" title="auth_group"><span class="octicon octicon-link"></span></a>auth_group</h5><p>empty</p><hr><h5 id="auth_group_permissions"><a class="anchor hidden-xs" href="#auth_group_permissions" title="auth_group_permissions"><span class="octicon octicon-link"></span></a>auth_group_permissions</h5><p>empty</p><hr><h5 id="auth_user_groups"><a class="anchor hidden-xs" href="#auth_user_groups" title="auth_user_groups"><span class="octicon octicon-link"></span></a>auth_user_groups</h5><p>empty</p><hr><h5 id="auth_user_user_permissions"><a class="anchor hidden-xs" href="#auth_user_user_permissions" title="auth_user_user_permissions"><span class="octicon octicon-link"></span></a>auth_user_user_permissions</h5><p>empty</p><hr><h5 id="account_emailconfirmation"><a class="anchor hidden-xs" href="#account_emailconfirmation" title="account_emailconfirmation"><span class="octicon octicon-link"></span></a>account_emailconfirmation</h5><p>empty</p><hr><h5 id="account_emailaddress"><a class="anchor hidden-xs" href="#account_emailaddress" title="account_emailaddress"><span class="octicon octicon-link"></span></a>account_emailaddress</h5><pre><code>  id = 1
+</code></pre><p>verified = 1<br>
+primary = 1<br>
+user_id = 1<br>
+email = admin@****.net</p><pre><code>  id = 8
+</code></pre><p>verified = 1<br>
+primary = 1<br>
+user_id = 6<br>
+email = 42992@****.be</p><hr><h5 id="django_admin_log"><a class="anchor hidden-xs" href="#django_admin_log" title="django_admin_log"><span class="octicon octicon-link"></span></a>django_admin_log</h5><pre><code>         id = 1
+  object_id = 1
+object_repr = domainepublic.pw
+action_flag = 2
+</code></pre><p>change_message = [{“changed”: {“fields”: [“domain”, “name”]}}]<br>
+content_type_id = 22<br>
+user_id = 1<br>
+action_time = 2019-04-01 08:56:31.527550</p><pre><code>         id = 2
+  object_id = 3
+object_repr = bob
+action_flag = 2
+</code></pre><p>change_message = [{“changed”: {“fields”: [“first_name”, “last_name”, “is_staff”]}}]<br>
+content_type_id = 19<br>
+user_id = 1<br>
+action_time = 2019-04-01 09:10:39.814876</p><pre><code>         id = 3
+  object_id = 2
+object_repr = newAdmin
+action_flag = 2
+</code></pre><p>change_message = [{“changed”: {“fields”: [“user_permissions”]}}]<br>
+content_type_id = 19<br>
+user_id = 1<br>
+action_time = 2019-04-01 09:38:53.877075</p><pre><code>         id = 4
+  object_id = 2
+object_repr = newAdmin
+action_flag = 2
+</code></pre><p>change_message = [{“changed”: {“fields”: [“user_permissions”]}}]<br>
+content_type_id = 19<br>
+user_id = 1<br>
+action_time = 2019-04-01 09:40:21.819658</p><pre><code>         id = 5
+  object_id = 2
+object_repr = newAdmin
+action_flag = 2
+</code></pre><p>change_message = [{“changed”: {“fields”: [“is_staff”]}}]<br>
+content_type_id = 19<br>
+user_id = 1<br>
+action_time = 2019-04-01 09:47:58.651291</p><pre><code>         id = 7
+  object_id = 8
+object_repr = MailingList object
+action_flag = 2
+</code></pre><p>change_message = [{“changed”: {“fields”: [“name”, “list_id”]}}]<br>
+content_type_id = 5<br>
+user_id = 1<br>
+action_time = 2019-04-01 09:51:25.666026</p><pre><code>         id = 8
+  object_id = 8
+object_repr = MailingList object
+action_flag = 2
+</code></pre><p>change_message = [{“changed”: {“fields”: [“list_id”]}}]<br>
+content_type_id = 5<br>
+user_id = 1<br>
+action_time = 2019-04-01 09:51:36.305836</p><pre><code>         id = 9
+  object_id = 8
+object_repr = MailingList object
+action_flag = 3
+</code></pre><p>change_message =<br>
+content_type_id = 5<br>
+user_id = 1<br>
+action_time = 2019-04-01 09:52:42.670151</p><pre><code>         id = 10
+  object_id = 2
+object_repr = newAdmin
+action_flag = 2
+</code></pre><p>change_message = [{“changed”: {“fields”: [“is_staff”, “user_permissions”]}}]<br>
+content_type_id = 19<br>
+user_id = 1<br>
+action_time = 2019-04-01 09:52:58.132753</p><pre><code>         id = 11
+  object_id = 1
+object_repr = admin
+action_flag = 2
+</code></pre><p>change_message = [{“changed”: {“fields”: [“email”]}}]<br>
+content_type_id = 19<br>
+user_id = 1<br>
+action_time = 2019-04-01 11:00:16.524847</p><pre><code>         id = 12
+  object_id = 1
+object_repr = admin
+action_flag = 2
+</code></pre><p>change_message = [{“changed”: {“fields”: [“email”]}}]<br>
+content_type_id = 19<br>
+user_id = 1<br>
+action_time = 2019-04-01 12:29:15.483310</p><pre><code>         id = 13
+  object_id = 4
+object_repr = dana
+action_flag = 3
+</code></pre><p>change_message =<br>
+content_type_id = 19<br>
+user_id = 1<br>
+action_time = 2019-04-02 09:22:14.705551</p><pre><code>         id = 14
+  object_id = 5
+object_repr = test
+action_flag = 1
+</code></pre><p>change_message = [{“added”: {}}]<br>
+content_type_id = 19<br>
+user_id = 1<br>
+action_time = 2019-04-02 13:42:23.732840</p><pre><code>         id = 15
+  object_id = 5
+object_repr = test
+action_flag = 2
+</code></pre><p>change_message = [{“changed”: {“fields”: [“first_name”, “last_name”, “email”, “is_staff”]}}]<br>
+content_type_id = 19<br>
+user_id = 1<br>
+action_time = 2019-04-02 13:44:22.571495</p><pre><code>         id = 16
+  object_id = 7
+object_repr = info@domainepublic.page (test)
+action_flag = 1
+</code></pre><p>change_message = [{“added”: {}}]<br>
+content_type_id = 28<br>
+user_id = 1<br>
+action_time = 2019-04-02 14:07:31.908991</p><hr><h5 id="django_content_type"><a class="anchor hidden-xs" href="#django_content_type" title="django_content_type"><span class="octicon octicon-link"></span></a>django_content_type</h5><pre><code>   id = 1
+</code></pre><p>app_label = hyperkitty<br>
+model = attachment</p><pre><code>   id = 2
+</code></pre><p>app_label = hyperkitty<br>
+model = email</p><pre><code>   id = 3
+</code></pre><p>app_label = hyperkitty<br>
+model = favorite</p><pre><code>   id = 4
+</code></pre><p>app_label = hyperkitty<br>
+model = lastview</p><pre><code>   id = 5
+</code></pre><p>app_label = hyperkitty<br>
+model = mailinglist</p><pre><code>   id = 6
+</code></pre><p>app_label = hyperkitty<br>
+model = profile</p><pre><code>   id = 7
+</code></pre><p>app_label = hyperkitty<br>
+model = sender</p><pre><code>   id = 8
+</code></pre><p>app_label = hyperkitty<br>
+model = tag</p><pre><code>   id = 9
+</code></pre><p>app_label = hyperkitty<br>
+model = tagging</p><pre><code>   id = 10
+</code></pre><p>app_label = hyperkitty<br>
+model = thread</p><pre><code>   id = 11
+</code></pre><p>app_label = hyperkitty<br>
+model = threadcategory</p><pre><code>   id = 12
+</code></pre><p>app_label = hyperkitty<br>
+model = vote</p><pre><code>   id = 13
+</code></pre><p>app_label = postorius<br>
+model = emailtemplate</p><pre><code>   id = 14
+</code></pre><p>app_label = django_mailman3<br>
+model = profile</p><pre><code>   id = 15
+</code></pre><p>app_label = django_mailman3<br>
+model = maildomain</p><pre><code>   id = 16
+</code></pre><p>app_label = admin<br>
+model = logentry</p><pre><code>   id = 17
+</code></pre><p>app_label = auth<br>
+model = permission</p><pre><code>   id = 18
+</code></pre><p>app_label = auth<br>
+model = group</p><pre><code>   id = 19
+</code></pre><p>app_label = auth<br>
+model = user</p><pre><code>   id = 20
+</code></pre><p>app_label = contenttypes<br>
+model = contenttype</p><pre><code>   id = 21
+</code></pre><p>app_label = sessions<br>
+model = session</p><pre><code>   id = 22
+</code></pre><p>app_label = sites<br>
+model = site</p><pre><code>   id = 23
+</code></pre><p>app_label = django_q<br>
+model = schedule</p><pre><code>   id = 24
+</code></pre><p>app_label = django_q<br>
+model = task</p><pre><code>   id = 25
+</code></pre><p>app_label = django_q<br>
+model = ormq</p><pre><code>   id = 26
+</code></pre><p>app_label = django_q<br>
+model = failure</p><pre><code>   id = 27
+</code></pre><p>app_label = django_q<br>
+model = success</p><pre><code>   id = 28
+</code></pre><p>app_label = account<br>
+model = emailaddress</p><pre><code>   id = 29
+</code></pre><p>app_label = account<br>
+model = emailconfirmation</p><pre><code>   id = 30
+</code></pre><p>app_label = socialaccount<br>
+model = socialaccount</p><pre><code>   id = 31
+</code></pre><p>app_label = socialaccount<br>
+model = socialapp</p><pre><code>   id = 32
+</code></pre><p>app_label = socialaccount<br>
+model = socialtoken</p><pre><code>   id = 33
+</code></pre><p>app_label = socialaccount<br>
+model = openidnonce</p><pre><code>   id = 34
+</code></pre><p>app_label = socialaccount<br>
+model = openidstore</p><hr><h5 id="auth_permission"><a class="anchor hidden-xs" href="#auth_permission" title="auth_permission"><span class="octicon octicon-link"></span></a>auth_permission</h5><pre><code>         id = 1
+</code></pre><p>content_type_id = 1<br>
+codename = add_attachment<br>
+name = Can add attachment</p><pre><code>         id = 2
+</code></pre><p>content_type_id = 1<br>
+codename = change_attachment<br>
+name = Can change attachment</p><pre><code>         id = 3
+</code></pre><p>content_type_id = 1<br>
+codename = delete_attachment<br>
+name = Can delete attachment</p><pre><code>         id = 4
+</code></pre><p>content_type_id = 2<br>
+codename = add_email<br>
+name = Can add email</p><pre><code>         id = 5
+</code></pre><p>content_type_id = 2<br>
+codename = change_email<br>
+name = Can change email</p><pre><code>         id = 6
+</code></pre><p>content_type_id = 2<br>
+codename = delete_email<br>
+name = Can delete email</p><pre><code>         id = 7
+</code></pre><p>content_type_id = 3<br>
+codename = add_favorite<br>
+name = Can add favorite</p><pre><code>         id = 8
+</code></pre><p>content_type_id = 3<br>
+codename = change_favorite<br>
+name = Can change favorite</p><pre><code>         id = 9
+</code></pre><p>content_type_id = 3<br>
+codename = delete_favorite<br>
+name = Can delete favorite</p><pre><code>         id = 10
+</code></pre><p>content_type_id = 4<br>
+codename = add_lastview<br>
+name = Can add last view</p><pre><code>         id = 11
+</code></pre><p>content_type_id = 4<br>
+codename = change_lastview<br>
+name = Can change last view</p><pre><code>         id = 12
+</code></pre><p>content_type_id = 4<br>
+codename = delete_lastview<br>
+name = Can delete last view</p><pre><code>         id = 13
+</code></pre><p>content_type_id = 5<br>
+codename = add_mailinglist<br>
+name = Can add mailing list</p><pre><code>         id = 14
+</code></pre><p>content_type_id = 5<br>
+codename = change_mailinglist<br>
+name = Can change mailing list</p><pre><code>         id = 15
+</code></pre><p>content_type_id = 5<br>
+codename = delete_mailinglist<br>
+name = Can delete mailing list</p><pre><code>         id = 16
+</code></pre><p>content_type_id = 6<br>
+codename = add_profile<br>
+name = Can add profile</p><pre><code>         id = 17
+</code></pre><p>content_type_id = 6<br>
+codename = change_profile<br>
+name = Can change profile</p><pre><code>         id = 18
+</code></pre><p>content_type_id = 6<br>
+codename = delete_profile<br>
+name = Can delete profile</p><pre><code>         id = 19
+</code></pre><p>content_type_id = 7<br>
+codename = add_sender<br>
+name = Can add sender</p><pre><code>         id = 20
+</code></pre><p>content_type_id = 7<br>
+codename = change_sender<br>
+name = Can change sender</p><pre><code>         id = 21
+</code></pre><p>content_type_id = 7<br>
+codename = delete_sender<br>
+name = Can delete sender</p><pre><code>         id = 22
+</code></pre><p>content_type_id = 8<br>
+codename = add_tag<br>
+name = Can add tag</p><pre><code>         id = 23
+</code></pre><p>content_type_id = 8<br>
+codename = change_tag<br>
+name = Can change tag</p><pre><code>         id = 24
+</code></pre><p>content_type_id = 8<br>
+codename = delete_tag<br>
+name = Can delete tag</p><pre><code>         id = 25
+</code></pre><p>content_type_id = 9<br>
+codename = add_tagging<br>
+name = Can add tagging</p><pre><code>         id = 26
+</code></pre><p>content_type_id = 9<br>
+codename = change_tagging<br>
+name = Can change tagging</p><pre><code>         id = 27
+</code></pre><p>content_type_id = 9<br>
+codename = delete_tagging<br>
+name = Can delete tagging</p><pre><code>         id = 28
+</code></pre><p>content_type_id = 10<br>
+codename = add_thread<br>
+name = Can add thread</p><pre><code>         id = 29
+</code></pre><p>content_type_id = 10<br>
+codename = change_thread<br>
+name = Can change thread</p><pre><code>         id = 30
+</code></pre><p>content_type_id = 10<br>
+codename = delete_thread<br>
+name = Can delete thread</p><pre><code>         id = 31
+</code></pre><p>content_type_id = 11<br>
+codename = add_threadcategory<br>
+name = Can add thread category</p><pre><code>         id = 32
+</code></pre><p>content_type_id = 11<br>
+codename = change_threadcategory<br>
+name = Can change thread category</p><pre><code>         id = 33
+</code></pre><p>content_type_id = 11<br>
+codename = delete_threadcategory<br>
+name = Can delete thread category</p><pre><code>         id = 34
+</code></pre><p>content_type_id = 12<br>
+codename = add_vote<br>
+name = Can add vote</p><pre><code>         id = 35
+</code></pre><p>content_type_id = 12<br>
+codename = change_vote<br>
+name = Can change vote</p><pre><code>         id = 36
+</code></pre><p>content_type_id = 12<br>
+codename = delete_vote<br>
+name = Can delete vote</p><pre><code>         id = 37
+</code></pre><p>content_type_id = 13<br>
+codename = add_emailtemplate<br>
+name = Can add email template</p><pre><code>         id = 38
+</code></pre><p>content_type_id = 13<br>
+codename = change_emailtemplate<br>
+name = Can change email template</p><pre><code>         id = 39
+</code></pre><p>content_type_id = 13<br>
+codename = delete_emailtemplate<br>
+name = Can delete email template</p><pre><code>         id = 40
+</code></pre><p>content_type_id = 14<br>
+codename = add_profile<br>
+name = Can add profile</p><pre><code>         id = 41
+</code></pre><p>content_type_id = 14<br>
+codename = change_profile<br>
+name = Can change profile</p><pre><code>         id = 42
+</code></pre><p>content_type_id = 14<br>
+codename = delete_profile<br>
+name = Can delete profile</p><pre><code>         id = 43
+</code></pre><p>content_type_id = 15<br>
+codename = add_maildomain<br>
+name = Can add mail domain</p><pre><code>         id = 44
+</code></pre><p>content_type_id = 15<br>
+codename = change_maildomain<br>
+name = Can change mail domain</p><pre><code>         id = 45
+</code></pre><p>content_type_id = 15<br>
+codename = delete_maildomain<br>
+name = Can delete mail domain</p><pre><code>         id = 46
+</code></pre><p>content_type_id = 16<br>
+codename = add_logentry<br>
+name = Can add log entry</p><pre><code>         id = 47
+</code></pre><p>content_type_id = 16<br>
+codename = change_logentry<br>
+name = Can change log entry</p><pre><code>         id = 48
+</code></pre><p>content_type_id = 16<br>
+codename = delete_logentry<br>
+name = Can delete log entry</p><pre><code>         id = 49
+</code></pre><p>content_type_id = 17<br>
+codename = add_permission<br>
+name = Can add permission</p><pre><code>         id = 50
+</code></pre><p>content_type_id = 17<br>
+codename = change_permission<br>
+name = Can change permission</p><pre><code>         id = 51
+</code></pre><p>content_type_id = 17<br>
+codename = delete_permission<br>
+name = Can delete permission</p><pre><code>         id = 52
+</code></pre><p>content_type_id = 18<br>
+codename = add_group<br>
+name = Can add group</p><pre><code>         id = 53
+</code></pre><p>content_type_id = 18<br>
+codename = change_group<br>
+name = Can change group</p><pre><code>         id = 54
+</code></pre><p>content_type_id = 18<br>
+codename = delete_group<br>
+name = Can delete group</p><pre><code>         id = 55
+</code></pre><p>content_type_id = 19<br>
+codename = add_user<br>
+name = Can add user</p><pre><code>         id = 56
+</code></pre><p>content_type_id = 19<br>
+codename = change_user<br>
+name = Can change user</p><pre><code>         id = 57
+</code></pre><p>content_type_id = 19<br>
+codename = delete_user<br>
+name = Can delete user</p><pre><code>         id = 58
+</code></pre><p>content_type_id = 20<br>
+codename = add_contenttype<br>
+name = Can add content type</p><pre><code>         id = 59
+</code></pre><p>content_type_id = 20<br>
+codename = change_contenttype<br>
+name = Can change content type</p><pre><code>         id = 60
+</code></pre><p>content_type_id = 20<br>
+codename = delete_contenttype<br>
+name = Can delete content type</p><pre><code>         id = 61
+</code></pre><p>content_type_id = 21<br>
+codename = add_session<br>
+name = Can add session</p><pre><code>         id = 62
+</code></pre><p>content_type_id = 21<br>
+codename = change_session<br>
+name = Can change session</p><pre><code>         id = 63
+</code></pre><p>content_type_id = 21<br>
+codename = delete_session<br>
+name = Can delete session</p><pre><code>         id = 64
+</code></pre><p>content_type_id = 22<br>
+codename = add_site<br>
+name = Can add site</p><pre><code>         id = 65
+</code></pre><p>content_type_id = 22<br>
+codename = change_site<br>
+name = Can change site</p><pre><code>         id = 66
+</code></pre><p>content_type_id = 22<br>
+codename = delete_site<br>
+name = Can delete site</p><pre><code>         id = 67
+</code></pre><p>content_type_id = 23<br>
+codename = add_schedule<br>
+name = Can add Scheduled task</p><pre><code>         id = 68
+</code></pre><p>content_type_id = 23<br>
+codename = change_schedule<br>
+name = Can change Scheduled task</p><pre><code>         id = 69
+</code></pre><p>content_type_id = 23<br>
+codename = delete_schedule<br>
+name = Can delete Scheduled task</p><pre><code>         id = 70
+</code></pre><p>content_type_id = 24<br>
+codename = add_task<br>
+name = Can add task</p><pre><code>         id = 71
+</code></pre><p>content_type_id = 24<br>
+codename = change_task<br>
+name = Can change task</p><pre><code>         id = 72
+</code></pre><p>content_type_id = 24<br>
+codename = delete_task<br>
+name = Can delete task</p><pre><code>         id = 73
+</code></pre><p>content_type_id = 24<br>
+codename = add_failure<br>
+name = Can add Failed task</p><pre><code>         id = 74
+</code></pre><p>content_type_id = 24<br>
+codename = change_failure<br>
+name = Can change Failed task</p><pre><code>         id = 75
+</code></pre><p>content_type_id = 24<br>
+codename = delete_failure<br>
+name = Can delete Failed task</p><pre><code>         id = 76
+</code></pre><p>content_type_id = 24<br>
+codename = add_success<br>
+name = Can add Successful task</p><pre><code>         id = 77
+</code></pre><p>content_type_id = 24<br>
+codename = change_success<br>
+name = Can change Successful task</p><pre><code>         id = 78
+</code></pre><p>content_type_id = 24<br>
+codename = delete_success<br>
+name = Can delete Successful task</p><pre><code>         id = 79
+</code></pre><p>content_type_id = 25<br>
+codename = add_ormq<br>
+name = Can add Queued task</p><pre><code>         id = 80
+</code></pre><p>content_type_id = 25<br>
+codename = change_ormq<br>
+name = Can change Queued task</p><pre><code>         id = 81
+</code></pre><p>content_type_id = 25<br>
+codename = delete_ormq<br>
+name = Can delete Queued task</p><pre><code>         id = 82
+</code></pre><p>content_type_id = 28<br>
+codename = add_emailaddress<br>
+name = Can add email address</p><pre><code>         id = 83
+</code></pre><p>content_type_id = 28<br>
+codename = change_emailaddress<br>
+name = Can change email address</p><pre><code>         id = 84
+</code></pre><p>content_type_id = 28<br>
+codename = delete_emailaddress<br>
+name = Can delete email address</p><pre><code>         id = 85
+</code></pre><p>content_type_id = 29<br>
+codename = add_emailconfirmation<br>
+name = Can add email confirmation</p><pre><code>         id = 86
+</code></pre><p>content_type_id = 29<br>
+codename = change_emailconfirmation<br>
+name = Can change email confirmation</p><pre><code>         id = 87
+</code></pre><p>content_type_id = 29<br>
+codename = delete_emailconfirmation<br>
+name = Can delete email confirmation</p><pre><code>         id = 88
+</code></pre><p>content_type_id = 30<br>
+codename = add_socialaccount<br>
+name = Can add social account</p><pre><code>         id = 89
+</code></pre><p>content_type_id = 30<br>
+codename = change_socialaccount<br>
+name = Can change social account</p><pre><code>         id = 90
+</code></pre><p>content_type_id = 30<br>
+codename = delete_socialaccount<br>
+name = Can delete social account</p><pre><code>         id = 91
+</code></pre><p>content_type_id = 31<br>
+codename = add_socialapp<br>
+name = Can add social application</p><pre><code>         id = 92
+</code></pre><p>content_type_id = 31<br>
+codename = change_socialapp<br>
+name = Can change social application</p><pre><code>         id = 93
+</code></pre><p>content_type_id = 31<br>
+codename = delete_socialapp<br>
+name = Can delete social application</p><pre><code>         id = 94
+</code></pre><p>content_type_id = 32<br>
+codename = add_socialtoken<br>
+name = Can add social application token</p><pre><code>         id = 95
+</code></pre><p>content_type_id = 32<br>
+codename = change_socialtoken<br>
+name = Can change social application token</p><pre><code>         id = 96
+</code></pre><p>content_type_id = 32<br>
+codename = delete_socialtoken<br>
+name = Can delete social application token</p><pre><code>         id = 97
+</code></pre><p>content_type_id = 33<br>
+codename = add_openidnonce<br>
+name = Can add open id nonce</p><pre><code>         id = 98
+</code></pre><p>content_type_id = 33<br>
+codename = change_openidnonce<br>
+name = Can change open id nonce</p><pre><code>         id = 99
+</code></pre><p>content_type_id = 33<br>
+codename = delete_openidnonce<br>
+name = Can delete open id nonce</p><pre><code>         id = 100
+</code></pre><p>content_type_id = 34<br>
+codename = add_openidstore<br>
+name = Can add open id store</p><pre><code>         id = 101
+</code></pre><p>content_type_id = 34<br>
+codename = change_openidstore<br>
+name = Can change open id store</p><pre><code>         id = 102
+</code></pre><p>content_type_id = 34<br>
+codename = delete_openidstore<br>
+name = Can delete open id store</p><hr><h5 id="auth_user"><a class="anchor hidden-xs" href="#auth_user" title="auth_user"><span class="octicon octicon-link"></span></a>auth_user</h5><pre><code>      id = 1
+password = pbkdf2_sha256$36000$CkJeI9F4sIeN$0wvnrn0/w/RBVendzvXIAWmrQmMzFXusz/HZtC/W/UQ=
+</code></pre><p>last_login = 2019-04-04 08:12:18.478348<br>
+is_superuser = 1<br>
+first_name = admin<br>
+last_name = admin<br>
+email = admin@****.net<br>
+is_staff = 1<br>
+is_active = 1<br>
+date_joined = 2019-03-27 15:32:36<br>
+username = admin</p><pre><code>      id = 6
+password = pbkdf2_sha256$36000$6g28PosauJhO$4LtCVPnJ17LLz5VF09Fx1REGvmt6lUatERXbJ/fPz2w=
+</code></pre><p>last_login = 2019-04-03 11:09:45.545624<br>
+is_superuser = 0<br>
+first_name = 42992<br>
+last_name = 42992<br>
+email = 42992@****.be<br>
+is_staff = 0<br>
+is_active = 1<br>
+date_joined = 2019-04-03 11:08:52.125770<br>
+username = 42992</p><hr><h5 id="django_mailman3_profile"><a class="anchor hidden-xs" href="#django_mailman3_profile" title="django_mailman3_profile"><span class="octicon octicon-link"></span></a>django_mailman3_profile</h5><pre><code>  id = 1
+</code></pre><p>timezone = Europe/Brussels<br>
+user_id = 1</p><pre><code>  id = 6
+</code></pre><p>timezone = Europe/Brussels<br>
+user_id = 6</p><hr><h5 id="django_mailman3_maildomain"><a class="anchor hidden-xs" href="#django_mailman3_maildomain" title="django_mailman3_maildomain"><span class="octicon octicon-link"></span></a>django_mailman3_maildomain</h5><pre><code>     id = 1
+</code></pre><p>mail_domain = domainepublic.site<br>
+site_id = 1</p><pre><code>     id = 2
+</code></pre><p>mail_domain = <a href="http://domainepublic.pw" target="_blank" rel="noopener">domainepublic.pw</a><br>
+site_id = 1</p><pre><code>     id = 3
+</code></pre><p>mail_domain = domainepublic.page<br>
+site_id = 1</p><hr><h5 id="django_q_task"><a class="anchor hidden-xs" href="#django_q_task" title="django_q_task"><span class="octicon octicon-link"></span></a>django_q_task</h5><p>empty</p><hr><h5 id="django_q_ormq"><a class="anchor hidden-xs" href="#django_q_ormq" title="django_q_ormq"><span class="octicon octicon-link"></span></a>django_q_ormq</h5><p>empty</p><hr><h5 id="django_q_schedule"><a class="anchor hidden-xs" href="#django_q_schedule" title="django_q_schedule"><span class="octicon octicon-link"></span></a>django_q_schedule</h5><p>empty</p><hr><h5 id="socialaccount_socialapp_sites"><a class="anchor hidden-xs" href="#socialaccount_socialapp_sites" title="socialaccount_socialapp_sites"><span class="octicon octicon-link"></span></a>socialaccount_socialapp_sites</h5><p>empty</p><hr><h5 id="socialaccount_socialtoken"><a class="anchor hidden-xs" href="#socialaccount_socialtoken" title="socialaccount_socialtoken"><span class="octicon octicon-link"></span></a>socialaccount_socialtoken</h5><p>empty</p><hr><h5 id="socialaccount_socialapp"><a class="anchor hidden-xs" href="#socialaccount_socialapp" title="socialaccount_socialapp"><span class="octicon octicon-link"></span></a>socialaccount_socialapp</h5><p>empty</p><hr><h5 id="socialaccount_socialaccount"><a class="anchor hidden-xs" href="#socialaccount_socialaccount" title="socialaccount_socialaccount"><span class="octicon octicon-link"></span></a>socialaccount_socialaccount</h5><p>empty</p><hr><h5 id="hyperkitty_vote"><a class="anchor hidden-xs" href="#hyperkitty_vote" title="hyperkitty_vote"><span class="octicon octicon-link"></span></a>hyperkitty_vote</h5><p>empty</p><hr><h5 id="hyperkitty_tagging"><a class="anchor hidden-xs" href="#hyperkitty_tagging" title="hyperkitty_tagging"><span class="octicon octicon-link"></span></a>hyperkitty_tagging</h5><p>empty</p><hr><h5 id="hyperkitty_tag"><a class="anchor hidden-xs" href="#hyperkitty_tag" title="hyperkitty_tag"><span class="octicon octicon-link"></span></a>hyperkitty_tag</h5><p>empty</p><hr><h5 id="hyperkitty_lastview"><a class="anchor hidden-xs" href="#hyperkitty_lastview" title="hyperkitty_lastview"><span class="octicon octicon-link"></span></a>hyperkitty_lastview</h5><p>empty</p><hr><h5 id="hyperkitty_favorite"><a class="anchor hidden-xs" href="#hyperkitty_favorite" title="hyperkitty_favorite"><span class="octicon octicon-link"></span></a>hyperkitty_favorite</h5><p>empty</p><hr><h5 id="hyperkitty_profile"><a class="anchor hidden-xs" href="#hyperkitty_profile" title="hyperkitty_profile"><span class="octicon octicon-link"></span></a>hyperkitty_profile</h5><pre><code> id = 1
+</code></pre><p>karma = 1<br>
+user_id = 1</p><pre><code> id = 6
+</code></pre><p>karma = 1<br>
+user_id = 6</p><hr><h5 id="hyperkitty_sender"><a class="anchor hidden-xs" href="#hyperkitty_sender" title="hyperkitty_sender"><span class="octicon octicon-link"></span></a>hyperkitty_sender</h5><p>empty</p><hr><h5 id="hyperkitty_thread"><a class="anchor hidden-xs" href="#hyperkitty_thread" title="hyperkitty_thread"><span class="octicon octicon-link"></span></a>hyperkitty_thread</h5><p>empty</p><hr><h5 id="hyperkitty_email"><a class="anchor hidden-xs" href="#hyperkitty_email" title="hyperkitty_email"><span class="octicon octicon-link"></span></a>hyperkitty_email</h5><p>empty</p><hr><h5 id="hyperkitty_attachment"><a class="anchor hidden-xs" href="#hyperkitty_attachment" title="hyperkitty_attachment"><span class="octicon octicon-link"></span></a>hyperkitty_attachment</h5><p>empty</p><hr><h5 id="hyperkitty_threadcategory"><a class="anchor hidden-xs" href="#hyperkitty_threadcategory" title="hyperkitty_threadcategory"><span class="octicon octicon-link"></span></a>hyperkitty_threadcategory</h5><p>empty</p><hr><h5 id="hyperkitty_mailinglist"><a class="anchor hidden-xs" href="#hyperkitty_mailinglist" title="hyperkitty_mailinglist"><span class="octicon octicon-link"></span></a>hyperkitty_mailinglist</h5><pre><code>        id = 1
+      name = coucou@domainepublic.site
+</code></pre><p>display_name = Coucou<br>
+subject_prefix = [Coucou]<br>
+archive_policy = 1<br>
+created_at = 2019-03-27 15:46:45.299478<br>
+list_id = coucou.domainepublic.site<br>
+description = coucou</p><pre><code>        id = 2
+      name = coucou2@domainepublic.site
+</code></pre><p>display_name = Coucou2<br>
+subject_prefix = [Coucou2]<br>
+archive_policy = 2<br>
+created_at = 2019-03-27 15:55:22.144593<br>
+list_id = coucou2.domainepublic.site<br>
+description =</p><pre><code>        id = 3
+      name = coucou3@domainepublic.pw
+</code></pre><p>display_name = Coucou3<br>
+subject_prefix = [Coucou3]<br>
+archive_policy = 2<br>
+created_at = 2019-03-27 15:58:20.169474<br>
+list_id = <a href="http://coucou3.domainepublic.pw" target="_blank" rel="noopener">coucou3.domainepublic.pw</a><br>
+description =</p><pre><code>        id = 4
+      name = majolieliste@domainepublic.page
+</code></pre><p>display_name = Majolieliste<br>
+subject_prefix = [Majolieliste]<br>
+archive_policy = 2<br>
+created_at = 2019-03-28 13:00:06.138612<br>
+list_id = majolieliste.domainepublic.page<br>
+description =</p><pre><code>        id = 5
+      name = theliste@domainepublic.site
+</code></pre><p>display_name = Theliste<br>
+subject_prefix = [Theliste]<br>
+archive_policy = 2<br>
+created_at = 2019-03-28 13:39:51.793959<br>
+list_id = theliste.domainepublic.site<br>
+description =</p><pre><code>        id = 6
+      name = masuperliste@domainepublic.site
+</code></pre><p>display_name = Masuperliste<br>
+subject_prefix = [Masuperliste]<br>
+archive_policy = 2<br>
+created_at = 2019-03-28 14:37:46.475993<br>
+list_id = masuperliste.domainepublic.site<br>
+description =</p><pre><code>        id = 7
+      name = lesfrancmacon@domainepublic.page
+</code></pre><p>display_name = Lesfrancmacon<br>
+subject_prefix = [Lesfrancmacon]<br>
+archive_policy = 2<br>
+created_at = 2019-04-01 08:09:33.409517<br>
+list_id = lesfrancmacon.domainepublic.page<br>
+description =</p><pre><code>        id = 9
+      name = testing@domainepublic.pw
+</code></pre><p>display_name = Testing<br>
+subject_prefix = [Testing]<br>
+archive_policy = 2<br>
+created_at = 2019-04-02 12:50:51.310980<br>
+list_id = <a href="http://testing.domainepublic.pw" target="_blank" rel="noopener">testing.domainepublic.pw</a><br>
+description =</p><pre><code>        id = 10
+      name = mailman@domainepublic.pw
+</code></pre><p>display_name = Mailman<br>
+subject_prefix = [Mailman]<br>
+archive_policy = 2<br>
+created_at = 2019-04-04 08:16:33.915744<br>
+list_id = <a href="http://mailman.domainepublic.pw" target="_blank" rel="noopener">mailman.domainepublic.pw</a><br>
+description = administration</p><hr><h5 id="postorius_emailtemplate"><a class="anchor hidden-xs" href="#postorius_emailtemplate" title="postorius_emailtemplate"><span class="octicon octicon-link"></span></a>postorius_emailtemplate</h5><pre><code>     id = 1
+   name = list:user:notice:welcome
+   data = Bienvenu sur la liste $listname
+</code></pre><p>$info</p><p>$hyperkitty<br>
+craeted_at = 2019-04-01 12:25:40.973590<br>
+modified_at = 2019-04-01 12:25:40.973679<br>
+context = list<br>
+identifier = coucou.domainepublic.site<br>
+language =</p><hr><h5 id="django_session"><a class="anchor hidden-xs" href="#django_session" title="django_session"><span class="octicon octicon-link"></span></a>django_session</h5><p>session_key = 4h1nbxfdt70hue7a6f5hy1z6ru89nvnc<br>
+session_data = YTcyODQ3MDkzMmNkNGU3ZTJiYWEwZmViMTZkYzI2ZjVjMTZhMzAzYzqABJWrAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATGUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKDNhZThhM2ZlMzFmMjgzMTJhMGQ0MTNjYzA3ZDFlNGQ3OTcxM2FhYWGUjA9fc2Vzc2lvbl9leHBpcnmUSwB1Lg==<br>
+expire_date = 2019-04-10 15:58:42.456835</p><p>session_key = 0vlr73ps34dosyzpoeyxk03leyryywip<br>
+session_data = ZmE2OGNjYjNiYjRiZTczNTNiYmE2ODFlYjRkYWViZTUwZjgzOTEzNjqABJWrAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATKUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKDQ5N2ZiYTNjOWFmMzE0OTYxMTdlZDVmZjhkZTJhMjkyODZmNGQxZWGUjA9fc2Vzc2lvbl9leHBpcnmUSwB1Lg==<br>
+expire_date = 2019-04-17 08:55:37.474398</p><p>session_key = tgnngsbj8g6510lrc9lk8mo03xh9qxt6<br>
+session_data = MDA5ZmRlZWQxMTg0MzcyMmUwNDk4NDRjODlmNTUwYjcyMGFjM2NiOTqABJWXAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATGUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKDNhZThhM2ZlMzFmMjgzMTJhMGQ0MTNjYzA3ZDFlNGQ3OTcxM2FhYWGUdS4=<br>
+expire_date = 2019-04-18 08:12:18.529853</p><hr><h5 id="django_site"><a class="anchor hidden-xs" href="#django_site" title="django_site"><span class="octicon octicon-link"></span></a>django_site</h5><pre><code>id = 1
+</code></pre><p>name = <a href="http://domainepublic.pw" target="_blank" rel="noopener">domainepublic.pw</a><br>
+domain = <a href="http://domainepublic.pw" target="_blank" rel="noopener">domainepublic.pw</a></p><hr><h5 id="socialaccount_openidnonce"><a class="anchor hidden-xs" href="#socialaccount_openidnonce" title="socialaccount_openidnonce"><span class="octicon octicon-link"></span></a>socialaccount_openidnonce</h5><p>empty</p><hr><h5 id="socialaccount_openidstore"><a class="anchor hidden-xs" href="#socialaccount_openidstore" title="socialaccount_openidstore"><span class="octicon octicon-link"></span></a>socialaccount_openidstore</h5><pre><code>    id = 1
+</code></pre><p>server_url = <a href="https://id.fedoraproject.org/openid/" target="_blank" rel="noopener">https://id.fedoraproject.org/openid/</a><br>
+handle = {HMAC-SHA1}{5c9cced7}{uO2k0g==}<br>
+secret = HvTP3S2iNy2ITKmYNEDFQCY09y4=</p><pre><code>issued = 1553780439
+</code></pre><p>lifetime = 1209600<br>
+assoc_type = HMAC-SHA1</p><hr><hr><h3 id="mailman3db" style=""><a class="anchor hidden-xs" href="#mailman3db" title="mailman3db"><span class="octicon octicon-link"></span></a>mailman3.db</h3><p>voici à quoi recemeble la base de donnée core<br>
+<a href="#Table-des-mati%C3%A8res">[retour en haut]</a></p><h4 id="Les-tables1"><a class="anchor hidden-xs" href="#Les-tables1" title="Les-tables1"><span class="octicon octicon-link"></span></a>Les tables:</h4><ul>
+<li><a href="#file_cache">file_cache</a></li>
+<li><a href="#domain">domain</a></li>
+<li><a href="#preferences">preferences</a></li>
+<li><a href="#template">template</a></li>
+<li><a href="#uid">uid</a></li>
+<li><a href="#mailinglist">mailinglist</a></li>
+<li><a href="#ban">ban</a></li>
+<li><a href="#bounceevent">bounceevent</a></li>
+<li><a href="#message">message</a></li>
+<li><a href="#workflowstate">workflowstate</a></li>
+<li><a href="#pended">pended</a></li>
+<li><a href="#headermatch">headermatch</a></li>
+<li><a href="#listarchiver">listarchiver</a></li>
+<li><a href="#contentfilter">contentfilter</a></li>
+<li><a href="#_request">_request</a></li>
+<li><a href="#acceptablealias">acceptablealias</a></li>
+<li><a href="#pendedkeyvalue">pendedkeyvalue</a></li>
+<li><a href="#user">user</a></li>
+<li><a href="#address">address</a></li>
+<li><a href="#domain_owner">domain_owner</a></li>
+<li><a href="#autoresponserecord">autoresponserecord</a></li>
+<li><a href="#onelastdigest">onelastdigest</a></li>
+<li><a href="#member">member</a></li>
+<li><a href="#alembic_version">alembic_version</a></li>
+</ul><h4 id="Les-données"><a class="anchor hidden-xs" href="#Les-données" title="Les-données"><span class="octicon octicon-link"></span></a>Les données</h4><h5 id="file_cache"><a class="anchor hidden-xs" href="#file_cache" title="file_cache"><span class="octicon octicon-link"></span></a>file_cache</h5><pre><code>    id = 1
+   key = http://localhost/mailman3/postorius/api/templates/list/coucou.domainepublic.site/list:user:notice:welcome
+</code></pre><p>file_id = e019f5be8416e30f784a9dc9fc488e43d7acb8ef55b57a0a8ec37d9fea081f73<br>
+is_bytes = 0<br>
+created_on = 2019-04-01 12:27:58.152784<br>
+expires_on = 2019-04-08 12:27:58.152784</p><hr><h5 id="domain"><a class="anchor hidden-xs" href="#domain" title="domain"><span class="octicon octicon-link"></span></a>domain</h5><pre><code>      id = 1
+</code></pre><p>mail_host = domainepublic.site<br>
+description =<br>
+alias_domain =</p><pre><code>      id = 2
+</code></pre><p>mail_host = <a href="http://domainepublic.pw" target="_blank" rel="noopener">domainepublic.pw</a><br>
+description =<br>
+alias_domain =</p><pre><code>      id = 3
+</code></pre><p>mail_host = domainepublic.page<br>
+description =<br>
+alias_domain =</p><hr><h5 id="preferences"><a class="anchor hidden-xs" href="#preferences" title="preferences"><span class="octicon octicon-link"></span></a>preferences</h5><pre><code>              id = 1
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><pre><code>              id = 2
+</code></pre><p>acknowledge_posts = 0<br>
+hide_address = 1<br>
+preferred_language = en<br>
+receive_list_copy = 1<br>
+receive_own_postings = 1<br>
+delivery_mode = 1<br>
+delivery_status = 1</p><pre><code>              id = 4
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><pre><code>              id = 6
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><pre><code>              id = 9
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><pre><code>              id = 15
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><pre><code>              id = 20
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><pre><code>              id = 22
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><pre><code>              id = 25
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><pre><code>              id = 28
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><pre><code>              id = 31
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><pre><code>              id = 33
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><pre><code>              id = 34
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><pre><code>              id = 35
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><pre><code>              id = 36
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language = en<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode = 1<br>
+delivery_status =</p><pre><code>              id = 37
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><pre><code>              id = 38
+</code></pre><p>acknowledge_posts =<br>
+hide_address =<br>
+preferred_language =<br>
+receive_list_copy =<br>
+receive_own_postings =<br>
+delivery_mode =<br>
+delivery_status =</p><hr><h5 id="template"><a class="anchor hidden-xs" href="#template" title="template"><span class="octicon octicon-link"></span></a>template</h5><pre><code>  id = 1
+name = list:user:notice:welcome
+</code></pre><p>context = coucou.domainepublic.site<br>
+uri = <a href="http://localhost/mailman3/postorius/api/templates/list/coucou.domainepublic.site/list:user:notice:welcome" target="_blank" rel="noopener">http://localhost/mailman3/postorius/api/templates/list/coucou.domainepublic.site/list:user:notice:welcome</a><br>
+username =<br>
+password =</p><hr><h5 id="uid"><a class="anchor hidden-xs" href="#uid" title="uid"><span class="octicon octicon-link"></span></a>uid</h5><p>id = 1<br>
+uid = db23700c4e55421682aef30ba2fa3859</p><p>id = 2<br>
+uid = 639acc4f95784f5eb4c5b51ee3d5131e</p><p>id = 3<br>
+uid = 5e4f41761bcf46fea33f4a955152fdb5</p><p>id = 4<br>
+uid = fb8258b2b5b745a1acce8cac2e50d115</p><p>id = 5<br>
+uid = a65784242ee54cb0a7f35f7615b352e4</p><p>id = 6<br>
+uid = c962ca0c36ef4751b08d3a1549fc5b5e</p><p>id = 7<br>
+uid = 345df96f2b7e49dfa9708f286308656f</p><p>id = 8<br>
+uid = 3a3aa939cf1d41d1b2c129898103320c</p><p>id = 9<br>
+uid = dd03f42ff099414488a9228c0c9ce9c8</p><p>id = 10<br>
+uid = 0ccbb672f6724bd383fdcebd52090cd9</p><p>id = 11<br>
+uid = e3002d2a05e54613b4c9176c4b333ae3</p><p>id = 12<br>
+uid = 9dbfe5f0aefe4ef480c1d71c6f71b392</p><p>id = 13<br>
+uid = d89f57c4788343edb09b3012184a5b08</p><p>id = 14<br>
+uid = 9a29c378bd744743863e02b54748cf19</p><p>id = 15<br>
+uid = 5abc3e8bd32c47f1b6545c34dd4c8980</p><p>id = 16<br>
+uid = 8aca4c31d1004541bbda33aef9ecfb9f</p><p>id = 17<br>
+uid = a03bfbd2467f4d018d0c2aa0a2c562b8</p><p>id = 18<br>
+uid = 2aacf8eaf5a8469d998dfad73c003c1b</p><p>id = 19<br>
+uid = 3a91e594f2f647d4a1451710510e4bcf</p><p>id = 20<br>
+uid = 84961ffd893d456998cbe94b96a3cb78</p><p>id = 21<br>
+uid = b416734881c2424db042c4e3b72ff926</p><p>id = 22<br>
+uid = d20077254aaf455d9ca98730a1eaac05</p><p>id = 23<br>
+uid = 9f1fade00ad84f8a8111c51c0b47b6ba</p><p>id = 24<br>
+uid = 0d6d300545fd4cf7bf01273fc75679bb</p><p>id = 25<br>
+uid = 4985ce4d302c4b5aad5c4897a94d4bfe</p><p>id = 26<br>
+uid = d47bee64552a4a688dabe4a191e604fc</p><p>id = 27<br>
+uid = c7b470868cf64ff590af639b53c2f76e</p><p>id = 28<br>
+uid = 648db985856a4008992b32eb429d219d</p><hr><h5 id="mailinglist"><a class="anchor hidden-xs" href="#mailinglist" title="mailinglist"><span class="octicon octicon-link"></span></a>mailinglist</h5><pre><code>                                   id = 1
+                            list_name = mailman
+                            mail_host = domainepublic.pw
+                              list_id = mailman.domainepublic.pw
+                     allow_list_posts = 1
+              include_rfc2369_headers = 1
+                           advertised = 1
+                       anonymous_list = 0
+                           created_at = 2019-04-04 08:16:33.915744
+                      next_request_id = 1
+                   next_digest_number = 1
+                  digest_last_sent_at = 
+                               volume = 1
+                         last_post_at = 
+              accept_these_nonmembers = �]�.
+                   admin_immed_notify = 1
+                admin_notify_mchanges = 0
+                        administrivia = 1
+                       archive_policy = 2
+            autoresponse_grace_period = 1970-04-01 00:00:00.000000
+                    autorespond_owner = 0
+              autoresponse_owner_text = 
+                 autorespond_postings = 0
+           autoresponse_postings_text = 
+                 autorespond_requests = 0
+            autoresponse_request_text = 
+                        filter_action = 2
+                       filter_content = 0
+                collapse_alternatives = 1
+            convert_html_to_plaintext = 0
+              bounce_info_stale_after = 1970-01-08 00:00:00.000000
+              bounce_matching_headers = 
+</code></pre><p># Lines that <em>start</em> with a ‘#’ are comments.<br>
+to: <a href="mailto:friend@public.com" target="_blank" rel="noopener">friend@public.com</a><br>
+message-id: <a href="http://relay.comanche.denmark.eu" target="_blank" rel="noopener">relay.comanche.denmark.eu</a><br>
+from: <a href="mailto:list@listme.com" target="_blank" rel="noopener">list@listme.com</a><br>
+from: .*@uplinkpro.com</p><pre><code>       bounce_notify_owner_on_disable = 1
+       bounce_notify_owner_on_removal = 1
+               bounce_score_threshold = 5
+     bounce_you_are_disabled_warnings = 3
+</code></pre><p>bounce_you_are_disabled_warnings_interval = 1970-01-08 00:00:00.000000<br>
+forward_unrecognized_bounces_to = 1<br>
+process_bounces = 1<br>
+dmarc_mitigate_action = 0<br>
+dmarc_mitigate_unconditionally = 0<br>
+dmarc_moderation_notice =<br>
+dmarc_wrapped_message_text =<br>
+default_member_action = 4<br>
+default_nonmember_action = 0<br>
+description = administration<br>
+digests_enabled = 1<br>
+digest_is_default = 0<br>
+digest_send_periodic = 1<br>
+digest_size_threshold = 30.0<br>
+digest_volume_frequency = 1<br>
+discard_these_nonmembers = �]�.<br>
+emergency = 0<br>
+encode_ascii_prefixes = 0<br>
+first_strip_reply_to = 0<br>
+forward_auto_discards = 1<br>
+gateway_to_mail = 0<br>
+gateway_to_news = 0<br>
+hold_these_nonmembers = �]�.<br>
+info =<br>
+linked_newsgroup =<br>
+max_days_to_hold = 0<br>
+max_message_size = 40<br>
+max_num_recipients = 10<br>
+member_moderation_notice =<br>
+moderator_password =<br>
+newsgroup_moderation = 0<br>
+nntp_prefix_subject_too = 1<br>
+nonmember_rejection_notice =<br>
+obscure_addresses = 1<br>
+owner_chain = default-owner-chain<br>
+owner_pipeline = default-owner-pipeline<br>
+personalize = 0<br>
+post_id = 1<br>
+posting_chain = default-posting-chain<br>
+posting_pipeline = default-posting-pipeline<br>
+preferred_language = en<br>
+display_name = Mailman<br>
+reject_these_nonmembers = �]�.<br>
+reply_goes_to_list = 0<br>
+reply_to_address =<br>
+require_explicit_destination = 1<br>
+respond_to_post_requests = 1<br>
+scrub_nondigest = 0<br>
+send_goodbye_message = 1<br>
+send_welcome_message = 1<br>
+subject_prefix = [Mailman]<br>
+subscription_policy = 1<br>
+topics = �]�.<br>
+topics_bodylines_limit = 5<br>
+topics_enabled = 0<br>
+unsubscription_policy = 1<br>
+member_roster_visibility = 2</p><hr><h5 id="ban"><a class="anchor hidden-xs" href="#ban" title="ban"><span class="octicon octicon-link"></span></a>ban</h5><p>empty</p><hr><h5 id="bounceevent"><a class="anchor hidden-xs" href="#bounceevent" title="bounceevent"><span class="octicon octicon-link"></span></a>bounceevent</h5><pre><code>    id = 1
+</code></pre><p>list_id = coucou.domainepublic.site<br>
+email = coucou-owner@domainepublic.site<br>
+timestamp = 2019-03-27 15:47:38.807638<br>
+message_id = <a href="mailto:155370165759.16997.8434259793989334729@vps648764.ovh.net" target="_blank" rel="noopener">155370165759.16997.8434259793989334729@vps648764.ovh.net</a><br>
+context = 1<br>
+processed = 0</p><pre><code>    id = 2
+</code></pre><p>list_id = coucou2.domainepublic.site<br>
+email = coucou2-owner@domainepublic.site<br>
+timestamp = 2019-03-28 12:14:08.871879<br>
+message_id = <a href="mailto:155377524796.16992.12759656788938591078@vps648764.ovh.net" target="_blank" rel="noopener">155377524796.16992.12759656788938591078@vps648764.ovh.net</a><br>
+context = 1<br>
+processed = 0</p><hr><h5 id="message"><a class="anchor hidden-xs" href="#message" title="message"><span class="octicon octicon-link"></span></a>message</h5><pre><code>         id = 1
+ message_id = &lt;CAHibpZTPv-38_xqkf3iO6qdR9M+21J=GFDL0WCh4hvRn5gNmAQ@mail.gmail.com&gt;
+</code></pre><p>message_id_hash = YDJRQ7EVTZZFMHJOLCSRC3UAFOTUHL33<br>
+path = YD/JR/YDJRQ7EVTZZFMHJOLCSRC3UAFOTUHL33</p><pre><code>         id = 2
+ message_id = &lt;CAHibpZR=K42P8wUtDN_pr1fZOKWJ1BeJwQwLQ2aOyqmrjywWfw@mail.gmail.com&gt;
+</code></pre><p>message_id_hash = P3C3VFT3Z7NKHGQ3INDRH5CWC45KTPVH<br>
+path = P3/C3/P3C3VFT3Z7NKHGQ3INDRH5CWC45KTPVH</p><pre><code>         id = 3
+ message_id = &lt;CAHibpZSwQk5fnVOY5FRtZXqdz0T9CC=Rr-uNn-XMfaEaFNNt6w@mail.gmail.com&gt;
+</code></pre><p>message_id_hash = Y5R2QPEJU3G4EXGF4CHWOG3DYBXFECQH<br>
+path = Y5/R2/Y5R2QPEJU3G4EXGF4CHWOG3DYBXFECQH</p><hr><h5 id="workflowstate"><a class="anchor hidden-xs" href="#workflowstate" title="workflowstate"><span class="octicon octicon-link"></span></a>workflowstate</h5><p>token = b6e2b203fad8f141e69fcfe30fd8dc3ebe85d9df<br>
+step = do_confirm_verify<br>
+data = {“pre_approved”: false, “pre_confirmed”: false, “pre_verified”: false, “address_key”: “42992@****.be”, “subscriber_key”: 1, “user_key”: “5e4f41761bcf46fea33f4a955152fdb5”, “token_owner_key”: 1}</p><p>token = b834d6a1184f15fa0176744ca661f90534afd3a3<br>
+step = do_confirm_verify<br>
+data = {“pre_approved”: false, “pre_confirmed”: false, “pre_verified”: false, “address_key”: “adm@****.net”, “subscriber_key”: 1, “user_key”: “fb8258b2b5b745a1acce8cac2e50d115”, “token_owner_key”: 1}</p><p>token = 2415d4270058f310c618c1ca676eaadf0c8a5076<br>
+step = do_confirm_verify<br>
+data = {“pre_approved”: false, “pre_confirmed”: false, “pre_verified”: false, “address_key”: “42992@****.com”, “subscriber_key”: 1, “user_key”: “a03bfbd2467f4d018d0c2aa0a2c562b8”, “token_owner_key”: 1}</p><hr><h5 id="pended"><a class="anchor hidden-xs" href="#pended" title="pended"><span class="octicon octicon-link"></span></a>pended</h5><pre><code>         id = 5
+      token = e243e8c6c4681014f452db7c8d7fc47e176ec299
+</code></pre><p>expiration_date = 2019-03-31 12:08:17.208141</p><pre><code>         id = 7
+      token = 72447cb14e5d692f3918bb7c5e94971e98fcf224
+</code></pre><p>expiration_date = 2019-03-31 12:14:07.927448</p><pre><code>         id = 9
+      token = 494c5968603edfad5045fd3e5a960bf7003b64f5
+</code></pre><p>expiration_date = 2019-03-31 12:30:18.296264</p><hr><h5 id="headermatch"><a class="anchor hidden-xs" href="#headermatch" title="headermatch"><span class="octicon octicon-link"></span></a>headermatch</h5><p>empty</p><hr><h5 id="listarchiver"><a class="anchor hidden-xs" href="#listarchiver" title="listarchiver"><span class="octicon octicon-link"></span></a>listarchiver</h5><pre><code>         id = 1
+</code></pre><p>mailing_list_id = 1<br>
+name = mhonarc<br>
+_is_enabled = 0</p><pre><code>         id = 2
+</code></pre><p>mailing_list_id = 1<br>
+name = mail-archive<br>
+_is_enabled = 0</p><pre><code>         id = 3
+</code></pre><p>mailing_list_id = 1<br>
+name = prototype<br>
+_is_enabled = 0</p><pre><code>         id = 4
+</code></pre><p>mailing_list_id = 1<br>
+name = hyperkitty<br>
+_is_enabled = 1</p><hr><h5 id="contentfilter"><a class="anchor hidden-xs" href="#contentfilter" title="contentfilter"><span class="octicon octicon-link"></span></a>contentfilter</h5><p>empty</p><hr><h5 id="_request"><a class="anchor hidden-xs" href="#_request" title="_request"><span class="octicon octicon-link"></span></a>_request</h5><p>empty</p><hr><h5 id="acceptablealias"><a class="anchor hidden-xs" href="#acceptablealias" title="acceptablealias"><span class="octicon octicon-link"></span></a>acceptablealias</h5><p>empty</p><hr><h5 id="pendedkeyvalue"><a class="anchor hidden-xs" href="#pendedkeyvalue" title="pendedkeyvalue"><span class="octicon octicon-link"></span></a>pendedkeyvalue</h5><pre><code>   id = 39
+  key = type
+value = held message
+</code></pre><p>pended_id = 5</p><pre><code>   id = 40
+  key = id
+value = 1
+</code></pre><p>pended_id = 5</p><pre><code>   id = 61
+  key = type
+value = held message
+</code></pre><p>pended_id = 7</p><pre><code>   id = 62
+  key = id
+value = 2
+</code></pre><p>pended_id = 7</p><pre><code>   id = 83
+  key = type
+value = held message
+</code></pre><p>pended_id = 9</p><pre><code>   id = 84
+  key = id
+value = 3
+</code></pre><p>pended_id = 9</p><hr><h5 id="user"><a class="anchor hidden-xs" href="#user" title="user"><span class="octicon octicon-link"></span></a>user</h5><pre><code>               id = 1
+     display_name = administrator
+         password = $6$rounds=656000$mAXpq4rxlK38dy5Z$cR0kTt6uoTxmgMV320hMiHQHMimX7Z.jxM7nEeZxTpb8Lu3F7kE84kTOjUano7eOpwRsv97ZqDvMe.q78cw6b1
+         _user_id = db23700c4e55421682aef30ba2fa3859
+      _created_on = 2019-03-27 15:45:23.521008
+  is_server_owner = 0
+</code></pre><p>_preferred_address_id =<br>
+preferences_id = 2</p><pre><code>               id = 2
+     display_name = 42992 42992
+         password = $6$rounds=656000$lFnbPzCfC3KUUi8D$PGard18GZXcoe332i5P9UpQi3.wvWdRf9t2KZPtpddxR7UGKF.wZ8AKoLFyhxVoqfBq/leqF6yxVtcCQK9fOk1
+         _user_id = d47bee64552a4a688dabe4a191e604fc
+      _created_on = 2019-04-03 09:25:42.295093
+  is_server_owner = 0
+</code></pre><p>_preferred_address_id =<br>
+preferences_id = 35</p><pre><code>               id = 3
+     display_name = aria
+         password = $6$rounds=656000$6UIHCAcYPAX3S9Tk$4t2RdJ9N2vpyPwR1wShNBGiqQbK29R//sNTqzx42IhnBl6Mt1.8s1JyzSOR/eqChQAqaIGfOSSqsQxso7Y04B/
+         _user_id = 648db985856a4008992b32eb429d219d
+      _created_on = 2019-04-04 08:33:27.821027
+  is_server_owner = 0
+</code></pre><p>_preferred_address_id =<br>
+preferences_id = 38</p><hr><h5 id="address"><a class="anchor hidden-xs" href="#address" title="address"><span class="octicon octicon-link"></span></a>address</h5><pre><code>        id = 1
+     email = admin@****.net
+ _original = 
+</code></pre><p>display_name =<br>
+verified_on = 2019-03-27 15:45:24.121654<br>
+registered_on = 2019-03-27 15:45:23.520294<br>
+user_id = 1<br>
+preferences_id = 1</p><pre><code>        id = 4
+     email = coucou-owner@domainepublic.site
+ _original = 
+</code></pre><p>display_name =<br>
+verified_on =<br>
+registered_on = 2019-03-28 12:08:20.335987<br>
+user_id =<br>
+preferences_id = 9</p><pre><code>        id = 5
+     email = 42992@****.be
+ _original = 
+</code></pre><p>display_name = 42992<br>
+verified_on = 2019-04-03 11:09:32.159997<br>
+registered_on = 2019-04-03 09:25:42.294337<br>
+user_id = 2<br>
+preferences_id = 34</p><pre><code>        id = 6
+     email = 429921@****.be
+ _original = 
+</code></pre><p>display_name = aria<br>
+verified_on = 2019-04-04 08:37:39.239132<br>
+registered_on = 2019-04-04 08:33:27.819806<br>
+user_id = 3<br>
+preferences_id = 37</p><hr><h5 id="domain_owner"><a class="anchor hidden-xs" href="#domain_owner" title="domain_owner"><span class="octicon octicon-link"></span></a>domain_owner</h5><p>user_id = 1<br>
+domain_id = 1</p><p>user_id = 1<br>
+domain_id = 4</p><hr><h5 id="autoresponserecord"><a class="anchor hidden-xs" href="#autoresponserecord" title="autoresponserecord"><span class="octicon octicon-link"></span></a>autoresponserecord</h5><p>empty</p><hr><h5 id="onelastdigest"><a class="anchor hidden-xs" href="#onelastdigest" title="onelastdigest"><span class="octicon octicon-link"></span></a>onelastdigest</h5><p>empty</p><hr><h5 id="member"><a class="anchor hidden-xs" href="#member" title="member"><span class="octicon octicon-link"></span></a>member</h5><pre><code>           id = 1
+   _member_id = c7b470868cf64ff590af639b53c2f76e
+         role = 2
+      list_id = mailman.domainepublic.pw
+</code></pre><p>moderation_action = 3<br>
+address_id = 1<br>
+preferences_id = 36<br>
+user_id =</p><hr><h5 id="alembic_version"><a class="anchor hidden-xs" href="#alembic_version" title="alembic_version"><span class="octicon octicon-link"></span></a>alembic_version</h5><p>version_num = 15401063d4e3</p><hr><h3 id="diff-lors-d’ajout-d’un-utilisateur" style=""><a class="anchor hidden-xs" href="#diff-lors-d’ajout-d’un-utilisateur" title="diff-lors-d’ajout-d’un-utilisateur"><span class="octicon octicon-link"></span></a>diff lors d’ajout d’un utilisateur</h3><h4 id="mailman3-webdb1"><a class="anchor hidden-xs" href="#mailman3-webdb1" title="mailman3-webdb1"><span class="octicon octicon-link"></span></a>mailman3-web.db</h4><p>ajoute d’une utilisateur par l’interface web (postorius)</p><blockquote>
+<h3 id="diff"><a class="anchor hidden-xs" href="#diff" title="diff"><span class="octicon octicon-link"></span></a>diff</h3>
+<p><em><strong>69a70</strong></em><br>
+<code>INSERT INTO "account_emailaddress" VALUES(10,1,1,8,'429921@****.be');</code><br>
+<em><strong>227a229</strong></em><br>
+<code>INSERT INTO "auth_user" VALUES(8,'pbkdf2_sha256$36000$rnytDDSJvdbV$DLwOTRlAt3GU9Y7D5PAOpDP+la6yepddjQJkCKg3iQo=','2019-04-08 11:51:50.860902',0,'bobo','bobo','429921@****.be',0,1,'2019-04-08 11:37:18.452635','bobo');</code><br>
+<em><strong>230a233</strong></em><br>
+<code>INSERT INTO "django_mailman3_profile" VALUES(8,'Europe/Brussels',8);</code><br>
+<em><strong>250a254</strong></em><br>
+<code>INSERT INTO "hyperkitty_profile" VALUES(8,1,8);</code><br>
+<em><strong>275c279</strong></em><br>
+<code>&lt; INSERT INTO "django_session" VALUES('8cd9i0a87hm4o67xpawikeyd2snmyuz7','NmM0MzAxMTk4MDgzOGIzODg1NGU3MmQyYjZkYjE5OTA0ZTBiY2VhNTqABJWrAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATiUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKDdkMWY3ZTIzOWJiN2I5MjA2NTJkZjQ2Zjg3MmM4OTE3ZmIwMzYzOTaUjA9fc2Vzc2lvbl9leHBpcnmUSwB1Lg==','2019-04-22 12:16:13.793399');</code><br>
+<code>&gt; INSERT INTO "django_session" VALUES('rj0xnjonf7cx4gq96pimhe1m4uf7g7ex','NmM0MzAxMTk4MDgzOGIzODg1NGU3MmQyYjZkYjE5OTA0ZTBiY2VhNTqABJWrAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATiUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKDdkMWY3ZTIzOWJiN2I5MjA2NTJkZjQ2Zjg3MmM4OTE3ZmIwMzYzOTaUjA9fc2Vzc2lvbl9leHBpcnmUSwB1Lg==','2019-04-22 11:51:50.925346');</code><br>
+`</p>
+</blockquote><p>Dès la création et avant la confirmation du mail l’utilisateur est ajouté dans la base de donnée django.</p><p>Tables affectés:</p><ul>
+<li><a href="#account_emailaddress">account_emailaddress</a></li>
+<li><a href="#auth_user">auth_user</a></li>
+<li><a href="#django_mailman3_profile">django_mailman3_profile</a></li>
+<li><a href="#hyperkitty_profile">hyperkitty_profile</a></li>
+<li><a href="#django_session">django_session</a></li>
+</ul><h4 id="mailman3db1"><a class="anchor hidden-xs" href="#mailman3db1" title="mailman3db1"><span class="octicon octicon-link"></span></a>mailman3.db</h4><p>ajoute d’une utilisateur par l’interface web (postorius)</p><blockquote>
+<h3 id="diff1"><a class="anchor hidden-xs" href="#diff1" title="diff1"><span class="octicon octicon-link"></span></a>diff</h3>
+<p><em><strong>55a56</strong></em><br>
+<code>&gt; INSERT INTO "preferences" VALUES(38,NULL,NULL,NULL,NULL,NULL,NULL,NULL);</code><br>
+<em><strong>58,59d58</strong></em><br>
+<code>&lt; INSERT INTO "preferences" VALUES(41,NULL,NULL,NULL,NULL,NULL,NULL,NULL); &lt; INSERT INTO "preferences" VALUES(42,NULL,NULL,NULL,NULL,NULL,NULL,NULL);</code><br>
+<em><strong>104,105d102</strong></em><br>
+<code>&lt; INSERT INTO "uid" VALUES(30,'1a0f4e771c424c7da793513a201542e5'); &lt; INSERT INTO "uid" VALUES(31,'2aa89c0c4e6b4472ada86b21de752678');</code><br>
+<em><strong>362a360</strong></em><br>
+<code>&gt; INSERT INTO "user" VALUES(3,'aria','$6$rounds=656000$6UIHCAcYPAX3S9Tk$4t2RdJ9N2vpyPwR1wShNBGiqQbK29R//sNTqzx42IhnBl6Mt1.8s1JyzSOR/eqChQAqaIGfOSSqsQxso7Y04B/','648db985856a4008992b32eb429d219d','2019-04-04 08:33:27.821027',0,NULL,38);</code><br>
+<em><strong>364d361</strong></em><br>
+<code>&lt; INSERT INTO "user" VALUES(5,'bobo bobo','$6$rounds=656000$EOGxLCpM/xC71G9c$sbNKkhEDFnUAJrkEgk.yHJ/Dyxe2ZicheeHK7Qo5LK3MRlToKEC5L8ZhMwYgzBRKjnxeEc6tBx.N0Qd6OrU7q0','2aa89c0c4e6b4472ada86b21de752678','2019-04-08 11:44:32.808909',0,NULL,42);</code><br>
+<em><strong>380a378</strong></em><br>
+<code>&gt; INSERT INTO "address" VALUES(6,'429921@****.be',NULL,'aria','2019-04-04 08:37:39.239132','2019-04-04 08:33:27.819806',3,37);</code><br>
+<em><strong>382d379</strong></em><br>
+<code>&lt; INSERT INTO "address" VALUES(8,'429921@****.be',NULL,'','2019-04-08 11:51:50.909160','2019-04-08 11:44:32.808228',5,41);</code></p>
+</blockquote><p>après la confirmation du mail un utilisateur est créer dans la base de donnée de mailman-core, on constate également que si un utilisateur avec la même address email existait dans mailman-core alors, celci sera écrasé.</p><p>tables affectés:</p><ul>
+<li><a href="#preferences">preferences</a></li>
+<li><a href="#uid">uid</a></li>
+<li><a href="#user">user</a></li>
+<li><a href="#address">address</a></li>
+</ul><h2 id="AlternC" style=""><a class="anchor hidden-xs" href="#AlternC" title="AlternC"><span class="octicon octicon-link"></span></a>AlternC</h2><p><a href="#Table-des-mati%C3%A8res">[retour en haut]</a></p><p>Pour Intégrer mailman3 à alternc il y a différente vues et classes qui on été implémenté</p><h3 id="Les-vues" style=""><a class="anchor hidden-xs" href="#Les-vues" title="Les-vues"><span class="octicon octicon-link"></span></a>Les vues</h3><p>les vues créées ou modifiées</p><h4 id="nouvelle"><a class="anchor hidden-xs" href="#nouvelle" title="nouvelle"><span class="octicon octicon-link"></span></a>nouvelle</h4><ul>
+<li><strong>mman_create_user.php</strong> + <strong>mman_docreate_user.php</strong></li>
+<li><strong>mman_remove_user.php</strong></li>
+</ul><h4 id="modifiées"><a class="anchor hidden-xs" href="#modifiées" title="modifiées"><span class="octicon octicon-link"></span></a>modifiées</h4><ul>
+<li><strong>mman_add.php</strong> + <strong>mman_doadd.php</strong></li>
+<li><strong>mman_list.php</strong></li>
+</ul><h3 id="Les-classes" style=""><a class="anchor hidden-xs" href="#Les-classes" title="Les-classes"><span class="octicon octicon-link"></span></a>Les classes</h3><p>les classes modifiées ou créées</p><ul>
+<li><strong>m_mailman.php</strong></li>
+</ul><h3 id="Les-scripts" style=""><a class="anchor hidden-xs" href="#Les-scripts" title="Les-scripts"><span class="octicon octicon-link"></span></a>Les scripts</h3><p>les scriptes créés</p><h4 id="Utilisé-par-cron"><a class="anchor hidden-xs" href="#Utilisé-par-cron" title="Utilisé-par-cron"><span class="octicon octicon-link"></span></a>Utilisé par cron</h4><ul>
+<li><strong>check_db_mailman3.php</strong></li>
+</ul><blockquote>
+<p>permet une supprimer un compte ou une liste dans alternc si elle n’est pas présente dans le mailman3.</p>
+</blockquote><ul>
+<li><strong>update_mailman.sh</strong></li>
+</ul><blockquote>
+<p>précedent script réutilisé pour la création et suppression de listes.</p>
+</blockquote><ul>
+<li><strong>sync_mailman3_account.php</strong></li>
+</ul><blockquote>
+<p>permet de sychronise les informations du mail entre les mailman3 et alternc</p>
+</blockquote><ul>
+<li><strong>update_mailman_account.sh</strong></li>
+</ul><blockquote>
+<p>permet de faire des appel au scripte de suppression et création d’utilisateurs si l’action dans la base de donnée le demande (mailman_action = CREATE ou DELETE)</p>
+</blockquote><h4 id="Utilisé-par-update_mailman_accountsh"><a class="anchor hidden-xs" href="#Utilisé-par-update_mailman_accountsh" title="Utilisé-par-update_mailman_accountsh"><span class="octicon octicon-link"></span></a>Utilisé par update_mailman_account.sh</h4><ul>
+<li>django_create_user.py</li>
+</ul><blockquote>
+<p>permet de créer un utilisateur dans django en lui fournissant 3 options:</p>
+<ul>
+<li>-u &lt;username&gt;</li>
+<li>-e &lt;email&gt;</li>
+<li>-p &lt;password&gt;</li>
+</ul>
+</blockquote><ul>
+<li>django_remove_user.py</li>
+</ul><blockquote>
+<p>permet de supprimer un utilisateur dans django en lui fournissant 1 option:</p>
+<ul>
+<li>-e &lt;email&gt;</li>
+</ul>
+</blockquote><p>référence sur les <a href="https://docs.djangoproject.com/en/2.2/topics/auth/default/" title="user-django" target="_blank" rel="noopener">users django</a></p><h3 id="Les-Chemins-utiles" style=""><a class="anchor hidden-xs" href="#Les-Chemins-utiles" title="Les-Chemins-utiles"><span class="octicon octicon-link"></span></a>Les Chemins utiles</h3><p><em><strong>/usr/share/mailman3web/</strong></em></p><blockquote>
+<p>les scriptes python et les paramètres django pour mailman3-web</p>
+</blockquote><p><em><strong>/usr/lib/python3/dist-packages/</strong></em> { djangomailman3 | allauth | postorius | Hyperkitty }</p><blockquote>
+<p>contient les templates html utilisés pour l’interface web de mailman3</p>
+</blockquote><p><em><strong>/var/lib/mailman3/</strong></em></p><blockquote>
+<p>information lié à mailman3 comme les listes, les archives, les datas, …</p>
+</blockquote><p><em><strong>/etc/mailman3/</strong></em></p><blockquote>
+<p>contient les différent cfg avec les clés d’API et paramètre pour les serveurs web</p>
+</blockquote><p><em><strong>/usr/lib/mailman3/bin/</strong></em></p><blockquote>
+<p>les commandes de gestion de liste<br>
+<code>Usage: mailman [OPTIONS] COMMAND [ARGS]...</code><br>
+contient également les sous-processus<br>
+<strong>master</strong> et <strong>runner</strong></p>
+</blockquote><h2 id="Postfix" style=""><a class="anchor hidden-xs" href="#Postfix" title="Postfix"><span class="octicon octicon-link"></span></a>Postfix</h2><p><a href="#Table-des-mati%C3%A8res">[retour en haut]</a></p><p>Il faut modifier quelques lignes dans la configuration de postifx pour que les mails soient livrés à mailman.</p><p>pour ce faire je vous invite à lire la documentation qui se situe dans<br>
+<em><strong>/usr/share/doc/mailman3/README.Debian</strong></em></p><p>Dans le fichier <em><strong>/etc/postfix/main.cf</strong></em> ajoutez les lignes suivante</p><pre><code class="cf hljs"><span class="hljs-comment"># Mailman related settings</span>
+owner_request_special = no
+transport_maps = <span class="hljs-symbol">hash:</span>/var/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">mailman3</span>/<span class="hljs-title">data</span>/<span class="hljs-title">postfix_lmtp</span></span>
+local_recipient_maps = <span class="hljs-symbol">proxy:</span><span class="hljs-symbol">unix:</span>passwd.byname $alias_maps <span class="hljs-symbol">hash:</span>/var/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">mailman3</span>/<span class="hljs-title">data</span>/<span class="hljs-title">postfix_lmtp</span></span>
+relay_domains = $<span class="hljs-template-variable">{{$compatibility_level} &lt; {<span class="hljs-number">2</span>} ? {$mydestination} : {}}</span> <span class="hljs-symbol">hash:</span>/var/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">mailman3</span>/<span class="hljs-title">data</span>/<span class="hljs-title">postfix_domains</span></span>
+
+<span class="hljs-comment"># from README.Debian -- Jonas Meurer &lt;jonas@freesources.org&gt;</span>
+</code></pre><h2 id="Problème" style=""><a class="anchor hidden-xs" href="#Problème" title="Problème"><span class="octicon octicon-link"></span></a>Problème</h2><p><a href="#Table-des-mati%C3%A8res">[retour en haut]</a></p><p>Lors du démarage du processus mailman3-web<br>
+il se peut qu’il n’indique aucun problème mais que en voulant accèder à l’interface via le lien <code>www.exemple.org/mailman3/</code> rien ne s’affiche<br>
+pour résoudre ce problème il faut donnée les accès en écriture au groupe alterncpanel pour le socket <strong>uwsgi.sock</strong> et lui attribué le bon groupe</p><blockquote>
+<p><code>chgrp alterncpanel /run/mailman3-web/uwsgi.sock</code><br>
+<code>chmod 760 /run/mailman3-web/uwsgi.sock</code></p>
+</blockquote><p>il se fait que le socket soit lancé avec des droits d’accès insuffisants et un groupe qui correspond au serveur web mais pas au groupe alternc.</p><p>Cela implique qu’à chaque démarrage de mailman3-web les commandes ci-dessus soit relancé</p></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav">
+<li class=""><a href="#Mailman-3-suite" title="Mailman 3 suite">Mailman 3 suite</a><ul class="nav">
+<li class=""><a href="#Table-des-matières" title="Table des matières">Table des matières</a></li>
+<li class=""><a href="#Environnement" title="Environnement">Environnement</a></li>
+<li class=""><a href="#Architecture" title="Architecture">Architecture</a></li>
+<li class=""><a href="#Les-bases-de-donées" title="Les bases de donées">Les bases de donées</a><ul class="nav">
+<li class=""><a href="#mailman3-webdb" title="mailman3-web.db">mailman3-web.db</a></li>
+<li class=""><a href="#mailman3db" title="mailman3.db">mailman3.db</a></li>
+<li class=""><a href="#diff-lors-d’ajout-d’un-utilisateur" title="diff lors d’ajout d’un utilisateur">diff lors d’ajout d’un utilisateur</a></li>
+</ul>
+</li>
+<li class=""><a href="#AlternC" title="AlternC">AlternC</a><ul class="nav">
+<li><a href="#Les-vues" title="Les vues">Les vues</a></li>
+<li class=""><a href="#Les-classes" title="Les classes">Les classes</a></li>
+<li class=""><a href="#Les-scripts" title="Les scripts">Les scripts</a></li>
+<li class=""><a href="#Les-Chemins-utiles" title="Les Chemins utiles">Les Chemins utiles</a></li>
+</ul>
+</li>
+<li><a href="#Postfix" title="Postfix">Postfix</a></li>
+<li class=""><a href="#Problème" title="Problème">Problème</a></li>
+</ul>
+</li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;"  >
+        <div class="toc"><ul class="nav">
+<li class=""><a href="#Mailman-3-suite" title="Mailman 3 suite">Mailman 3 suite</a><ul class="nav">
+<li class=""><a href="#Table-des-matières" title="Table des matières">Table des matières</a></li>
+<li class=""><a href="#Environnement" title="Environnement">Environnement</a></li>
+<li class=""><a href="#Architecture" title="Architecture">Architecture</a></li>
+<li class=""><a href="#Les-bases-de-donées" title="Les bases de donées">Les bases de donées</a><ul class="nav">
+<li class=""><a href="#mailman3-webdb" title="mailman3-web.db">mailman3-web.db</a></li>
+<li class=""><a href="#mailman3db" title="mailman3.db">mailman3.db</a></li>
+<li class=""><a href="#diff-lors-d’ajout-d’un-utilisateur" title="diff lors d’ajout d’un utilisateur">diff lors d’ajout d’un utilisateur</a></li>
+</ul>
+</li>
+<li class=""><a href="#AlternC" title="AlternC">AlternC</a><ul class="nav">
+<li><a href="#Les-vues" title="Les vues">Les vues</a></li>
+<li class=""><a href="#Les-classes" title="Les classes">Les classes</a></li>
+<li class=""><a href="#Les-scripts" title="Les scripts">Les scripts</a></li>
+<li class=""><a href="#Les-Chemins-utiles" title="Les Chemins utiles">Les Chemins utiles</a></li>
+</ul>
+</li>
+<li><a href="#Postfix" title="Postfix">Postfix</a></li>
+<li class=""><a href="#Problème" title="Problème">Problème</a></li>
+</ul>
+</li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>
