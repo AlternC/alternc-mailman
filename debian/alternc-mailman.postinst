@@ -11,12 +11,15 @@ MAILMAN_CONFIG_BACKUP="/var/lib/alternc/backups/etc-mailman-mailman.cfg"
 
 #hyperkitty
 MAILMAN_HYPERKITTY_CONFIG="/etc/mailman3/mailman-hyperkitty.cfg"
-MAILMAN_HYPERKITTY_PWD=$(rgrep "api_key" $MAILMAN_HYPERKITTY_CONFIG | awk '{print $2}')
+MAILMAN_HYPERKITTY_CONFIG_TEMPLATE="/etc/alternc/templates/mailman/mailman-hyperkitty.cfg"
+MAILMAN_HYPERKITTY_CONFIG_BACKUP="/var/lib/alternc/backups/etc-mailman-mailman-hyperkitty.cfg"
+
+# MAILMAN_HYPERKITTY_PWD=$(rgrep "api_key" $MAILMAN_HYPERKITTY_CONFIG | awk '{print $2}')
 
 #Mailman web (django)
 MAILMAN_WEB_CONFIG="/etc/mailman3/mailman-web.py"
 MAILMAN_WEB_CONFIG_TEMPLATE="/etc/alternc/templates/mailman/mailman-web.py"
-MAILMAN_CONFIG_BACKUP="/var/lib/alternc/backups/etc-mailman-mailman-web.py"
+MAILMAN_WEB_CONFIG_BACKUP="/var/lib/alternc/backups/etc-mailman-mailman-web.py"
 
 MAILMAN_PASS="`perl -e 'print map{("a".."z","A".."Z",0..9)[int(rand(62))]}(1..10)' `" # copy-pasted from alternc/debian/config
 
@@ -56,6 +59,14 @@ case "$1" in
             exit 1
         fi
     fi
+    if [ -f "$MAILMAN_HYPERKITTY_CONFIG_BACKUP" ]; then
+        if ! diff -q "$MAILMAN_HYPERKITTY_CONFIG" "$MAILMAN_HYPERKITTY_CONFIG_BACKUP"; then
+            echo "$MAILMAN_HYPERKITTY_CONFIG has been modified since last alternc-mailman"
+            echo "configuration.  You should merge your changes to"
+            echo "$MAILMAN_HYPERKITTY_CONFIG_TEMPLATE and delete $MAILMAN_HYPERKITTY_CONFIG_BACKUP"
+            exit 1
+        fi
+    fi
     if [ -f "$MAILMAN_WEB_CONFIG_BACKUP" ]; then
         if ! diff -q "$MAILMAN_WEB_CONFIG" "$MAILMAN_WEB_CONFIG_BACKUP"; then
             echo "$MAILMAN_WEB_CONFIG has been modified since last alternc-mailman"
@@ -86,6 +97,9 @@ case "$1" in
 
     sed -e "s/%%fqdn%%/$FQDN/;s|%%restkey%%|$REST_KEY|;s|%%archiverkey%%|$ARCHIVER_KEY|;s|%%dbmailman3webpass%%|$dbmailman3webpass|;s|%%secretkey%%|$SECRET_KEY|" < "$MAILMAN_CONFIG_TEMPLATE" > "$MAILMAN_CONFIG"
     cp -a -f "$MAILMAN_CONFIG" "$MAILMAN_CONFIG_BACKUP"
+
+    sed -e "s/%%fqdn%%/$FQDN/;s|%%restkey%%|$REST_KEY|;s|%%archiverkey%%|$ARCHIVER_KEY|;s|%%dbmailman3webpass%%|$dbmailman3webpass|;s|%%secretkey%%|$SECRET_KEY|" < "$MAILMAN_HYPERKITTY_CONFIG_TEMPLATE" > "$MAILMAN_HYPERKITTY_CONFIG"
+    cp -a -f "$MAILMAN_HYPERKITTY_CONFIG" "$MAILMAN_HYPERKITTY_CONFIG_BACKUP"
 
     sed -e "s/%%fqdn%%/$FQDN/;s|%%restkey%%|$REST_KEY|;s|%%archiverkey%%|$ARCHIVER_KEY|;s|%%dbmailman3webpass%%|$dbmailman3webpass|;s|%%secretkey%%|$SECRET_KEY|" < "$MAILMAN_WEB_CONFIG_TEMPLATE" > "$MAILMAN_WEB_CONFIG"
     cp -a -f "$MAILMAN_WEB_CONFIG" "$MAILMAN_WEB_CONFIG_BACKUP"

@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 /* 
-	synchronise email between mailman3 and alternc
+*	synchronise email between mailman3 and alternc
 */
 
 
@@ -25,7 +25,7 @@ if ( $ok ){
 
 // ------------------   MailmanWeb db  ------------------//
 
-$dbname = 'mailman3web';
+$dbname = 'mailman3-web';
 $db = new pdo("mysql:host=".$settings['host'].";dbname=$dbname",$settings['user'],$settings['password']);
 
 //django user
