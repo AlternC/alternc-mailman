@@ -626,6 +626,10 @@ class m_mailman {
     if ($db->next_record()) {
       $q['used'] = $db->f("cnt");
     }
+    $db->query("SELECT SUM(size) AS sizeondisk FROM size_mailman WHERE uid = ?", array($cuid));
+    if ($db->next_record()) {
+        $q['sizeondisk'] = $db->f('sizeondisk');
+    }
     return $q;
   }
   
