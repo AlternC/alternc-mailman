@@ -58,6 +58,7 @@ mysql_query "SELECT id,list, name, domain, owner, password FROM mailman WHERE ma
       else
         mysql_query "UPDATE mailman SET mailman_action='OK' WHERE id='$id';"
       fi
+      run-parts --arg=post_create --arg="$id" /usr/lib/alternc/mailman.d
     fi
   fi
 done
@@ -70,6 +71,7 @@ mysql_query "SELECT id, list, name, domain FROM mailman WHERE mailman_action='DE
     else
 # Delete the list : 
     mysql_query "UPDATE mailman SET mailman_action='DELETING' WHERE id='$id';"
+    run-parts --arg=pre_delete --arg="$id" /usr/lib/alternc/mailman.d
     sudo -u list /usr/lib/mailman/bin/rmlist "$name"
     if [ "$?" -eq "0" ]
       then

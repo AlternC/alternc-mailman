@@ -1,6 +1,7 @@
 etc/alternc/templates/mailman
 etc/alternc/apache-panel.d/
 usr/lib/alternc/install.d
+usr/lib/alternc/mailman.d
 usr/share/alternc/install
 usr/share/alternc/install/upgrades-mailman
 usr/share/doc/alternc-mailman
