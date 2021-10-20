@@ -19,12 +19,3 @@ Description: Mailman module for AlternC
  management to the virtual desktop. 
  .
  More information on https://www.alternc.com/
-Description-fr.UTF-8: Module Mailman pour AlternC
- AlternC est un logiciel d'hébergement mutualisé pour serveur Linux.
- Il permet de gérer les sites web, domaines, ftp, emails, alias,
- statistiques web, listes de discussions, etc.
- .
- Ce paquet est un module optionnel qui permet aux utilisateurs
- de gérer des listes de diffusion et discussions via Mailman dans AlternC.
- .
- Pour plus d'informations, consultez https://www.alternc.com/
