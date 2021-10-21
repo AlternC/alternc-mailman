@@ -114,7 +114,7 @@ if ($quota->cancreate("mailman")) {
 <br />
       <select name="action" id="action" class="inl">
        <option value=""><?php __("-- Choose an action --"); ?></option>
-                   <?php $action=array("DELETE" => "DELETE","REGENERATE"=>"REGENERATE"); eoption($action,"1");
+                   <?php $action=array("DELETE" => "DELETE"); eoption($action,"1");
         ?></select>
 
 <input type="submit" class="inb" name="submit" value="<?php __("Validate"); ?>" />
