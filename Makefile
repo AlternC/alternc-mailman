@@ -21,8 +21,8 @@
 # Purpose of file: Global Makefile 
 # ----------------------------------------------------------------------
 MAJOR=$(shell sed -ne 's/^[^(]*(\([^)]*\)).*/\1/;1p' debian/changelog)
-REV=$(shell env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $$2 }')
-VERSION="${MAJOR}~svn${REV}"
+REV=`git describe --tags | sed 's/^v//; s/-/./g'`
+VERSION="${MAJOR}~git${REV}"
 export VERSION
 
 build:
@@ -49,7 +49,3 @@ install:
 # Install lintian overrides
 	install -m 0644 debian/lintian-override \
 	    $(DESTDIR)/usr/share/lintian/overrides/alternc-mailman
-# remove CVS / SVN entries : 
-# TODO : remove this when we will stop using CVS / SVN \o/ and migrated to GIT
-	find debian/alternc-mailman/ -depth \( -name CVS -o -name .svn \) -type d -exec rm -rf {} \;
-
