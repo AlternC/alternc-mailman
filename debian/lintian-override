@@ -1,5 +1,0 @@
-alternc-mailman: setgid-binary usr/lib/alternc/mailman.create 2755 root/list
-alternc-mailman: setgid-binary usr/lib/alternc/mailman.delete 2755 root/list
-alternc-mailman: setgid-binary usr/lib/alternc/mailman.list 2755 root/list
-alternc-mailman: setgid-binary usr/lib/alternc/mailman.sub 2755 root/list
-alternc-mailman: setgid-binary usr/lib/alternc/mailman.unsub 2755 root/list

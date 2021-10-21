@@ -29,10 +29,8 @@ build:
 
 install: 
 	cp -r bureau/* $(DESTDIR)/usr/share/alternc/panel/
-# 1999 is alterncpanel (TODO: ask Debian for a static uid/gid ?)
+	# 1999 is alterncpanel (TODO: ask Debian for a static uid/gid ?)
 	chown 1999:1999 -R $(DESTDIR)/usr/share/alternc/panel/
-	install -m 0644 mm_cfg.py \
-		$(DESTDIR)/etc/alternc/templates/mailman/
 	install -m 0644 -o root -g root src/get_url_alternc.py src/set_url_alternc.py \
 		$(DESTDIR)/usr/lib/mailman/bin/
 	install -m 0755 src/update_mailman.sh \
@@ -40,12 +38,7 @@ install:
 	install -m 0644 mailman.sql \
 		$(DESTDIR)/usr/share/alternc/install/
 	install -m 750 alternc-mailman-install $(DESTDIR)/usr/lib/alternc/install.d/
-	touch $(DESTDIR)/usr/share/alternc-mailman/www/index.html
 
 	rm -f $(DESTDIR)/usr/share/alternc/panel/locales/Makefile
-	cp -r patches/* $(DESTDIR)/usr/share/alternc-mailman/patches
 	install -m 0755 upgrade_mailman_check.sh $(DESTDIR)/usr/share/alternc/install/
 	install -m 0644 upgrades-mailman/* $(DESTDIR)/usr/share/alternc/install/upgrades-mailman/
-# Install lintian overrides
-	install -m 0644 debian/lintian-override \
-	    $(DESTDIR)/usr/share/lintian/overrides/alternc-mailman
