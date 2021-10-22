@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS `mailman` (
   `url` varchar(255) NOT NULL DEFAULT '',
   `mailman_action` enum('OK','CREATE','DELETE','PASSWORD','GETURL','SETURL','DELETING', 'REGENERATE', 'REGENERATE-2') NOT NULL DEFAULT 'OK',
   `mailman_result` varchar(255) NOT NULL DEFAULT '',
+  `mailman_version` decimal(6,3) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `mailman_action` (`mailman_action`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Mailman mailing lists';
