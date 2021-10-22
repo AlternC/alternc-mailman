@@ -74,13 +74,12 @@ mysql_query "SELECT id, list, name, domain FROM mailman WHERE mailman_action='DE
 done
 
 
-# List the lists to PASSWORD
+# List the lists to PASSWORD (mailman 2 only)
 mysql_query "SELECT id, list, name, domain, password FROM mailman WHERE mailman_action='PASSWORD';"|while read id list name domain password ; do
   if [ ! -d "/var/lib/mailman/lists/$name" ]
     then
     mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK', password='' WHERE id='$id';"
     else
-# Password the list : 
     sudo -u list /usr/lib/mailman/bin/change_pw -l "$name" -p "$password"
     if [ "$?" -eq "0" ]
       then

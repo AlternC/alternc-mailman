@@ -245,7 +245,7 @@ class m_mailman {
    * @param $password the initial list password (required)
    * @return boolean TRUE if the list has been created, or FALSE if an error occured
    */
-  function add_lst($domain,$login,$owner,$password,$password2) {
+  function add_lst($domain,$login,$owner) {
     global $db,$msg,$quota,$mail,$cuid,$dom,$L_FQDN;
     $msg->log("mailman","add_lst",$login."@".$domain." - ".$owner);
 
@@ -276,16 +276,12 @@ class m_mailman {
       $msg->raise("ERROR","mailman",_("The login (left part of the @) is mandatory"));
       return false;
     }
-    if (!$owner || !$password) {
-      $msg->raise("ERROR","mailman",_("The owner email and the password are mandatory"));
+    if (!$owner) {
+      $msg->raise("ERROR","mailman",_("The owner email is mandatory"));
       return false;
     }
     if (checkmail($owner)) {
       $msg->raise("ERROR","mailman",_("This email is incorrect"));
-      return false;
-    }
-    if ($password != $password2) {
-        $msg->raise("ERROR","mailman",_("The passwords are differents, please try again"));
       return false;
     }
     $r = $this->prefix_list();
@@ -304,7 +300,7 @@ class m_mailman {
       return false;
     }
     // List creation : 1. insert into the DB
-    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action) VALUES ( ? , ? , ? , ? , ? , ? , ? , 'CREATE');",array($cuid,$login,$domain,$name,$password,$owner,$L_FQDN));
+    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action) VALUES ( ? , ? , ? , ? , '' , ? , ? , 'CREATE');",array($cuid,$login,$domain,$name,$owner,$L_FQDN));
 
     return true;
   }

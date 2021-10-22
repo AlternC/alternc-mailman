@@ -29,8 +29,6 @@ $fields = array (
 	"domain"     => array ("request", "string", ""),
 	"login"     => array ("request", "string", ""),
 	"owner"     => array ("request", "string", ""),
-	"pass"     => array ("request", "string", ""),
-	"pass2"     => array ("request", "string", ""),
 );
 getFields($fields);
 
@@ -40,7 +38,7 @@ if (preg_match('/^\w+$/', $login) === 0) {
 	exit();
 }
 
-$r=$mailman->add_lst($domain,$login,$owner,$pass,$pass2);
+$r=$mailman->add_lst($domain,$login,$owner);
 if (!$r) {
 	include("mman_add.php");
 	exit();
