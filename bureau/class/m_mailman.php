@@ -80,7 +80,7 @@ class m_mailman {
   
   function hook_menu() {
     $obj = array(
-      'title'       => _("Mailing lists"),
+      'title'       => "<i class='fas fa-list'></i> &nbsp; " . _("Mailing lists"),
       'ico'         => 'images/mailman.png',
       'link'        => 'mman_list.php',
       'pos'         => 70,
