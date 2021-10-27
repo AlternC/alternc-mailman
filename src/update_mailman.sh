@@ -126,5 +126,19 @@ mysql_query "SELECT id, list, name, domain, url FROM mailman WHERE mailman_actio
   fi
 done
 
+
+# List the lists to MIGRATE
+mysql_query "SELECT id, list, name, domain FROM mailman WHERE mailman_action='MIGRATE';"|while read id list name domain owner; do
+    MIGRATION_LOG_FILE="/var/log/alternc/list_migrate.log"
+    /usr/sbin/list_migrate $list@$domain 2>&1 >> $MIGRATION_LOG_FILE
+    if [ $? -eq 0 ]
+    then
+      mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK', mailman_version=3 WHERE id='$id';"
+    else
+      echo "An error occured while migrating $list@$domain, see $MIGRATION_LOG_FILE for details"
+      mysql_query "UPDATE mailman SET mailman_result='An error happened while trying to migrate the list, please contact your admin', mailman_action='OK' WHERE id='$id';"
+    fi
+done
+
 # Delete the lock
 rm -f "$LOCK_FILE"

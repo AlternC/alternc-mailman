@@ -3,6 +3,7 @@ VERSION=3.6.0
 
 ( echo "BEGIN;"
   echo "ALTER TABLE mailman ADD mailman_version decimal(6,3) NOT NULL DEFAULT 0;"
+  echo "ALTER TABLE mailman MODIFY mailman_action ENUM( 'OK', 'CREATE', 'DELETE', 'PASSWORD', 'GETURL','SETURL', 'DELETING','REGENERATE','REGENERATE-2','MIGRATE' ) NOT NULL DEFAULT 'OK';"
   echo "UPDATE alternc_status SET value='$VERSION' WHERE name='alternc-mailman_version';"
   echo "COMMIT;"
 ) | mysql --defaults-file=/etc/alternc/my.cnf

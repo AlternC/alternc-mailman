@@ -30,6 +30,7 @@ $mman_status=array(
 		   "PASSWORD" => _("Password change pending"),
 		   "SETURL" => _("Url change pending"),
 		   "CREATE" => _("List creation pending"),
+		   "MIGRATE" => _("List migration pending"),
 		   );
 
 
@@ -102,7 +103,10 @@ if ($quota->cancreate("mailman")) {
             <td class="mailman-flexbox">
                 <div class="ina"><a target=_blank href="<?php echo $val["admin_url"]; ?>"><?php __("List admin"); ?></a></div>
                 <div class="ina"><a target=_blank href="<?php echo $val["held_url"]; ?>"><?php __("Pending messages"); ?></a></div>
-                <?php if ($val['mailman_version'] < 3) : ?> <div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div><?php endif; ?>
+                <?php if ($val['mailman_version'] < 3) : ?>
+                    <div class="ina"><a href="mman_migrate.php?id=<?php echo $val["id"] ?>"><?php __("Migrate to mailman3"); ?></a></div>
+                    <div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div>
+                <?php endif; ?>
                 <div class="ina"><a href="mman_url.php?id=<?php echo $val["id"] ?>"><?php __("Change url"); ?></a></div>
             </td>
 	      <?php } ?>

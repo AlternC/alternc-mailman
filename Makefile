@@ -35,6 +35,7 @@ install:
 		$(DESTDIR)/usr/lib/mailman/bin/
 	install -m 0755 src/update_mailman.sh \
 		$(DESTDIR)/usr/lib/alternc/
+	install -m 0755 src/list_migrate $(DESTDIR)/usr/sbin
 	install -m 0644 mailman.sql \
 		$(DESTDIR)/usr/share/alternc/install/
 	install -m 750 alternc-mailman-install $(DESTDIR)/usr/lib/alternc/install.d/

@@ -1,0 +1,49 @@
+#!/bin/sh
+# This script migrates a mailman2 list to mailman3
+set -e
+
+raise() { echo $1; exit 1; }
+
+input=$1
+echo $input | grep -q "@" || raise "Error: please provide list@domain.ext"
+list=$(echo $input | cut -f1 -d@)
+domain=$(echo $input | cut -f2 -d@)
+oldlist=$list
+
+if [ ! -d /var/lib/mailman/lists/$oldlist ]
+then
+    # test if we have a koumbit patched mailman
+    oldlist=$(echo $input | sed 's/@/-/')
+    test -d /var/lib/mailman/lists/$oldlist || raise "Error: list not found"
+fi
+
+for archive_path in /var/lib/mailman/archives/private/$oldlist.mbox/$oldlist.mbox \
+    /var/lib/mailman/archives/public/$oldlist.mbox/$oldlist.mbox
+do
+    test -f $archive_path && archives_found=true && break || archives_found=false
+done
+
+
+get_migrate_options() {
+    mailman_version=$(dpkg-query --showformat='${Version}' --show mailman)
+    if dpkg --compare-versions $mailman_version ge 3.3.0
+    then
+        # only use charset option when available
+        echo '--charset iso8859-1'
+    fi
+}
+
+echo "$(date) mailman migration starting: $list@$domain"
+# unsubscribe members with delivery disabled by bounce because bouncing score is reset during migration
+sudo -u list /usr/sbin/list_members --nomail=bybounce $oldlist | sudo -u list /usr/sbin/remove_members --nouserack --file=- $oldlist
+sudo -u list /usr/lib/mailman/cron/senddigests -l $oldlist
+sudo -u list /usr/lib/mailman3/bin/mailman create $list@$domain
+sudo -u list /usr/lib/mailman3/bin/mailman import21 $(get_migrate_options) $list@$domain /var/lib/mailman/lists/$oldlist/config.pck
+if [ $archives_found = "true" ]
+then
+    /usr/share/mailman3-web/manage.py hyperkitty_import -l $list@$domain $archive_path
+    # Note: indexation is not processed now and will be triggered nightly
+    # sudo -u www-data /usr/share/mailman3-web/manage.py update_index_one_list $list@domain
+fi
+/usr/sbin/rmlist -a $oldlist
+echo "$(date) mailman migration success: $list@$domain"

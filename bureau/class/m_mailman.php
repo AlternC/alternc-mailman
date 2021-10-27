@@ -78,8 +78,8 @@ class m_mailman {
           $r['admin_url'] = "https://" . $r['url'] . "/cgi-bin/mailman/admin/" . $r['name'];
           $r['held_url'] = "https://" . $r['url'] . "/cgi-bin/mailman/admindb/" . $r['name'];
       } else {
-          $r['admin_url'] = "https://{$r['url']}/mailman3/postorius/lists/{$r['name']}.{$r['domain']}/";
-          $r['held_url'] = "https://{$r['url']}/mailman3/postorius/lists/{$r['name']}.{$r['domain']}/held_messages";
+          $r['admin_url'] = "https://{$r['url']}/mailman3/postorius/lists/{$r['list']}.{$r['domain']}/";
+          $r['held_url'] = "https://{$r['url']}/mailman3/postorius/lists/{$r['list']}.{$r['domain']}/held_messages";
       }
       $mls[] = $r;
     }
@@ -308,7 +308,7 @@ class m_mailman {
       return false;
     }
     // List creation : 1. insert into the DB
-    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action) VALUES ( ? , ? , ? , ? , '' , ? , ? , 'CREATE');",array($cuid,$login,$domain,$name,$owner,$L_FQDN));
+    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action,mailman_version) VALUES ( ? , ? , ? , ? , '' , ? , ? , 'CREATE', 3);",array($cuid,$login,$domain,$name,$owner,$L_FQDN));
 
     return true;
   }
@@ -585,8 +585,21 @@ class m_mailman {
     }
     return $q;
   }
-  
 
-
+  /** Migrate to mailman3
+   * @param $id integer The list id in alternc's database
+   * @return boolean TRUE if the list has been marked for migration.
+   */
+  function migrate($id) {
+    global $db,$msg,$cuid;
+    $msg->log("mailman","migrate",$id);
+    $db->query("SELECT * FROM mailman WHERE uid = ? and id = ?;", array( $cuid, $id));
+    $db->next_record();
+    if (!$db->f("id")) {
+      $msg->raise("ERROR","mailman",_("This list does not exist"));
+      return false;
+    }
+    $db->query("UPDATE mailman SET mailman_action = 'MIGRATE' WHERE id = ?;", array($id));
+    return true;
+  }
 } /* Class m_mailman */
-
