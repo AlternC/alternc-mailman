@@ -22,8 +22,8 @@
  Purpose of file: Show the Mailing-Lists owned by the current user
  ----------------------------------------------------------------------
 */
-
 require_once("../class/config.php");
+$addhead['css'][] = '<link rel="stylesheet" href="styles/alternc-mailman.css" type="text/css" />';
 include_once("head.php");
 
 $mman_status=array(
@@ -90,21 +90,21 @@ if ($quota->cancreate("mailman")) {
 	    <td><?php echo $val["list"]."@".$val["domain"] ?></td>
 	    <td colspan="4"><?php __("List is pending deletion, you can't do anything on it"); ?></td>
 		   <?php } else { ?>
-		   <td align="center" rowspan="2"><?php if ($val["list"]!="mailman") { ?><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>" id="d_<?php echo $val["id"]; ?>" /><?php } ?></td>
-		   <td rowspan="2"><label for="d_<?php echo $val["id"]; ?>"><?php echo $val["list"]."@".$val["domain"] ?></label></td>
-	   <td rowspan="2"><?php if (isset($val["mailman_action"]) && $val["mailman_action"]!="OK") { ?>
+		   <td align="center"><?php if ($val["list"]!="mailman") { ?><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>" id="d_<?php echo $val["id"]; ?>" /><?php } ?></td>
+		   <td><label for="d_<?php echo $val["id"]; ?>"><?php echo $val["list"]."@".$val["domain"] ?></label></td>
+	   <td><?php if (isset($val["mailman_action"]) && $val["mailman_action"]!="OK") { ?>
 		     <?php echo _($mman_status[$val["mailman_action"]]); ?>
 <?php } elseif (!empty($val["mailman_result"])) { ?>
 	  <?php echo $val["mailman_result"]; /* strings present for gettext in m_mailman */ ?>
 <?php } else { echo "OK";}
       
       ?></td>
-			<td><div class="ina"><a target=_blank href="<?php echo $val["admin_url"]; ?>"><?php __("List admin"); ?></a></div></td>
-            <td><div class="ina"><a target=_blank href="<?php echo $val["held_url"]; ?>"><?php __("Pending messages"); ?></a></div></td>
-<!--		    <td>&nbsp;</td> -->
-</tr><tr class="lst<?php echo $col; ?>">
-			<td><div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div></td>
-			<td><div class="ina"><a href="mman_url.php?id=<?php echo $val["id"] ?>"><?php __("Change url"); ?></a></div></td>
+            <td class="mailman-flexbox">
+                <div class="ina"><a target=_blank href="<?php echo $val["admin_url"]; ?>"><?php __("List admin"); ?></a></div>
+                <div class="ina"><a target=_blank href="<?php echo $val["held_url"]; ?>"><?php __("Pending messages"); ?></a></div>
+                <div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div>
+                <div class="ina"><a href="mman_url.php?id=<?php echo $val["id"] ?>"><?php __("Change url"); ?></a></div>
+            </td>
 	      <?php } ?>
 		</tr>
 		<?php
