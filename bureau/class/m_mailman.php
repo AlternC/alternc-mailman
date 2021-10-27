@@ -508,7 +508,7 @@ class m_mailman {
   /** FIXME: this function has no equivalent in cron mode, remove this */
   function get_list_url($list) {
     global $db,$msg,$cuid;
-    $q = "SELECT concat_ws('/',url,'cgi-bin/mailman/admin',name) as url FROM mailman WHERE uid = ?  AND id = ?";
+    $q = "SELECT concat_ws('',url,'/mailman3/postorius/lists/',name,'.',domain,'/') as url FROM mailman WHERE uid = ?  AND id = ?";
     $db->query($q, array( $cuid, intval($list)));
     if (!$db->next_record()) {
         $msg->raise("ERROR","mailman",_("This list does not exist"));
@@ -522,7 +522,7 @@ class m_mailman {
   /* ----------------------------------------------------------------- */
   /** Set the management url for $list 
    * @param $list integer the list for which we want to change the url
-   * @param $url string the url, MUST be either http:// or https:// + domain + /cgi-bin/mailman/
+   * @param $url string the url, MUST be either http:// or https:// + domain + /mailman3/postorius/
    * @return boolean TRUE if the url has been changes
    */
   function set_list_url($list,$newurl) {
