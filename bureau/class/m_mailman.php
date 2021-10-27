@@ -73,7 +73,15 @@ class m_mailman {
     }
     $mls = array();
     while ($db->next_record()) {
-      $mls[] = $db->Record;
+      $r = $db->Record;
+      if ((int)$r['mailman_version'] < 3) {
+          $r['admin_url'] = "https://" . $r['url'] . "/cgi-bin/mailman/admin/" . $r['name'];
+          $r['held_url'] = "https://" . $r['url'] . "/cgi-bin/mailman/admindb/" . $r['name'];
+      } else {
+          $r['admin_url'] = "https://{$r['url']}/mailman3/postorius/lists/{$r['name']}.{$r['domain']}/";
+          $r['held_url'] = "https://{$r['url']}/mailman3/postorius/lists/{$r['name']}.{$r['domain']}/held_messages";
+      }
+      $mls[] = $r;
     }
     return $mls;
   }

@@ -99,8 +99,8 @@ if ($quota->cancreate("mailman")) {
 <?php } else { echo "OK";}
       
       ?></td>
-			<td><div class="ina"><a target=_blank href="http://<?php echo $val["url"]; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a></div></td>
-			<td><div class="ina"><a target=_blank href="http://<?php echo $val["url"]; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a></div></td>
+			<td><div class="ina"><a target=_blank href="<?php echo $val["admin_url"]; ?>"><?php __("List admin"); ?></a></div></td>
+            <td><div class="ina"><a target=_blank href="<?php echo $val["held_url"]; ?>"><?php __("Pending messages"); ?></a></div></td>
 <!--		    <td>&nbsp;</td> -->
 </tr><tr class="lst<?php echo $col; ?>">
 			<td><div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div></td>
