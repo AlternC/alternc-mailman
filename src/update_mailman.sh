@@ -41,40 +41,31 @@ echo $$ > "$LOCK_FILE"
 
 # List the lists to CREATE
 mysql_query "SELECT id,list, name, domain, owner, password FROM mailman WHERE mailman_action='CREATE';"|while read id list name domain owner password ; do
-  if [ -d "/var/lib/mailman/lists/$name" ]
+  if [ -d "/var/lib/mailman3/lists/$name.$domain" ]
     then
     mysql_query "UPDATE mailman SET password='', mailman_result='This list already exist', mailman_action='OK' WHERE id='$id';"
     else
       # Create the list : 
-      sudo -u list /usr/lib/mailman/bin/newlist -q "$list@$domain" "$owner" "$password"
+      sudo -u list /usr/lib/mailman3/bin/mailman create -q $list@$domain -o $owner
       if [ "$?" -eq "0" ]
       then
         mysql_query "UPDATE mailman SET password='', mailman_result='', mailman_action='OK' WHERE id='$id';"
-        sudo -u list /usr/lib/mailman/bin/withlist -q -l -r set_url_alternc "$name" "$MAILMAN_URL"
-      if [ "$?" -ne "0" ]
-        # SetURL the list with the default fqdn to start: 
-      then
-        mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when changing the list url', mailman_action='OK' WHERE id='$id';"
-      else
-        mysql_query "UPDATE mailman SET mailman_action='OK' WHERE id='$id';"
       fi
     fi
-  fi
 done
 
 # List the lists to DELETE
 mysql_query "SELECT id, list, name, domain FROM mailman WHERE mailman_action='DELETE';"|while read id list name domain ; do
-  if [ ! -d "/var/lib/mailman/lists/$name" ]
+  if [ ! -d "/var/lib/mailman3/lists/$name.$domain" ]
     then
     mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK' WHERE id='$id';"
     else
 # Delete the list : 
     mysql_query "UPDATE mailman SET mailman_action='DELETING' WHERE id='$id';"
-    sudo -u list /usr/lib/mailman/bin/rmlist "$name"
+    sudo -u list /usr/lib/mailman3/bin/mailman remove $name@$domain
     if [ "$?" -eq "0" ]
-      then
-      # Now delete the archives too ...
-      sudo -u list /usr/lib/mailman/bin/rmlist -a "$name"
+    then
+      # TODO: check if archives deletion is needed here
       mysql_query "DELETE FROM mailman WHERE id='$id';"
     else
       mysql_query "UPDATE mailman SET mailman_result='A fatal error happened when deleting the list', mailman_action='OK' WHERE id='$id';"
