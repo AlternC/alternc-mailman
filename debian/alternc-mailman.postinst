@@ -17,6 +17,12 @@ case "$1" in
     # Create default quota "mailman" with value 0
     mysql --defaults-file=/etc/alternc/my.cnf -Bse "INSERT IGNORE INTO defquotas VALUES ('mailman', 0, 'default')" || true
 
+    PAT="'django_mailman3.lib.auth.fedora',"
+    grep $PAT /etc/mailman3/mailman-web.py | grep -q "#" || (
+        echo "disabling fedora allauth plugin"
+        sed -r "s/^(\s+)$PAT/\1\#$PAT/" -i /etc/mailman3/mailman-web.py &&
+        systemctl restart mailman3-web)
+
     echo "installing required apache modules" 
     a2enmod rewrite
 
