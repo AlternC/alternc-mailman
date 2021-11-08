@@ -24,25 +24,6 @@
 
 if [ "$1" = "upgrade" ]
 then
-    echo "Upgrading AlternC-mailman"
+    echo "Checking for alternC-mailman upgrades"
     /usr/share/alternc/install/upgrade_mailman_check.sh
-
-    echo "ensuring apache2 symlink is setup in /etc/apache2/conf.d/"
-    # compatibility with both Apache 2.2 and 2.4 makes it Wheezy AND Jessie-compliant : 
-    if [ -d "/etc/apache2/conf.d" ]
-	then
-	ln -sf /etc/mailman/apache.conf /etc/apache2/conf.d/mailman.conf 
-    fi
-    if [ -d "/etc/apache2/conf-enabled" ]
-	then
-	ln -sf /etc/mailman/apache.conf /etc/apache2/conf-enabled/mailman.conf 
-    fi
 fi  
-
-if [ "$1" = "before-reload" ]
-then
-    # since we may have created the "mailman" system list, mailman may not be running, let's restart it:
-    invoke-rc.d mailman stop
-    invoke-rc.d mailman start
-fi
-
