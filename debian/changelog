@@ -1,3 +1,25 @@
+alternc-mailman (3.6.0~2) buster; urgency=medium
+
+  * install and use mailman 3, preserve existing mailman 2 lists
+  * package alternc-mailman-config preseeds mailman3 debconf
+  * bureau: drop obselete menu definition, menu items are generated since alternc 938fcba1
+  * bureau: use font awesome icon in menu
+  * bureau: use flexbox for displaying action links
+  * mman_list: add in-context documenation about mailman accounts
+  * misc: add mailman version to database
+  * misc: add per list migration trigger
+  * misc: update french translation
+  * misc: autoconfigure postfix for routing mailman emails
+  * misc: add apache snippet to override alternc assignuserid
+  * d/alternc-mailman.postinst: run upgrade_mailman_check.sh
+  * d/alternc-mailman.postinst: add a debconf option to save attachments on disk
+  * d/control: remove unknown information field
+  * d/control: bump to debhelper 9
+  * d/postrm: do not regenerate configuration on removal
+  * d/postinst: disable fedora allauth plugin
+
+ -- Christophe Siraut <d@tobald.eu.org>  Thu, 21 Oct 2021 16:51:26 +0200
+
 alternc-mailman (3.3.12) stable; urgency=medium
 
   * Updates the package to require alternc version 
