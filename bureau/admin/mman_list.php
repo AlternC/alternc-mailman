@@ -124,6 +124,17 @@ if ($quota->cancreate("mailman")) {
 <input type="submit" class="inb" name="submit" value="<?php __("Validate"); ?>" />
 </form>
 
+<br/>
+<h3><?php __("Documentation"); ?></h3>
+
+<h4><?php __("Making a Mailman account"); ?></h4>
+
+<p><?php __("In order to manage your options and easily subscribe to or unsubscribe from Mailman lists, you typically want to make an account. There is a “sign up” link on most list pages (usually displayed in the upper right of the page), or you can go directly to the sign up interface at a URL that will be something like http://WEBSERVER/accounts/signup/"); ?></p>
+
+<p><?php __("If you’ve been subscribed to a list without making an account (because you did this yourself or because your lists were migrated from a Mailman 2.1 setup) you can make an account using the same email address and once you’ve confirmed that you have access to that email, you’ll be able to edit all the associated options.") ?></p>
+
+<p><?php __("Note that in Mailman 3, you can actually have multiple email addresses associated to the same user account, so you don’t need to make many separate accounts to handle your permissions."); ?></p>
+
 	<?php
 	    }
 
