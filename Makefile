@@ -28,6 +28,13 @@ export VERSION
 build:
 
 install: 
+	-mkdir -p $(DESTDIR)/usr/share/alternc/panel \
+	   $(DESTDIR)/usr/lib/mailman/bin \
+	   $(DESTDIR)/usr/lib/alternc \
+	   $(DESTDIR)/usr/share/alternc/install \
+	   $(DESTDIR)/usr/lib/alternc/install.d \
+	   $(DESTDIR)/usr/share/alternc/install/upgrades-mailman \
+	   $(DESTDIR)/usr/sbin
 	cp -r bureau/* $(DESTDIR)/usr/share/alternc/panel/
 	# 1999 is alterncpanel (TODO: ask Debian for a static uid/gid ?)
 	chown 1999:1999 -R $(DESTDIR)/usr/share/alternc/panel/
