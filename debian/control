@@ -9,6 +9,7 @@ Package: alternc-mailman
 Priority: optional
 Section: admin
 Architecture: all
+Pre-Depends: alternc-mailman-config
 Depends: alternc (>= 3.5.0~rc1), mailman3-full, ${misc:Depends}
 Description: Mailman module for AlternC
  AlternC is a mutualized hosting software manager for Linux.
@@ -19,3 +20,12 @@ Description: Mailman module for AlternC
  management to the virtual desktop. 
  .
  More information on https://www.alternc.com/
+
+Package: alternc-mailman-config
+Pre-Depends: debconf
+Depends: dbconfig-mysql, python3-pymysql, python3-mysqldb, ${misc:Depends}
+Priority: optional
+Section: admin
+Architecture: all
+Description: Configuration files for alternc-mailman
+ These files and dependencies are used for installing mailman3 and mailman3-web with alternc.
