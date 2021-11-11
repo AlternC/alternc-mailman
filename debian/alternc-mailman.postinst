@@ -37,6 +37,13 @@ case "$1" in
         systemctl restart postfix
     fi
 
+    echo "installing required apache modules"
+    . /usr/share/apache2/apache2-maintscript-helper
+    apache2_invoke enmod rewrite || true
+    if [ ! -e /etc/apache2/conf-enabled/alternc-mailman3.conf ]; then
+        apache2_invoke enconf alternc-mailman3.conf || true
+    fi
+
     echo "$2" >/var/lib/alternc/backups/alternc-mailman-lastversion
 
     echo -e "\033[31m**********************************************"

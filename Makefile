@@ -34,7 +34,8 @@ install:
 	   $(DESTDIR)/usr/share/alternc/install \
 	   $(DESTDIR)/usr/lib/alternc/install.d \
 	   $(DESTDIR)/usr/share/alternc/install/upgrades-mailman \
-	   $(DESTDIR)/usr/sbin
+	   $(DESTDIR)/usr/sbin \
+	   $(DESTDIR)/etc/apache2/conf-available
 	cp -r bureau/* $(DESTDIR)/usr/share/alternc/panel/
 	# 1999 is alterncpanel (TODO: ask Debian for a static uid/gid ?)
 	chown 1999:1999 -R $(DESTDIR)/usr/share/alternc/panel/
@@ -46,6 +47,7 @@ install:
 	install -m 0644 mailman.sql \
 		$(DESTDIR)/usr/share/alternc/install/
 	install -m 750 alternc-mailman-install $(DESTDIR)/usr/lib/alternc/install.d/
+	install -m 0644 debian/apache.conf $(DESTDIR)/etc/apache2/conf-available/alternc-mailman3.conf
 
 	rm -f $(DESTDIR)/usr/share/alternc/panel/locales/Makefile
 	install -m 0755 upgrade_mailman_check.sh $(DESTDIR)/usr/share/alternc/install/
