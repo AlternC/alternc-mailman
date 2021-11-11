@@ -23,8 +23,19 @@ case "$1" in
         sed -r "s/^(\s+)$PAT/\1\#$PAT/" -i /etc/mailman3/mailman-web.py &&
         systemctl restart mailman3-web)
 
-    echo "installing required apache modules" 
-    a2enmod rewrite
+    db_get alternc-mailman/configure-postfix
+    if [ "$RET" = "true" ]
+    then
+        for maincf in /etc/postfix/main.cf /etc/alternc/templates/alternc/postfix/postfix.cf
+        do
+            test -f $maincf || break
+            grep -q '^owner_request_special =' $maincf && sed -i 's/^owner_request_special = .*$/owner_request_special = no/' $maincf || echo 'owner_request_special = no' >> $maincf
+            grep -q '^transport_maps =' $maincf && sed -i 's#^transport_maps = .*$#transport_maps = hash:/var/lib/mailman3/data/postfix_lmtp,proxy:mysql:/etc/postfix/mytransport.cf#' $maincf || echo 'transport_maps = hash:/var/lib/mailman3/data/postfix_lmtp,proxy:mysql:/etc/postfix/mytransport.cf' >> $maincf
+            grep -q '^local_recipient_maps =' $maincf && sed -i 's#^local_recipient_maps = .*$#local_recipient_maps = proxy:unix:passwd.byname $alias_maps hash:/var/lib/mailman3/data/postfix_lmtp#' $maincf || echo 'local_recipient_maps = proxy:unix:passwd.byname $alias_maps hash:/var/lib/mailman3/data/postfix_lmtp' >> $maincf
+            grep -q '^relay_domains =' $maincf && sed -i 's#^relay_domains = .*$#relay_domains = hash:/var/lib/mailman3/data/postfix_domains,proxy:mysql:/etc/postfix/myrelay-domain.cf#' $maincf || echo 'relay_domains = hash:/var/lib/mailman3/data/postfix_domains,proxy:mysql:/etc/postfix/myrelay-domain.cf' >> $maincf
+        done
+        systemctl restart postfix
+    fi
 
     echo "$2" >/var/lib/alternc/backups/alternc-mailman-lastversion
 
