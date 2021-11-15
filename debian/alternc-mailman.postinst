@@ -50,11 +50,15 @@ case "$1" in
     echo "*                                            *"
     echo "*   ALTERNC-MAILMAN  ACTION REQUESTED        *"
     echo "*                                            *"
-    echo "* Please run alternc.install to fully deploy *"
+    echo "* Depending on your configuration, you may   *"
+    echo "* need to run alternc.install to fully deploy*"
     echo "* Then change your quota to activate Mailman *"
     echo "*                                            *"
     echo "**********************************************"
     echo -e "\033[0m"
+
+    /usr/share/alternc/install/upgrade_mailman_check.sh
+    /usr/sbin/alternc_msgfmt
     ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)
