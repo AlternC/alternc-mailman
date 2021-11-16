@@ -37,6 +37,19 @@ case "$1" in
         systemctl restart postfix
     fi
 
+    db_get alternc-mailman/attachments-on-disk
+    if [ "$RET" = "true" ]
+    then
+        mailmanwebcfg=/etc/mailman3/mailman-web.py
+        hk=/var/lib/mailman3/archives/hyperkitty
+        attachments=$hk/attachments
+        test -d $attachments || (mkdir -p $attachments $hk/spool && chown -R www-data $hk)
+        grep -q "^HYPERKITTY_ATTACHMENT_FOLDER =" $mailmanwebcfg || (
+            echo "HYPERKITTY_ATTACHMENT_FOLDER = '$attachments'" >> $mailmanwebcfg &&
+            systemctl restart mailman3-web
+        )
+    fi
+
     echo "installing required apache modules"
     . /usr/share/apache2/apache2-maintscript-helper
     apache2_invoke enmod rewrite || true
