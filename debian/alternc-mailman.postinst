@@ -72,6 +72,13 @@ case "$1" in
 
     /usr/share/alternc/install/upgrade_mailman_check.sh
     /usr/sbin/alternc_msgfmt
+
+    # fix a bug in package mailman3 3.2.1 (buster) and postfix
+    # this has been fixed in mailman3 3.3.1 (bullseye)
+    test -f /var/lib/mailman3/data/postfix_domains || (
+        sudo -u list mailman aliases &&
+        sudo systemctl restart postfix
+    )
     ;;
 
   abort-upgrade|abort-remove|abort-deconfigure)
