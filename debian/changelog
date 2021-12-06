@@ -1,3 +1,9 @@
+alternc-mailman (3.6.0~3) buster; urgency=medium
+
+  * re-enable removing mailman2 lists 
+
+ -- Christophe Siraut <d@tobald.eu.org>  Mon, 06 Dec 2021 15:47:57 +0100
+
 alternc-mailman (3.6.0~2) buster; urgency=medium
 
   * install and use mailman 3, preserve existing mailman 2 lists
