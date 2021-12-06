@@ -55,14 +55,18 @@ mysql_query "SELECT id,list, name, domain, owner, password FROM mailman WHERE ma
 done
 
 # List the lists to DELETE
-mysql_query "SELECT id, list, name, domain FROM mailman WHERE mailman_action='DELETE';"|while read id list name domain ; do
-  if [ ! -d "/var/lib/mailman3/lists/$name.$domain" ]
+mysql_query "SELECT id, list, name, domain, mailman_version FROM mailman WHERE mailman_action='DELETE';"|while read id list name domain mailman_version; do
+  if [ ! -d "/var/lib/mailman3/lists/$name.$domain" -a ! -d "/var/lib/mailman/lists/$name" ]
     then
     mysql_query "UPDATE mailman SET mailman_result='This list does not exist', mailman_action='OK' WHERE id='$id';"
     else
-# Delete the list : 
     mysql_query "UPDATE mailman SET mailman_action='DELETING' WHERE id='$id';"
-    sudo -u list /usr/lib/mailman3/bin/mailman remove $name@$domain
+    if (( $(echo "$mailman_version >= 3" |bc -l) ))
+    then
+        sudo -u list /usr/lib/mailman3/bin/mailman remove "$name@$domain"
+    else
+        sudo -u list /usr/lib/mailman/bin/rmlist "$name"
+    fi
     if [ "$?" -eq "0" ]
     then
       # TODO: check if archives deletion is needed here

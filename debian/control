@@ -10,7 +10,7 @@ Priority: optional
 Section: admin
 Architecture: all
 Pre-Depends: alternc-mailman-config
-Depends: alternc (>= 3.5.0~rc1), mailman3-full, ${misc:Depends}
+Depends: alternc (>= 3.5.0~rc1), bc, mailman3-full, ${misc:Depends}
 Description: Mailman module for AlternC
  AlternC is a mutualized hosting software manager for Linux.
  It allows you to manage your websites, domains, ftp, emails, aliases,
