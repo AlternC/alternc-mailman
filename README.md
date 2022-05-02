@@ -11,14 +11,15 @@ Usage:
 
 Installation notes:
 
- * Mailman site owner email address and default language are defined in /etc/mailman3/mailman.cfg
- * Site name (example.com) is defined at https://site.url/mailman3/admin/sites/site/1/change/
+ * Mailman site owner email address and default language are set in /etc/mailman3/mailman.cfg
+ * Site name (example.com by defaut) is defined at https://site.url/mailman3/admin/sites/site/1/change/
  * You may need to adapt /etc/apache2/conf-enabled/mailman3.conf and remove the
    trailing slash (see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=996105) 
+ * Backports for python3-django-hyperkitty and python3-authheaders are required for debian buster
 
-Versions:
+Alternc-mail versions:
 
- * alternc-mailman >=3.6 : this version installs mailman3, eventually on top of
+ * alternc-mailman >=3.6 (this version) installs mailman3, eventually on top of
    an existing mailman2 allowing users to select the lists they want to
    migrate, in that case both mailman versions work concurently until mailman2 is
    removed.
