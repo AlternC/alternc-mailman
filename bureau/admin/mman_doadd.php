@@ -32,7 +32,7 @@ $fields = array (
 );
 getFields($fields);
 
-if (preg_match('/^\w+$/', $login) === 0) {
+if (preg_match('/\w[\w-]+$/', $login) === 0) {
     $msg->raise("ERROR","mailman",_('Invalid list name (only letters, digits and underscore).'));
 	include("mman_add.php");
 	exit();
