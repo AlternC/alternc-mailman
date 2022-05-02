@@ -1,3 +1,12 @@
+alternc-mailman (3.6.0~4) buster; urgency=medium
+
+  * postorius: enable utf8 4-byte encodings
+  * ui: allow identical list names on different domains
+  * ui: allow dashes in list names
+  * d/control: add dependency python3-authheaders
+
+ -- Christophe Siraut <d@tobald.eu.org>  Mon, 02 May 2022 13:56:53 +0200
+
 alternc-mailman (3.6.0~3) buster; urgency=medium
 
   * re-enable removing mailman2 lists 
