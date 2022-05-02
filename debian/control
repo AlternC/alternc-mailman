@@ -23,7 +23,7 @@ Description: Mailman module for AlternC
 
 Package: alternc-mailman-config
 Pre-Depends: debconf
-Depends: dbconfig-mysql, python3-pymysql, python3-mysqldb, ${misc:Depends}
+Depends: dbconfig-mysql, python3-pymysql, python3-mysqldb, python3-authheaders, ${misc:Depends}
 Priority: optional
 Section: admin
 Architecture: all
