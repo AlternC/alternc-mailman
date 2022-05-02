@@ -297,7 +297,7 @@ class m_mailman {
       $msg->raise("ERROR","mailman",_("This domain does not exist."));
       return false;
     }
-    $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE name = ? ;", array($name));
+    $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE name = ? and domain = ? ;", array($name, $domain));
     $db->next_record();
     if ($db->f("cnt")) {
       $msg->raise("ERROR","mailman",_("A list with the same name already exist on the server. Please choose another name."));
