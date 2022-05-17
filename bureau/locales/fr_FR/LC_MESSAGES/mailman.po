@@ -201,7 +201,7 @@ msgstr ""
 "listes Mailman, vous souhaitez généralement créer un compte Mailman. Il y a un "
 "lien « inscription » sur la plupart des pages de listes (généralement affiché "
 "en haut à droite de la page), ou vous pouvez accéder directement à l'interface "
-"d'inscription sur https://lists.crans.org/accounts/signup/."
+"d'inscription sur https://WEBSERVER/accounts/signup/."
 
 #: ../admin/mman_list.php:134
 msgid ""
