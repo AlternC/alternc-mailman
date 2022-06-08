@@ -129,7 +129,7 @@ if ($quota->cancreate("mailman")) {
 
 <h4><?php __("Making a Mailman account"); ?></h4>
 
-<p><?php __("In order to manage your options and easily subscribe to or unsubscribe from Mailman lists, you typically want to make an account. There is a “sign up” link on most list pages (usually displayed in the upper right of the page), or you can go directly to the sign up interface at a URL that will be something like http://WEBSERVER/accounts/signup/"); ?></p>
+<p><?php __("In order to manage your options and easily subscribe to or unsubscribe from Mailman lists, you typically want to make an account. There is a “sign up” link on "); echo '<a href="https://' . $_SERVER["HTTP_HOST"] . '/mailman3/postorius/lists/' . '">';  __("the mailman web interface"); echo '</a> '; __("displayed in the upper right of the page"); ?>.</p>
 
 <p><?php __("If you’ve been subscribed to a list without making an account (because you did this yourself or because your lists were migrated from a Mailman 2.1 setup) you can make an account using the same email address and once you’ve confirmed that you have access to that email, you’ll be able to edit all the associated options.") ?></p>
 
