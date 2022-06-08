@@ -1,3 +1,9 @@
+alternc-mailman (3.6.0~5) buster; urgency=medium
+
+  * mman_list: provide a link to mailman web interface 
+
+ -- Christophe Siraut <d@tobald.eu.org>  Wed, 08 Jun 2022 15:20:39 +0200
+
 alternc-mailman (3.6.0~4) buster; urgency=medium
 
   * postorius: enable utf8 4-byte encodings
