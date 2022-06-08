@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
 "Report-Msgid-Bugs-To: i18n@alternc.org\n"
-"POT-Creation-Date: 2021-11-08 14:28+0100\n"
+"POT-Creation-Date: 2022-06-08 15:15+0200\n"
 "PO-Revision-Date: 2017-10-08 12:49+0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/octopuce/"
@@ -179,9 +179,15 @@ msgstr ""
 msgid ""
 "In order to manage your options and easily subscribe to or unsubscribe from "
 "Mailman lists, you typically want to make an account. There is a “sign up” "
-"link on most list pages (usually displayed in the upper right of the page), "
-"or you can go directly to the sign up interface at a URL that will be "
-"something like http://WEBSERVER/accounts/signup/"
+"link on "
+msgstr ""
+
+#: ../admin/mman_list.php:132
+msgid "displayed in the upper right of the page"
+msgstr ""
+
+#: ../admin/mman_list.php:132
+msgid "the mailman web interface"
 msgstr ""
 
 #: ../admin/mman_list.php:134
