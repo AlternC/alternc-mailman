@@ -41,7 +41,7 @@ sudo -u list /usr/lib/mailman3/bin/mailman create $list@$domain
 sudo -u list /usr/lib/mailman3/bin/mailman import21 $(get_migrate_options) $list@$domain /var/lib/mailman/lists/$oldlist/config.pck
 if [ $archives_found = "true" ]
 then
-    /usr/share/mailman3-web/manage.py hyperkitty_import -l $list@$domain $archive_path
+    sudo -u www-data /usr/share/mailman3-web/manage.py hyperkitty_import -l $list@$domain $archive_path
     # Note: indexation is not processed now and will be triggered nightly
     # sudo -u www-data /usr/share/mailman3-web/manage.py update_index_one_list $list@domain
 fi
