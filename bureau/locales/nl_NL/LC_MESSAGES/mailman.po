@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Jacob . <tn20160417@telenet.be>, 2017
 # Kevin Morssink, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
-"Report-Msgid-Bugs-To: i18n@alternc.org\n"
-"POT-Creation-Date: 2022-06-08 15:15+0200\n"
-"PO-Revision-Date: 2017-10-08 12:49+0000\n"
+"Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
+"POT-Creation-Date: 2022-12-12 14:11+0100\n"
+"PO-Revision-Date: 2018-06-27 19:13+0000\n"
 "Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/octopuce/"
 "alternc/language/nl_NL/)\n"
@@ -19,6 +20,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: ../admin/mman_add.php:54 ../admin/mman_url.php:87
+msgid "Cancel"
+msgstr "Annuleer"
+
+#: ../admin/mman_list.php:108
+msgid "Change password"
+msgstr "Verander wachtwoord"
+
 #: ../admin/mman_add.php:35 ../admin/mman_list.php:41 ../admin/mman_list.php:60
 #: ../admin/mman_migrate.php:52 ../admin/mman_migrate.php:60
 #: ../admin/mman_passwd.php:35 ../admin/mman_passwd.php:43
@@ -27,10 +36,6 @@ msgstr ""
 msgid "Mailing lists"
 msgstr "Verzendlijsten (mailman)"
 
-#: ../admin/mman_add.php:46
-msgid "List's email address"
-msgstr ""
-
 #: ../admin/mman_add.php:49
 msgid "Email of the list's administrator"
 msgstr "Email van de beheerder van de lijst"
@@ -38,10 +43,6 @@ msgstr "Email van de beheerder van de lijst"
 #: ../admin/mman_add.php:53
 msgid "Create the list."
 msgstr "Maak deze lijst aan"
-
-#: ../admin/mman_add.php:54 ../admin/mman_url.php:87
-msgid "Cancel"
-msgstr "Annuleer"
 
 #: ../admin/mman_del.php:49
 msgid "Deleting mailman lists"
@@ -69,10 +70,6 @@ msgstr ""
 "vernietigingvan all ingeschreven gebruikers, voorkeuren en archieven die het "
 "bevat! U kunt uw data <b>NIET</b> meer terugkrijgen!"
 
-#: ../admin/mman_doadd.php:36
-msgid "Invalid list name (only letters, digits and underscore)."
-msgstr ""
-
 #: ../admin/mman_doadd.php:46
 msgid "The mailing list has been successfully created."
 msgstr "De verzendlijst is succesvol aangemaakt."
@@ -82,17 +79,15 @@ msgstr "De verzendlijst is succesvol aangemaakt."
 msgid "The list %s has been successfully deleted."
 msgstr "De lijst %s is succesvol verwijderd."
 
-#: ../admin/mman_dopasswd.php:40
-msgid "The mailing list password will be changed in a few minutes."
-msgstr ""
-
 #: ../admin/mman_dourl.php:38
+#, fuzzy
 msgid "The mailing list management url has been successfully changed."
-msgstr ""
+msgstr "De verzendlijst is succesvol aangemaakt."
 
 #: ../admin/mman_edit.php:50
+#, fuzzy
 msgid "Editing mailman lists"
-msgstr ""
+msgstr "Verwijder mailman lijsten"
 
 #: ../admin/mman_list.php:30
 msgid "Password change pending"
@@ -122,8 +117,9 @@ msgid "Create a list"
 msgstr "Huidige url van de lijst"
 
 #: ../admin/mman_list.php:79
+#, fuzzy
 msgid "List Status"
-msgstr ""
+msgstr "Naam van de lijst"
 
 #: ../admin/mman_list.php:79
 msgid "List name"
@@ -146,86 +142,14 @@ msgstr "Beheerder van de lijst"
 msgid "Pending messages"
 msgstr "Boodschappen in behandeling"
 
-#: ../admin/mman_list.php:107
-#, fuzzy
-msgid "Migrate to mailman3"
-msgstr "(met mailman)"
-
-#: ../admin/mman_list.php:108
-msgid "Change password"
-msgstr "Verander wachtwoord"
-
 #: ../admin/mman_list.php:110
+#, fuzzy
 msgid "Change url"
-msgstr ""
-
-#: ../admin/mman_list.php:120
-msgid "-- Choose an action --"
-msgstr ""
+msgstr "Verander wachtwoord"
 
 #: ../admin/mman_list.php:124
 msgid "Validate"
 msgstr "Valideren"
-
-#: ../admin/mman_list.php:128
-msgid "Documentation"
-msgstr ""
-
-#: ../admin/mman_list.php:130
-msgid "Making a Mailman account"
-msgstr ""
-
-#: ../admin/mman_list.php:132
-msgid ""
-"In order to manage your options and easily subscribe to or unsubscribe from "
-"Mailman lists, you typically want to make an account. There is a “sign up” "
-"link on "
-msgstr ""
-
-#: ../admin/mman_list.php:132
-msgid "displayed in the upper right of the page"
-msgstr ""
-
-#: ../admin/mman_list.php:132
-msgid "the mailman web interface"
-msgstr ""
-
-#: ../admin/mman_list.php:134
-msgid ""
-"If you’ve been subscribed to a list without making an account (because you "
-"did this yourself or because your lists were migrated from a Mailman 2.1 "
-"setup) you can make an account using the same email address and once you’ve "
-"confirmed that you have access to that email, you’ll be able to edit all the "
-"associated options."
-msgstr ""
-
-#: ../admin/mman_list.php:136
-msgid ""
-"Note that in Mailman 3, you can actually have multiple email addresses "
-"associated to the same user account, so you don’t need to make many separate "
-"accounts to handle your permissions."
-msgstr ""
-
-#: ../admin/mman_migrate.php:40
-msgid "The mailing list will be migrated in a few minutes."
-msgstr ""
-
-#: ../admin/mman_migrate.php:44
-msgid "There was an error, please contact your administrator"
-msgstr ""
-
-#: ../admin/mman_migrate.php:69
-#, php-format
-msgid "Migration of list %s to mailman3"
-msgstr ""
-
-#: ../admin/mman_migrate.php:71
-msgid "I consent to the risk of losing data"
-msgstr ""
-
-#: ../admin/mman_migrate.php:75
-msgid "Go"
-msgstr ""
 
 #: ../admin/mman_passwd.php:52
 #, php-format
@@ -257,21 +181,23 @@ msgstr ""
 "niets"
 
 #: ../admin/mman_url.php:66
-#, php-format
+#, fuzzy, php-format
 msgid "Changing management url of list %s"
-msgstr ""
+msgstr "Verander beheers url van lijst %s"
 
 #: ../admin/mman_url.php:69
+#, fuzzy
 msgid "Current list url"
-msgstr ""
+msgstr "Huidige url van de lijst"
 
 #: ../admin/mman_url.php:73
 msgid "New list management url"
 msgstr "Nieuwe beheers url van de lijst"
 
 #: ../admin/mman_url.php:86
+#, fuzzy
 msgid "Change the url."
-msgstr ""
+msgstr "Verander de url"
 
 #: ../class/m_mailman.php:42
 msgid "This list already exist"
@@ -305,23 +231,16 @@ msgstr "Een fatale fout vond plaats tijdens ophalen url van de lijst"
 msgid "No list defined yet"
 msgstr "Nog geen lijst gedefiniëerd"
 
-#: ../class/m_mailman.php:185
-#, fuzzy
-msgid ""
-"Special mail address for Mailman mailing-lists. <a href ='mman_list."
-"php'>Click here to manage it.</a>"
-msgstr ""
-"Bijzonder email adres voor Mailman verzendlijsten. <ahref='mman_list."
-"php'>Klik hier om het te beheren.</a>"
-
 #: ../class/m_mailman.php:237
-#, php-format
+#, fuzzy, php-format
 msgid "The mailman address %s does not exist"
-msgstr ""
+msgstr "Deze lijst bestaat niet"
 
 #: ../class/m_mailman.php:262
+#, fuzzy
 msgid "Your mailing-list quota is over, you cannot create more mailing-lists."
 msgstr ""
+"Uw verzendlijst quota is bereikt, uw kunt niet meer verzendlijsten aanmaken"
 
 #: ../class/m_mailman.php:269
 msgid "The email you entered is syntaxically incorrect"
@@ -334,7 +253,7 @@ msgstr "De login naam (deel links van  de @) is verplicht"
 #: ../class/m_mailman.php:288
 #, fuzzy
 msgid "The owner email is mandatory"
-msgstr "Email en wachtwoord van de eigenaar zijn verplicht"
+msgstr "De login naam (deel links van  de @) is verplicht"
 
 #: ../class/m_mailman.php:292
 msgid "This email is incorrect"
@@ -370,5 +289,6 @@ msgid "The passwords are differents, please try again"
 msgstr "De wachtwoorden zijn verschillend, probeer het opnieuw aub"
 
 #: ../class/m_mailman.php:548
+#, fuzzy
 msgid "Mailing lists (mailman)"
-msgstr ""
+msgstr "Verzendlijsten (mailman)"

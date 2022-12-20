@@ -9,14 +9,14 @@
 # DeepSurfer, 2013-2014
 # Ettore Atalan <atalanttore@googlemail.com>, 2014,2017
 # poupoule2004 <poupoule2004@hotmail.com>, 2012
-# Stéphane Tréboux <stephane.treboux@gmail.com>, 2012
+# Stéphane Tréboux <inactive+stephane.treboux@transifex.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: AlternC, hosting control panel\n"
-"Report-Msgid-Bugs-To: i18n@alternc.org\n"
-"POT-Creation-Date: 2022-06-08 15:15+0200\n"
-"PO-Revision-Date: 2017-10-08 12:49+0000\n"
-"Last-Translator: Benjamin Sonntag <benjamin@sonntag.fr>\n"
+"Report-Msgid-Bugs-To: alternc@packages.debian.org\n"
+"POT-Creation-Date: 2022-12-12 14:11+0100\n"
+"PO-Revision-Date: 2018-06-27 19:13+0000\n"
+"Last-Translator: DeepSurfer\n"
 "Language-Team: German (Germany) (http://www.transifex.com/octopuce/alternc/"
 "language/de_DE/)\n"
 "Language: de_DE\n"
@@ -24,6 +24,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../admin/mman_add.php:54 ../admin/mman_url.php:87
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: ../admin/mman_list.php:108
+msgid "Change password"
+msgstr "Passwort ändern"
 
 #: ../admin/mman_add.php:35 ../admin/mman_list.php:41 ../admin/mman_list.php:60
 #: ../admin/mman_migrate.php:52 ../admin/mman_migrate.php:60
@@ -44,10 +52,6 @@ msgstr "E-Mail-Adresse des Administrators dieser Liste"
 #: ../admin/mman_add.php:53
 msgid "Create the list."
 msgstr "Liste erstellen."
-
-#: ../admin/mman_add.php:54 ../admin/mman_url.php:87
-msgid "Cancel"
-msgstr "Abbrechen"
 
 #: ../admin/mman_del.php:49
 msgid "Deleting mailman lists"
@@ -74,10 +78,6 @@ msgstr ""
 "Warnung: Das Löschen einer mailman-Liste wird für diese Liste alle "
 "angemeldete Anwender, Einstellungen und archivierte Daten löschen! Die Daten "
 "können <b>NICHT</b> wiederhergestellt werden!"
-
-#: ../admin/mman_doadd.php:36
-msgid "Invalid list name (only letters, digits and underscore)."
-msgstr ""
 
 #: ../admin/mman_doadd.php:46
 msgid "The mailing list has been successfully created."
@@ -161,10 +161,6 @@ msgstr "Ausstehende Nachrichten"
 msgid "Migrate to mailman3"
 msgstr "Mailing-Lists (mailman)"
 
-#: ../admin/mman_list.php:108
-msgid "Change password"
-msgstr "Passwort ändern"
-
 #: ../admin/mman_list.php:110
 #, fuzzy
 msgid "Change url"
@@ -182,67 +178,16 @@ msgstr ""
 "--- please explain in which case this Word to use, because we have more "
 "translation for that---"
 
-#: ../admin/mman_list.php:128
-msgid "Documentation"
-msgstr ""
-
-#: ../admin/mman_list.php:130
-msgid "Making a Mailman account"
-msgstr ""
-
-#: ../admin/mman_list.php:132
-msgid ""
-"In order to manage your options and easily subscribe to or unsubscribe from "
-"Mailman lists, you typically want to make an account. There is a “sign up” "
-"link on "
-msgstr ""
-
-#: ../admin/mman_list.php:132
-msgid "displayed in the upper right of the page"
-msgstr ""
-
-#: ../admin/mman_list.php:132
-msgid "the mailman web interface"
-msgstr ""
-
-#: ../admin/mman_list.php:134
-msgid ""
-"If you’ve been subscribed to a list without making an account (because you "
-"did this yourself or because your lists were migrated from a Mailman 2.1 "
-"setup) you can make an account using the same email address and once you’ve "
-"confirmed that you have access to that email, you’ll be able to edit all the "
-"associated options."
-msgstr ""
-
-#: ../admin/mman_list.php:136
-msgid ""
-"Note that in Mailman 3, you can actually have multiple email addresses "
-"associated to the same user account, so you don’t need to make many separate "
-"accounts to handle your permissions."
-msgstr ""
-
 #: ../admin/mman_migrate.php:40
 #, fuzzy
 msgid "The mailing list will be migrated in a few minutes."
 msgstr ""
 "Das Passwort für diese Mailingliste wird in einigen Minuten geändert sein."
 
-#: ../admin/mman_migrate.php:44
-msgid "There was an error, please contact your administrator"
-msgstr ""
-
 #: ../admin/mman_migrate.php:69
 #, fuzzy, php-format
 msgid "Migration of list %s to mailman3"
 msgstr "Mailing-Lists (mailman)"
-
-#: ../admin/mman_migrate.php:71
-msgid "I consent to the risk of losing data"
-msgstr ""
-
-#: ../admin/mman_migrate.php:75
-msgid "Go"
-msgstr ""
 
 #: ../admin/mman_passwd.php:52
 #, php-format
@@ -272,11 +217,6 @@ msgstr ""
 "dieser Liste zu erreichen. Falls Sie diese Adresse ändern wollen, können Sie "
 "eine neue Adresse in der Liste aussuchen und bestätigen. <br/> Falls Sie "
 "diese Einstellung nicht verstehen, sollten Sie nicht ändern."
-
-#: ../admin/mman_url.php:66
-#, php-format
-msgid "Changing management url of list %s"
-msgstr ""
 
 #: ../admin/mman_url.php:69
 #, fuzzy
@@ -311,24 +251,10 @@ msgstr "Ein grosser Fehler ist eingetreten beim erstellen der Liste"
 msgid "A fatal error happened when deleting the list"
 msgstr "Ein grosser Fehler ist eingetreten beim Löschen der Liste."
 
-#: ../class/m_mailman.php:46
-msgid "A fatal error happened when changing the list password"
-msgstr ""
-
-#: ../class/m_mailman.php:47
-msgid "A fatal error happened when getting the list url"
-msgstr ""
-
 #: ../class/m_mailman.php:71 ../class/m_mailman.php:434
 #: ../class/m_mailman.php:465
 msgid "No list defined yet"
 msgstr "Derzeit keine Liste ausgewählt"
-
-#: ../class/m_mailman.php:185
-msgid ""
-"Special mail address for Mailman mailing-lists. <a href ='mman_list."
-"php'>Click here to manage it.</a>"
-msgstr ""
 
 #: ../class/m_mailman.php:237
 #, php-format
@@ -369,12 +295,6 @@ msgid ""
 msgstr ""
 "Eine Liste mit dem selben Namen ist schon vorhanden. Bitte einen anderen "
 "Namen eintragen."
-
-#: ../class/m_mailman.php:336
-msgid ""
-"This email address (or one of the list-subscribe, list-unsubscribe etc.) are "
-"already used."
-msgstr ""
 
 #: ../class/m_mailman.php:376
 msgid "This list has pending action, you cannot delete it"
