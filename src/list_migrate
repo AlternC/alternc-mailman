@@ -36,5 +36,5 @@ then
     # Note: indexation is not processed now and will be triggered nightly
     # sudo -u www-data /usr/share/mailman3-web/manage.py update_index_one_list $list@domain
 fi
-/usr/sbin/rmlist -a $oldlist
+/usr/sbin/rmlist -a $oldlist || true
 echo "$(date) mailman migration success: $list@$domain"
