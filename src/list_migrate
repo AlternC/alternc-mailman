@@ -24,21 +24,12 @@ do
 done
 
 
-get_migrate_options() {
-    mailman_version=$(dpkg-query --showformat='${Version}' --show mailman)
-    if dpkg --compare-versions $mailman_version ge 3.3.0
-    then
-        # only use charset option when available
-        echo '--charset iso8859-1'
-    fi
-}
-
 echo "$(date) mailman migration starting: $list@$domain"
 # unsubscribe members with delivery disabled by bounce because bouncing score is reset during migration
 sudo -u list /usr/sbin/list_members --nomail=bybounce $oldlist | sudo -u list /usr/sbin/remove_members --nouserack --file=- $oldlist
 sudo -u list /usr/lib/mailman/cron/senddigests -l $oldlist
 sudo -u list /usr/lib/mailman3/bin/mailman create $list@$domain
-sudo -u list /usr/lib/mailman3/bin/mailman import21 $(get_migrate_options) $list@$domain /var/lib/mailman/lists/$oldlist/config.pck
+sudo -u list /usr/lib/mailman3/bin/mailman import21 $list@$domain /var/lib/mailman/lists/$oldlist/config.pck
 if [ $archives_found = "true" ]
 then
     sudo -u www-data /usr/share/mailman3-web/manage.py hyperkitty_import -l $list@$domain $archive_path
