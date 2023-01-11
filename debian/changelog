@@ -1,3 +1,10 @@
+alternc-mailman (3.6.1) buster; urgency=medium
+
+  * list_migrate: do not specify charset when importing pickle
+  * list_migrate: do not fail when missing mailman2 binaries
+
+ -- Christophe Siraut <d@tobald.eu.org>  Wed, 11 Jan 2023 12:03:04 +0100
+
 alternc-mailman (3.6.0~7) buster; urgency=medium
 
   * list_migrate: run hyperkitty import as www-data
