@@ -26,8 +26,8 @@ done
 
 echo "$(date) mailman migration starting: $list@$domain"
 # unsubscribe members with delivery disabled by bounce because bouncing score is reset during migration
-sudo -u list /usr/sbin/list_members --nomail=bybounce $oldlist | sudo -u list /usr/sbin/remove_members --nouserack --file=- $oldlist
-sudo -u list /usr/lib/mailman/cron/senddigests -l $oldlist
+sudo -u list /usr/sbin/list_members --nomail=bybounce $oldlist | sudo -u list /usr/sbin/remove_members --nouserack --file=- $oldlist || true
+sudo -u list /usr/lib/mailman/cron/senddigests -l $oldlist || true
 sudo -u list /usr/lib/mailman3/bin/mailman create $list@$domain
 sudo -u list /usr/lib/mailman3/bin/mailman import21 $list@$domain /var/lib/mailman/lists/$oldlist/config.pck
 if [ $archives_found = "true" ]
