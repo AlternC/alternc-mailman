@@ -63,7 +63,6 @@ for file in $( ls $extensions | sort -n ) ; do
 		      sql)
 			  ( echo "BEGIN;"
 			      cat $file
-			      echo "UPDATE alternc_status SET value='$file' WHERE name='alternc-mailman_version';"
 			      echo "COMMIT;"
 			  ) | mysql --defaults-file=/etc/alternc/my.cnf
 			  ;;
@@ -77,6 +76,7 @@ for file in $( ls $extensions | sort -n ) ; do
 			  echo "skipping $file, not recognized !"
 			  ;;
 		  esac
+		  mysql --defaults-file=/etc/alternc/my.cnf --skip-column-names -e "UPDATE alternc_status SET value='$upvers' WHERE name='alternc-mailman_version';"
 		fi
 	fi
 done
