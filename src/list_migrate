@@ -30,7 +30,8 @@ sudo -u list /usr/sbin/list_members --nomail=bybounce $oldlist | sudo -u list /u
 sudo -u list /usr/lib/mailman/cron/senddigests -l $oldlist || true
 sudo -u list /usr/lib/mailman3/bin/mailman create $list@$domain
 sudo -u list /usr/lib/mailman3/bin/mailman import21 $list@$domain /var/lib/mailman/lists/$oldlist/config.pck
-if [ $archives_found = "true" ]
+archive_policy=$(PYTHONPATH=/usr/lib/alternc mailman shell -r mailman_is_archived.main $list@$domain)
+if [ $archives_found = "true" && "$archive_policy" != "never" ]
 then
     /usr/share/mailman3-web/manage.py hyperkitty_import -l $list@$domain $archive_path
     # Note: indexation is not processed now and will be triggered nightly

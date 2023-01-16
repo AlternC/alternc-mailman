@@ -43,6 +43,7 @@ install:
 		$(DESTDIR)/usr/lib/mailman/bin/
 	install -m 0755 src/update_mailman.sh \
 		$(DESTDIR)/usr/lib/alternc/
+	install -m 0755 src/mailman_is_archived.py $(DESTDIR)/usr/lib/alternc/
 	install -m 0755 src/list_migrate $(DESTDIR)/usr/sbin
 	install -m 0755 src/alternc_msgfmt $(DESTDIR)/usr/sbin
 	install -m 0644 mailman.sql \
