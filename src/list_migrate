@@ -34,6 +34,12 @@ archive_policy=$(PYTHONPATH=/usr/lib/alternc mailman shell -r mailman_is_archive
 if [ $archives_found = "true" && "$archive_policy" != "never" ]
 then
     /usr/share/mailman3-web/manage.py hyperkitty_import -l $list@$domain $archive_path
+    archive_path=/var/lib/mailman3/archives/hyperkitty/attachments/$list@$domain
+    if [ -d $archive_path ]
+    then
+        # archives stored on disk need proper permissions
+        sudo chown -R www-data $archive_path
+    fi
     # Note: indexation is not processed now and will be triggered nightly
     # sudo -u www-data /usr/share/mailman3-web/manage.py update_index_one_list $list@domain
 fi
