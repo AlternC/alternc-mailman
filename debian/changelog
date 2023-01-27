@@ -1,3 +1,11 @@
+alternc-mailman (3.6.4) buster; urgency=medium
+
+  * misc: respect archive policy
+  * list_migrate: set proper permissions for archives stored on disk
+  * d/alternc-mailman.postinst: always set proper permissions for archives folder
+
+ -- Christophe Siraut <d@tobald.eu.org>  Fri, 27 Jan 2023 11:17:17 +0100
+
 alternc-mailman (3.6.3) buster; urgency=medium
 
   * list_migrate: do not fail on missing mailman2 binaries
