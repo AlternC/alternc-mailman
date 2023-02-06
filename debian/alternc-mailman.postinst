@@ -56,6 +56,12 @@ case "$1" in
         )
     fi
 
+    if ! grep -q '^class: mailman_hyperkitty.Archiver' /etc/mailman3/mailman.cfg >/dev/null
+    then
+        echo -e "\n[archiver.hyperkitty]\nclass: mailman_hyperkitty.Archiver\nenable: yes\nconfiguration: /etc/mailman3/mailman-hyperkitty.cfg" >> /etc/mailman3/mailman.cfg
+        systemctl restart mailman3
+    fi
+
     echo "installing required apache modules"
     . /usr/share/apache2/apache2-maintscript-helper
     apache2_invoke enmod rewrite || true
