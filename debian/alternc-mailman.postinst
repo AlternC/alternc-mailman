@@ -49,7 +49,7 @@ case "$1" in
         hk=/var/lib/mailman3/archives/hyperkitty
         attachments=$hk/attachments
         test -d $attachments || mkdir -p $attachments $hk/spool
-        chown -R www-data $hk
+        chown -R www-data:list $hk
         grep -q "^HYPERKITTY_ATTACHMENT_FOLDER =" $mailmanwebcfg || (
             echo "HYPERKITTY_ATTACHMENT_FOLDER = '$attachments'" >> $mailmanwebcfg &&
             systemctl restart mailman3-web
