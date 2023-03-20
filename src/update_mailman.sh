@@ -134,7 +134,7 @@ done
 # List the lists to MIGRATE
 mysql_query "SELECT id, list, name, domain FROM mailman WHERE mailman_action='MIGRATE';"|while read id list name domain owner; do
     MIGRATION_LOG_FILE="/var/log/alternc/list_migrate.log"
-    /usr/sbin/list_migrate $list@$domain 2>&1 >> $MIGRATION_LOG_FILE
+    /usr/sbin/list_migrate $list@$domain >> $MIGRATION_LOG_FILE 2>> $MIGRATION_LOG_FILE
     if [ $? -eq 0 ]
     then
       mysql_query "UPDATE mailman SET mailman_result='', mailman_action='OK', mailman_version=3 WHERE id='$id';"
