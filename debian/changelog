@@ -1,3 +1,11 @@
+alternc-mailman (3.6.5) buster; urgency=medium
+
+  * d/postinst: ensure archiver is enabled
+  * d/alternc-mailman.postinst: set group ownership for hyperkitty attachments files
+  * update_mailman: write stderr to logfile
+
+ -- Christophe Siraut <d@tobald.eu.org>  Fri, 07 Apr 2023 14:39:37 +0200
+
 alternc-mailman (3.6.4) buster; urgency=medium
 
   * misc: respect archive policy
