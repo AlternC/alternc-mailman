@@ -1,3 +1,10 @@
+alternc-mailman (3.6.6) bullseye; urgency=medium
+
+  * list_migrate: add a note about archives ownership
+  * list_migrate: run mailman shell as list
+
+ -- Christophe Siraut <d@tobald.eu.org>  Wed, 29 Nov 2023 09:54:22 +0100
+
 alternc-mailman (3.6.5) buster; urgency=medium
 
   * d/postinst: ensure archiver is enabled
