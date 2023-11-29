@@ -33,11 +33,11 @@ sudo -u list /usr/lib/mailman3/bin/mailman import21 $list@$domain /var/lib/mailm
 archive_policy=$(PYTHONPATH=/usr/lib/alternc mailman shell -r mailman_is_archived.main $list@$domain)
 if [ $archives_found = "true" && "$archive_policy" != "never" ]
 then
+    # old archives belong to list, import them as root and set proper permissions afterwards
     /usr/share/mailman3-web/manage.py hyperkitty_import -l $list@$domain $archive_path
     archive_path=/var/lib/mailman3/archives/hyperkitty/attachments/$list@$domain
     if [ -d $archive_path ]
     then
-        # archives stored on disk need proper permissions
         sudo chown -R www-data $archive_path
     fi
     # Note: indexation is not processed now and will be triggered nightly
