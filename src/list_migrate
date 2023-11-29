@@ -1,0 +1,47 @@
+#!/bin/sh
+# This script migrates a mailman2 list to mailman3
+set -e
+
+raise() { echo $1; exit 1; }
+
+input=$1
+echo $input | grep -q "@" || raise "Error: please provide list@domain.ext"
+list=$(echo $input | cut -f1 -d@)
+domain=$(echo $input | cut -f2 -d@)
+oldlist=$list
+
+if [ ! -d /var/lib/mailman/lists/$oldlist ]
+then
+    # test if we have a koumbit patched mailman
+    oldlist=$(echo $input | sed 's/@/-/')
+    test -d /var/lib/mailman/lists/$oldlist || raise "Error: list not found"
+fi
+
+for archive_path in /var/lib/mailman/archives/private/$oldlist.mbox/$oldlist.mbox \
+    /var/lib/mailman/archives/public/$oldlist.mbox/$oldlist.mbox
+do
+    test -f $archive_path && archives_found=true && break || archives_found=false
+done
+
+
+echo "$(date) mailman migration starting: $list@$domain"
+# unsubscribe members with delivery disabled by bounce because bouncing score is reset during migration
+sudo -u list /usr/sbin/list_members --nomail=bybounce $oldlist | sudo -u list /usr/sbin/remove_members --nouserack --file=- $oldlist || true
+sudo -u list /usr/lib/mailman/cron/senddigests -l $oldlist || true
+sudo -u list /usr/lib/mailman3/bin/mailman create $list@$domain
+sudo -u list /usr/lib/mailman3/bin/mailman import21 $list@$domain /var/lib/mailman/lists/$oldlist/config.pck
+archive_policy=$(sudo -u list PYTHONPATH=/usr/lib/alternc mailman shell -r mailman_is_archived.main $list@$domain)
+if [ $archives_found = "true" && "$archive_policy" != "never" ]
+then
+    # old archives belong to list, import them as root and set proper permissions afterwards
+    /usr/share/mailman3-web/manage.py hyperkitty_import -l $list@$domain $archive_path
+    archive_path=/var/lib/mailman3/archives/hyperkitty/attachments/$list@$domain
+    if [ -d $archive_path ]
+    then
+        sudo chown -R www-data $archive_path
+    fi
+    # Note: indexation is not processed now and will be triggered nightly
+    # sudo -u www-data /usr/share/mailman3-web/manage.py update_index_one_list $list@domain
+fi
+/usr/sbin/rmlist -a $oldlist || true
+echo "$(date) mailman migration success: $list@$domain"

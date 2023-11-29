@@ -1,0 +1,12 @@
+#!/bin/sh
+# compile alternc message catalogs
+set -e
+
+find /usr/share/alternc/panel/locales -maxdepth 1 -mindepth 1 -type d -name "*_*" | while read A
+do
+    B="$A/LC_MESSAGES"
+    cd $B
+    rm -f alternc.mo alternc.po
+    msgcat --use-first *.po alternc >alternc.po
+    msgfmt alternc.po -o alternc.mo
+done

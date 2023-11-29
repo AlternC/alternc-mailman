@@ -1,0 +1,15 @@
+Template: alternc-mailman/configure-postfix
+Type: boolean
+Default: true
+Description:
+ Shall we modify /etc/postix/main.cf to route incoming mailman emails?
+ Alternatively you should read /usr/share/doc/mailman3/README.Debian and perform
+ the changes manually.
+
+Template: alternc-mailman/attachments-on-disk
+Type: boolean
+Default: false
+Description:
+ Hyperkitty defaults to save attachments in the database, this provides
+ indexation and offer some compression. Do you want to hyperkitty to save
+ attachments on disk instead?

@@ -1,3 +1,11 @@
+alternc-mailman (3.6.0) stable; urgency=low
+
+    This version install mailman3, eventually on top of an existing mailman2
+    allowing users to select the lists they want to migrate, in that case both
+    mailman versions work concurently until mailman2 is removed.
+
+ -- Christophe Siraut <d@tobald.eu.org>  Thu, 21 Oct 2021 16:51:26 +0200
+
 alternc-mailman (1.8) stable; urgency=low
 
     This version changes the following : 

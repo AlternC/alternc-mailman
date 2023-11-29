@@ -73,14 +73,22 @@ class m_mailman {
     }
     $mls = array();
     while ($db->next_record()) {
-      $mls[] = $db->Record;
+      $r = $db->Record;
+      if ((int)$r['mailman_version'] < 3) {
+          $r['admin_url'] = "https://" . $r['url'] . "/cgi-bin/mailman/admin/" . $r['name'];
+          $r['held_url'] = "https://" . $r['url'] . "/cgi-bin/mailman/admindb/" . $r['name'];
+      } else {
+          $r['admin_url'] = "https://{$r['url']}/mailman3/postorius/lists/{$r['list']}.{$r['domain']}/";
+          $r['held_url'] = "https://{$r['url']}/mailman3/postorius/lists/{$r['list']}.{$r['domain']}/held_messages";
+      }
+      $mls[] = $r;
     }
     return $mls;
   }
   
   function hook_menu() {
     $obj = array(
-      'title'       => _("Mailing lists"),
+      'title'       => "<i class='fas fa-list'></i> &nbsp; " . _("Mailing lists"),
       'ico'         => 'images/mailman.png',
       'link'        => 'mman_list.php',
       'pos'         => 70,
@@ -245,7 +253,7 @@ class m_mailman {
    * @param $password the initial list password (required)
    * @return boolean TRUE if the list has been created, or FALSE if an error occured
    */
-  function add_lst($domain,$login,$owner,$password,$password2) {
+  function add_lst($domain,$login,$owner) {
     global $db,$msg,$quota,$mail,$cuid,$dom,$L_FQDN;
     $msg->log("mailman","add_lst",$login."@".$domain." - ".$owner);
 
@@ -276,16 +284,12 @@ class m_mailman {
       $msg->raise("ERROR","mailman",_("The login (left part of the @) is mandatory"));
       return false;
     }
-    if (!$owner || !$password) {
-      $msg->raise("ERROR","mailman",_("The owner email and the password are mandatory"));
+    if (!$owner) {
+      $msg->raise("ERROR","mailman",_("The owner email is mandatory"));
       return false;
     }
     if (checkmail($owner)) {
       $msg->raise("ERROR","mailman",_("This email is incorrect"));
-      return false;
-    }
-    if ($password != $password2) {
-        $msg->raise("ERROR","mailman",_("The passwords are differents, please try again"));
       return false;
     }
     $r = $this->prefix_list();
@@ -293,7 +297,7 @@ class m_mailman {
       $msg->raise("ERROR","mailman",_("This domain does not exist."));
       return false;
     }
-    $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE name = ? ;", array($name));
+    $db->query("SELECT COUNT(*) AS cnt FROM mailman WHERE name = ? and domain = ? ;", array($name, $domain));
     $db->next_record();
     if ($db->f("cnt")) {
       $msg->raise("ERROR","mailman",_("A list with the same name already exist on the server. Please choose another name."));
@@ -304,7 +308,7 @@ class m_mailman {
       return false;
     }
     // List creation : 1. insert into the DB
-    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action) VALUES ( ? , ? , ? , ? , ? , ? , ? , 'CREATE');",array($cuid,$login,$domain,$name,$password,$owner,$L_FQDN));
+    $db->query("INSERT INTO mailman (uid,list,domain,name,password,owner,url,mailman_action,mailman_version) VALUES ( ? , ? , ? , ? , '' , ? , ? , 'CREATE', 3);",array($cuid,$login,$domain,$name,$owner,$L_FQDN));
 
     return true;
   }
@@ -350,53 +354,6 @@ class m_mailman {
       return false;
     }
     return true;
-  }
-
-  /* ----------------------------------------------------------------- */
-  /** cwRegenerateDelete a mailing-list
-   * @param $id integer the id number of the mailing list in alternc's database
-   * @return boolean TRUE if the list has been regenerated or FALSE if an error occured
-   */
-  function regenerate_lst($id) {
-    global $db,$msg,$dom,$mail,$cuid;
-    $msg->log("mailman","regenerate_lst",$id);
-    // We delete lists only in the current member's account.
-    $db->query("SELECT * FROM mailman WHERE id = ? and uid = ?;",array( $id, $cuid));
-    $db->next_record();
-    if (!$db->f("id")) {
-      $msg->raise("ERROR","mailman",_("This list does not exist"));
-      return false;
-    }
-    if ($db->f("mailman_action")!='OK') {
-      $msg->raise("ERROR","mailman",_("This list has pending action, you cannot delete it"));
-      return false;
-    }
-    $login = $db->f("name");
-    $list = $db->f("list");
-    $domain = $db->f("domain");
-    if (!($dom_id = $dom->get_domain_byname($domain))) {
-      return false;
-    }
-    $this->del_wrapper_all($list,$domain);
-
-    if($this->is_vhost_applied){
-      if("$login" == "$list"){
-        $login = $login . '-' . $domain;
-        $db->query("UPDATE mailman SET mailman_action ='REGENERATE' WHERE id = ? ", array( $id ));
-        $db->query("UPDATE mailman SET name ='$login' WHERE id = ?", array( $id ));
-      }else{
-        #means we are already dealing with a virtual list
-        $db->query("UPDATE mailman SET mailman_action ='REGENERATE' WHERE id = ?", array( $id ));
-        $this->del_wrapper_all($login,$domain);
-      }
-    }
-    // FIXME need to be done before re_add them
-    // but shouldn't be launched by the Panel
-   # exec("sudo /usr/lib/alternc/update_mails.sh ");
-   # if(!$this->add_wrapper_all($list,$login,$domain)){
-   #   return false;
-   # }
-    return $login."@".$domain;
   }
 
 
@@ -551,7 +508,7 @@ class m_mailman {
   /** FIXME: this function has no equivalent in cron mode, remove this */
   function get_list_url($list) {
     global $db,$msg,$cuid;
-    $q = "SELECT concat_ws('/',url,'cgi-bin/mailman/admin',name) as url FROM mailman WHERE uid = ?  AND id = ?";
+    $q = "SELECT concat_ws('',url,'/mailman3/postorius/lists/',name,'.',domain,'/') as url FROM mailman WHERE uid = ?  AND id = ?";
     $db->query($q, array( $cuid, intval($list)));
     if (!$db->next_record()) {
         $msg->raise("ERROR","mailman",_("This list does not exist"));
@@ -565,7 +522,7 @@ class m_mailman {
   /* ----------------------------------------------------------------- */
   /** Set the management url for $list 
    * @param $list integer the list for which we want to change the url
-   * @param $url string the url, MUST be either http:// or https:// + domain + /cgi-bin/mailman/
+   * @param $url string the url, MUST be either http:// or https:// + domain + /mailman3/postorius/
    * @return boolean TRUE if the url has been changes
    */
   function set_list_url($list,$newurl) {
@@ -628,8 +585,21 @@ class m_mailman {
     }
     return $q;
   }
-  
 
-
+  /** Migrate to mailman3
+   * @param $id integer The list id in alternc's database
+   * @return boolean TRUE if the list has been marked for migration.
+   */
+  function migrate($id) {
+    global $db,$msg,$cuid;
+    $msg->log("mailman","migrate",$id);
+    $db->query("SELECT * FROM mailman WHERE uid = ? and id = ?;", array( $cuid, $id));
+    $db->next_record();
+    if (!$db->f("id")) {
+      $msg->raise("ERROR","mailman",_("This list does not exist"));
+      return false;
+    }
+    $db->query("UPDATE mailman SET mailman_action = 'MIGRATE' WHERE id = ?;", array($id));
+    return true;
+  }
 } /* Class m_mailman */
-

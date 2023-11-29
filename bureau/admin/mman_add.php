@@ -49,13 +49,6 @@ if (!isset($domain)) $domain="";
 	<tr><th><label for="owner"><?php __("Email of the list's administrator"); ?> </label></th><td>
 	<input type="text" class="int" id="owner" name="owner" value="<?php  if (isset($owner)) ehe($owner); ?>" size="20" maxlength="64" />
 	</td></tr>
-<tr><th><label for="pass"><?php __("List password"); ?> </label></th><td>
-	<input type="password" class="int" id="pass" name="pass" value="<?php  if (isset($pass)) ehe($pass); ?>" size="20" maxlength="64" />
-        <?php display_div_generate_password(DEFAULT_PASS_SIZE,"#pass","#pass2"); ?>
-	</td></tr>
-<tr><th><label for="pass2"><?php __("List password (confirm)"); ?> </label></th><td>
-	<input type="password" class="int" id="pass2" name="pass2" value="<?php  if (isset($pass2)) ehe($pass2); ?>" size="20" maxlength="64" />
-	</td></tr>
 <tr class="trbtn"><td colspan="2">
   <input type="submit" class="inb" name="submit" value="<?php __("Create the list."); ?>"/>
   <input type="button" class="inb" name="cancel" value="<?php __("Cancel"); ?>" onclick="document.location='mman_list.php'"/>
@@ -66,8 +59,6 @@ if (!isset($domain)) $domain="";
 <script type="text/javascript">
   $(document).ready(function() {
     $('#login').focus();
-    $('#pass').attr('autocomplete','off');
-    $('#pass2').attr('autocomplete','off');
   });
 </script>
 

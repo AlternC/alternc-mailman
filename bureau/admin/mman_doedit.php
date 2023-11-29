@@ -56,14 +56,6 @@ if ($confirm) {
       }
     }
     break;
-  case "REGENERATE":
-    foreach ($d as $id) {
-      $r = $mailman->regenerate_lst($id);
-      if ($r) {
-          $msg->raise("INFO","mailman",_("The list %s has been successfully deleted."), $r);
-      }
-    }
-    break;
   }
 }
 
