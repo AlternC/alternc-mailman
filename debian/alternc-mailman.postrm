@@ -5,10 +5,7 @@ MENUFILE="/etc/alternc/menulist.txt"
 
 case "$1" in
   remove)
-    alternc.install || true     # don't fail removal if alternc.install bails out
-
     rm -f /etc/apache-ssl/conf.d/alternc-mailman.conf /etc/alternc/apache-panel.d/mailman.conf
-
     ;;
   purge)
     #if [ -e "$CONFIGFILE" -a -x "/usr/bin/mysql" ]; then

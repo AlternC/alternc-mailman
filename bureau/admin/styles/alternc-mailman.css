@@ -1,0 +1,18 @@
+.mailman-flexbox {
+    display: flex;
+    flex-wrap:wrap;
+}
+
+.mailman-flexbox div.ina {
+    padding: 5px;
+}
+
+/* the following should be included in upstream style.css
+.mailman a:before, a.mailman:before, input.mailman:before, .mailman-menu .menu-title:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content:"\f27a";
+  padding-right: 6px;
+}
+*/
+

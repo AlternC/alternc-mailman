@@ -22,14 +22,15 @@
  Purpose of file: Show the Mailing-Lists owned by the current user
  ----------------------------------------------------------------------
 */
-
 require_once("../class/config.php");
+$addhead['css'][] = '<link rel="stylesheet" href="styles/alternc-mailman.css" type="text/css" />';
 include_once("head.php");
 
 $mman_status=array(
 		   "PASSWORD" => _("Password change pending"),
 		   "SETURL" => _("Url change pending"),
 		   "CREATE" => _("List creation pending"),
+		   "MIGRATE" => _("List migration pending"),
 		   );
 
 
@@ -90,21 +91,24 @@ if ($quota->cancreate("mailman")) {
 	    <td><?php echo $val["list"]."@".$val["domain"] ?></td>
 	    <td colspan="4"><?php __("List is pending deletion, you can't do anything on it"); ?></td>
 		   <?php } else { ?>
-		   <td align="center" rowspan="2"><?php if ($val["list"]!="mailman") { ?><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>" id="d_<?php echo $val["id"]; ?>" /><?php } ?></td>
-		   <td rowspan="2"><label for="d_<?php echo $val["id"]; ?>"><?php echo $val["list"]."@".$val["domain"] ?></label></td>
-	   <td rowspan="2"><?php if (isset($val["mailman_action"]) && $val["mailman_action"]!="OK") { ?>
+		   <td align="center"><?php if ($val["list"]!="mailman") { ?><input type="checkbox" class="inc" name="d[]" value="<?php echo $val["id"]; ?>" id="d_<?php echo $val["id"]; ?>" /><?php } ?></td>
+		   <td><label for="d_<?php echo $val["id"]; ?>"><?php echo $val["list"]."@".$val["domain"] ?></label></td>
+	   <td><?php if (isset($val["mailman_action"]) && $val["mailman_action"]!="OK") { ?>
 		     <?php echo _($mman_status[$val["mailman_action"]]); ?>
 <?php } elseif (!empty($val["mailman_result"])) { ?>
 	  <?php echo $val["mailman_result"]; /* strings present for gettext in m_mailman */ ?>
 <?php } else { echo "OK";}
       
       ?></td>
-			<td><div class="ina"><a target=_blank href="http://<?php echo $val["url"]; ?>/cgi-bin/mailman/admin/<?php echo $val["name"] ?>"><?php __("List admin"); ?></a></div></td>
-			<td><div class="ina"><a target=_blank href="http://<?php echo $val["url"]; ?>/cgi-bin/mailman/admindb/<?php echo $val["name"] ?>"><?php __("Pending messages"); ?></a></div></td>
-<!--		    <td>&nbsp;</td> -->
-</tr><tr class="lst<?php echo $col; ?>">
-			<td><div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div></td>
-			<td><div class="ina"><a href="mman_url.php?id=<?php echo $val["id"] ?>"><?php __("Change url"); ?></a></div></td>
+            <td class="mailman-flexbox">
+                <div class="ina"><a target=_blank href="<?php echo $val["admin_url"]; ?>"><?php __("List admin"); ?></a></div>
+                <div class="ina"><a target=_blank href="<?php echo $val["held_url"]; ?>"><?php __("Pending messages"); ?></a></div>
+                <?php if ($val['mailman_version'] < 3) : ?>
+                    <div class="ina"><a href="mman_migrate.php?id=<?php echo $val["id"] ?>"><?php __("Migrate to mailman3"); ?></a></div>
+                    <div class="ina"><a href="mman_passwd.php?id=<?php echo $val["id"] ?>"><?php __("Change password"); ?></a></div>
+                <?php endif; ?>
+                <div class="ina"><a href="mman_url.php?id=<?php echo $val["id"] ?>"><?php __("Change url"); ?></a></div>
+            </td>
 	      <?php } ?>
 		</tr>
 		<?php
@@ -114,11 +118,22 @@ if ($quota->cancreate("mailman")) {
 <br />
       <select name="action" id="action" class="inl">
        <option value=""><?php __("-- Choose an action --"); ?></option>
-                   <?php $action=array("DELETE" => "DELETE","REGENERATE"=>"REGENERATE"); eoption($action,"1");
+                   <?php $action=array("DELETE" => "DELETE"); eoption($action,"1");
         ?></select>
 
 <input type="submit" class="inb" name="submit" value="<?php __("Validate"); ?>" />
 </form>
+
+<br/>
+<h3><?php __("Documentation"); ?></h3>
+
+<h4><?php __("Making a Mailman account"); ?></h4>
+
+<p><?php __("In order to manage your options and easily subscribe to or unsubscribe from Mailman lists, you typically want to make an account. There is a “sign up” link on "); echo '<a href="https://' . $_SERVER["HTTP_HOST"] . '/mailman3/postorius/lists/' . '">';  __("the mailman web interface"); echo '</a> '; __("displayed in the upper right of the page"); ?>.</p>
+
+<p><?php __("If you’ve been subscribed to a list without making an account (because you did this yourself or because your lists were migrated from a Mailman 2.1 setup) you can make an account using the same email address and once you’ve confirmed that you have access to that email, you’ll be able to edit all the associated options.") ?></p>
+
+<p><?php __("Note that in Mailman 3, you can actually have multiple email addresses associated to the same user account, so you don’t need to make many separate accounts to handle your permissions."); ?></p>
 
 	<?php
 	    }

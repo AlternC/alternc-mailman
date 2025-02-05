@@ -29,18 +29,16 @@ $fields = array (
 	"domain"     => array ("request", "string", ""),
 	"login"     => array ("request", "string", ""),
 	"owner"     => array ("request", "string", ""),
-	"pass"     => array ("request", "string", ""),
-	"pass2"     => array ("request", "string", ""),
 );
 getFields($fields);
 
-if (preg_match('/^\w+$/', $login) === 0) {
-    $msg->raise("ERROR","mailman",_('Invalid list name (only letters, digits and underscore).'));
+if (!preg_match('/^\w[\w-]+$/', $login)) {
+    $msg->raise("ERROR","mailman",_('Invalid list name (only letters, digits, underscores and hyphens).'));
 	include("mman_add.php");
 	exit();
 }
 
-$r=$mailman->add_lst($domain,$login,$owner,$pass,$pass2);
+$r=$mailman->add_lst($domain,$login,$owner);
 if (!$r) {
 	include("mman_add.php");
 	exit();

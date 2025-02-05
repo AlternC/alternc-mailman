@@ -21,35 +21,36 @@
 # Purpose of file: Global Makefile 
 # ----------------------------------------------------------------------
 MAJOR=$(shell sed -ne 's/^[^(]*(\([^)]*\)).*/\1/;1p' debian/changelog)
-REV=$(shell env LANG=C svn info --non-interactive | awk '/^Revision:/ { print $$2 }')
-VERSION="${MAJOR}~svn${REV}"
+REV=`git describe --tags | sed 's/^v//; s/-/./g'`
+VERSION="${MAJOR}~git${REV}"
 export VERSION
 
 build:
 
 install: 
+	-mkdir -p $(DESTDIR)/usr/share/alternc/panel \
+	   $(DESTDIR)/usr/lib/mailman/bin \
+	   $(DESTDIR)/usr/lib/alternc \
+	   $(DESTDIR)/usr/share/alternc/install \
+	   $(DESTDIR)/usr/lib/alternc/install.d \
+	   $(DESTDIR)/usr/share/alternc/install/upgrades-mailman \
+	   $(DESTDIR)/usr/sbin \
+	   $(DESTDIR)/etc/apache2/conf-available
 	cp -r bureau/* $(DESTDIR)/usr/share/alternc/panel/
-# 1999 is alterncpanel (TODO: ask Debian for a static uid/gid ?)
+	# 1999 is alterncpanel (TODO: ask Debian for a static uid/gid ?)
 	chown 1999:1999 -R $(DESTDIR)/usr/share/alternc/panel/
-	install -m 0644 mm_cfg.py \
-		$(DESTDIR)/etc/alternc/templates/mailman/
 	install -m 0644 -o root -g root src/get_url_alternc.py src/set_url_alternc.py \
 		$(DESTDIR)/usr/lib/mailman/bin/
 	install -m 0755 src/update_mailman.sh \
 		$(DESTDIR)/usr/lib/alternc/
+	install -m 0755 src/mailman_is_archived.py $(DESTDIR)/usr/lib/alternc/
+	install -m 0755 src/list_migrate $(DESTDIR)/usr/sbin
+	install -m 0755 src/alternc_msgfmt $(DESTDIR)/usr/sbin
 	install -m 0644 mailman.sql \
 		$(DESTDIR)/usr/share/alternc/install/
 	install -m 750 alternc-mailman-install $(DESTDIR)/usr/lib/alternc/install.d/
-	touch $(DESTDIR)/usr/share/alternc-mailman/www/index.html
+	install -m 0644 debian/apache.conf $(DESTDIR)/etc/apache2/conf-available/alternc-mailman3.conf
 
 	rm -f $(DESTDIR)/usr/share/alternc/panel/locales/Makefile
-	cp -r patches/* $(DESTDIR)/usr/share/alternc-mailman/patches
 	install -m 0755 upgrade_mailman_check.sh $(DESTDIR)/usr/share/alternc/install/
 	install -m 0644 upgrades-mailman/* $(DESTDIR)/usr/share/alternc/install/upgrades-mailman/
-# Install lintian overrides
-	install -m 0644 debian/lintian-override \
-	    $(DESTDIR)/usr/share/lintian/overrides/alternc-mailman
-# remove CVS / SVN entries : 
-# TODO : remove this when we will stop using CVS / SVN \o/ and migrated to GIT
-	find debian/alternc-mailman/ -depth \( -name CVS -o -name .svn \) -type d -exec rm -rf {} \;
-

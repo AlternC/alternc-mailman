@@ -1,0 +1,27 @@
+Template: mailman3-web/emailname
+Type: string
+Default: localhost.local
+Description: Domain name for sender email addresses:
+ If the Mailman3 web interface sends emails, this domain will
+ be used for the sender addresses. In particular, it will be
+ 'postorius@<domain>' for internal authentication and
+ 'root@<domain>' for error messages.
+
+Template: mailman3-web/superuser-name
+Type: string
+Default: admin
+Description: Username of the Postorius superuser:
+ This is the username of the Postorius superuser. It will have
+ global administrative access to all mailinglists.
+
+Template: mailman3-web/superuser-mail
+Type: string
+Default: root@localhost
+Description: Email address of the Postorius superuser:
+
+Template: mailman3-web/superuser-password
+Type: password
+Default:
+Description: Password for the Postorius superuser:
+ If an empty password is given, no superuser will be created
+ at all. It then needs to be created manually.

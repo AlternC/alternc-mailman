@@ -67,7 +67,7 @@ __("This is the current url to access administration and public pages for this l
 <table class="tedit">
   <tr>
     <th><?php __("Current list url"); ?></th>
-    <td><a href="http://<?php echo $cururl;?>" target=_blank>http://<?php echo $cururl; ?></a></td>
+    <td><a href="http://<?php echo $cururl;?>" target=_blank>https://<?php echo $cururl; ?></a></td>
   </tr>
   <tr>
     <th><label for="pass"><?php __("New list management url"); ?> </label></th>
@@ -76,7 +76,7 @@ __("This is the current url to access administration and public pages for this l
   <?php
 foreach($urls as $url){
 ?>
-<option value='<?php echo $url ?>'> <?php echo "http://$url/cgi-bin/mailman"; ?></option>
+<option value='<?php echo $url ?>'> <?php echo "https://$url/mailman3/postorius/lists/"; ?></option>
 <?php
 }
 ?>
