@@ -1,3 +1,12 @@
+alternc-mailman (4.0.0) bullseye bookworm; urgency=medium
+
+  * Breaking : Official release since 3.3.x version with mailman3 support
+  * All credits from Tobald (thanks a lot \o/)
+  * Close a long process followed by #46
+  * Buster is no more supported
+
+ -- Christophe Siraut <d@tobald.eu.org>  Wed, 29 Nov 2023 09:54:22 +0100
+
 alternc-mailman (3.6.6) bullseye; urgency=medium
 
   * list_migrate: add a note about archives ownership
