@@ -7,6 +7,12 @@ alternc-mailman (4.0.0) bullseye bookworm; urgency=medium
 
  -- Christophe Siraut <d@tobald.eu.org>  Wed, 29 Nov 2023 09:54:22 +0100
 
+alternc-mailman (3.6.7) bullseye; urgency=medium
+
+  * list_migrate: enable list archives migration
+
+ -- Christophe Siraut <d@tobald.eu.org>  Mon, 17 Feb 2025 09:24:54 +0100
+
 alternc-mailman (3.6.6) bullseye; urgency=medium
 
   * list_migrate: add a note about archives ownership
