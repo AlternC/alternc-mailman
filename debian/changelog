@@ -1,3 +1,10 @@
+alternc-mailman (4.0.1) bullseye bookworm; urgency=critical
+
+  * Backport from 3.6.7
+  * Prevent lost from mailman2 importation
+
+ -- Camille Lafitte <alternc@webelys.com>  Wed, 6 Feb 2025 10:52:22 +0100
+
 alternc-mailman (4.0.0) bullseye bookworm; urgency=medium
 
   * Breaking : Official release since 3.3.x version with mailman3 support
@@ -5,7 +12,7 @@ alternc-mailman (4.0.0) bullseye bookworm; urgency=medium
   * Close a long process followed by #46
   * Buster is no more supported
 
- -- Christophe Siraut <d@tobald.eu.org>  Wed, 29 Nov 2023 09:54:22 +0100
+ -- Camille Lafitte <alternc@webelys.com>  Wed, 6 Feb 2025 10:52:22 +0100
 
 alternc-mailman (3.6.7) bullseye; urgency=medium
 
