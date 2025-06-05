@@ -1,3 +1,9 @@
+alternc-mailman (4.0.2) buster bullseye bookworm; urgency=low
+
+  * Package is compatible with buster as explained by #49
+
+ -- Camille Lafitte <alternc@webelys.com>  Wed, 5 Jun 2025 17:32:32 +0100
+
 alternc-mailman (4.0.1) bullseye bookworm; urgency=critical
 
   * Backport from 3.6.7
