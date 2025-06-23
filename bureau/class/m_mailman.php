@@ -138,7 +138,7 @@ class m_mailman {
     global $db,$msg;
     $r = $this->prefix_list();
     reset($r);
-    while (list($key,$val) = each($r)) {
+    foreach($r as $key => $val) {
       if ($current == $val) $c =" selected =\"selected\""; else $c ="";
       echo "<option$c>$val</option>";
     }
@@ -561,7 +561,7 @@ class m_mailman {
     $msg->log("mailman","del_dom",$dom_id);
     $domain = $dom->get_domain_byid($dom_id);
     $listes = $this->enum_ml($domain);
-    while (list($key,$val) = each($listes)) {
+    foreach($listes as $key => $val){
       $this->delete_lst($val["id"]);
     }
     return true;

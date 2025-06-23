@@ -82,7 +82,7 @@ if ($quota->cancreate("mailman")) {
 // now using "url" in the mailman table
 	reset($r);
 	$col=1;
-	while (list($key,$val)=each($r)) {
+	foreach ($r as $key => $val) {
 		$col=3-$col;
 		?>
 		<tr class="lst<?php echo $col; ?>">
