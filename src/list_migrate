@@ -30,8 +30,7 @@ sudo -u list /usr/sbin/list_members --nomail=bybounce $oldlist | sudo -u list /u
 sudo -u list /usr/lib/mailman/cron/senddigests -l $oldlist || true
 sudo -u list /usr/lib/mailman3/bin/mailman create $list@$domain
 sudo -u list /usr/lib/mailman3/bin/mailman import21 $list@$domain /var/lib/mailman/lists/$oldlist/config.pck
-archive_policy=$(sudo -u list PYTHONPATH=/usr/lib/alternc mailman shell -r mailman_is_archived.main $list@$domain)
-if [ "$archives_found" = "true" -a "$archive_policy" != "never" ]
+if [ "$archives_found" = "true" ]
 then
     # old archives belong to list, import them as root and set proper permissions afterwards
     /usr/share/mailman3-web/manage.py hyperkitty_import -l $list@$domain $archive_path
