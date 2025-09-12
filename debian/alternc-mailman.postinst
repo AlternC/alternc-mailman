@@ -3,6 +3,8 @@
 . /usr/share/debconf/confmodule
 
 CONFIGFILE="/etc/alternc/local.sh"
+MAILMAN_WEB_CFG=/etc/mailman3/mailman-web.py
+HYPERKITTY_CFG=/etc/mailman3/mailman-hyperkitty.cfg
 
 case "$1" in
   configure)
@@ -45,20 +47,22 @@ case "$1" in
     db_get alternc-mailman/attachments-on-disk
     if [ "$RET" = "true" ]
     then
-        mailmanwebcfg=/etc/mailman3/mailman-web.py
         hk=/var/lib/mailman3/archives/hyperkitty
         attachments=$hk/attachments
         test -d $attachments || mkdir -p $attachments $hk/spool
         chown -R www-data:list $hk
-        grep -q "^HYPERKITTY_ATTACHMENT_FOLDER =" $mailmanwebcfg || (
-            echo "HYPERKITTY_ATTACHMENT_FOLDER = '$attachments'" >> $mailmanwebcfg &&
+        grep -q "^HYPERKITTY_ATTACHMENT_FOLDER =" $MAILMAN_WEB_CFG || (
+            echo "HYPERKITTY_ATTACHMENT_FOLDER = '$attachments'" >> $MAILMAN_WEB_CFG &&
             systemctl restart mailman3-web
         )
     fi
 
+    ARCHIVER_KEY=$(grep MAILMAN_ARCHIVER_KEY $MAILMAN_WEB_CFG | cut -f2 -d"'")
+    sed -r -i "s@^(api_key: ).*\$@\1 $ARCHIVER_KEY@" $HYPERKITTY_CFG
+
     if ! grep -q '^class: mailman_hyperkitty.Archiver' /etc/mailman3/mailman.cfg >/dev/null
     then
-        echo -e "\n[archiver.hyperkitty]\nclass: mailman_hyperkitty.Archiver\nenable: yes\nconfiguration: /etc/mailman3/mailman-hyperkitty.cfg" >> /etc/mailman3/mailman.cfg
+        echo -e "\n[archiver.hyperkitty]\nclass: mailman_hyperkitty.Archiver\nenable: yes\nconfiguration: $HYPERKITTY_CFG" >> /etc/mailman3/mailman.cfg
         systemctl restart mailman3
     fi
 
