@@ -34,10 +34,10 @@ if [ "$archives_found" = "true" ]
 then
     # old archives belong to list, import them as root and set proper permissions afterwards
     /usr/share/mailman3-web/manage.py hyperkitty_import -l $list@$domain $archive_path
-    archive_path=/var/lib/mailman3/archives/hyperkitty/attachments/$list@$domain
+    archive_path=/var/lib/mailman3/archives/hyperkitty/attachments/$domain/$list
     if [ -d $archive_path ]
     then
-        sudo chown -R www-data $archive_path
+        sudo chown -R www-data:list $archive_path
     fi
     # Note: indexation is not processed now and will be triggered nightly
     # sudo -u www-data /usr/share/mailman3-web/manage.py update_index_one_list $list@domain
