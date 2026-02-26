@@ -1,3 +1,11 @@
+alternc-mailman (4.0.3) buster bullseye bookworm; urgency=low
+
+  * PHP 8.x support #52
+  * Prevent some trouble during archive importation #61
+  * sync api key beetween mailman and hyperkitty
+
+ -- Camille Lafitte <alternc@webelys.com>  Tue, 26 Feb 2026 18:45:00 +0100
+
 alternc-mailman (4.0.2) buster bullseye bookworm; urgency=low
 
   * Package is compatible with buster as explained by #49
