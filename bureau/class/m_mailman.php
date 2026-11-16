@@ -586,6 +586,37 @@ class m_mailman {
     return $q;
   }
 
+   function hook_spoolsize() {
+        global $db;
+        echo "---------------------------\n Generating size-cache for mailman\n\n";
+        if ($db->query("SELECT uid, name, domain FROM mailman;")) {
+            $cc=array();
+            $d=array();
+            if($db->num_rows()){
+                while ($db->next_record()) {
+                    $cc[]=array("uid" => $db->f("uid"), "name" => $db->f("name"), "domain" => $db->f("domain"));
+                 }
+                foreach ($cc as $c){
+                    echo $c["uid"]."/".$c["name"]; flush();
+                    if (is_dir("/var/lib/mailman/")) {
+                        $size1=exec("sudo /usr/bin/du -s ".escapeshellarg("/var/lib/mailman/lists/".$c["name"]));
+                        $size2=exec("sudo /usr/bin/du -s ".escapeshellarg("/var/lib/mailman/archives/private/".$c["name"]));
+                        $size3=exec("sudo /usr/bin/du -s ".escapeshellarg("/var/lib/mailman/archives/private/".$c["name"].".mbox"));
+                        $size=(intval($size1)+intval($size2)+intval($size3));
+                    }
+                    if (is_dir("/var/lib/mailman3/")) {
+                        $size1=exec("sudo /usr/bin/du -s ".escapeshellarg("/var/lib/mailman3/lists/".$c["name"].".".$c["domain"]));
+                        $size2=exec("sudo /usr/bin/du -s ".escapeshellarg("/var/lib/mailman3/archives/hyperkitty/attachments/".$c["domain"]."/".$c["name"]));
+                        $size=(intval($size1)+intval($size2));
+                    }
+
+                    $db->query("REPLACE INTO size_mailman SET uid=?,list=?,size=?;",array($c["uid"],$c["name"],$size));
+                    echo " done (".(round($size/1024, 1))." MB) \n"; flush();
+                }
+            }
+        }
+   }
+
   /** Migrate to mailman3
    * @param $id integer The list id in alternc's database
    * @return boolean TRUE if the list has been marked for migration.
